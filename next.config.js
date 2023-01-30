@@ -1,7 +1,19 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-  experimental: {
-    appDir: true,
+  publicRuntimeConfig: {
+    staticFolder: "/static",
+  },
+  devIndicators: {
+    buildActivity: false,
+  },
+  images: {
+    loader: 'custom',
+    loaderFile: './lib/loader.ts',
+  },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
   },
 }
 

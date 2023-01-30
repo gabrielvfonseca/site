@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-moz-selection {
+  color: #6E6E6E;
+  background: rgb(222, 222, 222);
+}
+
+::selection {
+  color: #6E6E6E;
+  background: rgb(222, 222, 222);
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px 101010;
+  border-radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  user-select: none;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  user-select: text;
+}
+
+footer nav { 
+  list-style: none; 
+  display: inline; 
+}
+
+footer nav a:after { 
+  content: " \00b7";
+  padding-left: 10px; 
+}
+
+footer nav a:last-child:after { 
+  content: none; 
+}
+
+.ToastViewport {
+  --viewport-padding: 45px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--viewport-padding);
+  margin: 0;
+  list-style: none;
+  z-index: 2147483647;
+  outline: none;
+}
+
+.ToastRoot h4 {
+  font-size: 15px;
+}
+
+.ToastRoot p {
+  font-size: 14px;
+}
+
+.ToastRoot[data-state='open'] {
+  animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ToastRoot[data-state='closed'] {
+  animation: hide 100ms ease-in;
+}
+.ToastRoot[data-swipe='move'] {
+  transform: translateX(var(--radix-toast-swipe-move-x));
+}
+.ToastRoot[data-swipe='cancel'] {
+  transform: translateX(0);
+  transition: transform 200ms ease-out;
+}
+.ToastRoot[data-swipe='end'] {
+  animation: swipeOut 100ms ease-out;
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(calc(100% + var(--viewport-padding)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes swipeOut {
+  from {
+    transform: translateX(var(--radix-toast-swipe-end-x));
+  }
+  to {
+    transform: translateX(calc(100% + var(--viewport-padding)));
+  }
+}
+
+ul li {
+  list-style-image: url(/right-arrow.svg);
+  list-style-type: '→';
+  padding-inline-start: 1ch;
+}
