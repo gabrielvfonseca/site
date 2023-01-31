@@ -105,7 +105,6 @@ export const motionPlays = {
     },
 };
 
-
 export const motionRow = {
     whileInView: {
         y: 0,
@@ -188,5 +187,42 @@ export const motionGoTopButton = {
     },
     whileTap: {
         scale: 0.92,
+    },
+};
+
+export const motionCard = {
+    initial: { 
+        opacity: 0, 
+    },
+    animate: { 
+        opacity: 1, 
+    },
+    transition: { 
+        duration: 0.5,
+    },
+    exit: { 
+        opacity: 0, 
+    },
+};
+
+export const motionMenu = {
+    initial: {
+        y: 45,
+        x: 0,
+        opacity: 0,
+    },
+    animate: {
+        y: 0,
+        x: 0,
+        opacity: 1,
+    },
+    transition: {
+        duration: 0.4,
+        delay: 0.2,
+    },
+    exit: {
+        y: 45,
+        x: 0,
+        opacity: 0,
     },
 };

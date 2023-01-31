@@ -47,6 +47,10 @@ body {
   user-select: text;
 }
 
+p {
+  z-index: 0;
+}
+
 footer nav { 
   list-style: none; 
   display: inline; 
@@ -131,4 +135,33 @@ ul li {
   list-style-image: url(/right-arrow.svg);
   list-style-type: '→';
   padding-inline-start: 1ch;
+}
+
+header div nav.menu-nav {
+  display: none;
+}
+
+header div nav div button.toggle {
+  display: block;
+}
+
+@media only screen and (min-width: 600px) {
+  header div nav.menu-nav {
+    display: block;
+  }
+
+  header div div .open-menu, 
+  .mobile-menu {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  header div nav.menu-nav {
+    display: block;
+  }
+
+  header div div .open-menu {
+    display: none;
+  }
 }

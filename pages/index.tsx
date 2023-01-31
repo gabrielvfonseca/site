@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
-import { motionPage } from "@/lib/motion/animation";
+import { motionPage, motionCard } from "@/lib/motion/animation";
 
 /* Components */
 import {
@@ -54,7 +54,11 @@ export default function Home() {
           well as algorithm competitions.
         </Typography>
 
-        <Typography>
+        <div className={classNames(
+          "text-gray-dark", 
+          "font-sans", "z-0",
+          "leading-7 [&:not(:first-child)]:mt-6"
+        )}>
           This year, I'm also preparing myself to enter computer science engineering at 
           <HoverCard>
             <HoverCardTrigger className={classNames(
@@ -65,16 +69,22 @@ export default function Home() {
               IST — Instituto Superior Técnico
             </HoverCardTrigger>
             <HoverCardContent>
-              <div className="space-y-2">
+              <motion.div 
+                initial={motionCard.initial} 
+                animate={motionCard.animate} 
+                transition={motionCard.transition} 
+                exit={motionCard.exit}
+                className="space-y-2"
+              >
                 <h4 className="text-sm font-semibold">Where I want to get in</h4>
-                <p className="text-sm">
+                <span className="text-sm">
                   An engineering university in Portugal. 
                   Ranked as one of the best in Europe.
-                </p>
-              </div>
+                </span>
+              </motion.div>
             </HoverCardContent>
           </HoverCard>.
-        </Typography>
+        </div>
 
         <Typography>
           You can know a bit more about me via my 

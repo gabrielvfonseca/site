@@ -2,14 +2,16 @@
 
 "use client"
 
-import * as React from "react"
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
+import * as React from "react";
 
+/* Styles */
 import classNames from "classnames";
 
-const HoverCard = HoverCardPrimitive.Root
+/* Radix */
+import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger
+const HoverCard = HoverCardPrimitive.Root;
+const HoverCardTrigger = HoverCardPrimitive.Trigger;
 
 const HoverCardContent = React.forwardRef<
   React.ElementRef<typeof HoverCardPrimitive.Content>,
@@ -24,12 +26,12 @@ const HoverCardContent = React.forwardRef<
       "rounded-md shadow-md", 
       "bg-over-light dark:bg-over-dark",
       "border-1 border-solid border-border", 
-      "animate-in opacity-100",
+      "animate-in",
       className
     )}
     {...props}
   />
 ))
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
+HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
 
-export { HoverCard, HoverCardTrigger, HoverCardContent }
+export { HoverCard, HoverCardTrigger, HoverCardContent };

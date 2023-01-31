@@ -10,7 +10,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body className={classNames(
-        "mx-auto px-8 md:w-3/4 lg:w-2/5", 
+        "mx-auto px-8 md:w-3/4 lg:w-1/2", 
         "bg-background-light dark:bg-background-dark"
       )}>
         <Main />

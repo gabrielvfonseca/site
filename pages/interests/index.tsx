@@ -5,17 +5,20 @@ import React from "react";
 /* Next */
 import Link from "next/link";
 
+/* SWR */
+import useSWR from 'swr';
+
 /* Styles */
 import classNames from "classnames";
 
 /* Components */
 import { Typography, TypographyH3, TypographyH4 } from "@/components/ui/typography";
-import { Hyperlink } from "@/components/ui/hyperlink";
 import Ratio from "@/components/ui/ratio";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
 import { motionPage, motionTracks } from "@/lib/motion/animation";
+
 
 export default function Interests({ data }: any) {
   return (
@@ -155,7 +158,7 @@ export default function Interests({ data }: any) {
                       "text-gray-dark hover:text-opacity-70", 
                       "transition ease-in-out delay-150"
                     )}>
-                      {item.name}
+                      {item?.name}
                     </TypographyH4>
                   </Link>
 
@@ -163,22 +166,26 @@ export default function Interests({ data }: any) {
                     "text-gray-dark text-opacity-60", 
                     "font-sans"
                   )}>
-                    {item.artists[0].name}
+                    {item?.artists[0].name}
                   </span>
                 </div>
               </motion.li>
             ))}
           </div>
+
         </div>
       </motion.main>
     </>
   )
 };
 
-
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3001/api/spotify/tracks`);
+  const res = await fetch('https://gabriel-website.vercel.app/api/spotify/tracks');
   const data = await res.json();
 
-  return { props: { data } };
+  return {
+    props: {
+      data
+    }
+  };
 }

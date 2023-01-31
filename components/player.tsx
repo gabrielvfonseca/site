@@ -1,6 +1,6 @@
 // ./components/player.tsx
 
-import React, {useState} from 'react';
+import React from 'react';
 
 /* Next */
 import Link from 'next/link';
@@ -40,20 +40,17 @@ const Spotify: React.FC = () => (
 const Playing: React.FC = () => {
   const { data, error, isLoading } = useSWR('/api/spotify/playing', (api: string) => fetch(api).then((res) => res.json()));
 
-  const [playing, setPlaying] = useState(data?.isPlaying);
-
   if (error) console.log(error);
 
   return (
     <Toast.Provider swipeDirection="right">
       <Toast.Root 
-        open={data && playing} 
-        onOpenChange={setPlaying}
+        open={data?.isPlaying} 
         className="ToastRoot"
       >
         <AnimatePresence>
         {
-          !isLoading && 
+          data?.isPlaying && 
           <motion.div
             initial={motionPlays.initial}
             animate={motionPlays.animate}

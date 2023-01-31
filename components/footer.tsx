@@ -26,11 +26,12 @@ export default function Footer() {
             transition={motionFooter.transition}
             className={classNames(
                 "py-20 mt-20", "text-sm",
-                "flex justify-between items-center", 
-                "border-t-1 border-solid border-t-border"
+                " justify-between items-center", 
+                "border-t-1 border-solid border-t-border",
+                "md:flex md:items-center md:justify-between"
         )}>
             <nav className={classNames(
-                "flex", 
+                "flex", "sm:mt-0",
                 "space-x-4", 
                 "text-gray-dark"
             )}>
@@ -49,7 +50,8 @@ export default function Footer() {
             
             <span className={classNames(
                 "font-sans font-medium", 
-                "text-gray-light"
+                "text-gray-light",
+                "sm:text-center"
             )}>
                 2023 &copy; Gabriel Fonseca.
             </span>
