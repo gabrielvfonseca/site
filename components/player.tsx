@@ -60,7 +60,8 @@ const Playing: React.FC = () => {
               "flex w-fit items-center", 
               "pl-4 pr-6 pt-2 pb-2 space-x-4", 
               "dark:bg-over-dark bg-over-light", 
-              "border-1 border-solid border-border", 
+              "border-1 border-solid border-border",
+              "border-opacity-30 dark:border-opacity-100", 
               "shadow-lg rounded-lg", 
             )}
           >

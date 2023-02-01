@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { motionPost } from "@/lib/motion/animation";
 
 /* Components */
-import { TypographyH3 } from "./typography";
+import { TypographyH3, Typography } from "./typography";
 import ImageRatio from "@/components/ui/ratio";
 
 /* Types */
@@ -22,19 +22,18 @@ const Post: React.FC<PostProps> = ({title, text, date, image}) => (
         transition={motionPost.transition}
         whileInView={motionPost.whileInView}
         className={classNames(
+            "my-12",
             "space-y-4 [&:not(:first-child)]:pt-12", 
-            "my-12", 
             "[&:not(:first-child)]:border-t-1 border-solid border-t-border",
+            "border-opacity-30 dark:border-opacity-100",
     )}>
         <TypographyH3 className="font-serif">{title}</TypographyH3>
 
-        <p className={classNames(
-            "text-gray-dark text-opacity-80", 
-            "font-sans", 
-            "pb-4 mt-0",
+        <Typography className={classNames(
+            "font-sans", "pb-4 mt-0"
         )}>
-        {text}
-        </p>
+            {text}
+        </Typography>
 
         <span className={classNames(
             "font-sans font-medium", 

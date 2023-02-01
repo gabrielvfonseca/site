@@ -4,6 +4,8 @@ import React from "react";
 
 /* Styles */
 import classNames from "classnames";
+import { styles as TypographyStyles } from "@/components/ui/typography";
+import { styles as HyperlinkStyles } from "@/components/ui/hyperlink";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
@@ -54,18 +56,10 @@ export default function Home() {
           well as algorithm competitions.
         </Typography>
 
-        <div className={classNames(
-          "text-gray-dark", 
-          "font-sans", "z-0",
-          "leading-7 [&:not(:first-child)]:mt-6"
-        )}>
+        <div className={TypographyStyles.typography}>
           This year, I'm also preparing myself to enter computer science engineering at 
           <HoverCard>
-            <HoverCardTrigger className={classNames(
-              "ml-1", "underline decoration-dotted decoration-1 decoration-current underline-offset-3", 
-              "text-gray-dark text-opacity-80 hover:text-opacity-60", 
-              "transition ease-in-out delay-150", "cursor-pointer"
-            )}>
+            <HoverCardTrigger className={classNames(HyperlinkStyles.dashed, "cursor-pointer")}>
               IST — Instituto Superior Técnico
             </HoverCardTrigger>
             <HoverCardContent>
@@ -76,7 +70,14 @@ export default function Home() {
                 exit={motionCard.exit}
                 className="space-y-2"
               >
-                <h4 className="text-sm font-semibold">Where I want to get in</h4>
+                <h4 className={classNames(
+                  "font-sans font-semibold", 
+                  "text-sm", 
+                  "text-gray-light dark:text-white", 
+                  "text-opacity-90 dark:text-opacity-40"
+                )}>
+                  Where I want to get in
+                </h4>
                 <span className="text-sm">
                   An engineering university in Portugal. 
                   Ranked as one of the best in Europe.

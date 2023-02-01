@@ -2,9 +2,6 @@
 
 import React from "react";
 
-/* Next */
-import Link from "next/link"
-
 /* Styles */
 import classNames from "classnames";
 
@@ -28,6 +25,7 @@ export default function Footer() {
                 "py-20 mt-20", "text-sm",
                 " justify-between items-center", 
                 "border-t-1 border-solid border-t-border",
+                "border-opacity-30 dark:border-opacity-100",
                 "md:flex md:items-center md:justify-between"
         )}>
             <nav className={classNames(
@@ -35,15 +33,15 @@ export default function Footer() {
                 "space-x-4", 
                 "text-gray-dark"
             )}>
-                <Hyperlink href={siteConfig.links.github}>
+                <Hyperlink  target="_blank" href={siteConfig.links.github}>
                     Github
                 </Hyperlink>
                 
-                <Hyperlink href={siteConfig.links.twitter}>
+                <Hyperlink target="_blank" href={siteConfig.links.twitter}>
                     Twitter
                 </Hyperlink>
                 
-                <Hyperlink href={siteConfig.links.linkedin}>
+                <Hyperlink target="_blank" href={siteConfig.links.linkedin}>
                     Linkedin
                 </Hyperlink>
             </nav>
@@ -51,6 +49,7 @@ export default function Footer() {
             <span className={classNames(
                 "font-sans font-medium", 
                 "text-gray-light",
+                "text-opacity-70 dark:text-opacity-100",
                 "sm:text-center"
             )}>
                 2023 &copy; Gabriel Fonseca.

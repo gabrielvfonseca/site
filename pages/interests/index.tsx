@@ -137,12 +137,13 @@ export default function Interests({ data }: any) {
                 "w-full flex", 
                 "py-6 space-x-6",
                 "items-center",
-                "border-b-1 border-solid border-border last:border-none"
+                "[&:not(:last-child)]:border-b-1 border-solid border-b-border",
+                "border-opacity-30 dark:border-opacity-100",
               )}>
                 <div className={classNames(
                   "w-fit", 
                   "font-semibold font-serif",
-                  "dark:text-white",
+                  "text-black dark:text-white",
                 )}>
                   {index+1}
                 </div>
@@ -155,7 +156,7 @@ export default function Interests({ data }: any) {
                   >
                     <TypographyH4 className={classNames(
                       "font-semibold font-serif",
-                      "text-gray-dark hover:text-opacity-70", 
+                      "text-black text-opacity-80 dark:text-gray-dark hover:text-opacity-60 dark:hover:text-opacity-70", 
                       "transition ease-in-out delay-150"
                     )}>
                       {item?.name}
@@ -163,7 +164,7 @@ export default function Interests({ data }: any) {
                   </Link>
 
                   <span className={classNames(
-                    "text-gray-dark text-opacity-60", 
+                    "text-gray-light dark:text-gray-dark text-opacity-80 dark:text-opacity-60", 
                     "font-sans"
                   )}>
                     {item?.artists[0].name}

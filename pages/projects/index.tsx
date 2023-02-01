@@ -27,12 +27,13 @@ const Row: React.FC<RowProps> = ({title, href, state, text}) => (
     transition={motionRow.transition}
     className={classNames(
       "m-0 p-0",
-      "[&:not(:last-child)]:border-b-1 border-solid border-b-border"
+      "[&:not(:last-child)]:border-b-1 border-solid border-b-border",
+      "border-opacity-30 dark:border-opacity-100",
   )}>
     <td className={classNames(
       "font-sans font-medium", 
-      "text-gray-dark", 
-      "text-left",
+      "text-gray-light dark:text-gray-dark", 
+      "text-left", "text-opacity-60",
       "py-4"
     )}>
       <Hyperlink 
@@ -49,7 +50,7 @@ const Row: React.FC<RowProps> = ({title, href, state, text}) => (
         transition={motionBadge.transition}
         className={classNames(
           "ml-6 py-1 px-2.5",
-          "text-sm text-gray-dark text-opacity-75",
+          "text-sm text-gray-light dark:text-gray-dark text-opacity-75",
           "border-1 border-gray-light border-solid",
           "rounded-full"
         )}>
@@ -59,6 +60,7 @@ const Row: React.FC<RowProps> = ({title, href, state, text}) => (
     <td className={classNames(
       "font-sans font-medium",
       "text-gray-light text-sm",
+      "text-opacity-70 dark:text-opacity-100",
       "text-right uppercase",
       "py-4"
     )}>

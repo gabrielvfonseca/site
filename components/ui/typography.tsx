@@ -12,9 +12,9 @@ import { motionTypography, motionHeaders } from "@/lib/motion/animation";
 /* Styles */
 import classNames from "classnames";
 
-const styles = {
+export const styles = {
   typography: classNames(
-    "text-gray-dark", 
+    "text-gray-light dark:text-gray-light", 
     "font-sans", "z-0",
     "leading-7 [&:not(:first-child)]:mt-6"
   ),
@@ -27,7 +27,6 @@ const styles = {
     "scroll-m-20", 
     "font-semibold tracking-tight",
     "text-2xl", 
-    "transition-colors",
   ),
   typographyH3: classNames(
     "scroll-m-20", 

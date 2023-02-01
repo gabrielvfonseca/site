@@ -30,6 +30,18 @@ import { motionHeader, motionMenu } from "@/lib/motion/animation";
 /* Types */
 import { ItemProps } from "@/types/nav";
 
+export const styles = {
+    button: classNames(
+        "p-2.5", 
+        "bg-transparent hover:bg-hover-light dark:hover:bg-hover-dark", 
+        "rounded-lg cursor-pointer hover:shadow-sm", 
+        "transition ease-in-out delay-100"
+    ),
+    icons: classNames(
+        "text-black dark:text-white text-opacity-80"
+    )
+};
+
 const Menu: React.FC = () => (
     <motion.div 
         initial={motionMenu.initial} 
@@ -63,14 +75,6 @@ export default function Header() {
     const {theme, setTheme} = useTheme();
     const router = useRouter().pathname;
 
-    const styles = {
-        button: classNames(
-            "p-2.5", 
-            "bg-transparent hover:bg-hover-dark text-white hover:text-opacity-80", 
-            "rounded-lg cursor-pointer shadow-sm", 
-            "transition ease-in-out delay-100"
-    )};
-
     return (
         <>
             {open && <Menu />}
@@ -86,7 +90,8 @@ export default function Header() {
                     "scroll-m-20", 
                     "font-serif font-semibold", 
                     "tracking-tight text-2xl",
-                    "text-gray-dark hover:text-opacity-75",
+                    "text-black text-opacity-80 dark:text-gray-dark dark:text-opacity-100",
+                    "hover:text-opacity-70 dark:hover:text-opacity-75",
                     "transition ease-in-out delay-100",
                 )}>
                     Gabriel
@@ -96,13 +101,12 @@ export default function Header() {
                     <nav className={classNames(
                         "flex", 
                         "space-x-4",
-                        "dark:text-gray-dark text-gray-light",
                         "menu-nav"
                     )}>
                         {siteConfig.mainNav.map((item: ItemProps, index: number) => (
                             <Link key={index} href={item.href} className={classNames(
-                                "text-gray-dark", 
-                                (router == item.href) ? "text-opacity-60 hover:text-opacity-100" : "hover:text-opacity-60",
+                                "text-gray-light dark:text-gray-dark",
+                                (router == item.href) ? "text-opacity-60 dark:text-opacity-50 dark:hover:text-opacity-100 hover:text-opacity-80" : "hover:text-opacity-60",
                                 "transition ease-in-out delay-150"
                             )}>
                                 {item.title}
@@ -116,8 +120,8 @@ export default function Header() {
                         >
                             <AnimatePresence initial={false}>
                                 {!open ? 
-                                <motion.div animate={{rotate: !open ? 180 : 0}}><HamburgerMenuIcon /></motion.div> : 
-                                <motion.div animate={{rotate: !open ? 360 : 0}}><Cross2Icon /></motion.div>}
+                                <motion.div animate={{rotate: !open ? 180 : 0}}><HamburgerMenuIcon className={styles.icons} /></motion.div> : 
+                                <motion.div animate={{rotate: !open ? 360 : 0}}><Cross2Icon className={styles.icons} /></motion.div>}
                             </AnimatePresence>
                         </button>
 
@@ -126,8 +130,8 @@ export default function Header() {
                         >
                             <AnimatePresence initial={false}>
                                 {(theme === 'light' ? true : false) ? 
-                                <motion.div animate={{rotate: !(theme === 'light') ? 180 : 0}}><MoonIcon /></motion.div> : 
-                                <motion.div animate={{rotate: !(theme === 'light') ? 360 : 0}}><SunIcon /></motion.div>}
+                                <motion.div animate={{rotate: !(theme === 'light') ? 180 : 0}}><MoonIcon className={styles.icons} /></motion.div> : 
+                                <motion.div animate={{rotate: !(theme === 'light') ? 360 : 0}}><SunIcon className={styles.icons} /></motion.div>}
                             </AnimatePresence>
                         </button>
                     </div>

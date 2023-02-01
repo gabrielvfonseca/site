@@ -25,7 +25,8 @@ const HoverCardContent = React.forwardRef<
       "z-20 p-4", "w-64", 
       "rounded-md shadow-md", 
       "bg-over-light dark:bg-over-dark",
-      "border-1 border-solid border-border", 
+      "border-1 border-solid border-border",
+      "border-opacity-30 dark:border-opacity-100",
       "animate-in",
       className
     )}
