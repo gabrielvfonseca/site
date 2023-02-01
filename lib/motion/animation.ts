@@ -226,3 +226,18 @@ export const motionMenu = {
         opacity: 0,
     },
 };
+
+export const motionList = {
+    animate: {
+        y: 0,
+        opacity: 1,
+    },
+    initial: { 
+        y: 2,
+        opacity: 0
+    },
+    transition: {
+      duration: 0.18,
+      delay: 0.14
+    }
+};

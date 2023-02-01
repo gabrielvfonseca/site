@@ -27,7 +27,12 @@ export const styles = {
 export const HyperlinkDash: React.FC<HyperLinkProps> = ({
     href, children, target, className
 }) => (
-    <Link href={href} target={target} className={classNames(styles.dashed, className)}>
+    <Link 
+        href={href} 
+        target={target} 
+        hrefLang="en"
+        className={classNames(styles.dashed, className)}
+    >
       {children}
     </Link>
 );
@@ -35,7 +40,12 @@ export const HyperlinkDash: React.FC<HyperLinkProps> = ({
 export const Hyperlink: React.FC<HyperLinkProps> = ({
     href, children, target, className
 }) => (
-    <Link href={href} target={target} className={classNames(styles.link, className)}>
+    <Link 
+        href={href} 
+        target={target} 
+        hrefLang="en"
+        className={classNames(styles.link, className)}
+    >
       {children}
     </Link>
 );

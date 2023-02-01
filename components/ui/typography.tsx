@@ -3,11 +3,15 @@
 import React from "react";
 
 /* Types */
-import { TypographyProps } from "@/types/typography";
+import { TypographyProps, ListProps } from "@/types/typography";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
-import { motionTypography, motionHeaders } from "@/lib/motion/animation";
+import { 
+  motionTypography, 
+  motionHeaders, 
+  motionList 
+} from "@/lib/motion/animation";
 
 /* Styles */
 import classNames from "classnames";
@@ -38,6 +42,14 @@ export const styles = {
     "text-lg tracking-tight",
     "font-sans font-semibold ",
   ),
+  blockquote: classNames(
+    "pl-6", 
+    "border-l-1 border-over-dark dark:border-white border-opacity-80", 
+    "italic text-gray-light text-opacity-75 dark:text-gray-dark"
+  ),
+  list: classNames(
+    "my-6 ml-6 list-disc [&>li]:mt-2",
+  )
 };
 
 export const Typography: React.FC<TypographyProps> = ({children, className}) => (
@@ -73,7 +85,8 @@ export const TypographyH2: React.FC<TypographyProps> = ({children, className}) =
     <motion.h2
       initial={motionHeaders.initial}
       animate={motionHeaders.animate}
-      transition={motionHeaders.transition} className={classNames(
+      transition={motionHeaders.transition} 
+      className={classNames(
         styles.typographyH2,
         className
     )}>
@@ -87,7 +100,8 @@ export const TypographyH3: React.FC<TypographyProps> = ({children, className}) =
     <motion.h3
       initial={motionHeaders.initial}
       animate={motionHeaders.animate}
-      transition={motionHeaders.transition} className={classNames(
+      transition={motionHeaders.transition} 
+      className={classNames(
         styles.typographyH3,
         className
     )}>
@@ -101,11 +115,48 @@ export const TypographyH4: React.FC<TypographyProps> = ({children, className}) =
     <motion.h4
       initial={motionHeaders.initial}
       animate={motionHeaders.animate}
-      transition={motionHeaders.transition} className={classNames(
+      transition={motionHeaders.transition} 
+      className={classNames(
         styles.typographyH4,
         className
     )}>
       {children}
     </motion.h4>
+  )
+}
+
+export const Blockquote: React.FC <TypographyProps> = ({children, className}) => {
+  return (
+    <motion.blockquote
+      initial={motionHeaders.initial}
+      animate={motionHeaders.animate}
+      transition={motionHeaders.transition}  
+      className={classNames(
+        styles.blockquote,
+        className
+      )}>
+      {children}
+    </motion.blockquote>
+  )
+}
+
+export const TypographyList: React.FC<ListProps> = ({items, className}) => {
+  return (
+    <ul 
+    className={classNames(
+      styles.list,
+      className
+    )}>
+      {items.map((item: string, index: number) => (
+        <motion.li 
+          key={index}
+          initial={motionList.initial} 
+          transition={motionList.transition} 
+          animate={motionList.animate}
+        >
+          {item}
+        </motion.li>
+      ))}
+    </ul>
   )
 }
