@@ -45,10 +45,11 @@ export const styles = {
   blockquote: classNames(
     "pl-6", 
     "border-l-1 border-over-dark dark:border-white border-opacity-80", 
-    "italic text-gray-light text-opacity-75 dark:text-gray-dark"
+    "italic text-gray-light dark:text-gray-dark"
   ),
   list: classNames(
     "my-6 ml-6 list-disc [&>li]:mt-2",
+    "text-gray-light dark:text-gray-dark",
   )
 };
 
