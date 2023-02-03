@@ -111,14 +111,6 @@ export default function Stack({ stack, tools}: any) {
                 href={item.href}
               />
             ))}
-
-            <p className={classNames(
-              "italic", "pt-8", 
-              "font-medium font-sans", 
-              "text-sm dark:text-opacity-50 text-gray-light dark:text-gray-dark"
-            )}>
-              And much more...
-            </p>
           </div>
 
         </div>
