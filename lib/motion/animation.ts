@@ -55,7 +55,7 @@ export const motionPost = {
       duration: 0.24,
       delay: 0.22
     }
-}
+};
 
 export const motionTracks = {
     whileInView: {
@@ -70,7 +70,7 @@ export const motionTracks = {
       duration: 0.20,
       delay: 0.16
     }
-}
+};
 
 export const motionImg = {
     initial: { 
@@ -118,7 +118,7 @@ export const motionRow = {
       duration: 0.16,
       delay: 0.14
     }
-}
+};
 
 export const motionTypography = {
     initial: { 
@@ -133,7 +133,7 @@ export const motionTypography = {
       duration: 0.16,
       delay: 0.14
     }
-}
+};
 
 export const motionHeaders = {
     initial: { 
@@ -148,7 +148,7 @@ export const motionHeaders = {
       duration: 0.16,
       delay: 0.14
     }
-}
+};
 
 export const motionBadge = {
     initial: { 
@@ -160,7 +160,7 @@ export const motionBadge = {
     transition: {
       duration: 1.6,
     }
-}
+};
 
 export const motionGoTopButton = {
     initial: {
@@ -207,7 +207,7 @@ export const motionCard = {
 
 export const motionMenu = {
     initial: {
-        y: 45,
+        y: 0,
         x: 0,
         opacity: 0,
     },
@@ -217,11 +217,11 @@ export const motionMenu = {
         opacity: 1,
     },
     transition: {
-        duration: 0.4,
-        delay: 0.2,
+        duration: 0.3,
+        delay: 0.1,
     },
     exit: {
-        y: 45,
+        y: 0,
         x: 0,
         opacity: 0,
     },
@@ -241,3 +241,81 @@ export const motionList = {
       delay: 0.14
     }
 };
+
+export const motionGridItems = {
+    initial: {
+        y: 10,
+        x: 0,
+        opacity: 0,
+    },
+    whileInView: {
+        y: 0,
+        x: 0,
+        opacity: 1,
+    },
+    transition: {
+        duration: 0.3,
+        delay: 0.42,
+    },
+    exit: {
+        y: 10,
+        x: 0,
+        opacity: 0,
+    },
+};
+
+export const motionDivider = {
+    initial: { 
+        opacity: 0,
+        width: "0%", 
+        x: 0 
+    },
+    animate: { 
+        opacity: 1,
+        width: "100%", 
+        x: 0 
+    },
+    exit: { 
+        opacity: 0,
+        width: "0%", 
+        x: 0 
+    },
+    transition: { 
+        duration: 0.6,
+        delay: 0.36,
+        origin: 1
+     },
+};
+
+export const motionButton = {
+    initial: { 
+        opacity: 0, 
+    },
+    animate: { 
+        opacity: 1,
+    },
+    exit: { 
+        opacity: 0,
+    },
+    transition: { 
+        duration: 0.4,
+     },
+    whileTap: {
+        scale: 0.92,
+    },
+};
+
+export const motionCommits = {
+    whileInView: {
+        y: 0,
+        opacity: 1,
+    },
+    initial: { 
+        y: 2,
+        opacity: 0
+    },
+    transition: {
+      duration: 0.22,
+      delay: 0.1
+    }
+}

@@ -1,25 +1,34 @@
-// ./pages/posts/index.tsx
+// ./pages/notes/index.tsx
 
-import React from "react";
+import React, { useState } from "react";
 
-/* Utils */
+/* Styles */
 import classNames from "classnames";
 
 /* Components */
-import { Typography } from "@/components/ui/typography";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Typography, TypographyList } from "@/components/ui/typography";
+import { Button } from "@/components/ui/button";
 import Post from "@/components/ui/post";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
-import { motionPage } from "@/lib/motion/animation";
+import { motionPage, motionCard } from "@/lib/motion/animation";
 
-/* Posts config */
-import { posts } from "@/config/posts";
+/* Prisma */
+import { prisma } from '@/lib/prisma';
 
 /* Types */
 import { PostProps } from "@/types/post";
 
-export default function Notes() {
+
+export default function Notes({ feed }: any) {
+  const [site, setSite] = useState(false);
+
   return (
     <>
       <meta charSet="UTF-8" />
@@ -66,7 +75,7 @@ export default function Notes() {
 
       <link rel="canonical" href="https://gabfon.me" />
       
-
+      {/* Main component page 👇🏼 */}
       
       <motion.main 
         initial={motionPage.initial}
@@ -81,18 +90,74 @@ export default function Notes() {
         </Typography>
 
         <div id="posts">
-          {
-            posts.map((item: PostProps, index: number) => (
-              <Post 
-                key={index} 
-                title={item.title} 
-                text={item.text} 
-                date={item.date} 
-              />
-            ))
-          }
+          {feed?.map((item: PostProps, index: number) => (
+            <Post 
+              key={index} 
+              title={item.title} 
+              text={item.text} 
+              date={item.date} 
+            />
+          ))}
+
+          {/* First and static note post! 👇🏼 */}
+          <Post 
+            title="First commit!"
+            text="This is a really simple developer portfolio I develop in about 4 days, using Nextjs@13 🤩. My intention with this, is to document my journey in the wild world of programming. I hope you enjoy it, if you like it, please like it above and check this website stack if you're curious. Cheers!"
+            date="2 February, 2023"
+          />
+
+          <div className="item-center inline-flex">
+            <HoverCard
+              defaultOpen={false}
+              open={site}
+              onOpenChange={setSite}
+            >
+              <Button variant="outline" size="default" onClick={() => setSite(!site)}>Check website build</Button>
+              <HoverCardTrigger></HoverCardTrigger>
+              <HoverCardContent
+                sideOffset={24}
+                align="center"
+              >
+                <motion.div 
+                  initial={motionCard.initial} 
+                  animate={motionCard.animate} 
+                  transition={motionCard.transition} 
+                  exit={motionCard.exit}
+                  className="space-y-2 p-1"
+                >
+                  <h4 className={classNames(
+                    "font-sans font-semibold", 
+                    "text-sm", 
+                    "text-gray-light dark:text-white", 
+                    "text-opacity-90 dark:text-opacity-40"
+                  )}>
+                    This Website was made using:
+                  </h4>
+
+                  <TypographyList items={[
+                    "Build appon Next.js@13", 
+                    "With amazing Typescript", 
+                    "Styled using beloved Tailwindcss styles", 
+                    "Based on awesome Radix components", 
+                    "Animated with Framer Motion", 
+                    "Powered by Prisma and Planetscale",
+                    "Set with the beautiful Inter & Unbounded fonts!"
+                  ]} className="text-sm" />
+                </motion.div>
+              </HoverCardContent>
+            </HoverCard>
+          </div>
         </div>
       </motion.main>
     </>
   )
-}
+};
+
+export async function getStaticProps() {
+  const data = await prisma.note.findMany();
+  const feed = JSON.parse(JSON.stringify(data));
+
+  return {
+    props : { feed },
+  }
+};

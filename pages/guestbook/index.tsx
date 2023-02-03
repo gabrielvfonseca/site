@@ -1,34 +1,54 @@
-// ./pages/projects/index.tsx
+// ./pages/guestbook/index.tsx
 
-import React from "react";
+import React, { useState } from "react";
 
 /* Styles */
 import classNames from "classnames";
 
+/* Radix Icons */
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
+
 /* Components */
 import { Typography } from "@/components/ui/typography";
-import { Hyperlink } from "@/components/ui/hyperlink";
+import { Input } from "@/components/ui/input";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
 import { 
   motionPage, 
-  motionRow, 
-  motionBadge 
+  motionCommits,
 } from "@/lib/motion/animation";
 
 /* Prisma */
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 
 /* Types */
-import { ProjectProps } from "@/types/project";
+import { CommitProps } from "@/types/post";
 
 
-export default function Projects({ feed }: any) {
+export default function Guestbook({ feed }: any) {
+  const [guest, setGuest] = useState("");
+  const [message, setMessage] = useState("");
+
+  const createRecord = () => {
+    if (guest !== "" || message !== "") {
+      const promise = fetch('/api/sandbox/guest', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({guest: guest, message: message}),
+      })
+      // Reset vars
+      setGuest("");
+      setMessage("");
+    }
+  }
+
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>Projects — Gabriel Fonseca</title>
+      <title>Guestbook — Gabriel Fonseca</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content="Gabriel Fonseca" />
@@ -78,73 +98,82 @@ export default function Projects({ feed }: any) {
         animate={motionPage.animate}
         transition={motionPage.transition}
         exit={motionPage.exit}
-        className={classNames("space-y-8")}
+        className={classNames("space-y-10")}
       >
         <Typography>
-          Here're the projects that I've spent most of my time on. 
-          <br />Go check them out. ↓
+          Leave your mark on my website by saying something nice! Thanks.
         </Typography>
 
-        <table className="w-full">
-          <tbody>
-            {feed?.map((item: ProjectProps, index: number) => (
-              <motion.tr 
-                key={index}
-                initial={motionRow.initial}
-                whileInView={motionRow.whileInView}
-                transition={motionRow.transition}
-                className={classNames(
-                  "m-0 p-0",
-                  "[&:not(:last-child)]:border-b-1 border-solid border-b-border",
-                  "border-opacity-30 dark:border-opacity-100",
-              )}>
-                <td className={classNames(
-                  "font-sans font-medium", 
-                  "text-gray-light dark:text-gray-dark", 
-                  "text-left", "text-opacity-60",
-                  "py-4"
-                )}>
-                  <Hyperlink 
-                    href={item.href} 
-                    target="_blank" 
-                    className="text-opacity-100 hover:text-opacity-60"
-                  >
-                    {item.title}
-                  </Hyperlink>
+        <motion.div
+          className={classNames(
+            "flex justify-between", 
+            "space-x-6"
+          )}>
+            <Input 
+              type="text" 
+              value={guest}
+              onChange={e => setGuest(e.target.value)}
+              className=" w-6/12" 
+              placeholder="Username" 
+              required
+            />
 
-                  {item.state && <motion.span 
-                    initial={motionBadge.initial}
-                    animate={motionBadge.animate}
-                    transition={motionBadge.transition}
-                    className={classNames(
-                      "ml-6 py-1 px-2.5",
-                      "text-sm text-gray-light dark:text-gray-dark text-opacity-75",
-                      "border-1 border-gray-light border-solid",
-                      "rounded-full"
-                    )}>
-                      {item.state}
-                  </motion.span>}
-                </td>
-                <td className={classNames(
-                  "font-sans font-medium",
-                  "text-gray-light text-sm",
-                  "text-opacity-70 dark:text-opacity-100",
-                  "text-right uppercase",
-                  "py-4"
+            <div className="relative w-full">
+              <Input 
+                type="text" 
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                className="w-full" 
+                placeholder="Say something nice..." 
+              />
+
+              <button 
+                onClick={createRecord}
+                className={classNames(
+                  "text-black dark:text-white hover:text-opacity-70", 
+                  "absolute right-2 top-2",
+                  "focus:outline-none",
+                  "py-1 px-2", "cursor-pointer",
+                  "transition ease-in-out delay-100"
                 )}>
-                  {item.text}
-                </td>
-              </motion.tr>
-            ))}
-          </tbody>
-        </table>
+                <PaperPlaneIcon width={18} height={18} />
+              </button>
+            </div>
+        </motion.div>
+
+        <div id="guests" className="space-y-2">
+          {feed?.slice(0).reverse().map((item: CommitProps, index: number) => (
+            <motion.div 
+              key={index}
+              initial={motionCommits.initial}
+              transition={motionCommits.transition}
+              whileInView={motionCommits.whileInView}
+              className="flex space-x-4 items-center"
+            >
+              <span className={classNames(
+                "font-sans font-medium",
+                "text-sm",
+              )}>
+                {item.guest}
+              </span>
+              <p className={
+                classNames(
+                  "text-gray-light dark:text-gray-light", 
+                  "font-sans", "z-0",
+                  "leading-7", "text-sm"
+              )}>
+                {item.message}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </motion.main>
     </>
   )
 };
 
 export async function getStaticProps() {
-  const data = await prisma.project.findMany();
+  const data = await prisma.guest.findMany();
   const feed = JSON.parse(JSON.stringify(data));
 
   return {

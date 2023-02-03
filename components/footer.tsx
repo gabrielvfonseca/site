@@ -15,6 +15,37 @@ import { Hyperlink } from "./ui/hyperlink";
 /* Site Config */
 import { siteConfig } from "@/config/site";
 
+export const BottomMenu: React.FC = () =>  (
+    <>
+        <nav className={classNames(
+            "flex", "sm:mt-0",
+            "space-x-4", 
+            "text-gray-dark"
+        )}>
+            <Hyperlink  target="_blank" href={siteConfig.links.github}>
+                Github
+            </Hyperlink>
+            
+            <Hyperlink target="_blank" href={siteConfig.links.twitter}>
+                Twitter
+            </Hyperlink>
+            
+            <Hyperlink target="_blank" href={siteConfig.links.linkedin}>
+                Linkedin
+            </Hyperlink>
+        </nav>
+        
+        <span className={classNames(
+            "font-sans font-medium", 
+            "text-gray-light",
+            "text-opacity-70 dark:text-opacity-100",
+            "sm:text-center"
+        )}>
+            2023 &copy; Gabriel Fonseca.
+        </span>
+    </>
+)
+
 export default function Footer() {
     return (
         <motion.footer 
@@ -28,32 +59,7 @@ export default function Footer() {
                 "border-opacity-30 dark:border-opacity-100",
                 "md:flex md:items-center md:justify-between"
         )}>
-            <nav className={classNames(
-                "flex", "sm:mt-0",
-                "space-x-4", 
-                "text-gray-dark"
-            )}>
-                <Hyperlink  target="_blank" href={siteConfig.links.github}>
-                    Github
-                </Hyperlink>
-                
-                <Hyperlink target="_blank" href={siteConfig.links.twitter}>
-                    Twitter
-                </Hyperlink>
-                
-                <Hyperlink target="_blank" href={siteConfig.links.linkedin}>
-                    Linkedin
-                </Hyperlink>
-            </nav>
-            
-            <span className={classNames(
-                "font-sans font-medium", 
-                "text-gray-light",
-                "text-opacity-70 dark:text-opacity-100",
-                "sm:text-center"
-            )}>
-                2023 &copy; Gabriel Fonseca.
-            </span>
+            <BottomMenu />
         </motion.footer>
     )
 }

@@ -53,6 +53,16 @@ module.exports = {
       hover: {
         light: "#E6E6E6",
         dark: "#101011"
+      },
+
+
+      slate: {
+        400: "#94a3b8",
+      },
+      red: {
+        500: "#ef4444",
+        600: "#dc2626",
+        700: "#b91c1c"
       }
 
     },

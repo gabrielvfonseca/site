@@ -17,6 +17,10 @@ interface SiteConfig {
 export const siteConfig: SiteConfig = {
   mainNav: [
     {
+      title: "About",
+      href: "/",
+    },
+    {
       title: "Interests",
       href: "/interests",
     },
@@ -27,6 +31,14 @@ export const siteConfig: SiteConfig = {
     {
         title: "Projects",
         href: "/projects",
+    },
+    {
+      title: "Guestbook",
+      href: "/guestbook",
+    },
+    {
+      title: "Stack",
+      href: "/stack",
     },
   ],
   links: {

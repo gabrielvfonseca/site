@@ -12,15 +12,22 @@ import classNames from "classnames";
 import { 
   Blockquote, 
   Typography, 
+  TypographyH2,
   TypographyH3, 
   TypographyH4,
   TypographyList
 } from "@/components/ui/typography";
-import Ratio from "@/components/ui/ratio";
+import GridItem from "@/components/ui/grid-item";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
 import { motionPage, motionTracks } from "@/lib/motion/animation";
+
+/* Data Config */
+import { stack } from "@/config/posts";
+
+/* Types */
+import { GridItemProps as ItemProps } from "@/types/grid";
 
 
 export default function Interests({ data }: any) {
@@ -87,7 +94,7 @@ export default function Interests({ data }: any) {
           "space-y-6 pt-4 pb-14", 
           "border-b-1 border-solid border-border"
         )}>
-          <TypographyH3 className="font-serif">Programming</TypographyH3>
+          <TypographyH2 className="font-serif">Programming</TypographyH2>
 
           <Typography>
             For my undergraduate research, I assembled and annotated the mitochondrial 
@@ -122,26 +129,14 @@ export default function Interests({ data }: any) {
             It was the first time a result of this nature had been found in green alga.
           </Typography>
 
-          <TypographyH4 className="font-serif">Stack & Tools</TypographyH4>
-
-          <TypographyList items={[
-            "Javascript & Typescript <3",
-            "Next.js with React.js",
-            "HTML, CSS e Tailwindcss",
-            "Python, Rust, Arduino",
-            "MongoDB, mySQL, Redis",
-            "Docker"
-          ]} className={classNames(
-            "my-6 ml-6", 
-            "list-disc [&>li]:mt-2"
-          )} />
         </div>
 
         <div id="music" className={classNames(
           "space-y-4 pt-10 pb-14", 
-          "border-b-1 border-solid border-border"
+          "border-b-1 border-solid border-b-border",
+          "border-opacity-30 dark:border-opacity-100",
         )}>
-          <TypographyH3 className="font-serif">Music</TypographyH3>
+          <TypographyH2 className="font-serif">Music</TypographyH2>
 
           <Typography>
             On my free time I play the guitar and mix with some DJ equipment.
@@ -155,11 +150,11 @@ export default function Interests({ data }: any) {
             "list-disc [&>li]:mt-2"
           )} />
 
-          <Ratio src="static/images/interests/hb.jpg" alt="My Harley Benton"/>
+          {/*<Ratio src="static/images/interests/guitar.jpg" alt="My Harley Benton"/>*/}
         </div>
 
         <div id="tracks" className="space-y-4 py-10">
-          <TypographyH3 className="font-serif">Top tracks</TypographyH3>
+          <TypographyH2 className="font-serif">Top tracks</TypographyH2>
 
           <Typography>
             Curious what I'm currently jamming to? Here's my top tracks on Spotify updated daily.

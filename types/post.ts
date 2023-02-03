@@ -9,3 +9,9 @@ export interface PostProps {
         alt: string,
     }
 }
+
+export interface CommitProps {
+    guest: string,
+    message: string,
+    createAt?: string,
+}

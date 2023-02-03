@@ -16,7 +16,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hovercard";
+} from "@/components/ui/hover-card";
 import { Typography } from "@/components/ui/typography";
 import { HyperlinkDash } from "@/components/ui/hyperlink";
 

@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Note {
+  id              Int       @id @default(autoincrement())
+  title           String
+  text            String
+  imageSrc        String?
+  published       Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+}
+
+model Tools {
+  id              Int       @id @default(autoincrement())
+  title           String
+  text            String
+  imageSrc        String
+  href            String
+  createdAt       DateTime  @default(now())
+}
+
+model Stack {
+  id              Int       @id @default(autoincrement())
+  title           String
+  text            String
+  imageSrc        String
+  href            String
+  createdAt       DateTime  @default(now())
+}
+
+model Project {
+  title           String    @id
+  text            String
+  state           String?
+  href            String?
+  createdAt       DateTime  @default(now())
+}
+
+model Guest {
+  id              Int       @id @default(autoincrement())
+  guest           String    
+  message         String
+  createdAt       DateTime  @default(now())
+}

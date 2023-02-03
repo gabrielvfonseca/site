@@ -29,6 +29,8 @@
   outline: none;
 }
 
+button:focus {outline:0;}
+
 *,
 *:before,
 *:after {
@@ -45,6 +47,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   user-select: text;
+}
+
+button {
+  display: inline;
 }
 
 p {

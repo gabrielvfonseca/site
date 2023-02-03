@@ -49,20 +49,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-        <style jsx global>{`
-            :root {
-            --font-sans: ${fontSans.style.fontFamily};
-            --font-serif: ${fontSerif.style.fontFamily};
-            }
-        }`}</style>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Header />
-            <AnimatePresence>{showGoTop && <GoToTopButton />}</AnimatePresence>
-            <Component {...pageProps} />
-            <Playing />
-            <Footer />
-        </ThemeProvider>
-        <Analytics />
+      <style jsx global>{`
+          :root {
+          --font-sans: ${fontSans.style.fontFamily};
+          --font-serif: ${fontSerif.style.fontFamily};
+          }
+      }`}</style>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <Header />
+        <AnimatePresence>{showGoTop && <GoToTopButton />}</AnimatePresence>
+        <Component {...pageProps} />
+        <Playing />
+        <Footer />
+      </ThemeProvider>
+      <Analytics />
     </>
   )
 }

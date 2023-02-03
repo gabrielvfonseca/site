@@ -1,4 +1,4 @@
-// ./pages/projects/index.tsx
+// ./pages/stack/index.tsx
 
 import React from "react";
 
@@ -6,29 +6,25 @@ import React from "react";
 import classNames from "classnames";
 
 /* Components */
-import { Typography } from "@/components/ui/typography";
-import { Hyperlink } from "@/components/ui/hyperlink";
+import { TypographyH2 } from "@/components/ui/typography";
+import GridItem from "@/components/ui/grid-item";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
-import { 
-  motionPage, 
-  motionRow, 
-  motionBadge 
-} from "@/lib/motion/animation";
+import { motionPage } from "@/lib/motion/animation";
 
 /* Prisma */
 import { prisma } from '@/lib/prisma';
 
 /* Types */
-import { ProjectProps } from "@/types/project";
+import { GridItemProps as ItemProps } from "@/types/grid";
 
 
-export default function Projects({ feed }: any) {
+export default function Stack({ stack, tools}: any) {
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>Projects — Gabriel Fonseca</title>
+      <title>Stack — Gabriel Fonseca</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content="Gabriel Fonseca" />
@@ -71,83 +67,77 @@ export default function Projects({ feed }: any) {
 
       <link rel="canonical" href="https://gabfon.me" />
       
-      {/* Main component page 👇🏼 */}
+
       
       <motion.main 
         initial={motionPage.initial}
         animate={motionPage.animate}
         transition={motionPage.transition}
         exit={motionPage.exit}
-        className={classNames("space-y-8")}
+        className={classNames("space-y-5")}
       >
-        <Typography>
-          Here're the projects that I've spent most of my time on. 
-          <br />Go check them out. ↓
-        </Typography>
+        <div id="stack">
+          <TypographyH2 className="font-serif">Stack</TypographyH2>
 
-        <table className="w-full">
-          <tbody>
-            {feed?.map((item: ProjectProps, index: number) => (
-              <motion.tr 
+          <div className={classNames(
+            "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
+            "pt-8 pb-12"
+        )}>
+            {tools.map((item: ItemProps, index: number) => (
+              <GridItem
                 key={index}
-                initial={motionRow.initial}
-                whileInView={motionRow.whileInView}
-                transition={motionRow.transition}
-                className={classNames(
-                  "m-0 p-0",
-                  "[&:not(:last-child)]:border-b-1 border-solid border-b-border",
-                  "border-opacity-30 dark:border-opacity-100",
-              )}>
-                <td className={classNames(
-                  "font-sans font-medium", 
-                  "text-gray-light dark:text-gray-dark", 
-                  "text-left", "text-opacity-60",
-                  "py-4"
-                )}>
-                  <Hyperlink 
-                    href={item.href} 
-                    target="_blank" 
-                    className="text-opacity-100 hover:text-opacity-60"
-                  >
-                    {item.title}
-                  </Hyperlink>
-
-                  {item.state && <motion.span 
-                    initial={motionBadge.initial}
-                    animate={motionBadge.animate}
-                    transition={motionBadge.transition}
-                    className={classNames(
-                      "ml-6 py-1 px-2.5",
-                      "text-sm text-gray-light dark:text-gray-dark text-opacity-75",
-                      "border-1 border-gray-light border-solid",
-                      "rounded-full"
-                    )}>
-                      {item.state}
-                  </motion.span>}
-                </td>
-                <td className={classNames(
-                  "font-sans font-medium",
-                  "text-gray-light text-sm",
-                  "text-opacity-70 dark:text-opacity-100",
-                  "text-right uppercase",
-                  "py-4"
-                )}>
-                  {item.text}
-                </td>
-              </motion.tr>
+                imageSrc={item.imageSrc}
+                title={item.title}
+                text={item.text}
+                href={item.href}
+              />
             ))}
-          </tbody>
-        </table>
+          </div>
+        </div>
+
+        <div id="tools">
+          <TypographyH2 className="font-serif">Tools</TypographyH2>
+
+        <div className={classNames(
+            "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
+            "pt-8 pb-12"
+        )}>
+            {stack.map((item: ItemProps, index: number) => (
+              <GridItem
+                key={index}
+                imageSrc={item.imageSrc}
+                title={item.title}
+                text={item.text}
+                href={item.href}
+              />
+            ))}
+
+            <p className={classNames(
+              "italic", "pt-8", 
+              "font-medium font-sans", 
+              "text-sm dark:text-opacity-50 text-gray-light dark:text-gray-dark"
+            )}>
+              And much more...
+            </p>
+          </div>
+
+        </div>
       </motion.main>
     </>
   )
 };
 
 export async function getStaticProps() {
-  const data = await prisma.project.findMany();
-  const feed = JSON.parse(JSON.stringify(data));
+  const stData = await prisma.stack.findMany();
+  const tlData = await prisma.tools.findMany();
+
+  const stack = JSON.parse(JSON.stringify(stData));
+  const tools = JSON.parse(JSON.stringify(tlData));
 
   return {
-    props : { feed },
+    props : { 
+      stack: stack,
+      tools: tools,
+    },
   }
 };

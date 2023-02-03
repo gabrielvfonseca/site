@@ -1,6 +1,6 @@
 // ./components/header.tsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 /* Next */
 import Link from "next/link";
@@ -17,6 +17,9 @@ import {
 /* Theme */
 import { useTheme } from 'next-themes';
 
+/* Components */
+import { BottomMenu } from "./footer";
+
 /* Styles */
 import classNames from "classnames";
 
@@ -24,8 +27,15 @@ import classNames from "classnames";
 import { siteConfig } from "@/config/site";
 
 /* Framer Motion */
-import { motion, AnimatePresence } from "framer-motion";
-import { motionHeader, motionMenu } from "@/lib/motion/animation";
+import { 
+    motion, 
+    AnimatePresence,
+} from "framer-motion";
+import { 
+    motionHeader, 
+    motionMenu, 
+    motionDivider,
+} from "@/lib/motion/animation";
 
 /* Types */
 import { ItemProps } from "@/types/nav";
@@ -42,32 +52,57 @@ export const styles = {
     )
 };
 
-const Menu: React.FC = () => (
-    <motion.div 
-        initial={motionMenu.initial} 
-        animate={motionMenu.animate} 
-        transition={motionMenu.transition} 
-        exit={motionMenu.exit} 
-        className={classNames(
-            "fixed top-0 left-0",
-            "h-full w-full z-20",
-            "px-4",
-            "dark:bg-over-dark bg-over-light",
-            "mobile-menu"
-    )}>
-        <nav className="block">
-            {siteConfig.mainNav.map((item: ItemProps, index: number) => (
-                <Link key={index} href={item.href} className={classNames(
-                    "text-gray-dark", 
-                    "text-opacity-60 hover:text-opacity-100",
-                    "transition ease-in-out delay-150",
-                )}>
-                    {item.title}
-                </Link>
-            ))}
-        </nav>
-    </motion.div>
-);
+const Menu: React.FC<{ router: any }> = ({ router }) => {
+    return (
+        <motion.div 
+            key="modal"
+            initial={motionMenu.initial} 
+            animate={motionMenu.animate} 
+            transition={motionMenu.transition} 
+            exit={motionMenu.exit} 
+            className={classNames(
+                "px-10 py-20",
+                "fixed top-0 left-0",
+                "h-full w-full z-20",
+                "dark:bg-over-dark bg-over-light",
+                "mobile-menu"
+        )}>
+            <nav className="inline space-y-3">
+                {siteConfig.mainNav.map((item: ItemProps, index: number) => (
+                    <Link key={index} href={item.href} className={classNames(
+                        "block", "text-xl", "space-y-3",
+                        "text-gray-light dark:text-gray-dark",
+                        (router == item.href) ? 
+                        "text-opacity-60 dark:text-opacity-50 dark:hover:text-opacity-100 hover:text-opacity-80" : 
+                        "hover:text-opacity-60 dark:hover:text-opacity-60",
+                        "transition ease-in-out delay-150"
+                    )}>
+                        <span>{item.title}</span>
+
+                        <motion.div 
+                            initial={motionDivider.initial}
+                            animate={motionDivider.animate}
+                            transition={motionDivider.transition}
+                            exit={motionDivider.exit} 
+                            className={classNames(
+                                "border-t-1 border-solid border-t-border",
+                                "border-opacity-30 dark:border-opacity-100",
+                        )} />
+                    </Link>
+                ))}
+            </nav>
+
+            <div className={classNames(
+                "absolute bottom-0",
+                "py-20 mt-20", "text-sm",
+                "justify-between items-center", 
+                "md:flex md:items-center md:justify-between"
+            )}>
+                <BottomMenu />
+            </div>
+        </motion.div>
+    )
+};
 
 export default function Header() {
     const [open, setOpen] = useState(false);
@@ -75,9 +110,12 @@ export default function Header() {
     const {theme, setTheme} = useTheme();
     const router = useRouter().pathname;
 
+    useEffect(() => {
+        setOpen(false);
+      }, [ router ]);
+
     return (
         <>
-            {open && <Menu />}
             <motion.header 
                 initial={motionHeader.initial}
                 animate={motionHeader.animate}
@@ -103,10 +141,12 @@ export default function Header() {
                         "space-x-4",
                         "menu-nav"
                     )}>
-                        {siteConfig.mainNav.map((item: ItemProps, index: number) => (
+                        {(siteConfig.mainNav.slice(1, siteConfig.mainNav.length)).map((item: ItemProps, index: number) => (
                             <Link key={index} href={item.href} className={classNames(
                                 "text-gray-light dark:text-gray-dark",
-                                (router == item.href) ? "text-opacity-60 dark:text-opacity-50 dark:hover:text-opacity-100 hover:text-opacity-80" : "hover:text-opacity-60",
+                                (router == item.href) ? 
+                                "text-opacity-60 dark:text-opacity-50 dark:hover:text-opacity-100 hover:text-opacity-80" : 
+                                "hover:text-opacity-60 dark:hover:text-opacity-60",
                                 "transition ease-in-out delay-150"
                             )}>
                                 {item.title}
@@ -137,6 +177,7 @@ export default function Header() {
                     </div>
                 </div>
             </motion.header>
+            {open && <Menu router={router} />}
         </>
     )
 }
