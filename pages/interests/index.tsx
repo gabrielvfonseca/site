@@ -23,12 +23,6 @@ import GridItem from "@/components/ui/grid-item";
 import { motion } from "framer-motion";
 import { motionPage, motionTracks } from "@/lib/motion/animation";
 
-/* Data Config */
-import { stack } from "@/config/posts";
-
-/* Types */
-import { GridItemProps as ItemProps } from "@/types/grid";
-
 
 export default function Interests({ data }: any) {
   return (
