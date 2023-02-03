@@ -17,7 +17,6 @@ import {
   TypographyH4,
   TypographyList
 } from "@/components/ui/typography";
-import GridItem from "@/components/ui/grid-item";
 
 /* Framer Motion */
 import { motion } from "framer-motion";

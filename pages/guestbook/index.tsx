@@ -106,14 +106,14 @@ export default function Guestbook({ feed }: any) {
 
         <motion.div
           className={classNames(
-            "flex justify-between", 
-            "space-x-6"
+            "space-y-4 md:space-y-0 md:space-x-6",
+            "block md:flex md:justify-between"
           )}>
             <Input 
               type="text" 
               value={guest}
               onChange={e => setGuest(e.target.value)}
-              className=" w-6/12" 
+              className="md:w-max" 
               placeholder="Username" 
               required
             />
