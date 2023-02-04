@@ -36,7 +36,7 @@ export default function Notes({ feed }: any) {
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content="Gabriel Fonseca" />
-      <meta name="description" content="Gabriel Fonseca — Software Developer" />
+      <meta name="description" content="Gabriel's software developer portfolio: This website is my brain dump'" />
       <meta name="keywords" content="
         developer, full stack developer, software developer, front end developer, web developer, 
         back end developer, backend developer, frontend developer, front-end developer, back-end developer, 
@@ -50,7 +50,7 @@ export default function Notes({ feed }: any) {
       <link href="/static/favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
       <link href="/static/favicon/safari-pinned-tab.svg" rel="mask-icon" color="#000000" />
 
-      <link href="/static/favicon/site.webmanifest" rel="manifest" />
+      <meta name="description" content="Gabriel's software developer portfolio: This website is my brain dump'" />
 
       <meta content="#000000" name="msapplication-TileColor" />
       <meta content="#fff" name="theme-color" />
@@ -75,9 +75,10 @@ export default function Notes({ feed }: any) {
 
       <link rel="canonical" href="https://gabfon.me" />
       
-      {/* Main component page 👇🏼 */}
-      
+
+
       <motion.main 
+        id="main-content"
         initial={motionPage.initial}
         animate={motionPage.animate}
         transition={motionPage.transition}
@@ -112,7 +113,14 @@ export default function Notes({ feed }: any) {
               open={site}
               onOpenChange={setSite}
             >
-              <Button variant="outline" size="default" onClick={() => setSite(!site)}>Check website build</Button>
+              <Button
+                aria-label="website-stack-list"
+                variant="outline" 
+                size="default"
+                 onClick={() => setSite(!site)}>
+                  Check website build
+              </Button>
+
               <HoverCardTrigger></HoverCardTrigger>
               <HoverCardContent
                 sideOffset={24}

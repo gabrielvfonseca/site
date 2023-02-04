@@ -46,7 +46,7 @@ export default function Projects({ feed }: any) {
       <link href="/static/favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
       <link href="/static/favicon/safari-pinned-tab.svg" rel="mask-icon" color="#000000" />
 
-      <link href="/static/favicon/site.webmanifest" rel="manifest" />
+      <meta name="description" content="Gabriel's software developer portfolio: This website is my brain dump'" />
 
       <meta content="#000000" name="msapplication-TileColor" />
       <meta content="#fff" name="theme-color" />
@@ -71,9 +71,10 @@ export default function Projects({ feed }: any) {
 
       <link rel="canonical" href="https://gabfon.me" />
       
-      {/* Main component page 👇🏼 */}
+
       
       <motion.main 
+        id="main-content"
         initial={motionPage.initial}
         animate={motionPage.animate}
         transition={motionPage.transition}

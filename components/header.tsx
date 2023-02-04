@@ -155,7 +155,9 @@ export default function Header() {
                     </nav>
 
                     <div className="z-10 space-x-2">
-                        <button className={classNames(styles.button, "open-menu")}
+                        <button 
+                            aria-label="mobile-menu-button"
+                            className={classNames(styles.button, "open-menu")}
                             onClick={() => setOpen(!open)}
                         >
                             <AnimatePresence initial={false}>
@@ -165,7 +167,9 @@ export default function Header() {
                             </AnimatePresence>
                         </button>
 
-                        <button className={styles.button}
+                        <button 
+                            aria-label="website-theme-toggle"
+                            className={styles.button}
                             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                         >
                             <AnimatePresence initial={false}>
