@@ -42,9 +42,9 @@ export const siteConfig: SiteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/teenupdate",
+    twitter: "https://twitter.com/GabrieFonseca_",
     github: "https://github.com/gabrielvfonseca",
-    linkedin: "https://www.linkedin.com/company/teenupdate/",
+    linkedin: "https://www.linkedin.com/in/gabrielfonsecaa/",
   },
   contacts: {
     mail: 'jg.fonseca@outlook.pt',
