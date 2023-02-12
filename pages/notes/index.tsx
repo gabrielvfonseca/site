@@ -34,7 +34,7 @@ export default function Notes({ feed }: any) {
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>Notes — {siteConfig.title}</title>
+      <title>Notes — Gabriel Fonseca</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content={siteConfig.meta.author} />
@@ -83,7 +83,7 @@ export default function Notes({ feed }: any) {
         className={"space-y-5"}
       >
         <Typography>
-          I use this page to share some of my thought's and ideias related with news, 
+          I use this page to share some of my thoughts and ideas related to news, 
           code guides and other stuff.
         </Typography>
 
@@ -100,7 +100,7 @@ export default function Notes({ feed }: any) {
           {/* First and static note post! 👇🏼 */}
           <Post 
             title="First commit!"
-            text="This is a really simple developer portfolio I develop in about 4 days, using Nextjs@13 🤩. My intention with this, is to document my journey in the wild world of programming. I hope you enjoy it, if you like it, please like it above and check this website stack if you're curious. Cheers!"
+            text="This is a really simple developer portfolio I develop in about 4 days, using Nextjs@13 🤩. My intention with this is to document my journey in the wild world of programming 👨🏼‍💻. I hope you enjoy. Cheers!"
             date="2 February, 2023"
           />
 
@@ -115,7 +115,7 @@ export default function Notes({ feed }: any) {
                 variant="outline" 
                 size="default"
                  onClick={() => setSite(!site)}>
-                  Check website build
+                  Website build stack
               </Button>
 
               <HoverCardTrigger></HoverCardTrigger>
@@ -140,14 +140,16 @@ export default function Notes({ feed }: any) {
                   </h4>
 
                   <TypographyList items={[
-                    "Build appon Next.js@13", 
-                    "With amazing Typescript", 
-                    "Styled using beloved Tailwindcss styles", 
-                    "Based on awesome Radix components", 
-                    "Animated with Framer Motion", 
+                    "Build upon Next.js",
+                    "With amazing Typescript",
+                    "Styled using beloved Tailwindcss styles",
+                    "Based on awesome Radix components",
+                    "Animated with Framer Motion",
                     "Powered by Prisma and Planetscale",
-                    "Set with the beautiful Inter & Unbounded fonts!"
-                  ]} className="text-sm" />
+                    "Set with the beautiful Inter & Unbounded fonts!",
+                  ]} 
+                  className="text-sm" 
+                />
                 </motion.div>
               </HoverCardContent>
             </HoverCard>

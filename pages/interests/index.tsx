@@ -17,6 +17,7 @@ import {
   TypographyH4,
   TypographyList
 } from "@/components/ui/typography";
+import { HyperlinkDash } from "@/components/ui/hyperlink";
 
 /* Framer Motion */
 import { motion } from "framer-motion";
@@ -29,7 +30,7 @@ export default function Interests({ data }: any) {
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>Interests — {siteConfig.title}</title>
+      <title>Interests — Gabriel Fonseca</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content={siteConfig.meta.author} />
@@ -88,29 +89,48 @@ export default function Interests({ data }: any) {
           <TypographyH2 className="font-serif">Programming</TypographyH2>
 
           <Typography>
-            For my undergraduate research, I assembled and annotated the mitochondrial 
-            genome of H. Lacustris, a freshwater green alga. We discovered that its 
-            mitochondrion shared 90% of its genetic sequence with that of its chloroplast. 
-            It was the first time a result of this nature had been found in green alga.
+            Years ago, at the age of 11, when I started programming and jamming around with 
+            computers and stuff, I hated programming because I didn't understand it well, 
+            I was more like a hardware guy.
           </Typography>
 
-          <TypographyH3 className="font-serif">Data science</TypographyH3>
+          <Typography>
+            At the same time, I applied to a robotics workshop at IST where we learned to build some straightforward robots using Arduino.
+          </Typography>
 
           <Typography>
-            Many years ago, when I was about fourteen, I was introduced to a 
-            computer science graduate student in Sri Lanka. I got to know him at 
-            a photoshoot for a magazine that we were publishing at the time. 
-            After we were done, I saw him sitting on the floor, with his laptop on 
-            a step, waiting for some program that seemed to be outputting endless 
-            strings of characters to finish running. Obviously, I was curious and 
-            asked him about it.
+            Then I started using Python for bot creation and messing around with my friends. Later I built my first local web 
+            server cluster using old computers that I had around at the time and hosted WordPress websites using PHP (all by myself 👀). 
+            At the same time, I started a blog where I applied my WordPress skills and later I've done the same on friends' and 
+            clients' websites ✨.
+          </Typography>
+
+          <Typography>
+            I made my high school in a computer science course, where I learned Javascript (definitely love at the first sight 🤣), 
+            then python again, and some database technologies. To be honest, I learned more on my own than in school. Check the 
+            <HyperlinkDash href="/stack" className="mr-1">Stack</HyperlinkDash> 
+            page to view it all.
+          </Typography>
+
+          <TypographyH3 className="font-serif">Artificial Inteligence</TypographyH3>
+
+          <Typography>
+            Apart from web or app development, the truth is Artificial intelligence 
+            fascinates me, the way we make a computer "think" 🧠 is amazing and unreal! 
+          </Typography>
+
+          <Typography>
+            Although I am not the most experienced guy, I dedicated a lot of work on studying 
+            different algorithms and approches in Natural Language Processing using Transformers 
+            and Image Recognition using CNN's, and so on.
           </Typography>
 
           <Blockquote>
-            Genetic algorithms use random exploration of the problem space combined with 
-            evolutionary processes like mutations and crossovers (exchange of genetic information) 
-            to improve guesses. But also, because they have no experience in the problem domain, 
-            they could try things a human would never think to try.
+            "Artificial intelligence would be the ultimate version of Google. The ultimate 
+            search engine that would understand everything on the web. It would understand 
+            exactly what you wanted, and it would give you the right thing. We're nowhere 
+            near doing that now. However, we can get incrementally closer to that, and 
+            that is basically what we work on." — Lary Page
           </Blockquote>
 
           <Typography>

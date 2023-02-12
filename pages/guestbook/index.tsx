@@ -52,7 +52,7 @@ export default function Guestbook(props: any) {
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>Guestbook — {siteConfig.title}</title>
+      <title>Guestbook — Gabriel Fonseca</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content={siteConfig.meta.author} />

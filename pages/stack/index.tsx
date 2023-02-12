@@ -26,7 +26,7 @@ export default function Stack({ stack, tools }: any) {
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>Stack — {siteConfig.title}</title>
+      <title>Stack — Gabriel Fonseca</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content={siteConfig.meta.author} />
@@ -75,7 +75,9 @@ export default function Stack({ stack, tools }: any) {
         className={"space-y-5"}
       >
         <div id="stack">
-          <TypographyH2 className="font-serif">Stack</TypographyH2>
+          <TypographyH2 className="font-serif">
+            Stack
+          </TypographyH2>
 
           <div className={classNames(
             "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
@@ -94,7 +96,9 @@ export default function Stack({ stack, tools }: any) {
         </div>
 
         <div id="tools">
-          <TypographyH2 className="font-serif">Tools</TypographyH2>
+          <TypographyH2 className="font-serif">
+            Tools
+          </TypographyH2>
 
         <div className={classNames(
             "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",

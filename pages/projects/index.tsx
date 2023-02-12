@@ -30,7 +30,7 @@ export default function Projects({ feed }: any) {
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>Projects — {siteConfig.title}</title>
+      <title>Projects — Gabriel Fonseca</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
 
       <meta name="author" content={siteConfig.meta.author} />
