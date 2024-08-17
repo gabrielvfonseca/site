@@ -1,0 +1,39 @@
+
+[2K[1G[1myarn run v1.22.19[22m
+[2K[1G[2m$ next build[22m
+  [1m[38;2;173;127;168m▲ Next.js 14.2.3[39m[22m
+  - Environments: .env
+
+ [37m[1m [22m[39m Creating an optimized production build ...
+Generated 2 documents in .contentlayer
+[33m [33m[1m⚠[22m[39m For production Image Optimization with Next.js, the optional 'sharp' package is strongly recommended. Run 'npm i sharp', and Next.js will use it automatically for Image Optimization.
+Read more: https://nextjs.org/docs/messages/sharp-missing-in-production[39m
+[31m(node:32791) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)[39m
+ [32m[1m✓[22m[39m Compiled successfully
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G[?25h
+[36m./src/components/markdown/components.tsx[39m
+[33m88[39m:[33m10[39m  [33m[1mWarning[22m[39m: 'props' is defined but never used.  [90m[1mno-unused-vars[22m[39m
+
+[36m./src/email/emails/new-subscriber.tsx[39m
+[33m41[39m:[33m23[39m  [33m[1mWarning[22m[39m: 'email' is defined but never used.  [90m[1mno-unused-vars[22m[39m
+
+[36m./src/hooks/use-media-query.ts[39m
+[33m15[39m:[33m20[39m  [33m[1mWarning[22m[39m: 'matchMedia' is not defined.  [90m[1mno-undef[22m[39m
+
+[36minfo[39m  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[31mFailed to compile.
+[39m
+[36m./src/components/providers/posthog-provider.tsx[39m:[33m11[39m:[33m18[39m
+[31m[1mType error[22m[39m: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[0m [90m  9 |[39m })[33m:[39m [33mJSX[39m[33m.[39m[33mElement[39m {[0m
+[0m [90m 10 |[39m     [90m// Initialize PostHog[39m[0m
+[0m[31m[1m>[22m[39m[90m 11 |[39m     posthog[33m.[39minit(process[33m.[39menv[33m.[39m[33mNEXT_PUBLIC_POSTHOG_KEY[39m[33m,[39m {[0m
+[0m [90m    |[39m                  [31m[1m^[22m[39m[0m
+[0m [90m 12 |[39m         api_host[33m:[39m process[33m.[39menv[33m.[39m[33mNEXT_PUBLIC_POSTHOG_HOST[39m[33m,[39m[0m
+[0m [90m 13 |[39m         person_profiles[33m:[39m [32m'identified_only'[39m[33m,[39m [90m// or 'always' to create profiles for anonymous users as well[39m[0m
+[0m [90m 14 |[39m     })[33m;[39m[0m
+[?25h[2K[1G[31merror[39m Command failed with exit code 1.
+[2K[1G[34minfo[39m Visit [1mhttps://yarnpkg.com/en/docs/cli/run[22m for documentation about this command.

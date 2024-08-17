@@ -1,0 +1,21 @@
+{
+  "name": "@site/resend-config",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/client.ts"
+  },
+  "scripts": {
+    "dev": "tsup src/* --watch"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "resend": "^3.4.0"
+  },
+  "devDependencies": {
+    "@site/eslint-config": "*",
+    "@site/typescript-config": "*",
+    "eslint": "^8.57.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}

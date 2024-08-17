@@ -1,0 +1,32 @@
+{
+  "extends": "@site/typescript-config/nextjs.json",
+  "compilerOptions": { 
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@content/*": ["./src/content/*"],
+      "@emails/*": ["./src/email/emails/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@fonts/*": ["./src/fonts/*"],
+      "@config/*": ["./src/config/*"],
+      "@utils": ["./src/utils"],
+      "@actions/*": ["./src/actions/*"],
+      "@types/*": ["./src/types/*"],
+      "@app/*": ["./src/app/*"],
+      "@public": ["./public/*"],
+      "contentlayer/generated": ["./.contentlayer/generated"],
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".contentlayer/generated",
+  ],
+  "exclude": ["node_modules"]
+}

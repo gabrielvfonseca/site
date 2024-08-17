@@ -1,0 +1,49 @@
+/*
+ * This file is responsible for importing Tailwind CSS 
+ * and any other global styles only to be used in the
+ * www app.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    /* Add global styles here */
+    *::selection {
+        @apply bg-blue-500 text-gray-200 dark:text-gray-200
+    }
+
+    html {
+        @apply antialiased overflow-y-auto overflow-x-hidden bg-black dark:bg-white;
+    }
+    body {
+        @apply bg-gray-50 text-gray-1000 dark:bg-gray-1100 dark:text-gray-200;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-medium bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.6)] bg-clip-text text-transparent
+    }
+    a {
+        @apply text-black dark:text-white hover:text-gray-800 dark:hover:text-gray-400 transition-colors duration-300;
+    }
+    p, li {
+        @apply font-medium text-[15.5px] leading-[26px] text-gray-500 dark:text-zinc-400;
+    }
+
+    li::marker {
+        @apply text-black dark:text-white;
+    }
+
+    b {
+        @apply font-semibold text-gray-800 dark:text-gray-200;
+    }
+    
+    input {
+        @apply caret-blue-500;
+    }
+
+    svg {
+        @apply text-gray-500 dark:text-zinc-600;
+    }
+}
