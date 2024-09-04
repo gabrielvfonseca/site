@@ -30,7 +30,7 @@ export default async function Homepage() {
   return (
     <section className='flex flex-col'>
       <p className='mb-4 font-medium text-zinc-800 dark:text-zinc-200'>
-        I&apos;m a computer science student living in Lisbon, pt.
+        I&apos;m a computer engineering student living in Lisbon, pt.
       </p>
       
       <p className='mb-8'>
@@ -41,7 +41,6 @@ export default async function Homepage() {
       </p>
         
       <p>
-        I am currently studying Computer Science Engineering and have a strong passion for technology. 
         In my professional career, I have created various websites and full-stack applications for clients. 
         I like to attend tech events and conferences, gaining valuable insights from top industry products and speakers. 
         I am always thinking of new ideas and am enthusiastic about bringing innovative projects to life.
