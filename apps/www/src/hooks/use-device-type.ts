@@ -4,10 +4,10 @@ import { useMemo } from 'react';
 
 function useDeviceInfo() {
   const deviceInfo = useMemo(() => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const userAgent = navigator.userAgent || navigator.vendor;
 
     // Check for mobile devices
-    if (/android/i.test(userAgent) || /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    if (/android/i.test(userAgent) || /iPad|iPhone|iPod/.test(userAgent)) {
       return { device: 'Mobile' };
     }
 
