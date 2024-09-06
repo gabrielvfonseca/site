@@ -1,6 +1,6 @@
 
 // Config
-import { baseUrl } from '@config/site';
+import { baseUrl } from '@/site.config';
 
 // Contentlayer
 import { allNotes } from 'contentlayer/generated';
