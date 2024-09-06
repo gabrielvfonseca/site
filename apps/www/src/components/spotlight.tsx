@@ -27,7 +27,7 @@ import { Button } from "./ui/button";
 import { allNotes } from "@/.contentlayer/generated";
 
 // Custom Hook
-import { useDeviceType } from '@hooks/use-device-type';
+import useDevice from '@hooks/use-device-type';
 
 export function Spotlight() {
   // Spotlight State
@@ -41,15 +41,15 @@ export function Spotlight() {
   const searchParams = useSearchParams();
 
   // Get Device Type
-  const deviceType = useDeviceType();
+  const { device } = useDevice();
 
   // UseEffect Hook for Keyboard Shortcut
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       // Check device type and set appropriate shortcut
-      const isMac = deviceType === 'macOS';
-      const isWindows = deviceType === 'Windows';
-      const isMobile = deviceType === 'Android' || deviceType === 'iOS';
+      const isMac = device === 'Mac';
+      const isWindows = device === 'Regular Computer';
+      const isMobile = device === 'Mobile';
 
       // Define shortcut conditions
       const openSpotlight = e.key === "j" && (isMac ? e.metaKey : e.ctrlKey);
@@ -68,7 +68,7 @@ export function Spotlight() {
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [deviceType]);
+  }, [device]);
 
   // UseEffect Hook for Pathname and Search Params change
   React.useEffect(() => {
@@ -77,14 +77,12 @@ export function Spotlight() {
 
   // Determine button text based on device type
   const getButtonText = () => {
-    switch (deviceType) {
-      case 'macOS':
+    switch (device) {
+      case 'Mac':
         return '⌘J';
-      case 'Windows':
+      case 'Regular Computer':
         return 'Ctrl+J';
-      case 'Android':
-      case 'iOS':
-        return 'Open';
+      case 'Mobile':
       default:
         return 'Open';
     }
