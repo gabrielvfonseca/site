@@ -20,12 +20,14 @@ var __reExport = (target, mod, secondTarget) => (__copyProps(target, mod, "defau
 // src/client.ts
 var client_exports = {};
 __export(client_exports, {
+  default: () => client_default,
   prisma: () => prisma
 });
 var import_client = require("@prisma/client");
 __reExport(client_exports, require("@prisma/client"));
 var prisma = global.prisma || new import_client.PrismaClient();
 if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+var client_default = prisma;
 
 // src/seed.ts
 var DEFAULT_USERS = [
