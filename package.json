@@ -3,7 +3,7 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "emails"
+    "ui"
   ],
   "prisma": {
     "schema": "packages/database/prisma/schema.prisma",
@@ -38,6 +38,8 @@
   "packageManager": "yarn@1.22.19",
   "name": "@site/root",
   "dependencies": {
-    "@prisma/client": "5.10.2"
+    "@prisma/client": "5.10.2",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "react-resizable-panels": "^2.1.2"
   }
 }

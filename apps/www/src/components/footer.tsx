@@ -12,19 +12,19 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Avatar, AvatarImage } from '@components/ui/avatar';
 
 // Configuration siteConfig
-import { siteConfig } from '@config/site';
+import { siteConfig } from '@/site.config';
 
 // Hooks
 import { useCurrentlyPlaying } from '@hooks/use-currently-playing';
 
 // Footer Component
-export default function Footer() {
+export function Footer() {
   // Fetch currently playing track
   const { data, isLoading } = useCurrentlyPlaying();
 
   // Return
   return (
-    <footer className='mt-20 sm:mt-32 text-sm text-zinc-500'>
+    <footer className='mt-14 sm:mt-24 text-sm dark:text-zinc-400'>
       <div className='flex flex-col mt-10'>
         <span>
           {'Check out more of my work on '}

@@ -2,6 +2,7 @@
 
 // Import the fonts
 import { Inter } from "next/font/google";
+
 import localFont from 'next/font/local';
 
 // Inter font

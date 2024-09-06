@@ -1,10 +1,13 @@
 import React from 'react';
 
+// Next
+import { cookies } from 'next/headers';
+
 // CSS
 import '@styles/globals.css';
 
 // Font
-import { inter, editorialNew } from '@fonts/index';
+import { inter, editorialNew } from '@site/fonts-config';
 
 // Providers
 import { ThemeProvider } from '@components/providers/theme-provider';
@@ -12,11 +15,11 @@ import { ThemeProvider } from '@components/providers/theme-provider';
 import { PHProvider } from '@components/providers/posthog-provider';
 
 // Components
-import Header from '@components/header';
-import Footer from '@components/footer';
+import { Header } from '@components/header';
+import { Footer } from '@components/footer';
 
 // Site Configuration
-import { siteConfig } from '@config/site';
+import { siteConfig } from '@/site.config';
 
 // Metadata
 import type { Metadata } from 'next';
@@ -64,6 +67,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Return layout component
   return (
     <html
       lang='en'
@@ -80,7 +84,7 @@ export default function RootLayout({
             enableSystem
           >
             <ScrollArea className='h-screen w-full'>
-              <main className="mx-auto max-w-xl overflow-x-hidden px-6 py-12 antialiased sm:py-32 md:overflow-x-visible">
+              <main className="mx-auto max-w-xl overflow-x-hidden px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
                 <Header />
                 { children }
                 <Footer />

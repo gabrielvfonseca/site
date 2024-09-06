@@ -11,7 +11,7 @@ import MDX from '@components/markdown';
 import { AspectRatio } from '@components/ui/aspect-ratio';
 
 // Config
-import { siteConfig } from '@config/site';
+import { siteConfig } from '@/site.config';
 
 // Subscribe
 import Subscribe from '@components/forms/subscribe';

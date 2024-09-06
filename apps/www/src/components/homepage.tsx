@@ -1,19 +1,13 @@
 import React, { Suspense } from 'react';
 
 // Next
-import Image from 'next/image';
-
-// Image
-import profileImage from '@app/profile.jpg';
+import Link from 'next/link';
 
 // Subscribe
 import Subscribe from '@components/forms/subscribe';
 
 // Components
 import { Card } from './card';
-
-// UI Components
-import { AspectRatio } from '@components/ui/aspect-ratio';
 
 // Contentlayer
 import { allNotes } from 'contentlayer/generated';
@@ -23,6 +17,8 @@ import Fallback from './fallback';
 
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
+import { formatDate } from '../utils/date';
+import { Badge } from './ui/badge';
 
 // Homepage JSX component
 export default async function Homepage() {  
@@ -30,34 +26,21 @@ export default async function Homepage() {
   return (
     <section className='flex flex-col'>
       <p className='mb-4 font-medium text-zinc-800 dark:text-zinc-200'>
-        I&apos;m a computer science student living in Lisbon, pt.
+        I&apos;m a computer engineering student living in Lisbon, pt.
       </p>
       
       <p className='mb-8'>
-        Hello! I&apos;ve always believed in learning things the long (often harder) way. 
-        It's why I have this website — to share my journey, thoughts, and passions. 
-        I&apos;m not entirely sure if it's the best use of my time, but it feels 
-        right to speak my truth.
-      </p>
-        
-      <p>
-        I am currently studying Computer Science Engineering and have a strong passion for technology. 
-        In my professional career, I have created various websites and full-stack applications for clients. 
-        I like to attend tech events and conferences, gaining valuable insights from top industry products and speakers. 
-        I am always thinking of new ideas and am enthusiastic about bringing innovative projects to life.
+        Hey there! I've always believed that the best way to learn is by taking the long, sometimes harder route. 
+        That's why I created this space — to document and share my journey, thoughts, and passions. 
+        I may not always be sure if this is the best use of my time, but it feels right to be authentic and speak my truth.
       </p>
 
-      <div className='w-full my-16 sm:scale-105'>
-        <AspectRatio ratio={16 / 14}>
-          <Image 
-            src={profileImage} 
-            alt='Image' 
-            className='rounded-lg object-cover' 
-            priority
-            fill
-          />
-        </AspectRatio>
-      </div>
+      <p className='mb-8'>
+        I'm currently pursuing a degree in <Link href='/github'>Computer Engineering</Link>, with a deep love for all things tech. 
+        Throughout my career, I've built <Link href='/projects'>websites and full-stack applications</Link> for a range of clients. 
+        I also love attending tech conferences and events, where I gain insights from leading products and speakers in the industry. 
+        I'm constantly thinking of new ideas, and I’m passionate about bringing <Link href='/projects'>innovative projects to life</Link>.
+      </p>
 
       <p className='mb-8'>
         I probably sound like your typical tech enthusiast, and maybe I am. 
@@ -74,7 +57,7 @@ export default async function Homepage() {
             {
               [
                 {
-                  title: 'Lava (buidling)',
+                  title: 'Lava',
                   description: 'A new era for project development workflow.',
                   href: 'https://lava.dev'
                 },
@@ -83,13 +66,23 @@ export default async function Homepage() {
                 description: string; 
                 href: string; 
               }, index: number) => (
-                  <Card 
-                    key={`${index}-${value.title}`}
-                    title={value.title}
-                    description={value.description}
-                    href={value.href}
-                    target='_blank'
-                  />
+                <Link 
+                  key={`${index}-${value.title}`}
+                  rel="noopener noreferrer" 
+                  href={value.href}
+                  className="flex sm:items-center flex-col sm:flex-row gap-1 sm:gap-4 group"
+                >
+                  <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-100">
+                    {value.title}
+                  </strong>
+                  <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800" />
+                  <span className="flex-none dark:text-zinc-400">
+                    {value.description}
+                  </span>
+                  <Badge variant='default' size='sm'>
+                      Building
+                    </Badge>
+                </Link>
                 )
               )
             }
@@ -98,33 +91,43 @@ export default async function Homepage() {
       </div>
 
       <div className='mb-8 mt-8 sm:mt-10'>
-        <h2 className='block mb-4 text-md'>
+        <h4 className='block mb-4 text-md'>
           Notes
-        </h2>
+        </h4>
         
         <div className='flex flex-col gap-2'>
           <Suspense fallback={ <Fallback /> }>
-            {
-              allNotes.map((value: Note, index: number) => (
-                  <Card 
-                    key={`${index}-${value._id}`}
-                    title={value.title}
-                    description={value.description}
-                    href={value.slug}
-                  />
+            <ul className='space-y-4'>
+              {
+                allNotes.map((value: Note, index: number) => (
+                    <Link 
+                      key={`${index}-${value.title}`}
+                      rel="noopener noreferrer" 
+                      href={value.slug}
+                      className="flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group"
+                    >
+                      <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-100">
+                        {value.title}
+                      </strong>
+                      <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800" />
+                      <span className="flex-none dark:text-zinc-400">
+                        {formatDate(value.date)}
+                      </span>
+                    </Link>
+                  )
                 )
-              )
-            }
+              }
+            </ul>
           </Suspense>
         </div>
       </div>
 
       <div className='mb-8 mt-8 sm:mt-10'>
-        <h2 className='block mb-4 text-md'>
+        <h4 className='block mb-4 text-md'>
           Newsletter
-        </h2>
+        </h4>
 
-        <p className='mb-8 font-medium text-zinc-500 dark:text-zinc-400'>
+        <p className='mb-8'>
           I&apos;m currently working on a new project, which I'm excited to share
           with you soon. In the meantime, you can subscribe to my newsletter to
           receive updates on my progress.

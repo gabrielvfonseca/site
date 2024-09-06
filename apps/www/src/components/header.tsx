@@ -5,15 +5,15 @@ import React from 'react';
 import Link from 'next/link';
 
 // Config data
-import { siteConfig } from '@config/site';
+import { siteConfig } from '@/site.config';
 
 // UI components
 //import { Button } from './ui/button';
 
 // Navbar component
-export default function Header(): JSX.Element {
+export function Header(): JSX.Element {
     return (
-        <header className='mb-20 sm:mb-32 flex justify-between items-center tracking-tight w-full'>
+        <header className='mb-14 sm:mb-24 flex justify-between items-center tracking-tight w-full'>
             <div className='flex flex-col items-start'>
                 <Link   
                     href='/'
@@ -21,7 +21,7 @@ export default function Header(): JSX.Element {
                 >
                     {siteConfig.title}
                 </Link>
-                <span className='text-medium font-medium leading-none text-zinc-500'>
+                <span className='text-medium font-medium leading-none dark:text-zinc-400'>
                     Software Developer
                 </span>
             </div>
