@@ -12,6 +12,7 @@ interface SiteConfig {
   links: {
     twitter: string;
     github: string;
+    linkedin: string;
   };
   mailSupport: string;
 };
@@ -24,8 +25,9 @@ export const siteConfig: SiteConfig = {
   url: baseUrl,
   ogImage: `${baseUrl}/opengraph-image`,
   links: {
-    twitter: 'https://twitter.com/codehagen',
-    github: 'https://github.com/projectx-codehagen/Badget',
+    twitter: 'https://x.com/gabfon_',
+    github: 'https://github.com/gabrielvfonseca',
+    linkedin: 'https://www.linkedin.com/in/gabrielvfonseca/',
   },
-  mailSupport: 'christer@sailsdock.com',
+  mailSupport: 'hey@gabfon.com',
 };

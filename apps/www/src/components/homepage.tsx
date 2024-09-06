@@ -6,19 +6,20 @@ import Link from 'next/link';
 // Subscribe
 import Subscribe from '@components/forms/subscribe';
 
-// Components
-import { Card } from './card';
-
 // Contentlayer
 import { allNotes } from 'contentlayer/generated';
 
 // Fallback
-import Fallback from './fallback';
+import Fallback from '@components/fallback';
+
+// Utils
+import { formatDate } from '@utils/date';
+
+// UI Components
+import { Badge } from '@components/ui/badge';
 
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
-import { formatDate } from '../utils/date';
-import { Badge } from './ui/badge';
 
 // Homepage JSX component
 export default async function Homepage() {  

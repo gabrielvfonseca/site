@@ -11,7 +11,7 @@
 @layer base {
     /* Add global styles here */
     *::selection {
-        @apply bg-secondary text-gray-200 dark:text-gray-200
+        @apply bg-primary dark:bg-secondary text-gray-200 dark:text-gray-200
     }
 
     html {
@@ -25,10 +25,13 @@
         @apply font-medium bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.6)] bg-clip-text text-transparent
     }
     p a {
-        @apply no-underline hover:underline font-normal text-primary transition-colors duration-300;
+        @apply no-underline hover:underline font-normal text-secondary dark:text-primary transition-colors duration-300;
     }
-    header a, footer a {
+    header a {
         @apply text-black dark:text-white hover:text-gray-800 dark:hover:text-gray-400 transition-colors duration-300;
+    }
+    footer a {
+        @apply text-black dark:text-white hover:underline hover:text-secondary dark:hover:text-primary transition-colors duration-200;
     }
     p, li {
         @apply prose break-words font-normal text-[15.5px] leading-[26px] text-gray-800 dark:text-gray-400;
@@ -43,10 +46,10 @@
     }
     
     input {
-        @apply caret-secondary;
+        @apply caret-primary dark:caret-secondary;
     }
 
     svg {
-        @apply text-gray-500 dark:text-zinc-600;
+        @apply text-zinc-400 dark:text-zinc-600;
     }
 }

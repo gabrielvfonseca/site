@@ -28,8 +28,9 @@ export function Footer() {
       <div className='flex flex-col mt-10'>
         <span>
           {'Check out more of my work on '}
-          <Link href={siteConfig.links.twitter} target='_blank'>Twitter</Link>{' and '}
-          <Link href={siteConfig.links.github} target='_blank'>GitHub</Link>.
+          <Link href={siteConfig.links.twitter} target='_blank'>Twitter</Link>{', '}
+          <Link href={siteConfig.links.github} target='_blank'>GitHub</Link>{' & '}
+          <Link href={siteConfig.links.linkedin} target='_blank'>LinkedIn</Link>.
         </span>
 
         <AnimatePresence>

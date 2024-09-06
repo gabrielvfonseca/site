@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Next
-import { cookies } from 'next/headers';
-
 // CSS
 import '@styles/globals.css';
 
@@ -83,8 +80,8 @@ export default function RootLayout({
             defaultTheme='system'
             enableSystem
           >
-            <ScrollArea className='h-screen w-full'>
-              <main className="mx-auto max-w-xl overflow-x-hidden px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
+            <ScrollArea className='flex flex-col min-h-screen w-full'>
+              <main className="flex-grow mx-auto max-w-xl overflow-x-hidden px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
                 <Header />
                 { children }
                 <Footer />

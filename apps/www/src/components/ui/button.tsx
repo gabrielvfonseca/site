@@ -30,7 +30,7 @@ const buttonVariants = cva(
         default: 'h-10 px-4 py-2 text-base',
         sm: 'h-7 px-3 text-xs',
         lg: 'h-11 px-8 text-lg',
-        icon: 'h-10 w-10',
+        icon: 'size-9',
       },
       radius: {
         default: 'rounded-lg',
@@ -52,7 +52,7 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'transparent' | 'link';
+  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'transparent' | 'link' | 'ghost';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   radius?: 'default' | 'sm' | 'lg' | 'md' | 'full';
   asChild?: boolean;

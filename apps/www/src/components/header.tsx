@@ -7,8 +7,8 @@ import Link from 'next/link';
 // Config data
 import { siteConfig } from '@/site.config';
 
-// UI components
-//import { Button } from './ui/button';
+// Spotlight Component
+import { Spotlight } from './spotlight';
 
 // Navbar component
 export function Header(): JSX.Element {
@@ -26,15 +26,7 @@ export function Header(): JSX.Element {
                 </span>
             </div>
 
-            {
-            //<Button
-            //    size='sm'
-            //    variant='outline'
-            //    radius='md'
-            //>
-            //</header>    Menu
-            //</Button>
-            }
+            <Spotlight />
         </header>
     );
 };
