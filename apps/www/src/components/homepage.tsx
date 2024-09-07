@@ -18,6 +18,9 @@ import { formatDate } from '@utils/date';
 // UI Components
 import { Badge } from '@components/ui/badge';
 
+// Configuration siteConfig
+import { siteConfig } from '@/site.config';
+
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
 
@@ -37,7 +40,7 @@ export default async function Homepage() {
       </p>
 
       <p className='mb-8'>
-        I'm currently pursuing a degree in <Link href='/github'>Computer Engineering</Link>, with a deep love for all things tech. 
+        I'm currently pursuing a degree in <Link href={siteConfig.links.github}>Computer Engineering</Link>, with a deep love for all things tech. 
         Throughout my career, I've built <Link href='/projects'>websites and full-stack applications</Link> for a range of clients. 
         I also love attending tech conferences and events, where I gain insights from leading products and speakers in the industry. 
         I'm constantly thinking of new ideas, and I’m passionate about bringing <Link href='/projects'>innovative projects to life</Link>.
