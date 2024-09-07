@@ -26,9 +26,6 @@ import { Button } from "./ui/button";
 // ContentLayer
 import { allNotes } from "@/.contentlayer/generated";
 
-// Custom Hook
-import useDevice from '@hooks/use-device-type';
-
 export function Spotlight() {
   // Spotlight State
   const [open, setOpen] = React.useState<boolean>(false);
@@ -39,53 +36,28 @@ export function Spotlight() {
   // Pathname
   const pathname = usePathname();
 
-  // Get Device Type
-  const { device } = useDevice();
-
   // UseEffect Hook for Keyboard Shortcut
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      // Check device type and set appropriate shortcut
-      const isMac = device === 'Mac';
-      const isWindows = device === 'Regular Computer';
-      const isMobile = device === 'Mobile';
-
       // Define shortcut conditions
-      const openSpotlight = e.key === "j" && (isMac ? e.metaKey : e.ctrlKey);
+      const openSpotlight = e.key === "j" && (e.metaKey || e.ctrlKey);
 
       // Handle open/close for non-mobile devices
-      if (openSpotlight && !isMobile) {
+      if (openSpotlight) {
         e.preventDefault();
         setOpen((prevOpen) => !prevOpen);
-      } else if (isMobile) {
-        // Display open button or other UI element for mobile
-        if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
-          e.preventDefault();
-        }
       }
     };
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [device]);
+  }, []);
 
   // UseEffect Hook for Pathname and Search Params change
   React.useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Determine button text based on device type
-  const getButtonText = () => {
-    switch (device) {
-      case 'Mac':
-        return '⌘J';
-      case 'Regular Computer':
-        return 'Ctrl+J';
-      case 'Mobile':
-      default:
-        return 'Open';
-    }
-  };
 
   // Return JSX
   return (
@@ -96,7 +68,7 @@ export function Spotlight() {
         onClick={() => setOpen(true)}
       >
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-gray-400 dark:border-gray-900 px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          {getButtonText()}
+          ⌘J
         </kbd>
       </Button>
 
