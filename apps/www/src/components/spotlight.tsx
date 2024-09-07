@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // Icons
 import {
@@ -36,9 +36,8 @@ export function Spotlight() {
   // Router
   const router = useRouter();
 
-  // Pathname and Search Params
+  // Pathname
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   // Get Device Type
   const { device } = useDevice();
@@ -73,7 +72,7 @@ export function Spotlight() {
   // UseEffect Hook for Pathname and Search Params change
   React.useEffect(() => {
     setOpen(false);
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   // Determine button text based on device type
   const getButtonText = () => {
