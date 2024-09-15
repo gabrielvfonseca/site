@@ -46,11 +46,11 @@ export default async function Page ({ params }: NoteProps) {
 
   // Return page component
   return (
-    <section className='flex flex-col'>
+    <section className='flex-1 max-w-max flex flex-col'>
       <Suspense fallback={ <Loading /> }>
 
         <div className={note.image ? '' : 'mb-8'}>
-          <h1 className='mb-4 text-lg'>
+          <h1 className='mb-4 max-w-md text-lg'>
             {note.title}
           </h1>
 
