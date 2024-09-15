@@ -26,6 +26,10 @@ import { Button } from "./ui/button";
 // ContentLayer
 import { allNotes } from "@/.contentlayer/generated";
 
+// Types
+import type { Notes as Note } from 'contentlayer/generated';
+
+// Spotlight Component
 export function Spotlight() {
   // Spotlight State
   const [open, setOpen] = React.useState<boolean>(false);
@@ -98,7 +102,9 @@ export function Spotlight() {
           </CommandGroup>
           <CommandGroup heading="Latest Notes">
             {
-              allNotes.map((note) => (
+              allNotes
+                .sort((a: Note, b: Note) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                .map((note: Note) => (
                 <CommandItem
                   key={note.slug}
                   onSelect={() => router.push(note.slug)}

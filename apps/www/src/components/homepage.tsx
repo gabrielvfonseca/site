@@ -35,19 +35,29 @@ export default async function Homepage() {
       
       <p className='mb-8'>
         Hey there! I've always believed that the best way to learn is by taking the long, sometimes harder route. 
-        That's why I created this space — to document and share my journey, thoughts, and passions. 
+        That's why I created this space — to document and share my{' '}
+        journey, <Link href='/notes'>thoughts</Link>{', '}and{' '}
+        <Link href='/notes'>passions</Link>.
         I may not always be sure if this is the best use of my time, but it feels right to be authentic and speak my truth.
       </p>
 
-      <p className='mb-8'>
-        I'm currently pursuing a degree in <Link href={siteConfig.links.github}>Computer Engineering</Link>, with a deep love for all things tech. 
-        Throughout my career, I've built <Link href='/projects'>websites and full-stack applications</Link> for a range of clients. 
-        I also love attending tech conferences and events, where I gain insights from leading products and speakers in the industry. 
-        I'm constantly thinking of new ideas, and I’m passionate about bringing <Link href='/projects'>innovative projects to life</Link>.
+      <p className="mb-8">
+        I am currently working towards a degree in{' '}
+        <Link href={siteConfig.links.github}>
+          Computer Engineering
+        </Link>{' '}
+        at the NOVA School of Science and Technology (NOVA SST) in Lisbon, Portugal. 
+        I relish the opportunity to attend tech conferences and events whenever 
+        possible, as they provide valuable insights from leading products 
+        and industry experts. My enthusiasm is driven by constantly 
+        exploring new ideas and transforming{' '}
+        <Link href="/projects">
+          innovative projects into reality
+        </Link>.
       </p>
 
       <p className='mb-8'>
-        I probably sound like your typical tech enthusiast, and maybe I am. 
+        I probably sound like your typical tech <s>enthusiast</s> nerd, and I am. 
         But that&apos;s okay. I&apos;m here to share my journey, thoughts, and passions.
       </p>
 
@@ -103,7 +113,9 @@ export default async function Homepage() {
           <Suspense fallback={ <Fallback /> }>
             <ul className='space-y-4'>
               {
-                allNotes.map((value: Note, index: number) => (
+                allNotes
+                  .sort((a: Note, b: Note) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .map((value: Note, index: number) => (
                     <Link 
                       key={`${index}-${value.title}`}
                       rel="noopener noreferrer" 

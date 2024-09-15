@@ -22,7 +22,9 @@ export default function Page(): JSX.Element {
           <Suspense fallback={ <Fallback /> }>
             <ul className='space-y-4'>
               {
-                allNotes.map((value: Note, index: number) => (
+                allNotes
+                  .sort((a: Note, b: Note) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .map((value: Note, index: number) => (
                     <Link 
                       key={`${index}-${value.title}`}
                       rel="noopener noreferrer" 

@@ -50,7 +50,7 @@ export default async function Page ({ params }: NoteProps) {
       <Suspense fallback={ <Loading /> }>
 
         <div className={note.image ? '' : 'mb-8'}>
-          <h1 className='mb-4 text-md'>
+          <h1 className='mb-4 text-lg'>
             {note.title}
           </h1>
 

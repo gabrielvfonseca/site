@@ -8,6 +8,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@theme {
+  --font-family-sans: 'Inter', sans-serif;
+}
+
+:root {
+    --sh-class: #6491f1;
+    --sh-sign: #7589fc;
+    --sh-string: #5fb3f8;
+    --sh-keyword: #f1575a;
+    --sh-comment: #6c757d;
+    --sh-jsxliterals: #7aa2f7;
+    --sh-property: #d79642;
+    --sh-entity: #cee068;
+    --sh-identifier: #f8f8f2;
+}
+
+
 @layer base {
     /* Add global styles here */
     *::selection {
@@ -15,14 +32,14 @@
     }
 
     html {
-        @apply antialiased overflow-y-auto overflow-x-hidden bg-black dark:bg-white;
+        @apply antialiased overflow-y-auto overflow-x-hidden bg-white dark:bg-zinc-950;
     }
     body {
         @apply bg-white text-gray-700 dark:bg-zinc-950 dark:text-gray-400;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        @apply font-medium bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.6)] bg-clip-text text-transparent
+        @apply font-medium text-balance bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.6)] bg-clip-text text-transparent
     }
     p a {
         @apply no-underline hover:underline font-normal text-secondary dark:text-primary transition-colors duration-300;
@@ -52,4 +69,142 @@
     svg {
         @apply text-zinc-400 dark:text-zinc-600;
     }
+
+    pre {
+        @apply font-serif text-black dark:text-white border rounded-md border-gray-300 dark:border-gray-1000 bg-gray-200 dark:bg-gray-1200 p-4 my-6 mx-0 overflow-x-auto leading-none;
+    }
+    
+    pre::-webkit-scrollbar {
+        display: none;
+    }
+    
+    pre {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    code {
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      padding: 0.2em 0.4em;
+      border-radius: 0.3em;
+    }
+    
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    pre code > span .sh__token--identifier {
+        color: white !important;
+    }
+    
+    code:not(pre code) span {
+      @apply font-sans font-medium text-black dark:text-white
+    }
+    
+    pre code span {
+        font-weight: 500;
+    }
+    
+    /* Remove Safari input shadow on mobile */
+    input[type='text'],
+    input[type='email'] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    
+    table {
+        display: block;
+        max-width: fit-content;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    ::view-transition-old(lee) {
+        animation: fade-out 0.8s ease-in-out;
+    }
+    
+    ::view-transition-new(lee) {
+        animation: fade-in-up 0.4s ease-in-out;
+    }
+}
+
+@keyframes fade-out {
+  0% {
+    transform: translateY(0) translateX(-0.2px);
+    opacity: 1;
+    font-weight: 500;
+  }
+
+  20% {
+    transform: translateY(24px) translateX(-0.2px);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: translateY(24px) translateX(-0.2px);
+    opacity: 0.3;
+  }
+
+  60% {
+    transform: translateY(24px) translateX(-0.2px);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: translateY(24px) translateX(-0.2px);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.6;
+  }
+
+  60% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    transform: translateY(24px) translateX(-0.2px);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translateY(24px) translateX(-0.2px);
+    opacity: 0.5;
+  }
+
+  80% {
+    transform: translateY(0) translateX(-0.2px);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateY(0) translateX(-0.2px);
+    opacity: 1;
+  }
+}
+
+@supports (view-transition-name: none) {
+  .fade-in {
+    animation: fade-in 0.8s ease-in-out forwards;
+    opacity: 0;
+  }
 }
