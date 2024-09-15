@@ -41,9 +41,6 @@
     "@prisma/client": "5.10.2",
     "@radix-ui/react-tooltip": "^1.1.2",
     "next-view-transitions": "^0.3.0",
-    "react-resizable-panels": "^2.1.2",
-    "rehype-code-titles": "^1.2.0",
-    "rehype-prism-plus": "^2.0.0",
     "sugar-high": "^0.7.0"
   }
 }
