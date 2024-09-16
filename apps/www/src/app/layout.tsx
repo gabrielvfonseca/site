@@ -90,9 +90,6 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-// Components
-import { ScrollArea } from '@components/ui/scroll-area';
-
 // UI Components
 import { Toaster } from '@components/ui/sonner';
 
@@ -121,13 +118,11 @@ export default function RootLayout({
             defaultTheme='system'
             enableSystem
           >
-            <ScrollArea className='flex flex-1 flex-col min-h-screen w-full'>
-              <main className="prose whitespace-pre-wrap break-words max-w-full md:max-w-xl md:container md:mx-auto px-4 py-10 sm:py-28">
-                <Header />
-                { children }
-                <Footer />
-              </main>
-            </ScrollArea>
+            <main className='sm:mx-auto sm:max-w-xl px-4 py-10 sm:py-28'>
+              <Header />
+              { children }
+              <Footer />
+            </main>
             <Toaster />
           </ThemeProvider>
         </PHProvider>
