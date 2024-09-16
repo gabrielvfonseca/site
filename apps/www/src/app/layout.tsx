@@ -118,7 +118,7 @@ export default function RootLayout({
             defaultTheme='system'
             enableSystem
           >
-            <main className='sm:mx-auto sm:max-w-xl px-4 py-10 sm:py-28'>
+            <main className='mx-auto max-w-lg sm:max-w-xl px-4 py-10 sm:py-28'>
               <Header />
               { children }
               <Footer />
