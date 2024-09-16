@@ -121,8 +121,8 @@ export default function RootLayout({
             defaultTheme='system'
             enableSystem
           >
-            <ScrollArea className='flex flex-col min-h-screen w-full'>
-              <main className="flex-grow mx-auto container max-w-xl overflow-x-hidden px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
+            <ScrollArea className='flex flex-1 flex-col min-h-screen w-full'>
+              <main className="flex-grow md:container md:mx-auto md:max-w-xl px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
                 <Header />
                 { children }
                 <Footer />

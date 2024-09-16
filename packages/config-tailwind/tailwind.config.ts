@@ -10,6 +10,9 @@ import { fontFamily } from 'tailwindcss/defaultTheme';
 const config: Omit<Config, 'content'> = {
   theme: {
     darkMode: ['class'],
+    container: {
+      center: true,
+    },
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', ...fontFamily.sans],
