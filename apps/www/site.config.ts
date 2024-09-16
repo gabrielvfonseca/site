@@ -23,7 +23,7 @@ export const siteConfig: SiteConfig = {
   siteName: 'Gabriel Fonseca',
   description: 'This is my site.',
   url: baseUrl,
-  ogImage: `${baseUrl}/opengraph-image`,
+  ogImage: `${baseUrl}/opengraph-image.png`,
   links: {
     twitter: 'https://x.com/gabfon_',
     github: 'https://github.com/gabrielvfonseca',

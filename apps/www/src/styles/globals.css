@@ -13,45 +13,55 @@
 }
 
 :root {
-    --sh-class: #6491f1;
-    --sh-sign: #7589fc;
-    --sh-string: #5fb3f8;
-    --sh-keyword: #f1575a;
-    --sh-comment: #6c757d;
-    --sh-jsxliterals: #7aa2f7;
-    --sh-property: #d79642;
-    --sh-entity: #cee068;
-    --sh-identifier: #f8f8f2;
+  --sh-class: #5786ea;
+  --sh-sign: #6a80fa;
+  --sh-string: #55abf2;
+  --sh-keyword: #ec4b4e;
+  --sh-comment: #626a72;
+  --sh-jsxliterals: #7097ed;
+  --sh-property: #cf8e3a;
+  --sh-entity: #c0d258;
+  --sh-identifier: #2f2f2f;
 }
 
+.dark {
+  --sh-class: #6491f1;
+  --sh-sign: #7589fc;
+  --sh-string: #5fb3f8;
+  --sh-keyword: #f1575a;
+  --sh-comment: #6c757d;
+  --sh-jsxliterals: #7aa2f7;
+  --sh-property: #d79642;
+  --sh-entity: #cee068;
+  --sh-identifier: #f8f8f2;
+}
 
 @layer base {
-    /* Add global styles here */
     *::selection {
-        @apply bg-primary dark:bg-secondary text-gray-200 dark:text-gray-200
+      @apply bg-primary dark:bg-secondary text-gray-200 dark:text-gray-200
     }
 
     html {
-        @apply antialiased overflow-y-auto overflow-x-hidden bg-white dark:bg-zinc-950;
+      @apply antialiased overflow-y-auto overflow-x-hidden bg-white dark:bg-zinc-950;
     }
     body {
-        @apply bg-white text-gray-700 dark:bg-zinc-950 dark:text-gray-400;
+      @apply bg-white text-gray-700 dark:bg-zinc-950 dark:text-gray-400;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        @apply font-medium text-balance bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.6)] bg-clip-text text-transparent
+      @apply font-medium text-balance bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.6)] bg-clip-text text-transparent
     }
     p a {
-        @apply no-underline hover:underline font-normal text-secondary dark:text-primary transition-colors duration-300;
+      @apply no-underline hover:underline font-normal text-secondary dark:text-primary transition-colors duration-300;
     }
     header a {
         @apply text-black dark:text-white hover:text-gray-800 dark:hover:text-gray-400 transition-colors duration-300;
     }
     footer a {
-        @apply text-black dark:text-white hover:underline hover:text-secondary dark:hover:text-primary transition-colors duration-200;
+      @apply text-black dark:text-white hover:underline hover:text-secondary dark:hover:text-primary transition-colors duration-200;
     }
     p, li {
-        @apply prose break-words font-normal text-[15.5px] leading-[26px] text-gray-800 dark:text-gray-400;
+      @apply prose break-words font-normal text-[15.5px] leading-[26px] text-gray-800 dark:text-gray-400;
     }
 
     li::marker {
@@ -63,19 +73,19 @@
     }
     
     input {
-        @apply caret-primary dark:caret-secondary;
+      @apply caret-primary dark:caret-secondary;
     }
 
     svg {
-        @apply text-zinc-400 dark:text-zinc-600;
+      @apply text-zinc-400 dark:text-zinc-600;
     }
 
     pre {
-        @apply font-serif text-black dark:text-white border rounded-md border-gray-300 dark:border-gray-1000 bg-gray-200 dark:bg-gray-1200 p-4 my-6 mx-0 overflow-x-auto leading-none;
+      @apply font-serif text-black dark:text-white border rounded-md border-gray-300 dark:border-gray-1000 bg-gray-200 dark:bg-gray-1200 p-4 my-6 mx-0 overflow-x-auto leading-none;
     }
     
     pre::-webkit-scrollbar {
-        display: none;
+      display: none;
     }
     
     pre {
@@ -99,7 +109,7 @@
     }
     
     pre code > span .sh__token--identifier {
-        color: white !important;
+      color: white !important;
     }
     
     code:not(pre code) span {
@@ -107,30 +117,30 @@
     }
     
     pre code span {
-        font-weight: 500;
+      font-weight: 500;
     }
     
     /* Remove Safari input shadow on mobile */
     input[type='text'],
     input[type='email'] {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
     
     table {
-        display: block;
-        max-width: fit-content;
-        overflow-x: auto;
-        white-space: nowrap;
+      display: block;
+      max-width: fit-content;
+      overflow-x: auto;
+      white-space: nowrap;
     }
     
     ::view-transition-old(lee) {
-        animation: fade-out 0.8s ease-in-out;
+      animation: fade-out 0.8s ease-in-out;
     }
     
     ::view-transition-new(lee) {
-        animation: fade-in-up 0.4s ease-in-out;
+      animation: fade-in-up 0.4s ease-in-out;
     }
 }
 

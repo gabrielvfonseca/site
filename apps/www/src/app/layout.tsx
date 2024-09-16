@@ -22,20 +22,31 @@ import { siteConfig } from '@/site.config';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  //metadataBase: new URL('baseUrl'),
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.title}`,
   },
-  description: siteConfig.description,
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.siteName,
-    locale: 'en_US',
-    type: 'website',
+  generator: 'Next.js',
+  applicationName: 'Next.js',
+  referrer: 'origin-when-cross-origin',
+  keywords: [
+    'Developer', 
+    'Software', 
+    'Student', 
+    'Engineer', 
+    'Gabriel', 
+    'Fonseca',
+  ],
+  authors: { name: 'Gabriel' },
+  creator: '@gabrielvfonseca',
+  publisher: '@gabrielvfonseca',
+  formatDetection: {
+    email: true,
+    address: false,
+    telephone: false,
   },
+  description: siteConfig.description,
   robots: {
     index: true,
     follow: true,
@@ -47,6 +58,36 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.title,
+    images: [
+      {
+        url: siteConfig.ogImage, // Must be an absolute URL
+        width: 1200,
+        height: 630,
+        alt: 'Gabriel',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+};
+
+// Viewport
+import type { Viewport } from 'next';
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 // Components
@@ -81,7 +122,7 @@ export default function RootLayout({
             enableSystem
           >
             <ScrollArea className='flex flex-col min-h-screen w-full'>
-              <main className="flex-grow mx-auto max-w-xl overflow-x-hidden px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
+              <main className="flex-grow mx-auto container max-w-xl overflow-x-hidden px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
                 <Header />
                 { children }
                 <Footer />
