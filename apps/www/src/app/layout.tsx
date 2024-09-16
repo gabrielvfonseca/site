@@ -122,7 +122,7 @@ export default function RootLayout({
             enableSystem
           >
             <ScrollArea className='flex flex-1 flex-col min-h-screen w-full'>
-              <main className="prose overflow-x-hidden md:container md:mx-auto md:max-w-xl px-6 py-10 antialiased sm:py-28 md:overflow-x-visible">
+              <main className="prose whitespace-pre-wrap break-words max-w-full md:max-w-xl md:container md:mx-auto px-4 py-10 sm:py-28">
                 <Header />
                 { children }
                 <Footer />
