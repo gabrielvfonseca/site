@@ -135,14 +135,20 @@ params,
     generator: 'Next.js',
     keywords: note.title.split(' '), // Split the title into keywords
     openGraph: {
-      title: note.title,
-      description: note.description,
-      type: 'article',
-      siteName: siteConfig.siteName,
-      url: `${siteConfig.url}${note.slug}`,
+      title: siteConfig.title,
+      description: siteConfig.description,
+      url: siteConfig.url,
+      siteName: siteConfig.title,
       images: [
-        { url: note.image ? note.image : '', alt: note.title }
-      ],  
+        {
+          url: siteConfig.ogImage, // Must be an absolute URL
+          width: 1200,
+          height: 630,
+          alt: 'Gabriel',
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
     },
   };
 };
