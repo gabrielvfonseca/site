@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import {
   Folder,
   Home,
+  Menu,
   Pencil,
   Text,
 } from "lucide-react";
@@ -55,6 +56,7 @@ export function Spotlight() {
       }
     };
 
+    // Add Event Listener
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
@@ -116,13 +118,12 @@ export function Spotlight() {
   return (
     <>
       <Button
-        size="icon"
-        variant="ghost"
+        size={isDesktop ? 'sm' : 'icon'}
+        variant={isDesktop ? 'outline' : 'ghost'}
         onClick={() => setOpen(true)}
+        className="sm:px-2"
       >
-        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-gray-400 dark:border-gray-900 px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          {isDesktop ? '⌘J' : 'open'}
-        </kbd>
+        {isDesktop ? '⌘J' : <Menu size={18} className="text-gray-800 dark:text-gray-600" />}
       </Button>
 
       {      

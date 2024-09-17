@@ -23,7 +23,6 @@ const buttonVariants = cva(
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         outline: 'border border-gray-400 hover:bg-gray-100 text-gray-800 dark:border-gray-800 dark:text-white dark:hover:bg-gray-900',
         transparent: 'dark:text-gray-400 dark:hover:text-gray-400/80',
-        link: '',
         ghost: '',
       },
       size: {
@@ -52,7 +51,7 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'transparent' | 'link' | 'ghost';
+  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'transparent' | 'ghost';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   radius?: 'default' | 'sm' | 'lg' | 'md' | 'full';
   asChild?: boolean;
