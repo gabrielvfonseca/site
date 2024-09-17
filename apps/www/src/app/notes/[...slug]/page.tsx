@@ -46,59 +46,56 @@ export default async function Page ({ params }: NoteProps) {
 
   // Return page component
   return (
-    <section className='flex-1 max-w-max flex flex-col'>
-      <Suspense fallback={ <Loading /> }>
+    <Suspense fallback={ <Loading /> }>
+      <div className={note.image ? '' : 'mb-8'}>
+        <h1 className='mb-4 max-w-md text-lg'>
+          {note.title}
+        </h1>
 
-        <div className={note.image ? '' : 'mb-8'}>
-          <h1 className='mb-4 max-w-md text-lg'>
-            {note.title}
-          </h1>
-
-          <div className='flex justify-between items-center w-full'>          
-            <p className='text-sm font-normal'>
-              {formatDate(note.date)} ({howLongAgo(note.date)})
-            </p>
-          </div>
+        <div className='flex justify-between items-center w-full'>          
+          <p className='text-sm font-normal'>
+            {formatDate(note.date)} ({howLongAgo(note.date)})
+          </p>
         </div>
-
-        {
-          note.image && (
-            <div className='w-full my-16 sm:scale-105'>
-              <AspectRatio ratio={16 / 9}>
-                <Image 
-                  src={note.image} 
-                  alt='Image' 
-                  className='rounded-md object-cover' 
-                  fill
-                />
-              </AspectRatio>
-            </div>
-          )
-        }
-        
-        <div>
-          <MDX code={note.body.code} />
-        </div>
-        <div className='mb-8 mt-8 sm:mt-10'>
-        <h2 className='block mb-4 text-md'>
-          More notes like this
-        </h2>
-
-        <p className='mb-8'>
-          I began writing these notes to share insights on software 
-          development, productivity, and more. If you found 
-          this note valuable, consider <b>subscribing to my 
-          newsletter</b> for regular updates on these topics.
-        </p>
-
-        <p className='mb-8'>
-          No spam, unsubscribe at any time.
-        </p>
-
-        <Subscribe />
       </div>
-      </Suspense>
-    </section>
+
+      {
+        note.image && (
+          <div className='w-full my-16 sm:scale-105'>
+            <AspectRatio ratio={16 / 9}>
+              <Image 
+                src={note.image} 
+                alt='Image' 
+                className='rounded-md object-cover' 
+                fill
+              />
+            </AspectRatio>
+          </div>
+        )
+      }
+      
+      <div>
+        <MDX code={note.body.code} />
+      </div>
+      <div className='mb-8 mt-8 sm:mt-10'>
+      <h2 className='block mb-4 text-md'>
+        More notes like this
+      </h2>
+
+      <p className='mb-8'>
+        I began writing these notes to share insights on software 
+        development, productivity, and more. If you found 
+        this note valuable, consider <b>subscribing to my 
+        newsletter</b> for regular updates on these topics.
+      </p>
+
+      <p className='mb-8'>
+        No spam, unsubscribe at any time.
+      </p>
+
+      <Subscribe />
+    </div>
+    </Suspense>
   );
 };
 

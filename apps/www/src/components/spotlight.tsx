@@ -15,19 +15,21 @@ import {
 // UI Components
 import {
   CommandDialog,
+  CommandDrawer,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
 } from "@components/ui/command";
-import { Button } from "./ui/button";
+import { Button } from "@components/ui/button";
 
 // ContentLayer
 import { allNotes } from "@/.contentlayer/generated";
 
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
+import { useMediaQuery } from "../hooks/use-media-query";
 
 // Spotlight Component
 export function Spotlight() {
@@ -62,6 +64,53 @@ export function Spotlight() {
     setOpen(false);
   }, [pathname]);
 
+  // Media Query
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  // Content JSX
+  const CommandContent = (): JSX.Element => (
+    <>
+      <CommandInput placeholder="Type a command or search..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Suggestions">
+          <CommandItem
+            onSelect={() => router.push("/")}
+          >
+            <Home className="mr-2 h-4 w-4" />
+            <span>Home</span>
+          </CommandItem>
+          <CommandItem
+            onSelect={() => router.push("/notes")}
+          >
+            <Pencil className="mr-2 h-4 w-4" />
+            <span>Notes</span>
+          </CommandItem>
+          <CommandItem
+            onSelect={() => router.push("/projects")}
+          >
+            <Folder className="mr-2 h-4 w-4" />
+            <span>Projects</span>
+          </CommandItem>
+        </CommandGroup>
+        <CommandGroup heading="Latest Notes">
+          {
+            allNotes
+              .sort((a: Note, b: Note) => new Date(b.date).getTime() - new Date(a.date).getTime())
+              .map((note: Note) => (
+              <CommandItem
+                key={note.slug}
+                onSelect={() => router.push(note.slug)}
+              >
+                <Text className="mr-2 h-4 w-4" />
+                <span>{note.title}</span>
+              </CommandItem>
+            ))
+          }
+        </CommandGroup>
+      </CommandList>
+    </>
+  );
 
   // Return JSX
   return (
@@ -72,51 +121,27 @@ export function Spotlight() {
         onClick={() => setOpen(true)}
       >
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-gray-400 dark:border-gray-900 px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          ⌘J
+          {isDesktop ? '⌘J' : 'open'}
         </kbd>
       </Button>
 
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem
-              onSelect={() => router.push("/")}
-            >
-              <Home className="mr-2 h-4 w-4" />
-              <span>Home</span>
-            </CommandItem>
-            <CommandItem
-              onSelect={() => router.push("/notes")}
-            >
-              <Pencil className="mr-2 h-4 w-4" />
-              <span>Notes</span>
-            </CommandItem>
-            <CommandItem
-              onSelect={() => router.push("/projects")}
-            >
-              <Folder className="mr-2 h-4 w-4" />
-              <span>Projects</span>
-            </CommandItem>
-          </CommandGroup>
-          <CommandGroup heading="Latest Notes">
-            {
-              allNotes
-                .sort((a: Note, b: Note) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                .map((note: Note) => (
-                <CommandItem
-                  key={note.slug}
-                  onSelect={() => router.push(note.slug)}
-                >
-                  <Text className="mr-2 h-4 w-4" />
-                  <span>{note.title}</span>
-                </CommandItem>
-              ))
-            }
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
+      {      
+        isDesktop ? (
+          <CommandDialog 
+            open={open} 
+            onOpenChange={setOpen}
+          >
+            <CommandContent />
+          </CommandDialog>
+        ) : (
+          <CommandDrawer
+            open={open}
+            onOpenChange={setOpen}
+          >
+            <CommandContent />
+          </CommandDrawer>
+        )
+      }
     </>
   );
 };

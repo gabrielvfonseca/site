@@ -8,8 +8,7 @@ import { inter, editorialNew } from '@site/fonts-config';
 
 // Providers
 import { ThemeProvider } from '@components/providers/theme-provider';
-//import { AuthProvider } from '@components/providers/session-provider';
-import { PHProvider } from '@components/providers/posthog-provider';
+import { AnalyticsProvider } from '@components/providers/analytics-provider';
 
 // Components
 import { Header } from '@components/header';
@@ -112,20 +111,20 @@ export default function RootLayout({
       )}
     >
       <body>
-        <PHProvider>
+        <AnalyticsProvider>
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
             enableSystem
           >
-            <main className='mx-auto max-w-lg sm:max-w-xl px-4 py-10 sm:py-28'>
+            <div className='mx-auto max-w-lg sm:max-w-xl px-4 py-10 sm:py-28'>
               <Header />
-              { children }
+              <main>{ children }</main>
               <Footer />
-            </main>
+            </div>
             <Toaster />
           </ThemeProvider>
-        </PHProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   )

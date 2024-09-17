@@ -12,8 +12,7 @@ import { Badge } from '@components/ui/badge';
 // Notes Page JSX component
 export default function Page(): JSX.Element {
     return (
-        <div className='flex flex-col gap-2'>
-          <Suspense fallback={ <Fallback /> }>
+        <Suspense fallback={ <Fallback /> }>
             <ul className='space-y-4'>
                 {
                     [
@@ -48,8 +47,6 @@ export default function Page(): JSX.Element {
                     )
                 }
             </ul>
-          </Suspense>
-
-        </div>
+        </Suspense>
     );
 };

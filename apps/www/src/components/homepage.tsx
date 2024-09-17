@@ -28,7 +28,7 @@ import type { Notes as Note } from 'contentlayer/generated';
 export default async function Homepage() {  
   // Return page component
   return (
-    <main className='flex flex-col'>
+    <>
       <p className='mb-4 font-medium text-zinc-800 dark:text-zinc-200'>
         I&apos;m a computer engineering student living in Lisbon, pt.
       </p>
@@ -151,6 +151,6 @@ export default async function Homepage() {
 
         <Subscribe />
       </div>
-    </main>
+    </>
   );
 };

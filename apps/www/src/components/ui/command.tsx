@@ -5,6 +5,15 @@ import * as React from "react";
 // Command
 import { Command as CommandPrimitive } from "cmdk";
 
+// Components
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+} from "@components/ui/drawer";
+import { Button } from "@components/ui/button";
+
 // Icons
 import { Search } from "lucide-react";
 
@@ -15,7 +24,12 @@ import { cn } from "@utils/cn";
 import { Dialog, DialogContent } from "./dialog";
 
 // Types
-interface CommandDialogProps extends DialogProps {}
+interface CommandDialogProps extends DialogProps {};
+interface CommandDrawerProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  children: React.ReactNode;
+};
 
 import { type DialogProps } from "@radix-ui/react-dialog";
 import { ScrollArea } from "./scroll-area";
@@ -28,7 +42,7 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground",
+      "flex h-full w-full flex-col overflow-hidden rounded-md",
       className
     )}
     {...props}
@@ -37,16 +51,42 @@ const Command = React.forwardRef<
 // Display Name for Command
 Command.displayName = CommandPrimitive.displayName;
 
-// CommandDialogProps
+// CommandDialog Component
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (
     <Dialog {...props}>
-      <DialogContent className="px-10 overflow-hidden p-0 shadow-lg">
-        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+      <DialogContent className="overflow-hidden p-0 shadow-lg">
+        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           {children}
         </Command>
       </DialogContent>
     </Dialog>
+  )
+};
+
+// CommandDrawer Component
+const CommandDrawer = ({ children, open, onOpenChange }: CommandDrawerProps) => {
+  return (
+    <Drawer
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <DrawerContent>
+        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+          {children}
+        </Command>
+        <DrawerFooter>
+          <DrawerClose>
+            <Button 
+              variant="outline"
+              className="w-full"
+            >
+              Cancel
+            </Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   )
 };
 
@@ -172,6 +212,7 @@ CommandShortcut.displayName = "CommandShortcut";
 export {
   Command,
   CommandDialog,
+  CommandDrawer,
   CommandInput,
   CommandList,
   CommandEmpty,
