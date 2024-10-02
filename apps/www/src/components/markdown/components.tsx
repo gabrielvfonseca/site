@@ -25,17 +25,17 @@ type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 // Components
 export const components: MDXComponents = {
   h1: (props: HeadingProps) => (
-    <h1 className="font-bold pt-12 mb-0 fade-in" {...props} />
+    <h1 className="font-bold mt-12 mb-8 fade-in" {...props} />
   ),
   h2: (props: HeadingProps) => (
-    <h2 className="font-medium mt-8 mb-3" {...props} />
+    <h2 className="font-medium mt-10 mb-6 fade-in" {...props} />
   ),
   h3: (props: HeadingProps) => (
-    <h3 className="font-medium mt-8 mb-3" {...props} />
+    <h3 className="font-medium mt-6 mb-4 fade-in" {...props} />
   ),
-  h4: (props: HeadingProps) => <h4 className="font-medium" {...props} />,
+  h4: (props: HeadingProps) => <h4 className="font-medium mt-4 mb-4 fade-in" {...props} />,
   p: (props: ParagraphProps) => (
-    <p className="leading-normal tracking-normal" {...props} />
+    <p className="leading-normal tracking-normal fade-in" {...props} />
   ),
   hr: () => <hr className="border-gray-400 dark:border-gray-1000 my-8" />,
   ol: (props: ListProps) => (

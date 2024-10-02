@@ -18,8 +18,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border border-gray-800 text-white bg-gradient-to-b from-gray-900 to-gray-1000 hover:to-gray-800 dark:border-gray-400 dark:text-black dark:from-gray-100 dark:to-gray-200 dark:hover:to-gray-300',
-        secondary: 'border border-gray-400 text-black bg-gradient-to-b from-gray-100 to-gray-200 hover:to-gray-300 dark:border-gray-800 dark:text-white dark:from-gray-1000 dark:to-gray-1100 dark:hover:opacity-85',
+        default: 'border border-gray-800 text-white bg-gray-950 dark:border-gray-400 dark:text-black dark:bg-gray-200 hover:opacity-90',
+        secondary: 'border border-gray-400 text-black bg-gradient-to-b from-gray-100 to-gray-200 dark:border-gray-800 dark:text-white dark:from-gray-1000 dark:to-gray-1100 hover:opacity-85',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         outline: 'border border-gray-400 hover:bg-gray-100 text-gray-800 dark:border-gray-800 dark:text-white dark:hover:bg-gray-900',
         transparent: 'dark:text-gray-400 dark:hover:text-gray-400/80',

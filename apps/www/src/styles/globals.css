@@ -48,9 +48,27 @@
     @apply antialiased bg-white text-gray-700 dark:bg-zinc-950 dark:text-gray-400;
     text-rendering: optimizeLegibility;
   }
-
+  h1 {
+    @apply font-bold text-2xl;
+  }
+  h2 {
+    @apply font-bold text-xl;
+  }
+  h3 {
+    @apply font-bold text-lg;
+  }
+  h4 {
+    @apply font-bold text-[16px];
+    line-height: 1.5rem;
+  }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-medium text-balance bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.6)] bg-clip-text text-transparent
+    @apply font-medium text-balance bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.8)] bg-clip-text text-transparent
+  }
+  p {
+    @apply font-normal text-gray-900 dark:text-gray-500;
+  }
+  b {
+    @apply font-medium text-gray-950 dark:text-gray-600;
   }
   p a {
     @apply no-underline hover:underline font-normal text-secondary dark:text-primary transition-colors duration-300;
@@ -64,43 +82,31 @@
   p, li {
     @apply prose font-normal text-[15.5px] leading-[26px] text-gray-800 dark:text-gray-400;
   }
-
   li::marker {
     @apply text-black dark:text-white;
   }
-
-  b {
-    @apply font-semibold text-gray-800 dark:text-gray-200;
-  }
-  
   input {
     @apply caret-primary dark:caret-secondary;
   }
-
   svg {
     @apply text-zinc-400 dark:text-zinc-600;
   }
-
   pre {
     @apply font-serif text-black dark:text-white border rounded-md border-gray-300 dark:border-gray-1000 bg-gray-200 dark:bg-gray-1200 p-4 my-6 mx-0 overflow-x-auto leading-none;
   }
-  
   pre::-webkit-scrollbar {
     display: none;
   }
-  
   pre {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
   code {
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
     font-size: 14px;
     padding: 0.2em 0.4em;
     border-radius: 0.3em;
   }
-  
   pre code {
     background-color: transparent;
     padding: 0;
@@ -108,19 +114,15 @@
     font-size: 14px;
     line-height: 1.5;
   }
-  
   pre code > span .sh__token--identifier {
     color: white !important;
   }
-  
   code:not(pre code) span {
     @apply font-sans font-medium text-black dark:text-white
   }
-  
   pre code span {
     font-weight: 500;
   }
-  
   /* Remove Safari input shadow on mobile */
   input[type='text'],
   input[type='email'] {
@@ -128,30 +130,24 @@
     -moz-appearance: none;
     appearance: none;
   }
-  
   table {
     display: block;
     max-width: fit-content;
     overflow-x: auto;
     white-space: nowrap;
   }
-  
   ::view-transition-old(lee) {
     animation: fade-out 0.8s ease-in-out;
   }
-  
   ::view-transition-new(lee) {
     animation: fade-in-up 0.4s ease-in-out;
   }
-
   ::-webkit-scrollbar {
     @apply w-[6px];
   }
-
   ::-webkit-scrollbar-track {
     @apply bg-zinc-200 dark:bg-zinc-900 border-none;
   }
-
   ::-webkit-scrollbar-thumb {
     @apply rounded-full bg-gray-600 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-900 duration-300 transition-colors;
   }
