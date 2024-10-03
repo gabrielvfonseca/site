@@ -21,11 +21,19 @@ import { Badge } from '@components/ui/badge';
 // Configuration siteConfig
 import { siteConfig } from '@/site.config';
 
+// Services
+import { getProjects } from '@services/projects';
+
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
 
 // Homepage JSX component
 export default async function Homepage() {  
+
+  const projects = await getProjects();
+
+  console.log(projects);
+
   // Return page component
   return (
     <>
@@ -62,9 +70,9 @@ export default async function Homepage() {
       </p>
 
       <div className='mb-8 mt-8 sm:mt-10'>
-        <h2 className='block mb-4 text-md'>
+        <h4 className='mb-4'>
           Projects
-        </h2>
+        </h4>
 
         <div className='flex flex-col gap-2'>
           <Suspense fallback={ <Fallback /> }>
@@ -86,7 +94,7 @@ export default async function Homepage() {
                   href={value.href}
                   className="flex sm:items-center flex-col sm:flex-row gap-1 sm:gap-4 group"
                 >
-                  <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-100">
+                  <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-300">
                     {value.title}
                   </strong>
                   <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800" />
@@ -105,7 +113,7 @@ export default async function Homepage() {
       </div>
 
       <div className='mb-8 mt-8 sm:mt-10'>
-        <h4 className='block mb-4 text-md'>
+        <h4 className='mb-4'>
           Notes
         </h4>
         
@@ -122,7 +130,7 @@ export default async function Homepage() {
                       href={value.slug}
                       className="flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group"
                     >
-                      <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-100">
+                      <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-300">
                         {value.title}
                       </strong>
                       <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800" />
@@ -139,7 +147,7 @@ export default async function Homepage() {
       </div>
 
       <div className='mb-8 mt-8 sm:mt-10'>
-        <h4 className='block mb-4 text-md'>
+        <h4 className='mb-4'>
           Newsletter
         </h4>
 
