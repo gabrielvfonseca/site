@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+import * as React from 'react';
+
+// Next Navigation
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 // Icons
 import {
@@ -11,7 +13,7 @@ import {
   Menu,
   Pencil,
   Text,
-} from "lucide-react";
+} from 'lucide-react';
 
 // UI Components
 import {
@@ -22,15 +24,18 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@components/ui/command";
-import { Button } from "@components/ui/button";
+} from '@components/ui/command';
+import { Button } from '@components/ui/button';
 
 // ContentLayer
-import { allNotes } from "@/.contentlayer/generated";
+import { allNotes } from '@/.contentlayer/generated';
 
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
-import { useMediaQuery } from "../hooks/use-media-query";
+
+// Hooks
+import { useMediaQuery } from '@hooks/use-media-query';
+import { MenuToggle } from './menu-toggle';
 
 // Spotlight Component
 export function Spotlight() {
@@ -47,7 +52,7 @@ export function Spotlight() {
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       // Define shortcut conditions
-      const openSpotlight = e.key === "j" && (e.metaKey || e.ctrlKey);
+      const openSpotlight = e.key === 'j' && (e.metaKey || e.ctrlKey);
 
       // Handle open/close for non-mobile devices
       if (openSpotlight) {
@@ -57,8 +62,8 @@ export function Spotlight() {
     };
 
     // Add Event Listener
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
   }, []);
 
   // UseEffect Hook for Pathname and Search Params change
@@ -67,35 +72,35 @@ export function Spotlight() {
   }, [pathname]);
 
   // Media Query
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   // Content JSX
   const CommandContent = (): JSX.Element => (
     <>
-      <CommandInput placeholder="Type a command or search..." />
+      <CommandInput placeholder='Type a command or search...' />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
+        <CommandGroup heading='Suggestions'>
           <CommandItem
-            onSelect={() => router.push("/")}
+            onSelect={() => router.push('/')}
           >
-            <Home className="mr-2 h-4 w-4" />
+            <Home className='mr-2 h-4 w-4' />
             <span>Home</span>
           </CommandItem>
           <CommandItem
-            onSelect={() => router.push("/notes")}
+            onSelect={() => router.push('/notes')}
           >
-            <Pencil className="mr-2 h-4 w-4" />
+            <Pencil className='mr-2 h-4 w-4' />
             <span>Notes</span>
           </CommandItem>
           <CommandItem
-            onSelect={() => router.push("/projects")}
+            onSelect={() => router.push('/projects')}
           >
-            <Folder className="mr-2 h-4 w-4" />
+            <Folder className='mr-2 h-4 w-4' />
             <span>Projects</span>
           </CommandItem>
         </CommandGroup>
-        <CommandGroup heading="Latest Notes">
+        <CommandGroup heading='Latest Notes'>
           {
             allNotes
               .sort((a: Note, b: Note) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -104,7 +109,7 @@ export function Spotlight() {
                 key={note.slug}
                 onSelect={() => router.push(note.slug)}
               >
-                <Text className="mr-2 h-4 w-4" />
+                <Text className='mr-2 h-4 w-4' />
                 <span>{note.title}</span>
               </CommandItem>
             ))
@@ -121,9 +126,9 @@ export function Spotlight() {
         size={isDesktop ? 'sm' : 'icon'}
         variant={isDesktop ? 'outline' : 'ghost'}
         onClick={() => setOpen(true)}
-        className="sm:px-2"
+        className='sm:px-2'
       >
-        {isDesktop ? '⌘J' : <Menu size={18} className="text-gray-800 dark:text-gray-600" />}
+        {isDesktop ? '⌘J' : <MenuToggle state={open} onToggle={setOpen} />}
       </Button>
 
       {      
