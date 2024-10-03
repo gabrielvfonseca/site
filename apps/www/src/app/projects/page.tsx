@@ -9,6 +9,18 @@ import Fallback from '@components/fallback';
 // UI Components
 import { Badge } from '@components/ui/badge';
 
+// Construct metadata
+import { constructMetadata } from "@utils/metadata";
+
+// Configuration siteConfig
+import { siteConfig } from "@/site.config";
+
+// Metadata
+export const metadata = constructMetadata({
+  title: `Projects | ${siteConfig.title}`,
+  description: 'A collection of projects I have worked on, from open-source to personal projects.',
+});
+
 // Notes Page JSX component
 export default function Page(): JSX.Element {
     return (

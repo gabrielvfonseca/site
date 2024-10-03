@@ -4,13 +4,13 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 
 // Link
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 
 // UI Components
-import { AspectRatio } from '../ui/aspect-ratio';
+import { AspectRatio } from '@components/ui/aspect-ratio';
 
 // Sugar
-import { highlight } from 'sugar-high'
+import { highlight } from 'sugar-high';
 
 // Types
 import type { MDXComponents } from 'mdx/types';

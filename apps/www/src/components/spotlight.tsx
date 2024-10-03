@@ -93,12 +93,14 @@ export function Spotlight() {
             <Pencil className='mr-2 h-4 w-4' />
             <span>Notes</span>
           </CommandItem>
+          {/*
           <CommandItem
             onSelect={() => router.push('/projects')}
           >
             <Folder className='mr-2 h-4 w-4' />
             <span>Projects</span>
           </CommandItem>
+          */}
         </CommandGroup>
         <CommandGroup heading='Latest Notes'>
           {

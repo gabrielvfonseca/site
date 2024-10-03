@@ -15,6 +15,18 @@ import { formatDate } from "@utils/date";
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
 
+// Construct metadata
+import { constructMetadata } from "@utils/metadata";
+
+// Configuration siteConfig
+import { siteConfig } from "@/site.config";
+
+// Metadata
+export const metadata = constructMetadata({
+  title: `Notes | ${siteConfig.title}`,
+  description: 'A collection of notes on various topics, from software engineering to personal development.',
+});
+
 // Notes Page JSX component
 export default function Page(): JSX.Element {
   return (

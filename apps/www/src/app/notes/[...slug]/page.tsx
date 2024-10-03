@@ -2,6 +2,8 @@ import React, { Suspense } from 'react';
 
 // Next
 import Image from 'next/image';
+
+// Navigation
 import { notFound } from 'next/navigation';
 
 // MDX
@@ -13,9 +15,6 @@ import { AspectRatio } from '@components/ui/aspect-ratio';
 // Config
 import { siteConfig } from '@/site.config';
 
-// Subscribe
-import Subscribe from '@components/forms/subscribe';
-
 // Contentlayer
 import { allNotes } from 'contentlayer/generated';
 
@@ -25,8 +24,20 @@ import Loading from './loading';
 // Utils
 import { formatDate, howLongAgo } from '@utils/date';
 
+// Construct metadata
+import { constructMetadata } from '@utils/metadata';
+
 // Types
 import type { Metadata } from 'next';
+
+// Comments
+import Comments from '@components/comments';
+
+// Separator
+import { Separator } from '@components/ui/separator';
+
+// Auth
+import { sessionState } from '@services/auth/session';
 
 interface NoteProps {
   params: {
@@ -38,6 +49,8 @@ interface NoteProps {
 export default async function Page ({ params }: NoteProps) {
   // Retrieve the note from the params
   const note = await getnoteFromParams(params);
+
+  const auth = await sessionState();
 
   // If the note does not exist, return a 404 page
   if (!note) {
@@ -74,27 +87,7 @@ export default async function Page ({ params }: NoteProps) {
         )
       }
       
-      <div>
-        <MDX code={note.body.code} />
-      </div>
-      <div className='mb-8 mt-8 sm:mt-10'>
-      <h2 className='block mb-4 text-md'>
-        More notes like this
-      </h2>
-
-      <p className='mb-8'>
-        I began writing these notes to share insights on software 
-        development, productivity, and more. If you found 
-        this note valuable, consider <b>subscribing to my 
-        newsletter</b> for regular updates on these topics.
-      </p>
-
-      <p className='mb-8'>
-        No spam, unsubscribe at any time.
-      </p>
-
-      <Subscribe />
-    </div>
+      <MDX code={note.body.code} />
     </Suspense>
   );
 };
@@ -120,37 +113,18 @@ params,
 }: NoteProps): Promise<Metadata> {
   // Retrieve the note from the params
   const note = await getnoteFromParams(params);
+
   // If the note does not exist, return an empty object
   if (!note) {
-      return {};
+    return {};
   };
+
   // Return the metadata for the note
-  return {
-    title: note.title,
+  return constructMetadata({
+    title: `${note.title} | ${siteConfig.title}`,
     description: note.description,
-    authors: [
-      { name: siteConfig.siteName, url: note.slug }
-    ],
-    applicationName: siteConfig.title,
-    generator: 'Next.js',
-    keywords: note.title.split(' '), // Split the title into keywords
-    openGraph: {
-      title: siteConfig.title,
-      description: siteConfig.description,
-      url: siteConfig.url,
-      siteName: siteConfig.title,
-      images: [
-        {
-          url: siteConfig.ogImage, // Must be an absolute URL
-          width: 1200,
-          height: 630,
-          alt: 'Gabriel',
-        },
-      ],
-      locale: 'en_US',
-      type: 'website',
-    },
-  };
+    image: note.image,
+  });
 };
 
 // Generate the static params for the note
@@ -159,6 +133,7 @@ export async function generateStaticParams(): Promise<NoteProps['params'][]> {
   const params = allNotes.map((note) => ({
     slug: note.slugAsParams.split('/'),
   }));
+
   // Return
   return params;
 };

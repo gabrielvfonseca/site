@@ -8,6 +8,7 @@ interface SiteConfig {
   siteName: string;
   description: string;
   url: string;
+  author: string;
   ogImage: string;
   links: {
     twitter: string;
@@ -22,6 +23,7 @@ export const siteConfig: SiteConfig = {
   title: 'Gabriel',
   siteName: 'Gabriel Fonseca',
   description: 'This is my site.',
+  author: '@gabrielvfonseca',
   url: baseUrl,
   ogImage: `${baseUrl}/opengraph-image.png`,
   links: {

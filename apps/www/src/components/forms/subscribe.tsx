@@ -46,17 +46,19 @@ export default function SubscribeForm() {
         };
 
         // Create a new subscription using server actions
-        const response = await Subscribe(validatedFields.data.email);
+        const response = await Subscribe({
+            email: validatedFields.data.email,
+        });
 
         // Reset the form
         formRef.current?.reset();
 
-        if (response === 'error') {
+        if (response.state === 'error') {
             // Show error message
-            toast.error('An error occurred!');
-        } else if (response === 'already_subscribed') {
+            toast.error(response.message);
+        } else if (response.state === 'already_subscribed') {
             // Show error message related to subscription
-            toast.error('You are already subscribed!');
+            toast.error(response.message);
         } else {
             // Loading state
             setLoading(true);
@@ -71,7 +73,7 @@ export default function SubscribeForm() {
             toast.promise(promise, {
                 loading: 'Loading...',
                 success: () => {
-                    return 'All set! I promise not to spam you.';
+                    return response.message;
                 },
                 duration: 500,
                 error: 'Error',

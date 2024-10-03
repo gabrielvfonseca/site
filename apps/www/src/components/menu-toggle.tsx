@@ -77,7 +77,7 @@ export const MenuToggle = ({ state, onToggle, className, classNameToggle }: Menu
     };
 
     return (
-        <button
+        <div
             className={cn(buttonVariants({ variant: 'ghost', size: 'default', radius: 'full' }), className)}
             onClick={() => onToggle(!state)}
         >
@@ -103,6 +103,6 @@ export const MenuToggle = ({ state, onToggle, className, classNameToggle }: Menu
                     />
                 ))}
             </motion.div>
-        </button>
+        </div>
     );
 };

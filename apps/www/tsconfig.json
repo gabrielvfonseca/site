@@ -10,6 +10,7 @@
       "@utils/*": ["./src/utils/*"],
       "@content/*": ["./src/content/*"],
       "@emails/*": ["./src/email/emails/*"],
+      "@services/*": ["./src/services/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@fonts/*": ["./src/fonts/*"],
       "@config/*": ["./src/config/*"],

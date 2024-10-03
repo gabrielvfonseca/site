@@ -21,19 +21,11 @@ import { Badge } from '@components/ui/badge';
 // Configuration siteConfig
 import { siteConfig } from '@/site.config';
 
-// Services
-import { getProjects } from '@services/projects';
-
 // Types
 import type { Notes as Note } from 'contentlayer/generated';
 
 // Homepage JSX component
 export default async function Homepage() {  
-
-  const projects = await getProjects();
-
-  console.log(projects);
-
   // Return page component
   return (
     <>
@@ -69,6 +61,7 @@ export default async function Homepage() {
         But that&apos;s okay. I&apos;m here to share my journey, thoughts, and passions.
       </p>
 
+      {/* 
       <div className='mb-8 mt-8 sm:mt-10'>
         <h4 className='mb-4'>
           Projects
@@ -111,6 +104,7 @@ export default async function Homepage() {
           </Suspense>
         </div>
       </div>
+      */}
 
       <div className='mb-8 mt-8 sm:mt-10'>
         <h4 className='mb-4'>

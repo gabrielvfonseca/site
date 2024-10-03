@@ -1,6 +1,6 @@
 
 // Fetcher function
-import { getPlayingTrack } from '@utils/spotify';
+import { getPlayingTrack } from '@services/spotify';
 
 // GET request handler
 export async function GET() {

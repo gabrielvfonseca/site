@@ -146,11 +146,12 @@
     @apply w-[6px];
   }
   ::-webkit-scrollbar-track {
-    @apply bg-zinc-200 dark:bg-zinc-900 border-none;
+    @apply bg-zinc-100 dark:bg-zinc-950 border-none;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-gray-600 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-900 duration-300 transition-colors;
+    @apply rounded-full bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-800 duration-300 transition-colors;
   }
+
 }
 
 @keyframes fade-out {

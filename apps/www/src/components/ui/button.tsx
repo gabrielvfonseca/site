@@ -19,9 +19,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'border border-gray-800 text-white bg-gray-950 dark:border-gray-400 dark:text-black dark:bg-gray-200 hover:opacity-90',
-        secondary: 'border border-gray-400 text-black bg-gray-200 dark:border-gray-800 dark:text-white dark:bg-gray-1200 hover:opacity-85',
+        secondary: 'border border-gray-400 text-black bg-gray-200 dark:border-gray-1000 dark:text-white dark:bg-gray-1200 hover:opacity-85',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline: 'border border-gray-400 hover:bg-gray-200 text-gray-800 dark:border-gray-800 dark:text-white dark:hover:bg-gray-1200',
+        outline: 'border border-gray-400 hover:bg-gray-200 text-gray-800 dark:border-gray-1000 dark:text-white dark:hover:bg-gray-1200',
         transparent: 'dark:text-gray-400 dark:hover:text-gray-400/80',
         ghost: '',
       },
