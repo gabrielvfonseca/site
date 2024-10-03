@@ -120,7 +120,7 @@ const CommandList = React.forwardRef<
     className={cn(className)}
     {...props}
   >
-    <ScrollArea className="h-[320px]">
+    <ScrollArea className="min-h-96 h-full lg:h-[320px]">
       {children}
     </ScrollArea>
   </CommandPrimitive.List>
