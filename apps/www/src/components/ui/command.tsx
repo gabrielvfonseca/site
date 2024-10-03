@@ -21,7 +21,7 @@ import { Search } from "lucide-react";
 import { cn } from "@utils/cn";
 
 // Dialog Component
-import { Dialog, DialogContent } from "./dialog";
+import { Dialog, DialogContent } from "@components/ui/dialog";
 
 // Types
 interface CommandDialogProps extends DialogProps {};
