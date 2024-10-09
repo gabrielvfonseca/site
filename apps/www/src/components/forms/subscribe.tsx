@@ -6,8 +6,8 @@ import React, { useState, useRef } from 'react';
 import { z } from 'zod';
 
 // UI Components
-import { Input } from '@components/ui/input';
-import { Button } from '@components/ui/button';
+import { Input } from '@site/ui/input';
+import { Button } from '@site/ui/button';
 
 // Sonner
 import { toast } from 'sonner';
@@ -32,10 +32,10 @@ export default function SubscribeForm() {
     const [loading, setLoading] = useState<boolean>(false);
 
     // Define the form action
-    async function action(data: FormData) {
+    async function action(formData: FormData) {
         // Validate the form data
         const validatedFields = schema.safeParse({
-            email: data.get('email'),
+            email: formData.get('email'),
         });
 
         // Check if the form data is valid
@@ -53,10 +53,10 @@ export default function SubscribeForm() {
         // Reset the form
         formRef.current?.reset();
 
-        if (response.state === 'error') {
+        if (response.code !== 200 && response.code !== 401) {
             // Show error message
             toast.error(response.message);
-        } else if (response.state === 'already_subscribed') {
+        } else if (response.code === 401) {
             // Show error message related to subscription
             toast.error(response.message);
         } else {
@@ -89,36 +89,29 @@ export default function SubscribeForm() {
 
     // Render JSX form
     return (
-        <div className='relative'>
-            <form
-                ref={formRef}
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    const formData = new FormData(e.currentTarget);
-                    action(formData);
-                }}
+        <form
+            ref={formRef}
+            action={action}
+            className='relative'
+        >
+            <Input
+                id='email'
+                type='email'
+                name='email'
+                className='block'
+                placeholder='Your email'
+                required
+            />
+            <Button
+                type='submit'
+                size='small'
+                shape='rounded'
+                variant='default'
+                className='absolute end-1 bottom-1 w-22'
+                loading={loading}
             >
-                <Input
-                    id='email'
-                    type='email'
-                    name='email'
-                    className='block'
-                    placeholder='Your email'
-                    required
-                />
-                <Button
-                    id='submit'
-                    type='submit'
-                    size='sm'
-                    radius='md'
-                    variant='default'
-                    className='absolute end-1 bottom-1 w-22'
-                    loading={loading}
-                    loadingWidth='w-[84px]'
-                >
-                    Subscribe
-                </Button>
-            </form>
-        </div>
+                Subscribe
+            </Button>
+        </form>
     );
 };

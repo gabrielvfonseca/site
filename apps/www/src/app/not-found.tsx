@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 
 // UI Components
-import { Button } from '@components/ui/button';
+import { Button } from '@site/ui/button';
 
 // NotFound JSX component
 export default function NotFound(): JSX.Element {

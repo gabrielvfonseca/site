@@ -8,91 +8,55 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './colors.css';
+
 @theme {
-  --font-family-sans: 'Inter', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 }
 
-:root {
-  --sh-class: #5786ea;
-  --sh-sign: #6a80fa;
-  --sh-string: #55abf2;
-  --sh-keyword: #ec4b4e;
-  --sh-comment: #626a72;
-  --sh-jsxliterals: #7097ed;
-  --sh-property: #cf8e3a;
-  --sh-entity: #c0d258;
-  --sh-identifier: #2f2f2f;
-}
-
-.dark {
-  --sh-class: #6491f1;
-  --sh-sign: #7589fc;
-  --sh-string: #5fb3f8;
-  --sh-keyword: #f1575a;
-  --sh-comment: #6c757d;
-  --sh-jsxliterals: #7aa2f7;
-  --sh-property: #d79642;
-  --sh-entity: #cee068;
-  --sh-identifier: #f8f8f2;
-}
-
-@layer base {
-  *::selection {
-    @apply bg-primary dark:bg-secondary text-gray-200 dark:text-gray-200
-  }
-
+@layer base {  
   html {
-    @apply bg-white dark:bg-zinc-950;
+    @apply bg-background-100;
   }
-  body {
-    @apply antialiased bg-white text-gray-700 dark:bg-zinc-950 dark:text-gray-400;
-    text-rendering: optimizeLegibility;
+  :host, html body {
+    @apply font-sans bg-background-100;
   }
-  h1 {
-    @apply font-bold text-2xl;
-  }
-  h2 {
-    @apply font-bold text-xl;
-  }
-  h3 {
-    @apply font-bold text-lg;
+  *::selection {
+    @apply text-gray-100 bg-selection;
   }
   h4 {
-    @apply font-bold text-[16px];
-    line-height: 1.5rem;
+    @apply font-mono text-balance text-gray-1000;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-medium text-balance bg-gradient-to-br from-[rgba(0,0,0,1)] to-[rgba(0,0,0,0.9)] dark:from-[rgba(255,255,255,1)] dark:to-[rgba(255,255,255,0.8)] bg-clip-text text-transparent
-  }
-  p {
-    @apply font-normal text-gray-900 dark:text-gray-500;
+  p, blockquote, ul, ol, dl, table, b {
+    @apply font-normal text-balance leading-6 tracking-normal text-gray-900;
   }
   b {
-    @apply font-medium text-gray-950 dark:text-gray-600;
-  }
-  p a {
-    @apply no-underline hover:underline font-normal text-secondary dark:text-primary transition-colors duration-300;
+    @apply font-medium text-gray-1000;
   }
   header a {
-    @apply text-black dark:text-white hover:text-gray-800 dark:hover:text-gray-400 transition-colors duration-300;
+    @apply text-gray-1000 no-underline transition-colors duration-300;
   }
   footer a {
-    @apply text-black dark:text-white hover:underline hover:text-secondary dark:hover:text-primary transition-colors duration-200;
+    @apply text-gray-1000 hover:underline hover:text-primary transition-colors duration-300;
   }
-  p, li {
-    @apply prose font-normal text-[15.5px] leading-[26px] text-gray-800 dark:text-gray-400;
+  main p a {
+    @apply hover:underline font-normal text-primary transition-colors duration-300;
+  }
+  li {
+    @apply prose text-gray-900 font-normal text-[15.5px] leading-[26px];
   }
   li::marker {
-    @apply text-black dark:text-white;
+    @apply text-gray-600;
   }
   input {
-    @apply caret-primary dark:caret-secondary;
+    @apply caret-primary;
   }
   svg {
-    @apply text-zinc-400 dark:text-zinc-600;
+    @apply text-gray-800;
   }
+
   pre {
-    @apply font-serif text-black dark:text-white border rounded-md border-gray-300 dark:border-gray-1000 bg-gray-200 dark:bg-gray-1200 p-4 my-6 mx-0 overflow-x-auto leading-none;
+    @apply font-sans text-gray-1000 border rounded-md border-gray-400 bg-accents-1 p-4 overflow-x-auto leading-none;
   }
   pre::-webkit-scrollbar {
     display: none;
@@ -101,57 +65,22 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   code {
-    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-    font-size: 14px;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
+    @apply font-sans text-sm px-1.5 py-0.5 bg-accents-1 text-gray-1000;
   }
   pre code {
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    font-size: 14px;
-    line-height: 1.5;
+    @apply border-none text-sm leading-6 p-0 bg-transparent;
   }
   pre code > span .sh__token--identifier {
-    color: white !important;
+    @apply text-gray-1000;
   }
   code:not(pre code) span {
-    @apply font-sans font-medium text-black dark:text-white
+    @apply font-sans font-normal text-gray-1000;
   }
   pre code span {
-    font-weight: 500;
+    @apply font-sans font-normal text-gray-1000;
   }
-  /* Remove Safari input shadow on mobile */
-  input[type='text'],
-  input[type='email'] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-  table {
-    display: block;
-    max-width: fit-content;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  ::view-transition-old(lee) {
-    animation: fade-out 0.8s ease-in-out;
-  }
-  ::view-transition-new(lee) {
-    animation: fade-in-up 0.4s ease-in-out;
-  }
-  ::-webkit-scrollbar {
-    @apply w-[6px];
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-zinc-100 dark:bg-zinc-950 border-none;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-800 duration-300 transition-colors;
-  }
-
 }
 
 @keyframes fade-out {

@@ -8,9 +8,7 @@ import { usePathname } from 'next/navigation';
 
 // Icons
 import {
-  Folder,
   Home,
-  Menu,
   Pencil,
   Text,
 } from 'lucide-react';
@@ -24,17 +22,19 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@components/ui/command';
-import { Button } from '@components/ui/button';
+} from '@site/ui/command';
+import { Button } from '@site/ui/button';
 
 // ContentLayer
-import { allNotes } from '@/.contentlayer/generated';
+import { allNotes } from '@contentlayer';
 
 // Types
-import type { Notes as Note } from 'contentlayer/generated';
+import type { Notes as Note } from '@contentlayer';
 
 // Hooks
 import { useMediaQuery } from '@hooks/use-media-query';
+
+// MenuToggle Component
 import { MenuToggle } from './menu-toggle';
 
 // Spotlight Component
@@ -52,7 +52,7 @@ export function Spotlight() {
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       // Define shortcut conditions
-      const openSpotlight = e.key === 'j' && (e.metaKey || e.ctrlKey);
+      const openSpotlight = e.key === 'k' && (e.metaKey || e.ctrlKey);
 
       // Handle open/close for non-mobile devices
       if (openSpotlight) {
@@ -77,7 +77,7 @@ export function Spotlight() {
   // Content JSX
   const CommandContent = (): JSX.Element => (
     <>
-      <CommandInput placeholder='Type a command or search...' />
+      <CommandInput placeholder='Search...' />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading='Suggestions'>
@@ -125,12 +125,12 @@ export function Spotlight() {
   return (
     <>
       <Button
-        size={isDesktop ? 'sm' : 'icon'}
-        variant={isDesktop ? 'outline' : 'ghost'}
+        size='small'
+        variant={null}
         onClick={() => setOpen(true)}
-        className='sm:px-2'
+        className='opacity-80 text-gray-900'
       >
-        {isDesktop ? '⌘J' : <MenuToggle state={open} onToggle={setOpen} />}
+        {isDesktop ? '⌘K' : <MenuToggle state={open} onToggle={setOpen} />}
       </Button>
 
       {      

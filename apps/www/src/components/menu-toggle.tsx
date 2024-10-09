@@ -8,9 +8,6 @@ import { motion } from 'framer-motion';
 // Classnames
 import { cn } from "@utils/cn";
 
-// Button Variants
-import { buttonVariants } from '@components/ui/button';
-
 // MenuToggle Props
 interface MenuToggleProps {
     state: boolean;
@@ -27,7 +24,7 @@ export const MenuToggle = ({ state, onToggle, className, classNameToggle }: Menu
     };
     // Line properties
     const lines = {
-        size: 2,
+        size: 1.75,
         length: container.size * 2, // Adjusting the length to fit within the container
         spacing: container.size * 0.4, // Spacing between lines
     };
@@ -78,7 +75,6 @@ export const MenuToggle = ({ state, onToggle, className, classNameToggle }: Menu
 
     return (
         <div
-            className={cn(buttonVariants({ variant: 'ghost', size: 'default', radius: 'full' }), className)}
             onClick={() => onToggle(!state)}
         >
             <motion.div
@@ -91,7 +87,7 @@ export const MenuToggle = ({ state, onToggle, className, classNameToggle }: Menu
                 {animations.lines.map((line, index) => (
                     <motion.div
                         key={index}
-                        className={cn('absolute bg-gray-900 dark:bg-gray-400 transition-colors duration-300 rounded-full', classNameToggle)}
+                        className={cn('absolute bg-gray-1000 transition-colors duration-300 rounded-full', classNameToggle)}
                         style={{
                             width: lines.length,
                             height: lines.size,

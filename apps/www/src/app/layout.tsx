@@ -2,14 +2,15 @@ import React from 'react';
 
 // CSS
 import '@styles/globals.css';
+import '@site/ui/styles.css';
 
 // Font
-import { inter, editorialNew } from '@site/fonts-config';
+import { inter } from '@site/fonts-config';
 
 // Providers
-import { ThemeProvider } from '@components/providers/theme-provider';
-import { AnalyticsProvider } from '@components/providers/analytics-provider';
-import { LiveBlocksProvider } from '@components/providers/liveblocks-provider';
+import { ThemeProvider } from '@site/ui/providers/theme';
+import { AnalyticsProvider } from '@site/ui/providers/analytics';
+import { LiveBlocksProvider } from '@site/ui/providers/liveblocks';
 
 // Components
 import { Header } from '@components/header';
@@ -21,9 +22,6 @@ import type { Metadata } from 'next';
 // Construct metadata
 import { constructMetadata } from '@utils/metadata';
 
-// Export metadata
-export const metadata: Metadata = constructMetadata();
-
 // Viewport
 import type { Viewport } from 'next';
 
@@ -33,11 +31,12 @@ import { constructViewport } from '@utils/viewport';
 // Export viewport
 export const viewport: Viewport = constructViewport();
 
-// UI Components
-import { Toaster } from '@components/ui/sonner';
+// Export metadata
+export const metadata: Metadata = constructMetadata();
 
-// Utils
-import { cn } from '@utils/cn';
+// UI Components
+import { Toaster } from '@site/ui/sonner';
+import { ScrollArea } from '@site/ui/scroll-area';
 
 // Root layout component
 export default function RootLayout({
@@ -49,10 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={cn(
-        inter.variable,
-        editorialNew.variable,
-      )}
+      className={inter.variable}
     >
       <body>
         <AnalyticsProvider>
@@ -64,7 +60,7 @@ export default function RootLayout({
             >
               <div className='mx-auto max-w-lg sm:max-w-xl px-4 py-10 sm:py-28'>
                 <Header />
-                <main>{ children }</main>
+                <main>{children}</main>
                 <Footer />
               </div>
               <Toaster 

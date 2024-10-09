@@ -36,5 +36,5 @@ module.exports = __toCommonJS(client_exports);
 var import_resend = require("resend");
 var dotenv = __toESM(require("dotenv"));
 dotenv.config();
-var resend = new import_resend.Resend(process.env.RESEND_API_KEY || "re_GeG3StnC_8VPALgX29TvknR3aZJBKEv3L");
+var resend = new import_resend.Resend(process.env.RESEND_API_KEY || "re_iXmSVD9x_DQyYxZ4PnqNBx71g5qg1Ga1D");
 var client_default = resend;

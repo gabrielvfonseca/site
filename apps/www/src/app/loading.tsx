@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import Spinner from '@components/spinner';
+import Spinner from '@site/ui/spinner';
 
 // Loading JSX component
 export default function Loading(): JSX.Element {

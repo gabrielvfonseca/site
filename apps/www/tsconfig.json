@@ -12,14 +12,12 @@
       "@emails/*": ["./src/email/emails/*"],
       "@services/*": ["./src/services/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@fonts/*": ["./src/fonts/*"],
-      "@config/*": ["./src/config/*"],
+      "@config*": ["./site.config.ts"],
       "@utils": ["./src/utils"],
       "@actions/*": ["./src/actions/*"],
-      "@types/*": ["./src/types/*"],
       "@app/*": ["./src/app/*"],
       "@public": ["./public/*"],
-      "contentlayer/generated": ["./.contentlayer/generated"],
+      "@contentlayer": ["./.contentlayer/generated"],
     }
   },
   "include": [
@@ -28,7 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated", "../../utils/cn.ts",
+    ".contentlayer/generated", "../../utils/cn.ts", "../../ui/src/components/spinner.tsx",
   ],
   "exclude": ["node_modules"]
 }

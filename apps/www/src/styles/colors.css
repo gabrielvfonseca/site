@@ -1,0 +1,259 @@
+/*
+ * This file is responsible for importing Tailwind CSS 
+ * and colors only to be used in the ui library.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --ui-background-100: #fff;
+    --ui-background-200: #fafafa;
+
+    --primary-color: hsl(216, 100%, 45%);
+    --selection-color: var(--primary-color);
+
+    --accents-1: #fafafa;
+    --accents-2: #eaeaea;
+    --accents-3: #999;
+    --accents-4: #888;
+    --accents-5: #666;
+    --accents-6: #444;
+    --accents-7: #333;
+    --accents-8: #111;
+
+    --ui-gray-100: hsl(0,0%,95%);
+    --ui-gray-200: hsl(0,0%,92%);
+    --ui-gray-300: hsl(0,0%,90%);
+    --ui-gray-400: hsl(0,0%,92%);
+    --ui-gray-500: hsl(0,0%,79%);
+    --ui-gray-600: hsl(0,0%,66%);
+    --ui-gray-700: hsl(0,0%,56%);
+    --ui-gray-800: hsl(0,0%,49%);
+    --ui-gray-900: hsl(0,0%,40%);
+    --ui-gray-1000: hsl(0,0%,9%);
+    
+    --ui-blue-100: hsl(212,100%,97%);
+    --ui-blue-200: hsl(210,100%,96%);
+    --ui-blue-300: hsl(210,100%,94%);
+    --ui-blue-400: hsl(209,100%,90%);
+    --ui-blue-500: hsl(209,100%,80%);
+    --ui-blue-600: hsl(208,100%,66%);
+    --ui-blue-700: hsl(212,100%,48%);
+    --ui-blue-800: hsl(212,100%,41%);
+    --ui-blue-900: hsl(211,100%,42%);
+    --ui-blue-1000: hsl(211,100%,15%);
+
+    --ui-red-100: hsl(0,100%,97%);
+    --ui-red-200: hsl(0,100%,96%);
+    --ui-red-300: hsl(0,100%,95%);
+    --ui-red-400: hsl(0,90%,92%);
+    --ui-red-500: hsl(0,82%,85%);
+    --ui-red-600: hsl(359,90%,71%);
+    --ui-red-700: hsl(358,75%,59%);
+    --ui-red-800: hsl(358,70%,52%);
+    --ui-red-900: hsl(358,66%,48%);
+    --ui-red-1000: hsl(355,49%,15%);
+
+    --ui-amber-100: hsl(39,100%,95%);
+    --ui-amber-200: hsl(44,100%,92%);
+    --ui-amber-300: hsl(43,96%,90%);
+    --ui-amber-400: hsl(42,100%,78%);
+    --ui-amber-500: hsl(38,100%,71%);
+    --ui-amber-600: hsl(36,90%,62%);
+    --ui-amber-700: hsl(39,100%,57%);
+    --ui-amber-800: hsl(35,100%,52%);
+    --ui-amber-900: hsl(30,100%,32%);
+    --ui-amber-1000: hsl(20,79%,17%);
+
+    --ui-green-100: hsl(120,60%,96%);
+    --ui-green-200: hsl(120,60%,95%);
+    --ui-green-300: hsl(120,60%,91%);
+    --ui-green-400: hsl(122,60%,86%);
+    --ui-green-500: hsl(124,60%,75%);
+    --ui-green-600: hsl(125,60%,64%);
+    --ui-green-700: hsl(131,41%,46%);
+    --ui-green-800: hsl(132,43%,39%);
+    --ui-green-900: hsl(133,50%,32%);
+    --ui-green-1000: hsl(128,29%,15%);
+
+    --ui-teal-100: hsl(169,70%,96%);
+    --ui-teal-200: hsl(167,70%,94%);
+    --ui-teal-300: hsl(168,70%,90%);
+    --ui-teal-400: hsl(170,70%,85%);
+    --ui-teal-500: hsl(170,70%,72%);
+    --ui-teal-600: hsl(170,70%,57%);
+    --ui-teal-700: hsl(173,80%,36%);
+    --ui-teal-800: hsl(173,83%,30%);
+    --ui-teal-900: hsl(174,91%,25%);
+    --ui-teal-1000: hsl(171,80%,13%);
+
+    --ui-purple-100: hsl(276,100%,97%);
+    --ui-purple-200: hsl(277,87%,97%);
+    --ui-purple-300: hsl(274,78%,95%);
+    --ui-purple-400: hsl(276,71%,92%);
+    --ui-purple-500: hsl(274,70%,82%);
+    --ui-purple-600: hsl(273,72%,73%);
+    --ui-purple-700: hsl(272,51%,54%);
+    --ui-purple-800: hsl(272,47%,45%);
+    --ui-purple-900: hsl(274,71%,43%);
+    --ui-purple-1000: hsl(276,100%,15%);
+
+    --ui-pink-100: hsl(330,100%,96%);
+    --ui-pink-200: hsl(340,90%,96%);
+    --ui-pink-300: hsl(340,82%,94%);
+    --ui-pink-400: hsl(341,76%,91%);
+    --ui-pink-500: hsl(340,75%,84%);
+    --ui-pink-600: hsl(341,75%,73%);
+    --ui-pink-700: hsl(336,80%,58%);
+    --ui-pink-800: hsl(336,74%,51%);
+    --ui-pink-900: hsl(336,65%,45%);
+    --ui-pink-1000: hsl(333,74%,15%);
+
+    --ui-gray-alpha-100: hsl(rgba(0,0,0,.05));
+    --ui-gray-alpha-200: hsl(rgba(0,0,0,.08));
+    --ui-gray-alpha-300: hsl(rgba(0,0,0,.1));
+    --ui-gray-alpha-400: hsl(rgba(0,0,0,.08));
+    --ui-gray-alpha-500: hsl(rgba(0,0,0,.21));
+    --ui-gray-alpha-600: hsl(rgba(0,0,0,.34));
+    --ui-gray-alpha-700: hsl(rgba(0,0,0,.44));
+    --ui-gray-alpha-800: hsl(rgba(0,0,0,.51));
+    --ui-gray-alpha-900: hsl(rgba(0,0,0,.61));
+    --ui-gray-alpha-1000: hsl(rgba(0,0,0,.91));
+
+    --sh-class: #5786ea;
+    --sh-sign: #6a80fa;
+    --sh-string: #55abf2;
+    --sh-keyword: #ec4b4e;
+    --sh-comment: #626a72;
+    --sh-jsxliterals: #7097ed;
+    --sh-property: #cf8e3a;
+    --sh-entity: #c0d258;
+    --sh-identifier: #2f2f2f;
+}
+
+.dark {
+    --ui-background-100: #0a0a0a;
+    --ui-background-200: #000;
+
+    --accents-1: #111;
+    --accents-2: #333;
+    --accents-3: #444;
+    --accents-4: #666;
+    --accents-5: #888;
+    --accents-6: #999;
+    --accents-7: #eaeaea;
+    --accents-8: #fafafa;
+
+    --ui-focus-border: 0 0 0 1px hsla(0,0%,100%,0.51),0px 0px 0px 4px hsla(0,0%,100%,0.24);
+
+    --ui-gray-100: hsl(0,0%,10%);
+    --ui-gray-200: hsl(0,0%,12%);
+    --ui-gray-300: hsl(0,0%,16%);
+    --ui-gray-400: hsl(0,0%,18%);
+    --ui-gray-500: hsl(0,0%,27%);
+    --ui-gray-600: hsl(0,0%,53%);
+    --ui-gray-700: hsl(0,0%,56%);
+    --ui-gray-800: hsl(0,0%,49%);
+    --ui-gray-900: hsl(0,0%,63%);
+    --ui-gray-1000: hsl(0,0%,93%);
+
+    --ui-blue-100: hsl(216,50%,12%);
+    --ui-blue-200: hsl(214,59%,15%);
+    --ui-blue-300: hsl(213,71%,20%);
+    --ui-blue-400: hsl(212,78%,23%);
+    --ui-blue-500: hsl(211,86%,27%);
+    --ui-blue-600: hsl(206,100%,50%);
+    --ui-blue-700: hsl(212,100%,48%);
+    --ui-blue-800: hsl(212,100%,41%);
+    --ui-blue-900: hsl(210,100%,66%);
+    --ui-blue-1000: hsl(206,100%,96%);
+
+    --ui-red-100: hsl(357,37%,12%);
+    --ui-red-200: hsl(357,46%,16%);
+    --ui-red-300: hsl(356,54%,22%);
+    --ui-red-400: hsl(357,55%,26%);
+    --ui-red-500: hsl(357,60%,32%);
+    --ui-red-600: hsl(358,75%,59%);
+    --ui-red-700: hsl(358,75%,59%);
+    --ui-red-800: hsl(358,69%,52%);
+    --ui-red-900: hsl(358,100%,69%);
+    --ui-red-1000: hsl(353,90%,96%);
+
+    --ui-amber-100: hsl(35,100%,8%);
+    --ui-amber-200: hsl(32,100%,10%);
+    --ui-amber-300: hsl(33,100%,15%);
+    --ui-amber-400: hsl(35,100%,17%);
+    --ui-amber-500: hsl(35,91%,22%);
+    --ui-amber-600: hsl(39,85%,49%);
+    --ui-amber-700: hsl(39,100%,57%);
+    --ui-amber-800: hsl(35,100%,52%);
+    --ui-amber-900: hsl(39,90%,50%);
+    --ui-amber-1000: hsl(40,94%,93%);
+
+    --ui-green-100: hsl(136,50%,9%);
+    --ui-green-200: hsl(137,50%,12%);
+    --ui-green-300: hsl(136,50%,14%);
+    --ui-green-400: hsl(135,70%,16%);
+    --ui-green-500: hsl(135,70%,23%);
+    --ui-green-600: hsl(135,70%,34%);
+    --ui-green-700: hsl(131,41%,46%);
+    --ui-green-800: hsl(132,43%,39%);
+    --ui-green-900: hsl(131,43%,57%);
+    --ui-green-1000: hsl(136,73%,94%);
+
+    --ui-teal-100: hsl(169,78%,7%);
+    --ui-teal-200: hsl(170,74%,9%);
+    --ui-teal-300: hsl(171,75%,13%);
+    --ui-teal-400: hsl(171,85%,13%);
+    --ui-teal-500: hsl(172,85%,20%);
+    --ui-teal-600: hsl(172,85%,32%);
+    --ui-teal-700: hsl(173,80%,36%);
+    --ui-teal-800: hsl(173,83%,30%);
+    --ui-teal-900: hsl(174,90%,41%);
+    --ui-teal-1000: hsl(166,71%,93%);
+
+    --ui-purple-100: hsl(283,30%,12%);
+    --ui-purple-200: hsl(281,38%,16%);
+    --ui-purple-300: hsl(279,44%,23%);
+    --ui-purple-400: hsl(277,46%,28%);
+    --ui-purple-500: hsl(274,49%,35%);
+    --ui-purple-600: hsl(272,51%,54%);
+    --ui-purple-700: hsl(272,51%,54%);
+    --ui-purple-800: hsl(272,47%,45%);
+    --ui-purple-900: hsl(275,80%,71%);
+    --ui-purple-1000: hsl(281,73%,96%);
+    
+    --ui-pink-100: hsl(335,32%,12%);
+    --ui-pink-200: hsl(335,43%,16%);
+    --ui-pink-300: hsl(335,47%,21%);
+    --ui-pink-400: hsl(335,51%,22%);
+    --ui-pink-500: hsl(335,57%,27%);
+    --ui-pink-600: hsl(336,75%,40%);
+    --ui-pink-700: hsl(336,80%,58%);
+    --ui-pink-800: hsl(336,74%,51%);
+    --ui-pink-900: hsl(341,90%,67%);
+    --ui-pink-1000: hsl(333,90%,96%);
+
+    --ui-gray-alpha-100: hsla(0,0%,100%,.06);
+    --ui-gray-alpha-200: hsla(0,0%,100%,.09);
+    --ui-gray-alpha-300: hsla(0,0%,100%,.13);
+    --ui-gray-alpha-400: hsla(0,0%,100%,.14);
+    --ui-gray-alpha-500: hsla(0,0%,100%,.24);
+    --ui-gray-alpha-600: hsla(0,0%,100%,.51);
+    --ui-gray-alpha-700: hsla(0,0%,100%,.54);
+    --ui-gray-alpha-800: hsla(0,0%,100%,.47);
+    --ui-gray-alpha-900: hsla(0,0%,100%,.61);
+    --ui-gray-alpha-1000: hsla(0,0%,100%,.92);
+
+    --sh-class: #6491f1;
+    --sh-sign: #7589fc;
+    --sh-string: #5fb3f8;
+    --sh-keyword: #f1575a;
+    --sh-comment: #6c757d;
+    --sh-jsxliterals: #7aa2f7;
+    --sh-property: #d79642;
+    --sh-entity: #cee068;
+    --sh-identifier: #f8f8f2;
+}

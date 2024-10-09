@@ -17,15 +17,14 @@ export function Header(): JSX.Element {
             <div className='flex flex-col items-start'>
                 <Link   
                     href='/'
-                    className='text-medium mb-px inline-block font-medium no-underline'
+                    className='text-medium mb-px text-gray-1000 inline-block font-medium no-underline'
                 >
                     {siteConfig.title}
                 </Link>
-                <span className='text-medium font-medium leading-none dark:text-zinc-400'>
+                <p className='leading-none opacity-80'>
                     Software Developer
-                </span>
+                </p>
             </div>
-
             <Spotlight />
         </header>
     );

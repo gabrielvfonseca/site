@@ -4,7 +4,7 @@ import React, { Suspense } from "react";
 import Link from "next/link";
 
 // Contentlayer
-import { allNotes } from 'contentlayer/generated';
+import { allNotes } from '@contentlayer';
 
 // Fallback
 import Fallback from '@components/fallback';
@@ -13,7 +13,7 @@ import Fallback from '@components/fallback';
 import { formatDate } from "@utils/date";
 
 // Types
-import type { Notes as Note } from 'contentlayer/generated';
+import type { Notes as Note } from '@contentlayer';
 
 // Construct metadata
 import { constructMetadata } from "@utils/metadata";
@@ -42,11 +42,11 @@ export default function Page(): JSX.Element {
                 href={value.slug}
                 className="flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group"
               >
-                <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-100">
+                <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline">
                   {value.title}
                 </strong>
-                <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800" />
-                <span className="flex-none dark:text-zinc-400">
+                <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink" />
+                <span className="flex-none text-gray-800">
                   {formatDate(value.date)}
                 </span>
               </Link>

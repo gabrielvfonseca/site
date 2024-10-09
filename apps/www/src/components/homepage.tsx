@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Subscribe from '@components/forms/subscribe';
 
 // Contentlayer
-import { allNotes } from 'contentlayer/generated';
+import { allNotes } from '@contentlayer';
 
 // Fallback
 import Fallback from '@components/fallback';
@@ -15,21 +15,18 @@ import Fallback from '@components/fallback';
 // Utils
 import { formatDate } from '@utils/date';
 
-// UI Components
-import { Badge } from '@components/ui/badge';
-
 // Configuration siteConfig
 import { siteConfig } from '@/site.config';
 
 // Types
-import type { Notes as Note } from 'contentlayer/generated';
+import type { Notes as Note } from '@contentlayer';
 
 // Homepage JSX component
 export default async function Homepage() {  
   // Return page component
   return (
     <>
-      <p className='mb-4 font-medium text-zinc-800 dark:text-zinc-200'>
+      <p className='mb-4 font-medium text-gray-1000'>
         I&apos;m a computer engineering student living in Lisbon, pt.
       </p>
       
@@ -124,11 +121,11 @@ export default async function Homepage() {
                       href={value.slug}
                       className="flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group"
                     >
-                      <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-300">
+                      <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline">
                         {value.title}
                       </strong>
-                      <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800" />
-                      <span className="flex-none dark:text-zinc-400">
+                      <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink" />
+                      <span className="flex-none text-gray-800">
                         {formatDate(value.date)}
                       </span>
                     </Link>

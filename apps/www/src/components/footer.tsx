@@ -1,4 +1,4 @@
-'use client';
+'use client'; // Client-side script
 
 import React from 'react';
 
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // UI Components
-import { Avatar, AvatarImage } from '@components/ui/avatar';
+import { Avatar, AvatarImage } from '@site/ui/avatar';
 
 // Configuration siteConfig
 import { siteConfig } from '@/site.config';

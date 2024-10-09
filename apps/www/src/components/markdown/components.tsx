@@ -7,13 +7,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // UI Components
-import { AspectRatio } from '@components/ui/aspect-ratio';
+import { AspectRatio } from '@site/ui/aspect-ratio';
 
 // Sugar
 import { highlight } from 'sugar-high';
 
 // Types
 import type { MDXComponents } from 'mdx/types';
+import { ScrollArea } from '@site/ui/scroll-area';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -25,7 +26,7 @@ type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 // Components
 export const components: MDXComponents = {
   h1: (props: HeadingProps) => (
-    <h1 className="font-bold mt-12 mb-8 fade-in" {...props} />
+    <h1 className="font-medium mt-12 mb-8 fade-in" {...props} />
   ),
   h2: (props: HeadingProps) => (
     <h2 className="font-medium mt-10 mb-6 fade-in" {...props} />
@@ -35,9 +36,9 @@ export const components: MDXComponents = {
   ),
   h4: (props: HeadingProps) => <h4 className="font-medium mt-4 mb-4 fade-in" {...props} />,
   p: (props: ParagraphProps) => (
-    <p className="leading-normal tracking-normal fade-in" {...props} />
+    <p className="leading-normal tracking-normal my-6 fade-in" {...props} />
   ),
-  hr: () => <hr className="border-gray-400 dark:border-gray-1000 my-8" />,
+  hr: () => <hr className="border-gray-400 my-8" />,
   ol: (props: ListProps) => (
     <ol className="list-decimal pl-5 space-y-2" {...props} />
   ),
@@ -49,20 +50,19 @@ export const components: MDXComponents = {
     <em className="font-medium" {...props} />
   ),
   strong: (props: ComponentPropsWithoutRef<'strong'>) => (
-    <strong className="font-medium text-black dark:text-white" {...props} />
+    <strong className="font-medium text-gray-1000" {...props} />
   ),
   a: ({ href, children, ...props }: AnchorProps) => {
-    const className = 'text-blue-500 hover:text-blue-700';
     if (href?.startsWith('/')) {
       return (
-        <Link href={href} className={className} {...props}>
+        <Link href={href} {...props}>
           {children}
         </Link>
       );
     }
     if (href?.startsWith('#')) {
       return (
-        <a href={href} className={className} {...props}>
+        <a href={href} {...props}>
           {children}
         </a>
       );
@@ -72,7 +72,6 @@ export const components: MDXComponents = {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={className}
         {...props}
       >
         {children}
@@ -82,7 +81,7 @@ export const components: MDXComponents = {
   Image: ({ src, alt, ratio }) => (
     <AspectRatio 
       ratio={ratio ? ratio : 16 / 9} 
-      className='text-black dark:text-white bg-gray-200 dark:bg-gray-1200 rounded-md'
+      className='bg-background-100 rounded-md'
     >
       <Image 
         src={src as string}
@@ -96,7 +95,7 @@ export const components: MDXComponents = {
     const codeHTML = highlight(children as string);
     return (
       <code 
-        className='font-serif text-black dark:text-white border border-gray-300 dark:border-gray-1000 bg-gray-200 dark:bg-gray-1200 rounded-md text-xs'
+        className='font-sans text-black border border-gray-300 bg-gray-200 rounded-md text-xs'
         dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} 
       />
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // UI Components
-import { Skeleton } from '@components/ui/skeleton';
+import { Skeleton } from '@site/ui/skeleton';
 
 // Fallback Component exported as default
 export default function Fallback() {

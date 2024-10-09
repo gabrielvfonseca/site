@@ -7,7 +7,7 @@ import Link from "next/link";
 import Fallback from '@components/fallback';
 
 // UI Components
-import { Badge } from '@components/ui/badge';
+import { Badge } from '@site/ui/badge';
 
 // Construct metadata
 import { constructMetadata } from "@utils/metadata";

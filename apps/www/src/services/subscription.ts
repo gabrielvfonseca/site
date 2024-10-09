@@ -9,7 +9,7 @@ import { prisma } from '@site/prisma-config';
 import { Email } from '@emails/new-subscriber';
 
 // Types
-type State = 'success' | 'already_subscribed' | 'error';
+type State = 200 | 400 | 401 | 404 | 500;
 
 export interface SubscriptionRequest {
     email: string;
@@ -17,7 +17,7 @@ export interface SubscriptionRequest {
 
 export interface SubscriptionResponse {
     email?: string;
-    state: State;
+    code: State;
     message?: string;
 };
 
@@ -30,72 +30,59 @@ export async function subscription ({
         if (!email) {
             // Return an error message
             return { 
-                state: 'error',
+                code: 400,
                 message: 'Email is required',
             };
         };
 
         // Check if the email exists in the database
-        const existing = await prisma.subscriber.findUnique({
+        const exists = await prisma.subscriber.findUnique({
             where: { email: email },
         });
-
-        // If the email does exist, create a new subscriber
-        if (!existing) {
-            // Create a new subscriber
-            const subscriber = await prisma.subscriber.create({
-                data: { email: email },
-            });
-
-            console.log(subscriber);
-
-            // Check if the subscriber was created
-            if (!subscriber) {
-                // Return an error message
-                return { 
-                    state: 'error',
-                    message: 'Could not create a new subscriber',
-                };
-            };
-        };
 
         // Check if the email is already subscribed
         const emails = await resend.contacts.list({
             audienceId: process.env.RESEND_AUDIENCE_ID!,
-        });        
-        
-        // Error handling
-        if (emails.error) {
-            // Return an error message
-            return {
-                state: 'error',
-                message: 'Could not list subscribers',
-            }
-        };
+        });  
 
         // Check if the email is already subscribed
-        if (emails.data?.data) {
-            const subscriber = emails.data?.data.find((subscriber: any) => subscriber.email === email);
+        if (emails.data?.data || exists) {
+            return {
+                email: email,
+                code: 400,
+                message: 'Email is already subscribed',
+            };
+        };
 
-            // Return already subscribed enum
-            if (subscriber) {
-                return {
-                    email: email,
-                    state: 'already_subscribed',
-                    message: 'Email is already subscribed',
-                };
+        // Create a new subscriber
+        const subscriber = await prisma.subscriber.create({
+            data: { email: email },
+        });
+
+        // Check if the subscriber was created
+        if (!subscriber) {
+            // Return an error message
+            return { 
+                code: 500,
+                message: 'Error creating a new subscriber',
             };
         };
 
         // Create a new subscriber 
-        await resend.contacts.create({
+        const contact = await resend.contacts.create({
             email: email,
             unsubscribed: false,
             audienceId: process.env.RESEND_AUDIENCE_ID!,
         });
-
-        // Create audience
-        await resend.audiences.create({ name: 'Registered Users' });
+        
+        // Check if the contact was created
+        if (!contact) {
+            // Return an error message
+            return { 
+                code: 500,
+                message: 'Error creating a new contact',
+            };
+        };
           
         // Send a confirmation email using the resend api
         await resend.emails.send({
@@ -110,14 +97,14 @@ export async function subscription ({
         // Return the new subscriber message
         return {
             email: email,
-            state: 'success',
+            code: 200,
             message: 'Promise not to spam you',
         };
 
     } catch (error) {
         // Return any errors
         return {
-            state: 'error',
+            code: 500,
             message: 'Could not create a new subscriber',
         };
     };

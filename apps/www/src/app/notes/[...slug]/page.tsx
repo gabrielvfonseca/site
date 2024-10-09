@@ -10,13 +10,13 @@ import { notFound } from 'next/navigation';
 import MDX from '@components/markdown';
 
 // UI Components
-import { AspectRatio } from '@components/ui/aspect-ratio';
+import { AspectRatio } from '@site/ui/aspect-ratio';
 
 // Config
 import { siteConfig } from '@/site.config';
 
 // Contentlayer
-import { allNotes } from 'contentlayer/generated';
+import { allNotes } from '@contentlayer';
 
 // Loading fallback
 import Loading from './loading';
@@ -29,12 +29,6 @@ import { constructMetadata } from '@utils/metadata';
 
 // Types
 import type { Metadata } from 'next';
-
-// Comments
-import Comments from '@components/comments';
-
-// Separator
-import { Separator } from '@components/ui/separator';
 
 // Auth
 import { sessionState } from '@services/auth/session';
