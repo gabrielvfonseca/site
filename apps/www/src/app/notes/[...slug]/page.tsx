@@ -30,9 +30,6 @@ import { constructMetadata } from '@utils/metadata';
 // Types
 import type { Metadata } from 'next';
 
-// Auth
-import { sessionState } from '@services/auth/session';
-
 interface NoteProps {
   params: {
     slug: string[];
@@ -43,8 +40,6 @@ interface NoteProps {
 export default async function Page ({ params }: NoteProps) {
   // Retrieve the note from the params
   const note = await getnoteFromParams(params);
-
-  const auth = await sessionState();
 
   // If the note does not exist, return a 404 page
   if (!note) {
