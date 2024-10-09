@@ -5,7 +5,7 @@ import '@styles/globals.css';
 import '@site/ui/styles.css';
 
 // Font
-import { inter } from '@site/fonts-config';
+import { inter } from '@components/fonts';
 
 // Providers
 import { ThemeProvider } from '@site/ui/providers/theme';
