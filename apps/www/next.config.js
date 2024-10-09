@@ -11,10 +11,9 @@ const config = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': resolve(__dirname, 'src'),
-      'contentlayer/generated': resolve(__dirname, '.contentlayer/generated')
+      '@': resolve(__dirname, './src'),
+      '.contentlayer/generated': resolve(__dirname, '.contentlayer/generated')
     };
-
     return config;
   },
 };

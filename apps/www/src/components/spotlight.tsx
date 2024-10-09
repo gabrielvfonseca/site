@@ -26,10 +26,10 @@ import {
 import { Button } from '@site/ui/button';
 
 // ContentLayer
-import { allNotes } from '@contentlayer';
+import { allNotes } from '.contentlayer/generated';
 
 // Types
-import type { Notes as Note } from '@contentlayer';
+import type { Notes as Note } from '.contentlayer/generated';
 
 // Hooks
 import { useMediaQuery } from '@/hooks/use-media-query';

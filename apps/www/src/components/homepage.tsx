@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Subscribe from '@/components/forms/subscribe';
 
 // Contentlayer
-import { allNotes } from '@contentlayer/generated';
+import { allNotes } from '.contentlayer/generated';
 
 // Fallback
 import Fallback from '@/components/fallback';
@@ -19,7 +19,7 @@ import { formatDate } from '@/utils/date';
 import { siteConfig } from '@/config/site';
 
 // Types
-import type { Notes as Note } from '@contentlayer/generated';
+import type { Notes as Note } from '.contentlayer/generated';
 
 // Homepage JSX component
 export default async function Homepage() {  

@@ -3,7 +3,7 @@
 import { baseUrl } from '@/config/site';
 
 // Contentlayer
-import { allNotes } from 'contentlayer/generated';
+import { allNotes } from '.contentlayer/generated';
 
 // GET function
 export async function GET() {

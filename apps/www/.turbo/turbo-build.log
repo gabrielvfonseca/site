@@ -1,0 +1,29 @@
+
+[2K[1G[1myarn run v1.22.19[22m
+[2K[1G[2m$ next build[22m
+  [1m[38;2;173;127;168m▲ Next.js 14.2.3[39m[22m
+  - Environments: .env
+
+ [37m[1m [22m[39m Creating an optimized production build ...
+Generated 4 documents in .contentlayer
+[31m(node:22132) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)[39m
+[31m[31mFailed to compile.
+[39m[39m
+[31m./src/components/spotlight.tsx
+[31m[1mModule not found[22m[39m: Can't resolve '[32m@contentlayer[39m'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./src/components/homepage.tsx
+[31m[1mModule not found[22m[39m: Can't resolve '[32m@contentlayer/generated[39m'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./src/app/page.tsx[39m
+[31m[39m
+[31m[39m
+[31m> Build failed because of webpack errors[39m
+[2K[1G[31merror[39m Command failed with exit code 1.
+[2K[1G[34minfo[39m Visit [1mhttps://yarnpkg.com/en/docs/cli/run[22m for documentation about this command.
