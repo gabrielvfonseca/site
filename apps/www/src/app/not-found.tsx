@@ -20,8 +20,8 @@ export default function NotFound(): JSX.Element {
 
             <Link href='/'>
                 <Button
-                    variant='outline'
-                    size='sm'
+                    variant='secondary'
+                    size='medium'
                     className='mt-8'
                 >
                     Return
