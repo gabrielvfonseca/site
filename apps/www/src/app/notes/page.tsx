@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 
 // Contentlayer
-import { allNotes } from '@contentlayer/generated';
+import { allNotes } from 'contentlayer/generated';
 
 // Fallback
 import Fallback from '@/components/fallback';
@@ -13,7 +13,7 @@ import Fallback from '@/components/fallback';
 import { formatDate } from '@/utils/date';
 
 // Types
-import type { Notes as Note } from '@contentlayer/generated';
+import type { Notes as Note } from 'contentlayer/generated';
 
 // Construct metadata
 import { constructMetadata } from '@/utils/metadata';

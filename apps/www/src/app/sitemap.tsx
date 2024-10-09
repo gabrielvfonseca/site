@@ -3,10 +3,10 @@
 import { baseUrl } from '@/config/site';
 
 // Contentlayer
-import { allNotes } from '@contentlayer/generated';
+import { allNotes } from 'contentlayer/generated';
 
 // Types
-import type { Notes as Note } from '@contentlayer/generated';
+import type { Notes as Note } from 'contentlayer/generated';
 
 // Sitemap function
 export default async function sitemap() {
