@@ -36,7 +36,6 @@ export const metadata: Metadata = constructMetadata();
 
 // UI Components
 import { Toaster } from '@site/ui/sonner';
-import { ScrollArea } from '@site/ui/scroll-area';
 
 // Root layout component
 export default function RootLayout({

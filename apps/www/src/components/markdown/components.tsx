@@ -14,7 +14,6 @@ import { highlight } from 'sugar-high';
 
 // Types
 import type { MDXComponents } from 'mdx/types';
-import { ScrollArea } from '@site/ui/scroll-area';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;

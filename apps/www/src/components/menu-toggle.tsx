@@ -11,13 +11,14 @@ import { cn } from "@utils/cn";
 // MenuToggle Props
 interface MenuToggleProps {
     state: boolean;
+    // eslint-disable-next-line no-unused-vars
     onToggle: (state: boolean) => void;
     className?: string;
     classNameToggle?: string;
 };
 
 // MenuToggle Component
-export const MenuToggle = ({ state, onToggle, className, classNameToggle }: MenuToggleProps) => {
+export const MenuToggle = ({ state, onToggle, classNameToggle }: MenuToggleProps) => {
     // Container properties
     const container = {
         size: 10,

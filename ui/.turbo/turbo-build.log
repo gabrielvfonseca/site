@@ -1,0 +1,10 @@
+
+[2K[1G[1myarn run v1.22.19[22m
+[2K[1G[33mwarning[39m package.json: No license field
+[2K[1G[33mwarning[39m package.json: "dependencies" has dependency "tailwindcss" with range "^3.3.3" that collides with a dependency in "devDependencies" of the same name with version "^3.4.1"
+[2K[1G[2m$ tailwindcss -i ./src/styles/styles.css -o ./dist/index.css[22m
+[31m[39m
+[31mRebuilding...[39m
+[31m[39m
+[31mDone in 233ms.[39m
+[2K[1G✨  Done in 1.08s.
