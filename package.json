@@ -38,6 +38,7 @@
   "packageManager": "yarn@1.22.19",
   "name": "site",
   "dependencies": {
+    "@types/canvas-confetti": "^1.6.4",
     "typescript": "^5.6.3"
   }
 }
