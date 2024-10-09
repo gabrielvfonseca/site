@@ -74,3 +74,32 @@
 2024-10-09T20:39:48.042537Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
 2024-10-09T20:39:48.642478Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/.turbo/turbo-build.log")}
 2024-10-09T20:39:48.642487Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:02.443841Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:02.443851Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:02.644861Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:02.644870Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:02.644897Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:02.844858Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:02.844867Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:02.848051Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:03.044146Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:03.044155Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:03.073750Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:03.343874Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:03.343883Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:03.343911Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:06.844418Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:06.844428Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:06.845109Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:07.044948Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:07.044958Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:07.055480Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:07.344604Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:07.344615Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:07.344642Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:54.244682Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:54.244691Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:54.272542Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T20:55:54.444839Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/tsconfig.json")}
+2024-10-09T20:55:54.444848Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T20:55:54.466882Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
