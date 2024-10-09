@@ -16,7 +16,7 @@ import { AspectRatio } from '@site/ui/aspect-ratio';
 import { siteConfig } from '@/config/site';
 
 // Contentlayer
-import { allNotes } from '@contentlayer';
+import { allNotes } from '@contentlayer/generated';
 
 // Loading fallback
 import Loading from './loading';

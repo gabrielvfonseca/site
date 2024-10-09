@@ -14,7 +14,7 @@ const config = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': resolve(__dirname, 'src'),  // Base alias for src
-      '@contentlayer': resolve(__dirname, '.contentlayer/generated')  // Contentlayer alias
+      '@contentlayer': resolve(__dirname, '.contentlayer')  // Contentlayer alias
     };
 
     return config;

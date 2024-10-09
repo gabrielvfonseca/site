@@ -4,7 +4,7 @@
     "baseUrl": ".",  // Sets the base directory for module resolution
     "paths": {
       "@/*": ["src/*"],
-      "@contentlayer/*": [".contentlayer/generated/*"]
+      "@contentlayer/*": [".contentlayer/*"]
     }
   },
   "include": [
@@ -13,6 +13,5 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
   ]
 }
