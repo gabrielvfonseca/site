@@ -4,16 +4,17 @@
 
 const { withContentlayer } = require('next-contentlayer');
 
-const path = require('path');
+const { resolve } = require('path');
 
 // Next config
 const config = {
   reactStrictMode: true,
   webpack: (config) => {
+    // Set up Webpack aliases based on the baseUrl
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': path.resolve(__dirname, 'src'),
-      '@contentlayer': path.resolve(__dirname, '.contentlayer/generated'),
+      '@': resolve(__dirname, 'src'),  // Base alias for src
+      '@contentlayer': resolve(__dirname, '.contentlayer/generated')  // Contentlayer alias
     };
 
     return config;

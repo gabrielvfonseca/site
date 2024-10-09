@@ -1,10 +1,10 @@
 {
   "extends": "@site/typescript-config/nextjs.json",
-  "compilerOptions": { 
-    "baseUrl": ".",
+  "compilerOptions": {
+    "baseUrl": ".",  // Sets the base directory for module resolution
     "paths": {
       "@/*": ["src/*"],
-      "@contentlayer/*": [".contentlayer/generated/*"]  // Ensure to include wildcard here
+      "@contentlayer/*": [".contentlayer/generated/*"]
     }
   },
   "include": [
