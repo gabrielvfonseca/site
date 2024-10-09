@@ -4515,3 +4515,13 @@
 2024-10-09T11:57:08.183431Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
 2024-10-09T11:59:08.083707Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/src/components/comments.tsx")}
 2024-10-09T11:59:08.083717Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T12:01:20.383798Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/config-resend/src/client.ts")}
+2024-10-09T12:01:20.383808Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@site/resend-config"), path: AnchoredSystemPathBuf("packages/config-resend") }}))
+2024-10-09T12:01:26.783488Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/config-resend/src/client.ts")}
+2024-10-09T12:01:26.783499Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@site/resend-config"), path: AnchoredSystemPathBuf("packages/config-resend") }}))
+2024-10-09T12:01:41.084051Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/config-prisma/dist")}
+2024-10-09T12:01:41.084060Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@site/prisma-config"), path: AnchoredSystemPathBuf("packages/config-prisma") }}))
+2024-10-09T12:01:45.384109Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("ui/dist")}
+2024-10-09T12:01:45.384118Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@site/ui"), path: AnchoredSystemPathBuf("ui") }}))
+2024-10-09T12:01:49.582951Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/config-resend/dist")}
+2024-10-09T12:01:49.582961Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@site/resend-config"), path: AnchoredSystemPathBuf("packages/config-resend") }}))
