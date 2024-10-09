@@ -4496,3 +4496,16 @@
 2024-10-09T11:40:41.266658Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/.next/trace")}
 2024-10-09T11:40:41.266668Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
 2024-10-09T11:40:41.276189Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T11:42:30.582592Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/src/services/auth")}
+2024-10-09T11:42:30.582601Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T11:42:38.183809Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/src/app/api/liveblocks")}
+2024-10-09T11:42:38.183822Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T11:42:39.883400Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/src/app/api/auth/[...nextauth]")}
+2024-10-09T11:42:39.883410Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T11:42:41.483880Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/src/app/api/auth")}
+2024-10-09T11:42:41.483893Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T11:42:41.483922Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-09T11:42:58.383932Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/src/services/account")}
+2024-10-09T11:42:58.383943Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-09T11:43:02.684708Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/src/services/user")}
+2024-10-09T11:43:02.684717Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
