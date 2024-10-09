@@ -6,7 +6,7 @@ import resend from '@site/resend-config';
 import { prisma } from '@site/prisma-config';
 
 // Email Template
-import { Email } from '@emails/new-subscriber';
+import { Email } from '@/emails/new-subscriber';
 
 // Types
 type State = 200 | 400 | 401 | 404 | 500;

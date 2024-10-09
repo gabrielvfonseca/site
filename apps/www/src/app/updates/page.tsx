@@ -1,7 +1,7 @@
 import React from "react";
 
 // Subscribe
-import Subscribe from "@components/forms/subscribe";
+import Subscribe from "@/components/forms/subscribe";
 
 // Page JSX component
 export default function Page(): JSX.Element {

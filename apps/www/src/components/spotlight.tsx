@@ -32,7 +32,7 @@ import { allNotes } from '@contentlayer';
 import type { Notes as Note } from '@contentlayer';
 
 // Hooks
-import { useMediaQuery } from '@hooks/use-media-query';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 // MenuToggle Component
 import { MenuToggle } from './menu-toggle';

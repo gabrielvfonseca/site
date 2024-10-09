@@ -13,10 +13,10 @@ import { Button } from '@site/ui/button';
 import { toast } from 'sonner';
 
 // Create a new subscription
-import Subscribe from '@actions/subscribe';
+import Subscribe from '@/actions/subscribe';
 
 // Confetti
-import { ConfettiSideCannons } from '@components/confetti';
+import { ConfettiSideCannons } from '@/components/confetti';
 
 // Define a schema for the form data
 const schema = z.object({

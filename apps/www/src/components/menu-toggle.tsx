@@ -6,7 +6,7 @@ import * as React from 'react';
 import { motion } from 'framer-motion';
 
 // Classnames
-import { cn } from "@utils/cn";
+import { cn } from '@/utils/cn';
 
 // MenuToggle Props
 interface MenuToggleProps {

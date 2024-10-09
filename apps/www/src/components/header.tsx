@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 
 // Config data
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 // Spotlight Component
 import { Spotlight } from './spotlight';

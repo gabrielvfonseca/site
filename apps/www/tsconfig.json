@@ -3,18 +3,7 @@
   "compilerOptions": { 
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@styles/*": ["src/styles/*"],
-      "@utils/*": ["src/utils/*"],
-      "@content/*": ["src/content/*"],
-      "@emails/*": ["src/email/emails/*"],
-      "@services/*": ["src/services/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@config*": ["site.config.ts"],
-      "@utils": ["src/utils"],
-      "@actions/*": ["src/actions/*"],
-      "@app/*": ["src/app/*"],
-      "@public": ["public/*"],
+      "@/*": ["src/*"],
       "@contentlayer": [".contentlayer/generated"],
     }
   },
@@ -26,5 +15,4 @@
     ".next/types/**/*.ts",
     ".contentlayer/generated",
   ],
-  "exclude": ["node_modules"]
 }

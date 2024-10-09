@@ -12,10 +12,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Avatar, AvatarImage } from '@site/ui/avatar';
 
 // Configuration siteConfig
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 // Hooks
-import { useCurrentlyPlaying } from '@hooks/use-currently-playing';
+import { useCurrentlyPlaying } from '@/hooks/use-currently-playing';
 
 // Footer Component
 export function Footer() {

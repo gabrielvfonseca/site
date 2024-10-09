@@ -4,7 +4,7 @@ import React from 'react';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 
 // Components
-import { components } from '@components/markdown/components';
+import { components } from '@/components/markdown/components';
 
 // Types
 interface MdxProps {

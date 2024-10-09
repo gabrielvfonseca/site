@@ -4,16 +4,13 @@ import React, { Suspense } from "react";
 import Link from "next/link";
 
 // Fallback
-import Fallback from '@components/fallback';
-
-// UI Components
-import { Badge } from '@site/ui/badge';
+import Fallback from '@/components/fallback';
 
 // Construct metadata
-import { constructMetadata } from "@utils/metadata";
+import { constructMetadata } from "@/utils/metadata";
 
 // Configuration siteConfig
-import { siteConfig } from "@/site.config";
+import { siteConfig } from "@/config/site";
 
 // Metadata
 export const metadata = constructMetadata({
@@ -51,9 +48,11 @@ export default function Page(): JSX.Element {
                             <span className="flex-none dark:text-zinc-400">
                                 {value.description}
                             </span>
+                            {/*
                             <Badge variant='default' size='sm'>
                                 Building
-                            </Badge>
+                            </Badge>*/
+                            }
                         </Link>
                         )
                     )

@@ -4,19 +4,19 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 
 // Subscribe
-import Subscribe from '@components/forms/subscribe';
+import Subscribe from '@/components/forms/subscribe';
 
 // Contentlayer
 import { allNotes } from '@contentlayer';
 
 // Fallback
-import Fallback from '@components/fallback';
+import Fallback from '@/components/fallback';
 
 // Utils
-import { formatDate } from '@utils/date';
+import { formatDate } from '@/utils/date';
 
 // Configuration siteConfig
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 // Types
 import type { Notes as Note } from '@contentlayer';
@@ -38,7 +38,7 @@ export default async function Homepage() {
         I may not always be sure if this is the best use of my time, but it feels right to be authentic and speak my truth.
       </p>
 
-      <p className="mb-8">
+      <p className='mb-8'>
         I am currently working towards a degree in{' '}
         <Link href={siteConfig.links.github}>
           Computer Engineering
@@ -48,7 +48,7 @@ export default async function Homepage() {
         possible, as they provide valuable insights from leading products 
         and industry experts. My enthusiasm is driven by constantly 
         exploring new ideas and transforming{' '}
-        <Link href="/projects">
+        <Link href='/projects'>
           innovative projects into reality
         </Link>.
       </p>
@@ -80,15 +80,15 @@ export default async function Homepage() {
               }, index: number) => (
                 <Link 
                   key={`${index}-${value.title}`}
-                  rel="noopener noreferrer" 
+                  rel='noopener noreferrer' 
                   href={value.href}
-                  className="flex sm:items-center flex-col sm:flex-row gap-1 sm:gap-4 group"
+                  className='flex sm:items-center flex-col sm:flex-row gap-1 sm:gap-4 group'
                 >
-                  <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-300">
+                  <strong className='line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline dark:text-gray-300'>
                     {value.title}
                   </strong>
-                  <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800" />
-                  <span className="flex-none dark:text-zinc-400">
+                  <span className='hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink dark:border-gray-800' />
+                  <span className='flex-none dark:text-zinc-400'>
                     {value.description}
                   </span>
                   <Badge variant='default' size='sm'>
@@ -117,15 +117,15 @@ export default async function Homepage() {
                   .map((value: Note, index: number) => (
                     <Link 
                       key={`${index}-${value.title}`}
-                      rel="noopener noreferrer" 
+                      rel='noopener noreferrer' 
                       href={value.slug}
-                      className="flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group"
+                      className='flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group'
                     >
-                      <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline">
+                      <strong className='line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline'>
                         {value.title}
                       </strong>
-                      <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink" />
-                      <span className="flex-none text-gray-800">
+                      <span className='hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink' />
+                      <span className='flex-none text-gray-800'>
                         {formatDate(value.date)}
                       </span>
                     </Link>

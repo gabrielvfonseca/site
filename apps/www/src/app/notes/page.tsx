@@ -1,25 +1,25 @@
-import React, { Suspense } from "react";
+import React, { Suspense } from 'react';
 
 // Next
-import Link from "next/link";
+import Link from 'next/link';
 
 // Contentlayer
 import { allNotes } from '@contentlayer';
 
 // Fallback
-import Fallback from '@components/fallback';
+import Fallback from '@/components/fallback';
 
 // Utils
-import { formatDate } from "@utils/date";
+import { formatDate } from '@/utils/date';
 
 // Types
 import type { Notes as Note } from '@contentlayer';
 
 // Construct metadata
-import { constructMetadata } from "@utils/metadata";
+import { constructMetadata } from '@/utils/metadata';
 
 // Configuration siteConfig
-import { siteConfig } from "@/site.config";
+import { siteConfig } from '@/config/site';
 
 // Metadata
 export const metadata = constructMetadata({
@@ -38,15 +38,15 @@ export default function Page(): JSX.Element {
             .map((value: Note, index: number) => (
               <Link 
                 key={`${index}-${value.title}`}
-                rel="noopener noreferrer" 
+                rel='noopener noreferrer' 
                 href={value.slug}
-                className="flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group"
+                className='flex sm:items-center flex-col sm:flex-row gap-0.5 sm:gap-4 group'
               >
-                <strong className="line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline">
+                <strong className='line-clamp-2 font-medium text-gray-1000 group-hover:text-primary group-hover:underline'>
                   {value.title}
                 </strong>
-                <span className="hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink" />
-                <span className="flex-none text-gray-800">
+                <span className='hidden sm:flex flex-1 border-t border-gray-500 border-dashed shrink' />
+                <span className='flex-none text-gray-800'>
                   {formatDate(value.date)}
                 </span>
               </Link>

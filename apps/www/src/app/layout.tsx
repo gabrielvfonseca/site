@@ -1,11 +1,11 @@
 import React from 'react';
 
 // CSS
-import '@styles/globals.css';
+import '@/styles/globals.css';
 import '@site/ui/styles.css';
 
 // Font
-import { inter } from '@components/fonts';
+import { inter } from '@/components/fonts';
 
 // Providers
 import { ThemeProvider } from '@site/ui/providers/theme';
@@ -13,20 +13,20 @@ import { AnalyticsProvider } from '@site/ui/providers/analytics';
 import { LiveBlocksProvider } from '@site/ui/providers/liveblocks';
 
 // Components
-import { Header } from '@components/header';
-import { Footer } from '@components/footer';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
 // Metadata
 import type { Metadata } from 'next';
 
 // Construct metadata
-import { constructMetadata } from '@utils/metadata';
+import { constructMetadata } from '@/utils/metadata';
 
 // Viewport
 import type { Viewport } from 'next';
 
 // Construct viewport
-import { constructViewport } from '@utils/viewport';
+import { constructViewport } from '@/utils/viewport';
 
 // Export viewport
 export const viewport: Viewport = constructViewport();

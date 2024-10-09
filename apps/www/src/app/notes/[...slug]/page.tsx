@@ -7,13 +7,13 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 // MDX
-import MDX from '@components/markdown';
+import MDX from '@/components/markdown';
 
 // UI Components
 import { AspectRatio } from '@site/ui/aspect-ratio';
 
 // Config
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 // Contentlayer
 import { allNotes } from '@contentlayer';
@@ -22,10 +22,10 @@ import { allNotes } from '@contentlayer';
 import Loading from './loading';
 
 // Utils
-import { formatDate, howLongAgo } from '@utils/date';
+import { formatDate, howLongAgo } from '@/utils/date';
 
 // Construct metadata
-import { constructMetadata } from '@utils/metadata';
+import { constructMetadata } from '@/utils/metadata';
 
 // Types
 import type { Metadata } from 'next';

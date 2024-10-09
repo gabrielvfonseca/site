@@ -3,7 +3,7 @@
 import type { MetadataRoute } from 'next';
  
 // Import site configuration
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 // Robots.txt configuration
 export default function robots(): MetadataRoute.Robots {

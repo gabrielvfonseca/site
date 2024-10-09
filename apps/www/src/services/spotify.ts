@@ -1,15 +1,8 @@
 import querystring from 'querystring';
 
-import * as dotenv from 'dotenv';
-
-// Import node-fetch
-dotenv.config();
-
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
-
-console.log(client_id, client_secret, refresh_token);
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 

@@ -1,9 +1,9 @@
 
 // Import the Metadata type
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 // Configuration related to metadata
-import { siteConfig } from "@/site.config";
+import { siteConfig } from '@/config/site';
 
 // Type to construct metadata
 interface ConstructMetadata {
@@ -19,7 +19,7 @@ export function constructMetadata ({
   title = siteConfig.title,
   description = siteConfig.description,
   image = siteConfig.ogImage,
-  icons = "/favicon.ico",
+  icons = '/favicon.ico',
   noIndex = false,
 }: ConstructMetadata = {}): Metadata {
   return {
@@ -72,7 +72,7 @@ export function constructMetadata ({
       type: 'website',
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title,
       description,
       images: [image],

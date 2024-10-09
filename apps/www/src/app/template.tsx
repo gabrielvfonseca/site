@@ -1,12 +1,12 @@
 'use client';
 
-import React from "react";
+import React from 'react';
 
 // Next
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
 
 // Motion
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion';
 
 // Main Transition Component
 export default function Template ({
@@ -19,7 +19,7 @@ export default function Template ({
 
     // Render the component and animate it
     return (
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode='wait'>
             <motion.div
                 key={pathname}
                 initial={{ opacity: 0 }}
