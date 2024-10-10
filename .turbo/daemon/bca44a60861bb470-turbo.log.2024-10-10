@@ -284,3 +284,23 @@
 2024-10-10T08:25:30.974635Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
 2024-10-10T08:25:33.537408Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/next.config.js")}
 2024-10-10T08:25:33.537424Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-10T08:27:32.437231Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("package-lock.json"), AnchoredSystemPathBuf("yarn.lock")}
+2024-10-10T08:27:32.437250Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-10-10T08:27:32.536750Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("yarn.lock")}
+2024-10-10T08:27:32.536759Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-10-10T08:27:32.636407Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("yarn.lock")}
+2024-10-10T08:27:32.636416Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-10-10T08:27:51.237190Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("yarn.lock"), AnchoredSystemPathBuf("package-lock.json")}
+2024-10-10T08:27:51.237210Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-10-10T08:27:51.336454Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("yarn.lock")}
+2024-10-10T08:27:51.336465Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-10-10T08:28:06.936561Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("yarn.lock"), AnchoredSystemPathBuf("package-lock.json")}
+2024-10-10T08:28:06.936570Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-10-10T08:28:07.337551Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("yarn.lock")}
+2024-10-10T08:28:07.337695Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-10-10T08:28:09.435971Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/next.config.js")}
+2024-10-10T08:28:09.435981Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-10T08:28:09.455327Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-10-10T08:28:09.636481Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/www/next.config.js")}
+2024-10-10T08:28:09.636492Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("www"), path: AnchoredSystemPathBuf("apps/www") }}))
+2024-10-10T08:28:09.636520Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
