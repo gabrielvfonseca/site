@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.1",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^5.20.0",
     "@site/eslint-config": "*",
     "@site/prisma-config": "*",
     "@site/tailwind-config": "*",
