@@ -1,58 +1,44 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": [
-    "SPOTIFY_CLIENT_ID",
-    "SPOTIFY_CLIENT_SECRET",
-    "SPOTIFY_REFRESH_TOKEN",
-    "NEXT_NODE_ENV",
-    "NEXT_PUBLIC_APP_URL",
-    "DATABASE_URL",
-    "RESEND_API_KEY",
-    "RESEND_AUDIENCE_ID",
-    "RESEND_ORIGIN_EMAIL",
-    "EMAIL_FROM",
-    "NEXT_PUBLIC_S3_BUCKET_NAME",
-    "NEXT_PUBLIC_S3_REGION",
-    "NEXT_PUBLIC_S3_ACCESS_KEY",
-    "NEXT_PUBLIC_S3_SECRET_KEY",
-    "NEXT_PUBLIC_POSTHOG_KEY",
-    "NEXT_PUBLIC_POSTHOG_HOST"
-  ],
+  "globalDependencies": ["**/.env.*local"],
+  "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT", ".env*"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "dependsOn": ["^build", "test"],
+      "outputs": [".next/**", "!.next/cache/**"],
       "env": [
-        "NEXT_PUBLIC_POSTHOG_HOST",
-        "NEXT_PUBLIC_POSTHOG_KEY",
-        "SPOTIFY_CLIENT_ID",
-        "SPOTIFY_CLIENT_SECRET",
-        "SPOTIFY_REFRESH_TOKEN",
-        "NEXT_NODE_ENV",
-        "NEXT_PUBLIC_APP_URL",
+        "ARCJET_KEY",
+        "BASEHUB_TOKEN",
+        "BETTERSTACK_API_KEY",
+        "BETTERSTACK_URL",
+        "CLERK_SECRET_KEY",
+        "CLERK_WEBHOOK_SECRET",
         "DATABASE_URL",
-        "RESEND_API_KEY",
-        "EMAIL_FROM",
-        "NEXT_PUBLIC_S3_BUCKET_NAME",
-        "NEXT_PUBLIC_S3_REGION",
-        "NEXT_PUBLIC_S3_ACCESS_KEY",
-        "NEXT_PUBLIC_S3_SECRET_KEY"
+        "FLAGS_SECRET",
+        "STRIPE_SECRET_KEY",
+        "RESEND_FROM",
+        "RESEND_TOKEN",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "STRIPE_WEBHOOK_SECRET",
+        "SVIX_TOKEN"
       ]
     },
-    "db:migrate:deploy": {},
-    "db:push": {},
-    "db:seed": {},
-    "generate": {
-      "dependsOn": ["^generate"]
+    "test": {
+      "dependsOn": ["^test"]
     },
-    "lint": {},
-    "type-check": {},
+    "analyze": {
+      "dependsOn": ["^analyze"]
+    },
     "dev": {
       "cache": false,
       "persistent": true
     },
     "clean": {
+      "cache": false
+    },
+    "//#clean": {
       "cache": false
     }
   }
