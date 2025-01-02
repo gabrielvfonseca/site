@@ -4,9 +4,9 @@ import { resend } from '@repo/email';
 
 import { SubscriberTemplate } from '@repo/email/templates/subscriber';
 
-import { createContact } from './email/contacts/create-contact';
+import { createContact } from '@/lib/server/email/contacts/create-contact';
 
-import { sendEmail } from './email/send-email';
+import { sendEmail } from '@/lib/server/email/send-email';
 
 import { env } from '@repo/env';
 

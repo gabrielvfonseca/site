@@ -13,14 +13,11 @@ const server: Parameters<typeof createEnv>[0]['server'] = {
 
   DATABASE_URL: z.string().min(1),
 
-  // Added by Vercel
-  VERCEL: z.string().optional(),
-  NEXT_RUNTIME: z.enum(['nodejs', 'edge']).optional(),
+  ARCJET_KEY: z.string().min(1).startsWith('ajkey_'),
 };
 
 const client: Parameters<typeof createEnv>[0]['client'] = {
-  // Added by Vercel
-  NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: z.string().min(1).optional(),
+  NEXT_PUBLIC_SITE_URL: z.string().min(1).optional(),
 };
 
 export const env = createEnv({
@@ -28,14 +25,14 @@ export const env = createEnv({
   server,
   runtimeEnv: {
     RESEND_FROM: process.env.RESEND_FROM,
+    ARCJET_KEY: process.env.ARCJET_KEY,
     RESEND_TOKEN: process.env.RESEND_TOKEN,
     RESEND_AUDIENCE: process.env.RESEND_AUDIENCE,
-    VERCEL: process.env.VERCEL,
-    NEXT_RUNTIME: process.env.NEXT_RUNTIME,
     KV_URL: process.env.KV_URL,
     KV_REST_API_READ_ONLY_TOKEN: process.env.KV_REST_API_READ_ONLY_TOKEN,
     KV_REST_API_TOKEN: process.env.KV_REST_API_TOKEN,
     KV_REST_API_URL: process.env.KV_REST_API_URL,
     DATABASE_URL: process.env.DATABASE_URL,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },
 });

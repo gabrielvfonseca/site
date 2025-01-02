@@ -4,7 +4,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 
 import { components } from '@/components/markdown/components';
 
-interface MdxProps {
+type MdxProps = {
     code: string;
 };
 

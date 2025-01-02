@@ -25,6 +25,7 @@ import { ConfettiSideCannons } from '@/components/animations/confetti';
 import { signNewsletter } from '@/lib/schemas/newsletter-schema';
 
 import { toast } from 'sonner';
+
 import Spinner from '@repo/design-system/components/spinner';
 
 export default function SignForm () {
