@@ -15,7 +15,9 @@ import { constructViewport } from '@repo/seo/viewport';
 import { DesignSystemProvider } from '@repo/design-system';
 
 import { cn } from '@repo/design-system/lib/utils';
+
 import Loading from './loading';
+import GlobalError from './gloabal-error';
 
 export const viewport: Viewport = constructViewport();
 
@@ -24,6 +26,7 @@ export const metadata: Metadata = constructMetadata({
   description: 'Software developer, tech enthusiast, and writer, living in Lisbon.'
 });
 
+// Root Layout
 const RootLayout = ({
   children,
 }: {
@@ -34,7 +37,7 @@ const RootLayout = ({
     className={cn(fonts)}
     suppressHydrationWarning
   >
-    <body>
+    <body className='flex flex-col flex-1 min-h-screen'>
       <DesignSystemProvider>
         <Suspense fallback={<Loading />}>
           {children}

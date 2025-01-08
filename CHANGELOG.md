@@ -1,5 +1,27 @@
 # Changelog
 
+### v1.1.1 (Jan 8, 2025)
+
+#### 🛠️ **Technical Improvements**
+
+- Some more color updates
+- Added a new post page
+- Added loading components
+- New metadata files
+
+#### Authors: 1
+- Gabriel Fonseca ([@gabrielvfonseca](https://github.com/gabrielvfonseca))  
+
+### v1.1.1 (Jan 8, 2025)
+
+#### 🛠️ **Technical Improvements**
+
+- Made some color updates
+- Made some application structure imports
+- Changed from post-list to post-card
+
+#### Authors: 1  
+- Gabriel Fonseca ([@gabrielvfonseca](https://github.com/gabrielvfonseca))  
 
 ### v1.1.0 (Oct 21, 2024)
 

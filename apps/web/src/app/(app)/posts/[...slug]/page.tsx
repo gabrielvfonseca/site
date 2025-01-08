@@ -8,9 +8,7 @@ import { constructMetadata } from '@repo/seo/metadata';
 
 import { Metadata } from 'next';
 
-import BlogPost from '@/components/blog';
-
-import Loading from './loading';
+import BlogPost from './_components/blog-post';
 
 type PostProps = {
     params: {

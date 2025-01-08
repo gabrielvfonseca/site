@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
-const PostList = dynamic(() => import('@/components/homepage/post-list').then((mod) => mod.PostList));
-const Newsletter = dynamic(() => import('@/components/homepage/newsletter').then((mod) => mod.Newsletter));
+import PostList from './_components/post-list';
+import Newsletter from './_components/newsletter';
+
+import Loading from './loading';
 
 const Homepage = () => (
     <main>
@@ -13,26 +15,28 @@ const Homepage = () => (
 
         <p className='mb-4'>
             {`Hey, I'm Gabriel—a passionate `}
-            <a href='https://github.com/gabrielvfonseca'>developer</a>, 
-            <a href='https://github.com/gabrielvfonseca'>computer engineering student</a>, 
+            <a href='https://github.com/gabrielvfonseca'>developer</a>{`, `}
+            <a href='https://github.com/gabrielvfonseca'>computer engineering student</a>{`, `}
             {`and the Founder and CEO of `}
-            <a href='https://trysequence.co' className='text-gray-1000'>Sequence</a>.
+            <Link href='https://trysequence.co' className='text-primary'>Sequence</Link>.
         </p>
 
         <p className='mb-4'>
             {`I'm also on a journey to complete my Computer Engineering degree at the `}
             <a href='https://www.fct.unl.pt'>NOVA School of Science and Technology</a> 
-            in Almada, Portugal.
+            {` in Almada, Portugal.`}
         </p>
 
         <p className='mb-4'>
-            {`Sure, I might sound like your typical tech `}<s>enthusiast</s>{` nerd—and that's fine.`}
+            {`Sure, I might sound like your typical tech `}<s>enthusiast</s>{` nerd — and that's fine.`}
             {`I'm here to share my `}<a>journey</a>, <a>thoughts</a>, and <a>passions</a>{` with you.`}
         </p>
 
         <div className='flex flex-col gap-y-6 my-14'>
             <div className='font-medium'>Posts</div>
-            <PostList />
+            <Suspense fallback={<Loading />}>
+                <PostList />
+            </Suspense>
         </div>
 
         <div className='flex flex-col gap-y-6'>
