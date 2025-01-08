@@ -37,10 +37,10 @@
     --warning: 36 100% 50%;
     --warning-foreground: 0 0% 98%;
 
-    --border: 0 0% 89.8%;
+    --border: 0 0% 90%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
-    --radius: 0.5rem;
+    --radius: 0.1rem;
 
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -57,7 +57,7 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --accents-1: 0 0% 98%;
+    --accents-1: 0 0% 100%;
     --accents-2: 0 0% 92%;
     --accents-3: 0 0% 60%;
     --accents-4: 0 0% 53%;
@@ -169,7 +169,7 @@
     --background: 0, 100%, 0%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 3.9%;
+    --card: 0 0% 4%;
     --card-foreground: 0 0% 98%;
 
     --popover: 0 0% 3.9%;
@@ -199,7 +199,7 @@
     --warning: 36 100% 50%;
     --warning-foreground: 0 0% 98%;
 
-    --border: 0 0% 14.9%;
+    --border: 0 0% 13%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
 
@@ -218,14 +218,14 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --accents-1: 0 0% 7%;
-    --accents-2: 0 0% 20%;
-    --accents-3: 0 0% 27%;
-    --accents-4: 0 0% 40%;
-    --accents-5: 0 0% 53%;
-    --accents-6: 0 0% 60%;
-    --accents-7: 0 0% 92%;
-    --accents-8: 0 0% 98%;
+    --accents-1: 0 0% 4%;
+    --accents-2: 0 0% 18%;
+    --accents-3: 0 0% 24%;
+    --accents-4: 0 0% 32%;
+    --accents-5: 0 0% 45%;
+    --accents-6: 0 0% 52%;
+    --accents-7: 0 0% 78%;
+    --accents-8: 0 0% 84%;
 
     --sh-class: #6491f1;
     --sh-sign: #7589fc;
