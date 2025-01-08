@@ -30,14 +30,14 @@ const Homepage = () => (
             {`I'm here to share my `}<a>journey</a>, <a>thoughts</a>, and <a>passions</a>{` with you.`}
         </p>
 
-        <div className='flex flex-col gap-y-4 my-10'>
-            Posts
+        <div className='flex flex-col gap-y-6 my-14'>
+            <div className='font-medium'>Posts</div>
             <PostList />
         </div>
 
-        <div className='mb-6'>
-            Newsletter
-            <p className='mt-4'>
+        <div className='flex flex-col gap-y-6'>
+            <div className='font-medium'>Newsletter</div>
+            <p>
                 {`I'm currently working on a new project, which I'm excited `}
                 {`to share with you soon. In the meantime, you can `}
                 <span className='text-primary'>subscribe to my newsletter to receive updates</span> 
