@@ -1,3 +1,4 @@
+import { Footer } from '@/components/layout/footer';
 import { Nav } from '@/components/layout/nav';
 
 const SiteLayout = ({
@@ -5,9 +6,10 @@ const SiteLayout = ({
 }: {
   children: React.ReactNode
 }) => (
-  <div className='mx-auto container max-w-lg sm:max-w-xl py-10 sm:py-28'>
+  <div className='mx-auto container max-w-lg sm:max-w-xl py-14 sm:py-28'>
     <Nav />
     {children}
+    <Footer />
   </div>
 );
 
