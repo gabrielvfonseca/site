@@ -2,9 +2,9 @@
   "name": "web",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000 --turbopack",
-    "build": "next build",
-    "start": "next start",
+    "dev": "next dev -p 3000 --turbopack && npx contentlayer dev",
+    "build": "next build && npx contentlayer dev",
+    "start": "next start && npx contentlayer dev",
     "analyze": "ANALYZE=true pnpm build",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"

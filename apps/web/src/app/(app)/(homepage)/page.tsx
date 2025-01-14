@@ -14,7 +14,7 @@ const Homepage = () => (
         </p>
 
         <p className='mb-4'>
-            {`Hey, I'm Gabriel—a passionate `}
+            {`Hey, I'm Gabriel — a passionate `}
             <a href='https://github.com/gabrielvfonseca'>developer</a>{`, `}
             <a href='https://github.com/gabrielvfonseca'>computer engineering student</a>{`, `}
             {`and the Founder and CEO of `}
