@@ -22,6 +22,9 @@
     --tertiary: 0 0% 32%;
     --tertiary-foreground: 0 0% 52%;
 
+    --quaternary: 0 0% 52%;
+    --quaternary-foreground: 0 0% 52%;
+
     --accent: 0 5% 0%;
     --muted-foreground: 0 0% 45.1%;
 
@@ -181,8 +184,11 @@
     --secondary: 0 0% 72%;
     --secondary-foreground: 0 0% 52%;
 
-    --tertiary: 0 0% 32%;
+    --tertiary: 0 0% 38%;
     --tertiary-foreground: 0 0% 22%;
+
+    --quaternary: 0 0% 32%;
+    --quaternary-foreground: 0 0% 22%;
 
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
