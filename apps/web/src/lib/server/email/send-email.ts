@@ -1,22 +1,21 @@
 import { resend } from '@repo/email';
 
-import { env } from '@repo/env';
-
 import { JSX } from 'react';
 
 interface sendEmailProps {
-    email: string;
+    from: string;
+    to: string;
     body: {
         subject: string;
         react: JSX.Element;
     };
 };
 
-export const sendEmail = async ({ email, body }: sendEmailProps) => {
+export const sendEmail = async ({ from, to, body }: sendEmailProps) => {
     try {
         return await resend.emails.send({
-            from: env.RESEND_FROM,
-            to: [email],
+            from: from,
+            to: [to],
             subject: body.subject,
             react: body.react,
         });

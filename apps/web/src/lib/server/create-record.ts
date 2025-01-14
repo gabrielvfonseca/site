@@ -47,7 +47,8 @@ export const createRecord = async ({ email }: {
         };
 
         sendEmail({
-            email: `Gabriel <${env.RESEND_FROM}>`,
+            from: `Gabriel <${env.RESEND_FROM}>`,
+            to: email,
             body: {
                 subject: 'Welcome to my newsletter!',
                 react: SubscriberTemplate(),
