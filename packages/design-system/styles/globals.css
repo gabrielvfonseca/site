@@ -394,6 +394,10 @@
     @apply text-blue-800 hover:text-blue-900 no-underline;
   }
 
+  .prose span {
+    @apply border-none;
+  }
+
   main p, .prose p {
     @apply text-secondary mb-6;
   }
@@ -459,8 +463,24 @@
     @apply font-medium text-primary;
   }
 
-  main code, .prose code {
-    @apply font-sans text-primary border border-border bg-accent rounded-md text-xs;
+  main code, .prose code, .prose pre {
+    @apply font-mono text-primary border-border bg-accent rounded-lg text-sm;
+  }
+
+  .prose ::-webkit-scrollbar {
+    @apply h-1 w-1;
+  }
+
+  .prose ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  .prose ::-webkit-scrollbar-thumb {
+    @apply bg-quaternary-foreground px-1 rounded-full;
+  }
+
+  .prose ::-webkit-scrollbar-thumb:hover {
+    @apply bg-quaternary;
   }
 }
 
