@@ -42,7 +42,7 @@ const Homepage = () => (
 
         <div className='flex flex-col gap-y-6'>
             <div className='font-medium'>Newsletter</div>
-            <p>
+            <p className='font-normal'>
                 {`I'm currently working on a new project, which I'm excited `}
                 {`to share with you soon. In the meantime, you can `}
                 <span className='text-primary'>subscribe to my newsletter to receive updates</span> 
