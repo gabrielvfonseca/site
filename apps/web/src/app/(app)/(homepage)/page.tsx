@@ -29,7 +29,8 @@ const Homepage = () => (
 
         <p className='mb-4'>
             {`Sure, I might sound like your typical tech `}<s>enthusiast</s>{` nerd — and that's fine.`}
-            {`I'm here to share my `}<a>journey</a>, <a>thoughts</a>, and <a>passions</a>{` with you.`}
+            {`I'm here to share my `}<a>journey</a>{`, `}
+            <a href='/posts'>thoughts</a>, and <a href='/posts'>passions</a>{` with you.`}
         </p>
 
         <div className='flex flex-col gap-y-6 my-14'>
