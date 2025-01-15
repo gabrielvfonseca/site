@@ -16,6 +16,8 @@ import { cn } from '@repo/design-system/lib/utils';
 
 import Loading from './loading';
 
+import { VercelAnalytics } from '@repo/vercel'; 
+
 export const viewport: Viewport = constructViewport();
 
 export const metadata: Metadata = constructMetadata();
@@ -32,11 +34,13 @@ const RootLayout = ({
     suppressHydrationWarning
   >
     <body className='flex flex-col flex-1 min-h-screen'>
-      <DesignSystemProvider>
-        <Suspense fallback={<Loading />}>
-          {children}
-        </Suspense>
-      </DesignSystemProvider>
+      <VercelAnalytics>
+        <DesignSystemProvider>
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
+        </DesignSystemProvider>
+      </VercelAnalytics>
     </body>
   </html>
 );
