@@ -1,7 +1,7 @@
 
 
 > web@ build /Users/gabrielfonseca/Documents/Projects/site/apps/web
-> next build && npx contentlayer dev
+> next build
 
    [1m[38;2;173;127;168m▲ Next.js 15.1.0[39m[22m
    - Environments: .env

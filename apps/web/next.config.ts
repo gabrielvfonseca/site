@@ -9,7 +9,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': resolve(__dirname, './src'),
-      '@contentlayer': resolve(__dirname, '.contentlayer/generated')
+      '@posts': resolve(__dirname, '.contentlayer/generated')
     };
     return config;
   },
