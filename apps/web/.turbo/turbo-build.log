@@ -1,0 +1,25 @@
+
+
+> web@ build /Users/gabrielfonseca/Documents/Projects/site/apps/web
+> next build && npx contentlayer dev
+
+   [1m[38;2;173;127;168m▲ Next.js 15.1.0[39m[22m
+   - Environments: .env
+
+ [37m[1m [22m[39m Creating an optimized production build ...
+Generated 6 documents in .contentlayer
+[31m[31mFailed to compile.
+[39m[39m
+[31m../../node_modules/.pnpm/contentlayer@0.3.4_esbuild@0.24.2/node_modules/contentlayer/dist/client/index.js
+[31m[1mModule not found[22m[39m: Can't resolve '[32m@contentlayer/client[39m'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./.contentlayer/generated/index.mjs
+./src/app/sitemap.tsx
+../../node_modules/.pnpm/next@15.1.0_@opentelemetry+api@1.9.0_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/next/dist/build/webpack/loaders/next-metadata-route-loader.js?filePath=%2FUsers%2Fgabrielfonseca%2FDocuments%2FProjects%2Fsite%2Fapps%2Fweb%2Fsrc%2Fapp%2Fsitemap.tsx&isDynamicRouteExtension=1!?__next_metadata_route__[39m
+[31m[39m
+[31m[39m
+[31m> Build failed because of webpack errors[39m
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
