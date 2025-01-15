@@ -1,31 +1,31 @@
-import merge from 'lodash.merge';
 import type { Metadata } from 'next';
 
-type MetadataGenerator = Omit<Metadata, 'description' | 'title'> & {
-  title: string;
-  description: string;
-  image?: string;
+type ConstructMetadataProperties = {
+  title?: string;
+  description?: string;
 };
 
-const applicationName = 'site';
-const author: Metadata['authors'] = {
-  name: 'Gabriel Fonseca',
-  url: 'https://gabfon.com/',
-};
 const publisher = 'Gabriel Fonseca';
+const defaultTitle = publisher;
+const defaultDescription = 'Software developer, tech enthusiast, and writer, living in Lisbon.';
+
+const url = 'https://gabfon.com';
+const applicationName = 'site';
 const twitterHandle = '@gabfon_';
 
-export const constructMetadata = ({
-  title,
-  description,
-  image,
-  ...properties
-}: MetadataGenerator): Metadata => {
-  const parsedTitle = `${title} | ${applicationName}`;
-  const defaultMetadata: Metadata = {
-    title: parsedTitle,
-    description,
-    applicationName,
+const author: Metadata['authors'] = {
+  name: 'Gabriel Fonseca',
+  url: url,
+};
+
+export const constructMetadata = ({ 
+  title, description
+}: ConstructMetadataProperties = {}): Metadata => {
+  return {
+    metadataBase: new URL(url),
+    title: title || defaultTitle,
+    description: description || defaultDescription,
+    applicationName: applicationName,
     generator: 'Next.js',
     referrer: 'origin-when-cross-origin',
     authors: [author],
@@ -44,7 +44,7 @@ export const constructMetadata = ({
     appleWebApp: {
       capable: true,
       statusBarStyle: 'default',
-      title: parsedTitle,
+      title: publisher,
     },
     robots: {
       index: true,
@@ -58,8 +58,9 @@ export const constructMetadata = ({
       },
     },
     openGraph: {
-      title: parsedTitle,
-      description,
+      title: publisher,
+      description: defaultDescription,
+      images: '/opengraph-image.png',
       type: 'website',
       siteName: applicationName,
       locale: 'en_US',
@@ -68,21 +69,7 @@ export const constructMetadata = ({
     twitter: {
       card: 'summary_large_image',
       creator: twitterHandle,
+      images: '/opengraph-image.png',
     },
-  };
-
-  const metadata: Metadata = merge(defaultMetadata, properties);
-
-  if (image && metadata.openGraph) {
-    metadata.openGraph.images = [
-      {
-        url: image,
-        width: 1200,
-        height: 630,
-        alt: title,
-      },
-    ];
-  }
-
-  return metadata;
+  } as Metadata;
 };

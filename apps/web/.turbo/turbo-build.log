@@ -18,11 +18,36 @@ Import trace for requested module:
 ../../node_modules/.pnpm/framer-motion@11.15.0_react-dom@19.0.0_react@19.0.0__react@19.0.0/node_modules/framer-motion/dist/es/index.mjs
 ../../packages/design-system/components/spinner.tsx[39m
 [33m[39m
-[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[31mFailed to compile.
-[39m
-[36msrc/app/(app)/newsletter/unsubscribe/route.ts[39m
-[31m[1mType error[22m[39m: Route "[1msrc/app/(app)/newsletter/unsubscribe/route.ts[22m" has an invalid export:
-  "[1mnull[22m" is not a valid POST return type:
-    Expected "[1mvoid | Response | Promise<void | Response>[22m", got "[1mnull[22m".
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G[?25h [37m[1m [22m[39m Linting and checking validity of types     [32m[1m✓[22m[39m Linting and checking validity of types 
+[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m...[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data     [32m[1m✓[22m[39m Collecting page data 
+[?25l [37m[1m [22m[39m Generating static pages (0/17)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/17)  [36m[=   ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/17)  [36m[==  ][39m[2K[1G[?25h ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "https://gabfon.com". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+[?25h [32m[1m✓[22m[39m Generating static pages (17/17)
+[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[?25l [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Collecting build traces     [32m[1m✓[22m[39m Collecting build traces 
+[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization     [32m[1m✓[22m[39m Finalizing page optimization 
 
-[?25h[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
+[4mRoute (app)[24m                                     [4mSize[24m     [4mFirst Load JS[24m
+┌ ○ /                                           30.9 kB         [37m[1m191 kB[22m[39m
+├ ○ /_not-found                                 979 B           [37m[1m106 kB[22m[39m
+├ ○ /manifest.webmanifest                       0 B                [37m[1m0 B[22m[39m
+├ ○ /opengraph-image.png                        0 B                [37m[1m0 B[22m[39m
+├ ○ /posts                                      172 B           [37m[1m109 kB[22m[39m
+├ ● /posts/[...slug]                            9.19 kB         [37m[1m114 kB[22m[39m
+├   ├ /posts/my-tech-stack
+├   ├ /posts/readme
+├   ├ /posts/should-you-use-chatgpt-for-coding
+├   └ [+3 more paths]
+├ ○ /robots.txt                                 0 B                [37m[1m0 B[22m[39m
+├ ƒ /rss                                        148 B           [37m[1m105 kB[22m[39m
+└ ○ /sitemap.xml                                0 B                [37m[1m0 B[22m[39m
++ First Load JS shared by all                   [37m[1m105 kB[22m[39m
+  ├ chunks/221-ab99388a58106e07.js              50.3 kB
+  ├ chunks/7564af14-c70a2460a27f92c6.js         53 kB
+  └ other shared chunks (total)                 1.85 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses [36mgenerateStaticParams[39m)
+ƒ  (Dynamic)  server-rendered on demand
+
+[?25h[1G[0KContentlayer config change detected. Updating type definitions and data...
+Generated 6 documents in .contentlayer

@@ -14,7 +14,7 @@ type PostProps = {
     params: {
         slug: string[];
     };
-};
+} & any;
 
 export default async function Page ({ params }: PostProps) {
     const post = await getPostFromParams(params);
@@ -40,7 +40,6 @@ export const generateMetadata = async ({ params }: PostProps): Promise<Metadata>
     return constructMetadata({
         title: `${post.title} | Gabriel Fonseca`,
         description: post.description,
-        image: post.image,
     });
 };
 

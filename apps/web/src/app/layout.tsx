@@ -4,13 +4,11 @@ import '@repo/design-system/styles/globals.css';
 
 import { fonts } from '@repo/design-system/lib/fonts';
 
-import type { Metadata } from 'next';
-
-import { constructMetadata } from '@repo/seo/metadata';
-
-import type { Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import { constructViewport } from '@repo/seo/viewport';
+
+import { constructMetadata } from '@repo/seo/metadata';
 
 import { DesignSystemProvider } from '@repo/design-system';
 
@@ -20,10 +18,7 @@ import Loading from './loading';
 
 export const viewport: Viewport = constructViewport();
 
-export const metadata: Metadata = constructMetadata({
-  title: 'Gabriel Fonseca',
-  description: 'Software developer, tech enthusiast, and writer, living in Lisbon.'
-});
+export const metadata: Metadata = constructMetadata();
 
 // Root Layout
 const RootLayout = ({

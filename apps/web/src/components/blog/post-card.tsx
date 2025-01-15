@@ -11,7 +11,7 @@ import { Badge } from '@repo/design-system/components/ui/badge';
 
 import { formatDate } from '@repo/design-system/lib/utils';
 
-import type { Post } from '@contentlayer';
+import type { Post } from '@posts';
 
 const PostCard = (post: Post) => (
     <Card className='relative'>
