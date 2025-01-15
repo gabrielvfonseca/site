@@ -2,15 +2,17 @@
   "name": "web",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000 --turbopack && npx contentlayer dev",
-    "build": "next build && npx contentlayer dev",
-    "start": "next start && npx contentlayer dev",
+    "dev": "next dev -p 3000 --turbopack",
+    "build": "next build",
+    "start": "next start",
     "analyze": "ANALYZE=true pnpm build",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@arcjet/next": "1.0.0-alpha.34",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.9.1",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
