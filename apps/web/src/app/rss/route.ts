@@ -1,4 +1,4 @@
-import { allPosts, type Post } from '@contentlayer';
+import { allPosts, type Post } from '@posts';
 
 export async function GET() {
   const baseUrl = 'https://gabfon.com';

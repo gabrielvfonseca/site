@@ -2,7 +2,7 @@ import React from 'react';
 
 import { notFound } from 'next/navigation';
 
-import { allPosts, type Post } from '@contentlayer';
+import { allPosts, type Post } from '@posts';
 
 import { constructMetadata } from '@repo/seo/metadata';
 

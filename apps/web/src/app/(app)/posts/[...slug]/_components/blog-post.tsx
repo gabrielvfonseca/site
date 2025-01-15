@@ -2,7 +2,7 @@
 
 import { MDX } from '@/components/markdown';
 
-import type { Post } from '@contentlayer';
+import type { Post } from '@posts';
 
 export default function BlogPost(post: Post) {  
     return (

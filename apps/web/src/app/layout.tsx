@@ -17,7 +17,6 @@ import { DesignSystemProvider } from '@repo/design-system';
 import { cn } from '@repo/design-system/lib/utils';
 
 import Loading from './loading';
-import GlobalError from './gloabal-error';
 
 export const viewport: Viewport = constructViewport();
 

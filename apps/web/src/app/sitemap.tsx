@@ -1,6 +1,6 @@
-import { allPosts } from '@contentlayer';
+import { allPosts } from '@posts';
 
-import type { Post } from '@contentlayer';
+import type { Post } from '@posts';
 
 export default async function sitemap() {
   let posts = allPosts.map((post: Post) => ({

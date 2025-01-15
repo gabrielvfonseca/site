@@ -2,7 +2,7 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import { allPosts, type Post } from '@contentlayer';
+import { allPosts, type Post } from '@posts';
 
 import PostCard from '@/components/blog/post-card';
 
