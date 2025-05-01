@@ -42,7 +42,7 @@
     border-color: var(--input-border-disabled);
   }
 
-  input:placeholder-shown {
+  input::placeholder {
     color: var(--input-placeholder-foreground);
   }
 
@@ -72,7 +72,7 @@
     border-color: var(--input-border-disabled);
   }
 
-  textarea:placeholder-shown {
+  textarea::placeholder {
     color: var(--input-placeholder-foreground);
   }
 
