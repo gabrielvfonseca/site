@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius-full: calc(infinity * 1px); /* Circle radius */
+  --radius: 0.375rem; /* Radius */
+}

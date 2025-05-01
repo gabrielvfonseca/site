@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --primary-icon: var(--primary);
+  --secondary-icon: var(--secondary);
+  --icon-size: 16px;
+}
+
+@layer components {
+  svg {
+    fill: var(--primary-icon);
+    width: var(--icon-size);
+    height: var(--icon-size);
+  }
+  svg.secondary {
+    fill: var(--secondary-icon);
+  }
+}

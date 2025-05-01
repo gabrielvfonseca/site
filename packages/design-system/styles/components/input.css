@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --input-background: oklch(0.985 0 0);
+  --input-foreground: oklch(0.145 0 0);
+  --input-border: oklch(0.922 0 0);
+  --input-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --input-background: oklch(0.205 0 0);
+  --input-foreground: oklch(0.985 0 0);
+  --input-border: oklch(0.488 0.243 264.376);
+  --input-ring: oklch(0.269 0 0);
+}
+
+@layer components {
+  input {
+    background-color: var(--input-background);
+    color: var(--input-foreground);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--input-ring);
+  }
+
+  input:disabled {
+    background-color: var(--input-background-disabled);
+    color: var(--input-foreground-disabled);
+    border-color: var(--input-border-disabled);
+  }
+
+  input:placeholder-shown {
+    color: var(--input-placeholder-foreground);
+  }
+
+  input:focus-visible {
+    outline: none;
+    border-color: var(--input-ring);
+  }
+
+  textarea {
+    background-color: var(--input-background);
+    color: var(--input-foreground);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: var(--input-ring);
+  }
+
+  textarea:disabled {
+    background-color: var(--input-background-disabled);
+    color: var(--input-foreground-disabled);
+    border-color: var(--input-border-disabled);
+  }
+
+  textarea:placeholder-shown {
+    color: var(--input-placeholder-foreground);
+  }
+
+  textarea:focus-visible {
+    outline: none;
+    border-color: var(--input-ring);
+  }
+}

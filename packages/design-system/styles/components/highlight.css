@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --highlight-purple: oklch(0.59 0.1652 297.31); /* Highlight Purple */
+  --highlight-purple-foreground: oklch(1 0 0); /* Highlight Purple Foreground */
+  --highlight-blue: oklch(0.66 0.1851 254.96); /* Highlight Blue */
+  --highlight-blue-foreground: oklch(1 0 0); /* Highlight Blue Foreground */
+  --highlight-pink: oklch(0.63 0.2203 2.01); /* Highlight Pink */
+  --highlight-pink-foreground: oklch(1 0 0); /* Highlight Pink Foreground */
+}
+
+.dark {
+  --highlight-purple: oklch(0.59 0.1652 297.31); /* Highlight Purple */
+  --highlight-purple-foreground: oklch(1 0 0); /* Highlight Purple Foreground */
+  --highlight-blue: oklch(0.66 0.1851 254.96); /* Highlight Blue */
+  --highlight-blue-foreground: oklch(1 0 0); /* Highlight Blue Foreground */
+  --highlight-pink: oklch(0.63 0.2203 2.01); /* Highlight Pink */
+  --highlight-pink-foreground: oklch(1 0 0); /* Highlight Pink Foreground */
+}

@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --console-purple: oklch(0.59 0.1652 297.31); /* Console Purple */
+  --console-purple-foreground: oklch(1 0 0); /* Console Purple Foreground */
+  --console-blue: oklch(0.66 0.1851 254.96); /* Console Blue */
+  --console-blue-foreground: oklch(1 0 0); /* Console Blue Foreground */
+  --console-pink: oklch(0.63 0.2203 2.01); /* Console Pink */
+  --console-pink-foreground: oklch(1 0 0); /* Console Pink Foreground */
+}
+
+.dark {
+  --console-purple: oklch(0.59 0.1652 297.31); /* Console Purple */
+  --console-purple-foreground: oklch(1 0 0); /* Console Purple Foreground */
+  --console-blue: oklch(0.66 0.1851 254.96); /* Console Blue */
+  --console-blue-foreground: oklch(1 0 0); /* Console Blue Foreground */
+  --console-pink: oklch(0.63 0.2203 2.01); /* Console Pink */
+  --console-pink-foreground: oklch(1 0 0); /* Console Pink Foreground */
+}

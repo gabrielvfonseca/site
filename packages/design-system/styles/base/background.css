@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Backgrounds ---------------------------------------------------------- */
+  --background-100: oklch(0.95 0 0); /* Background 100 */
+  --background-200: oklch(1 0 0); /* Background 200 */
+
+  --high-contrast-background: var(--gray-700); /* High Contrast Background */
+  --high-contrast-background-hover: var(--gray-800); /* High Contrast Background Hover */
+  --high-contrast-background-active: var(--gray-900); /* High Contrast Background Active */
+
+  /* Foreground ----------------------------------------------------------- */
+  --foreground-100: oklch(0.9 0 0); /* Foreground 100 */
+  --foreground-200: oklch(1 0 0); /* Foreground 200 */
+
+  /* Selection ------------------------------------------------------------ */
+  --selection: oklch(0.97 0 0); /* Selection */
+  --selection-foreground: oklch(0.985 0 0); /* Selection Foreground */
+}
+
+.dark {
+  /* Backgrounds ---------------------------------------------------------- */
+  --background-100: oklch(14.5 0 89.876); /* Background 100 */
+  --background-200: oklch(0 0 0); /* Background 200 */
+
+  --high-contrast-background: var(--gray-700); /* High Contrast Background */
+  --high-contrast-background-hover: var(--gray-800); /* High Contrast Background Hover */
+  --high-contrast-background-active: var(--gray-900); /* High Contrast Background Active */
+
+  /* Foreground ----------------------------------------------------------- */
+  --foreground-100: oklch(0.9 0 0); /* Foreground 100 */
+  --foreground-200: oklch(1 0 0); /* Foreground 200 */
+
+  /* Selection ------------------------------------------------------------ */
+  --selection: oklch(0.97 0 0); /* Selection */
+  --selection-foreground: oklch(0.985 0 0); /* Selection Foreground */
+}

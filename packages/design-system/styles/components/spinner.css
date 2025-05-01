@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Spinner ---------------------------------------------------------- */
+  --spinner-width: 100px; /* Spinner width */
+  --spinner-height: 100px; /* Spinner height */
+  --spinner-blade: oklch(1 0 0); /* Spinner blade */
+  --spinner-blade-contrast: oklch(0 0 0); /* Spinner blade contrast */
+}
+
+.dark {
+  /* Spinner ---------------------------------------------------------- */
+  --spinner-width: 100px; /* Spinner width */
+  --spinner-height: 100px; /* Spinner height */
+  --spinner-blade: oklch(0 0 0); /* Spinner blade */
+  --spinner-blade-contrast: oklch(1 0 0); /* Spinner blade contrast */
+}
+
+/* This component is for the spinner */
+@component spinner {
+  .spinner {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+  }
+
+  .spinner-blade {
+    position: absolute;
+    top: 37%;
+    left: 44%;
+    width: 2px;
+    height: 5px;
+    border-radius: 1px;
+    animation: SpinnerBlade 1s linear infinite;
+    will-change: opacity;
+  }
+
+  @keyframes SpinnerBlade {
+    0% {
+      opacity: 0.85;
+    }
+    50% {
+      opacity: 0.25;
+    }
+    100% {
+      opacity: 0.25;
+    }
+  }
+
+  .spinner-blade:nth-child(1) {
+    transform: rotate(0deg) translateY(-130%);
+    animation-delay: -1.667s;
+  }
+
+  .spinner-blade:nth-child(2) {
+    transform: rotate(30deg) translateY(-130%);
+    animation-delay: -1.583s;
+  }
+
+  .spinner-blade:nth-child(3) {
+    transform: rotate(60deg) translateY(-130%);
+    animation-delay: -1.5s;
+  }
+
+  .spinner-blade:nth-child(4) {
+    transform: rotate(90deg) translateY(-130%);
+    animation-delay: -1.417s;
+  }
+
+  .spinner-blade:nth-child(5) {
+    transform: rotate(120deg) translateY(-130%);
+    animation-delay: -1.333s;
+  }
+
+  .spinner-blade:nth-child(6) {
+    transform: rotate(150deg) translateY(-130%);
+    animation-delay: -1.25s;
+  }
+
+  .spinner-blade:nth-child(7) {
+    transform: rotate(180deg) translateY(-130%);
+    animation-delay: -1.167s;
+  }
+
+  .spinner-blade:nth-child(8) {
+    transform: rotate(210deg) translateY(-130%);
+    animation-delay: -1.083s;
+  }
+
+  .spinner-blade:nth-child(9) {
+    transform: rotate(240deg) translateY(-130%);
+    animation-delay: -1s;
+  }
+
+  .spinner-blade:nth-child(10) {
+    transform: rotate(270deg) translateY(-130%);
+    animation-delay: -0.917s;
+  }
+
+  .spinner-blade:nth-child(11) {
+    transform: rotate(300deg) translateY(-130%);
+    animation-delay: -0.833s;
+  }
+
+  .spinner-blade:nth-child(12) {
+    transform: rotate(330deg) translateY(-130%);
+    animation-delay: -0.75s;
+  }
+}

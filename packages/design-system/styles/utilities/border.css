@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --border: var(--gray-400); /* Border */
+  --border-hover: var(--gray-500); /* Border Hover */
+  --border-active: var(--gray-600); /* Border Active */
+  --border-disabled: var(--gray-300); /* Border Disabled */
+}
+
+.dark {
+  /* Accent Colors ------------------------------------------------------- */
+  --border: var(--gray-800); /* Border */
+  --border-hover: var(--gray-700); /* Border Hover */
+  --border-active: var(--gray-600); /* Border Active */
+  --border-disabled: var(--gray-700); /* Border Disabled */
+}
