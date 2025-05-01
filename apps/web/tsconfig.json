@@ -6,7 +6,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./src/*"],
+      "@/env": ["./env.ts"],
       "@repo/*": ["../../packages/*"]
     }
   },
