@@ -7,20 +7,20 @@
 :root {
   /* Colors --------------------------------------------------------------- */
   /* Primary Colors */
-  --primary: #fff; /* Primary */
-  --primary-foreground: #171717; /* Primary Foreground */
+  --primary: oklch(1 0 0); /* Primary */
+  --primary-foreground: oklch(0.2 0 0); /* Primary Foreground */
 
   /* Secondary Colors */
-  --secondary: #fcfcfc; /* Secondary */
-  --secondary-foreground: #525252; /* Secondary Foreground */
+  --secondary: oklch(0.99 0 0); /* Secondary */
+  --secondary-foreground: oklch(0.44 0 0); /* Secondary Foreground */
 
   /* Tertiary Colors */
-  --tertiary: #f5f5f5; /* Tertiary */
-  --tertiary-foreground: #737373; /* Tertiary Foreground */
+  --tertiary: oklch(0.97 0 0); /* Tertiary */
+  --tertiary-foreground: oklch(0.56 0 0); /* Tertiary Foreground */
 
   /* Quaternary Colors */
-  --quaternary: #f0f0f0; /* Quaternary */
-  --quaternary-foreground: #a3a3a3; /* Quaternary Foreground */
+  --quaternary: oklch(0.96 0 0); /* Quaternary */
+  --quaternary-foreground: oklch(0.72 0 0); /* Quaternary Foreground */
 
   /* Heading -------------------------------------------------------------- */
   --heading-72: 4.5rem;
@@ -117,20 +117,20 @@
 .dark {
   /* Colors --------------------------------------------------------------- */
   /* Primary Colors */
-  --primary: oklch(0, 0%, 0%); /* Primary */
-  --primary-foreground: oklch(0.985 0 0); /* Primary Foreground */
+  --primary: oklch(0.16 0 0); /* Primary */
+  --primary-foreground: oklch(0.97 0 0); /* Primary Foreground */
 
   /* Secondary Colors */
-  --secondary: oklch(0.44 0 0); /* Secondary */
-  --secondary-foreground: oklch(0.205 0 0); /* Secondary Foreground */
+  --secondary:oklch(0.2 0 0); /* Secondary */
+  --secondary-foreground: oklch(0.87 0 0); /* Secondary Foreground */
 
   /* Tertiary Colors */
-  --tertiary: oklch(0.56 0 0); /* Tertiary */
-  --tertiary-foreground: oklch(0.205 0 0); /* Tertiary Foreground */
+  --tertiary: oklch(0.97 0 0); /* Tertiary */
+  --tertiary-foreground: oklch(0.56 0 0); /* Tertiary Foreground */
 
   /* Quaternary Colors */
-  --quaternary: oklch(0.72 0 0); /* Quaternary */
-  --quaternary-foreground: oklch(0.205 0 0); /* Quaternary Foreground */
+  --quaternary: oklch(0.31 0 0); /* Quaternary */
+  --quaternary-foreground: oklch(0.56 0 0); /* Quaternary Foreground */
 }
 
 @layer components {

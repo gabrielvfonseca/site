@@ -5,13 +5,15 @@
 
 @import "./components/badge.css";
 @import "./components/button.css";
+@import "./components/chart.css";
 @import "./components/console.css";
 @import "./components/highlight.css";
 @import "./components/icon.css";
-@import "./components/header.css";
+@import "./components/input.css";
+@import "./components/modal.css";
+@import "./components/sidebar.css";
 @import "./components/spinner.css";
 @import "./components/status.css";
-@import "./components/chart.css";
 
 @import "./utilities/border.css";
 @import "./utilities/colors.css";
@@ -93,8 +95,8 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-inset: var(--sidebar-inset);
   --color-sidebar: var(--sidebar);
-
 
   --color-status-warning: var(--warning);
   --color-status-warning-foreground: var(--warning-foreground);
@@ -309,6 +311,12 @@
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     @apply cursor-pointer;
+  }
+  p {
+    @apply text-tertiary-foreground;
+  }
+  *::selection {
+    @apply bg-blue-950 text-blue-700;
   }
 }
 

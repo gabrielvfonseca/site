@@ -13,7 +13,7 @@
   --modal-primary-foreground: oklch(0.985 0 0);
   --modal-accent: oklch(0.97 0 0);
   --modal-accent-foreground: oklch(0.205 0 0);
-  --modal-border: oklch(0.922 0 0);
+  --modal-border: var(--color-border);
   --modal-ring: oklch(0.708 0 0);
 }
 
@@ -24,6 +24,6 @@
   --modal-primary-foreground: oklch(0.985 0 0);
   --modal-accent: oklch(0.269 0 0);
   --modal-accent-foreground: oklch(0.985 0 0);
-  --modal-border: oklch(0.269 0 0);
+  --modal-border: var(--color-border);
   --modal-ring: oklch(0.439 0 0);
 }
