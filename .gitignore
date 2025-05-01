@@ -60,3 +60,6 @@ dist
 # AI Rules
 .cursorrules
 .github/copilot-instructions.md
+
+# BaseHub
+.basehub
