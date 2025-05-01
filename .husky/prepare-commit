@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# Get the current branch name
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+# Get the commit message file path
+COMMIT_MSG_FILE=$1
+
+# Get the commit type (message, template, merge, squash)
+COMMIT_SOURCE=$2
+
+# Get the commit SHA (for merge commits)
+COMMIT_SHA=$3
+
+# Only modify the message if it's a regular commit
+if [ "$COMMIT_SOURCE" = "message" ]; then
+  # Read the current commit message
+  COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+  
+  # Validate commit message format
+  if ! echo "$COMMIT_MSG" | grep -qE '^(feat|fix|docs|style|refactor|test|chore|perf|ci|build)(\([a-z0-9-]+\))?: .{1,100}$'; then
+    echo "Error: Commit message does not follow the conventional commit format."
+    echo "Format: <type>(<scope>): <subject>"
+    echo "Example: feat(auth): add login functionality"
+    exit 1
+  fi
+
+  # If the message doesn't already start with the branch name
+  if ! echo "$COMMIT_MSG" | grep -q "^\[$BRANCH_NAME\]"; then
+    # Add branch name as prefix
+    echo "[$BRANCH_NAME] $COMMIT_MSG" > "$COMMIT_MSG_FILE"
+  fi
+fi 

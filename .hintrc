@@ -1,0 +1,12 @@
+{
+  "connector": {},
+  "formatters": [],
+  "hints": {
+    "no-inline-styles": [
+      "warning",
+      {
+        "requireNoStyleElement": true
+      }
+    ]
+  }
+}

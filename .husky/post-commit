@@ -1,0 +1,9 @@
+
+# Print a success message
+echo "✨ Commit successful!"
+
+# You can add additional post-commit tasks here
+# For example:
+# - Update documentation
+# - Send notifications
+# - Update changelog 

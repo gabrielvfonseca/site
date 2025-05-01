@@ -1,0 +1,11 @@
+
+# Get the commit message from the file
+COMMIT_MSG=$(cat "$1")
+
+# Check if the commit message follows conventional commits format
+if ! echo "$COMMIT_MSG" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\(.+\))?: .+'; then
+  echo "Error: Commit message does not follow conventional commits format"
+  echo "Format: <type>(<scope>): <description>"
+  echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore"
+  exit 1
+fi 

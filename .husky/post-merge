@@ -1,0 +1,14 @@
+
+echo "Running post-merge tasks..."
+
+# Install dependencies if package.json or pnpm-lock.yaml changed
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet "package.json\|pnpm-lock.yaml"; then
+  echo "📦 Dependencies have changed. Running 'pnpm install'..."
+  pnpm install
+fi
+
+# Update database if migrations changed
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet "prisma/schema.prisma"; then
+  echo "🔄 Database schema has changed. Running migrations..."
+  pnpm migrate
+fi 
