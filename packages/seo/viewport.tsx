@@ -1,7 +1,7 @@
 import type { Viewport } from 'next';
 
 type createViewportProps = {
-  themeColor?: { media: string, color: string }[];
+  themeColor?: { media: string; color: string }[];
   width?: string;
   initialScale?: number;
   maximumScale?: number;
@@ -9,14 +9,14 @@ type createViewportProps = {
 };
 
 export function createViewport({
-    themeColor = [
-      { media: '(prefers-color-scheme: light)', color: 'white' },
-      { media: '(prefers-color-scheme: dark)', color: 'black' },
-    ],
-    width = 'device-width',
-    initialScale = 1,
-    maximumScale = 1,
-    userScalable = false,
+  themeColor = [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
+  width = 'device-width',
+  initialScale = 1,
+  maximumScale = 1,
+  userScalable = false,
 }: createViewportProps = {}): Viewport {
   return {
     themeColor,
@@ -25,4 +25,4 @@ export function createViewport({
     maximumScale,
     userScalable,
   };
-};
+}
