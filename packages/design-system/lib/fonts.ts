@@ -1,13 +1,9 @@
 import { cn } from '@repo/design-system/lib/utils';
-import { Inter } from 'next/font/google';
- 
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter-sans',
-});
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 
 export const fonts = cn(
-  inter.variable,
+  GeistSans.variable,
+  GeistMono.variable,
   'touch-manipulation font-sans antialiased'
 );

@@ -2,379 +2,40 @@
 
 @source "../**/*.{ts,tsx}";
 
-@plugin '@tailwindcss/typography';
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Colors --------------------------------------------------------------- */
-  --button-16: 1rem;
-  --line-height-button-16: 1.25rem;
+  /* Primary Button Colors */
+  --button-primary: oklch(0 0 0); /* Primary */
+  --button-primary-foreground: oklch(1 0 0); /* Primary Foreground */
 
-  --button-14: 0.875rem;
-  --line-height-button-14: 1.25rem;
+  /* Secondary Button Colors */
+  --button-secondary: oklch(0.99 0 0); /* Secondary */
+  --button-secondary-foreground: oklch(0.44 0 0); /* Secondary Foreground */
 
-  --button-12: 0.75rem;
-  --line-height-button-12: 1rem;
+  /* Tertiary Button Colors */
+  --button-tertiary: oklch(0.86 0 0); /* Tertiary */
+  --button-tertiary-foreground: oklch(0.56 0 0); /* Tertiary Foreground */
 
-  /* Buttons --------------------------------------------------------------- */
-  /* Default button */
-  --button: var(--gray-1000);
-  --button-foreground: var(--gray-100);
-  --button-border: var(--border);
-  --button-ring: var(--ring);
-
-  --button-hover: var(--gray-900);
-  --button-hover-foreground: var(--gray-200);
-  --button-hover-border: var(--border-hover);
-
-  --button-active: var(--gray-1000);
-  --button-active-foreground: var(--gray-1000);
-  --button-active-border: var(--border-active);
-
-  --button-disabled: var(--gray-300);
-  --button-disabled-foreground: var(--gray-500);
-  --button-disabled-border: var(--border-disabled);
-
-  /* Outline button */
-  --button-outline: var(--gray-200);
-  --button-outline-foreground: var(--gray-1000);
-  --button-outline-border: var(--border);
-  --button-outline-ring: var(--ring);
-
-  --button-outline-hover: var(--gray-300);
-  --button-outline-hover-foreground: var(--gray-1000);
-  --button-outline-hover-border: var(--border-hover);
-
-  --button-outline-active: var(--gray-300);
-  --button-outline-active-foreground: var(--gray-1000);
-  --button-outline-active-border: var(--border-active);
-
-  --button-outline-disabled: var(--gray-300);
-  --button-outline-disabled-foreground: var(--gray-500);
-  --button-outline-disabled-border: var(--border-disabled);
-
-  /* action button */
-  --button-action: var(--blue-700);
-  --button-action-foreground: var(--primary-foreground);
-  --button-action-border: var(--blue-700);
-  --button-action-ring: var(--ring);
-
-  --button-action-hover: var(--brand-hover);
-  --button-action-hover-foreground: var(--primary-foreground);
-  --button-action-hover-border: var(--blue-700);
-
-  --button-action-active: var(--brand-active);
-  --button-action-active-foreground: var(--primary-foreground);
-  --button-action-active-border: var(--blue-700);
-
-  --button-action-disabled: var(--brand-disabled);
-  --button-action-disabled-foreground: var(--brand-disabled-foreground);
-  --button-action-disabled-border: var(--blue-700);
-
-  /* Ghost button */
-  --button-ghost: transparent;
-  --button-ghost-foreground: var(--gray-100);
-  --button-ghost-border: var(--border);
-  --button-ghost-ring: var(--ring);
-
-  --button-ghost-hover: var(--gray-900);
-  --button-ghost-hover-foreground: var(--gray-200);
-  --button-ghost-hover-border: var(--border-hover);
-
-  --button-ghost-active: var(--gray-900);
-  --button-ghost-active-foreground: var(--gray-200);
-  --button-ghost-active-border: var(--border-active);
-
-  --button-ghost-disabled: var(--gray-300);
-  --button-ghost-disabled-foreground: var(--gray-500);
-  --button-ghost-disabled-border: var(--border-disabled);
-
-  /* Link button */
-  --button-link: transparent;
-  --button-link-foreground: var(--primary-foreground);
-  --button-link-border: transparent;
-  --button-link-ring: var(--ring);
-
-  --button-link-hover: var(--primary-hover);
-  --button-link-hover-foreground: var(--primary-foreground);
-  --button-link-hover-border: transparent;
-
-  --button-link-active: var(--primary-active);
-  --button-link-active-foreground: var(--primary-foreground);
-  --button-link-active-border: transparent;
-
-  --button-link-disabled: var(--gray-300);
-  --button-link-disabled-foreground: var(--gray-500);
-  --button-link-disabled-border: transparent;
-
-  /* Error button */
-  --button-error: var(--error);
-  --button-error-foreground: var(--error-foreground);
-  --button-error-border: var(--error-border);
-  --button-error-ring: var(--red-700);
-
-  --button-error-hover: var(--error-light);
-  --button-error-hover-foreground: var(--error-light-foreground);
-  --button-error-hover-border: var(--error-light-border);
-
-  --button-error-active: var(--error-darker);
-  --button-error-active-foreground: var(--error-darker-foreground);
-  --button-error-active-border: var(--error-darker-border);
-
-  --button-error-disabled: var(--error-lighter);
-  --button-error-disabled-foreground: var(--error-lighter-foreground);
-  --button-error-disabled-border: var(--error-lighter-border);
-
-  /* Warning button */
-  --button-warning: var(--warning);
-  --button-warning-foreground: var(--warning-foreground);
-  --button-warning-border: var(--warning-border);
-  --button-warning-ring: var(--amber-700);
-
-  --button-warning-hover: var(--warning-light);
-  --button-warning-hover-foreground: var(--warning-light-foreground);
-  --button-warning-hover-border: var(--warning-light-border);
-
-  --button-warning-active: var(--warning-darker);
-  --button-warning-active-foreground: var(--warning-darker-foreground);
-  --button-warning-active-border: var(--warning-darker-border);
-
-  --button-warning-disabled: var(--warning-lighter);
-  --button-warning-disabled-foreground: var(--warning-lighter-foreground);
-  --button-warning-disabled-border: var(--warning-lighter-border);
+  /* Quaternary Button Colors */
+  --button-quaternary: oklch(0.96 0 0); /* Quaternary */
+  --button-quaternary-foreground: oklch(0.68 0 0); /* Quaternary Foreground */
 }
 
 .dark {
-/* Default button */
-  --button: var(--gray-1000);
-  --button-foreground: var(--gray-100);
-  --button-border: var(--border);
-  --button-ring: var(--ring);
+  /* Primary Button Colors */
+  --button-primary: oklch(0.16 0 0); /* Primary */
+  --button-primary-foreground: oklch(0.97 0 0); /* Primary Foreground */
 
-  --button-hover: var(--gray-900);
-  --button-hover-foreground: var(--gray-200);
-  --button-hover-border: var(--border-hover);
+  /* Secondary Button Colors */
+  --button-secondary: oklch(0.2 0 0); /* Secondary */
+  --button-secondary-foreground: oklch(0.87 0 0); /* Secondary Foreground */
 
-  --button-active: var(--gray-1000);
-  --button-active-foreground: var(--gray-1000);
-  --button-active-border: var(--border-active);
+  /* Tertiary Button Colors */
+  --button-tertiary: oklch(0.97 0 0); /* Tertiary */
+  --button-tertiary-foreground: oklch(0.76 0 0); /* Tertiary Foreground */
 
-  --button-disabled: var(--gray-300);
-  --button-disabled-foreground: var(--gray-500);
-  --button-disabled-border: var(--border-disabled);
-
-  /* Outline button */
-  --button-outline: var(--gray-200);
-  --button-outline-foreground: var(--gray-1000);
-  --button-outline-border: var(--border);
-  --button-outline-ring: var(--ring);
-
-  --button-outline-hover: var(--gray-300);
-  --button-outline-hover-foreground: var(--gray-1000);
-  --button-outline-hover-border: var(--border-hover);
-
-  --button-outline-active: var(--gray-300);
-  --button-outline-active-foreground: var(--gray-1000);
-  --button-outline-active-border: var(--border-active);
-
-  --button-outline-disabled: var(--gray-300);
-  --button-outline-disabled-foreground: var(--gray-500);
-  --button-outline-disabled-border: var(--border-disabled);
-
-  /* action button */
-  --button-action: var(--blue-700);
-  --button-action-foreground: var(--primary-foreground);
-  --button-action-border: var(--blue-700);
-  --button-action-ring: var(--ring);
-
-  --button-action-hover: var(--brand-hover);
-  --button-action-hover-foreground: var(--primary-foreground);
-  --button-action-hover-border: var(--blue-700);
-
-  --button-action-active: var(--brand-active);
-  --button-action-active-foreground: var(--primary-foreground);
-  --button-action-active-border: var(--blue-700);
-
-  --button-action-disabled: var(--brand-disabled);
-  --button-action-disabled-foreground: var(--brand-disabled-foreground);
-  --button-action-disabled-border: var(--blue-700);
-
-  /* Ghost button */
-  --button-ghost: transparent;
-  --button-ghost-foreground: var(--gray-100);
-  --button-ghost-border: var(--border);
-  --button-ghost-ring: var(--ring);
-
-  --button-ghost-hover: var(--gray-900);
-  --button-ghost-hover-foreground: var(--gray-200);
-  --button-ghost-hover-border: var(--border-hover);
-
-  --button-ghost-active: var(--gray-900);
-  --button-ghost-active-foreground: var(--gray-200);
-  --button-ghost-active-border: var(--border-active);
-
-  --button-ghost-disabled: var(--gray-300);
-  --button-ghost-disabled-foreground: var(--gray-500);
-  --button-ghost-disabled-border: var(--border-disabled);
-
-  /* Link button */
-  --button-link: transparent;
-  --button-link-foreground: var(--primary-foreground);
-  --button-link-border: transparent;
-  --button-link-ring: var(--ring);
-
-  --button-link-hover: var(--primary-hover);
-  --button-link-hover-foreground: var(--primary-foreground);
-  --button-link-hover-border: transparent;
-
-  --button-link-active: var(--primary-active);
-  --button-link-active-foreground: var(--primary-foreground);
-  --button-link-active-border: transparent;
-
-  --button-link-disabled: var(--gray-300);
-  --button-link-disabled-foreground: var(--gray-500);
-  --button-link-disabled-border: transparent;
-
-  /* Error button */
-  --button-error: var(--error);
-  --button-error-foreground: var(--error-foreground);
-  --button-error-border: var(--error-border);
-  --button-error-ring: var(--red-700);
-
-  --button-error-hover: var(--error-light);
-  --button-error-hover-foreground: var(--error-light-foreground);
-  --button-error-hover-border: var(--error-light-border);
-
-  --button-error-active: var(--error-darker);
-  --button-error-active-foreground: var(--error-darker-foreground);
-  --button-error-active-border: var(--error-darker-border);
-
-  --button-error-disabled: var(--error-lighter);
-  --button-error-disabled-foreground: var(--error-lighter-foreground);
-  --button-error-disabled-border: var(--error-lighter-border);
-
-  /* Warning button */
-  --button-warning: var(--warning);
-  --button-warning-foreground: var(--warning-foreground);
-  --button-warning-border: var(--warning-border);
-  --button-warning-ring: var(--amber-700);
-
-  --button-warning-hover: var(--warning-light);
-  --button-warning-hover-foreground: var(--warning-light-foreground);
-  --button-warning-hover-border: var(--warning-light-border);
-
-  --button-warning-active: var(--warning-darker);
-  --button-warning-active-foreground: var(--warning-darker-foreground);
-  --button-warning-active-border: var(--warning-darker-border);
-
-  --button-warning-disabled: var(--warning-lighter);
-  --button-warning-disabled-foreground: var(--warning-lighter-foreground);
-  --button-warning-disabled-border: var(--warning-lighter-border);
-}
-
-@layer components {
-  .default-button {
-    background-color: var(--button);
-    color: var(--button-foreground);
-    border: 1px solid var(--button-border);
-  }
-  
-  .default-button:hover {
-    background-color: var(--button-hover);
-    color: var(--button-hover-foreground);
-    border: 1px solid var(--button-hover-border);
-  }
-
-  .default-button:active {
-    background-color: var(--button-active);
-    color: var(--button-active-foreground);
-    border: 1px solid var(--button-active-border);
-  }
-
-  .default-button:disabled {
-    background-color: var(--button-disabled);
-    color: var(--button-disabled-foreground);
-    border: 1px solid var(--button-disabled-border);
-  }
-
-  .outline-button {
-    background-color: var(--button-outline);
-    color: var(--button-outline-foreground);
-    border: 1px solid var(--button-outline-border);
-  }
-
-  .outline-button:hover {
-    background-color: var(--button-outline-hover);
-    color: var(--button-outline-hover-foreground);
-    border: 1px solid var(--button-outline-hover-border);
-  }
-
-  .outline-button:active {
-    background-color: var(--button-outline-active);
-    color: var(--button-outline-active-foreground);
-    border: 1px solid var(--button-outline-active-border);
-  }
-
-  .outline-button:disabled {
-    background-color: var(--button-outline-disabled);
-    color: var(--button-outline-disabled-foreground);
-    border: 1px solid var(--button-outline-disabled-border);
-  }
-
-  .action-button {
-    background-color: var(--button-action);
-    color: var(--button-action-foreground);
-    border: 1px solid var(--button-action-border);
-  }
-
-  .action-button:hover {
-    background-color: var(--button-action-hover);
-    color: var(--button-action-hover-foreground);
-    border: 1px solid var(--button-action-hover-border);
-  }
-
-  .action-button:active {
-    background-color: var(--button-action-active);
-    color: var(--button-action-active-foreground);
-    border: 1px solid var(--button-action-active-border);
-  }
-
-  .action-button:disabled {
-    background-color: var(--button-action-disabled);
-    color: var(--button-action-disabled-foreground);
-    border: 1px solid var(--button-action-disabled-border);
-  }
-
-  .ghost-button {
-    background-color: var(--button-ghost);
-    color: var(--button-ghost-foreground);
-    border: 1px solid var(--button-ghost-border);
-  }
-
-  .ghost-button:hover {
-    background-color: var(--button-ghost-hover);
-    color: var(--button-ghost-hover-foreground);
-    border: 1px solid var(--button-ghost-hover-border);
-  }
-
-  .ghost-button:active {
-    background-color: var(--button-ghost-active);
-    color: var(--button-ghost-active-foreground);
-    border: 1px solid var(--button-ghost-active-border);
-  }
-
-  .ghost-button:disabled {
-    background-color: var(--button-ghost-disabled);
-    color: var(--button-ghost-disabled-foreground);
-    border: 1px solid var(--button-ghost-disabled-border);
-  }
-
-  .link-button {
-    background-color: var(--button-link);
-    color: var(--button-link-foreground);
-    border: 1px solid var(--button-link-border);
-  }
-  
-  
+  /* Quaternary Button Colors */
+  --button-quaternary: oklch(0.31 0 0); /* Quaternary */
+  --button-quaternary-foreground: oklch(0.65 0 0); /* Quaternary Foreground */
 }

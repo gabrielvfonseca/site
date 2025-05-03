@@ -6,7 +6,7 @@
 
 :root {
   /* Backgrounds ---------------------------------------------------------- */
-  --background-100: oklch(0.95 0 0); /* Background 100 */
+  --background-100: oklch(100 0 89.876); /* Background 100 */
   --background-200: oklch(1 0 0); /* Background 200 */
 
   --high-contrast-background: var(--gray-700); /* High Contrast Background */
@@ -14,8 +14,8 @@
   --high-contrast-background-active: var(--gray-900); /* High Contrast Background Active */
 
   /* Foreground ----------------------------------------------------------- */
-  --foreground-100: oklch(0.9 0 0); /* Foreground 100 */
-  --foreground-200: oklch(1 0 0); /* Foreground 200 */
+  --foreground-100: oklch(0 0 0); /* Foreground 100 */
+  --foreground-200: oklch(0 0 0); /* Foreground 200 */
 }
 
 .dark {
@@ -28,6 +28,6 @@
   --high-contrast-background-active: var(--gray-900); /* High Contrast Background Active */
 
   /* Foreground ----------------------------------------------------------- */
-  --foreground-100: oklch(0.9 0 0); /* Foreground 100 */
+  --foreground-100: oklch(1 0 0); /* Foreground 100 */
   --foreground-200: oklch(1 0 0); /* Foreground 200 */
 }

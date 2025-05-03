@@ -3,7 +3,6 @@
 @import "./base/background.css";
 @import "./base/typography.css";
 
-@import "./components/badge.css";
 @import "./components/button.css";
 @import "./components/chart.css";
 @import "./components/console.css";
@@ -27,15 +26,17 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-inter-sans);
-  --font-mono: var(--font-inter-mono);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 
   --color-background: var(--background-200);
   --color-background-100: var(--background-100);
 
   --color-high-contrast-background: var(--high-contrast-background);
   --color-high-contrast-background-hover: var(--high-contrast-background-hover);
-  --color-high-contrast-background-active: var(--high-contrast-background-active);
+  --color-high-contrast-background-active: var(
+    --high-contrast-background-active
+  );
 
   --color-foreground: var(--foreground-200);
   --color-foreground-100: var(--foreground-100);
@@ -54,6 +55,22 @@
 
   --color-quaternary: var(--quaternary);
   --color-quaternary-foreground: var(--quaternary-foreground);
+
+  --color-link: var(--link-color);
+  --color-link-hover: var(--link-color-hover);
+  --color-link-active: var(--link-color-active);
+
+  --color-button-primary: var(--button-primary);
+  --color-button-primary-foreground: var(--button-primary-foreground);
+
+  --color-button-secondary: var(--button-secondary);
+  --color-button-secondary-foreground: var(--button-secondary-foreground);
+
+  --color-button-tertiary: var(--button-tertiary);
+  --color-button-tertiary-foreground: var(--button-tertiary-foreground);
+
+  --color-button-quaternary: var(--button-quaternary);
+  --color-button-quaternary-foreground: var(--button-quaternary-foreground);
 
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -95,7 +112,6 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-inset: var(--sidebar-inset);
   --color-sidebar: var(--sidebar);
 
   --color-status-warning: var(--warning);
@@ -109,7 +125,7 @@
   --color-status-warning-lighter: var(--warning-lighter);
   --color-status-warning-lighter-foreground: var(--warning-lighter-foreground);
   --color-status-warning-lighter-border: var(--warning-lighter-border);
-  
+
   --color-status-warning-darker: var(--warning-darker);
   --color-status-warning-darker-foreground: var(--warning-darker-foreground);
   --color-status-warning-darker-border: var(--warning-darker-border);
@@ -133,7 +149,7 @@
   --color-status-success: var(--success);
   --color-status-success-foreground: var(--success-foreground);
   --color-status-success-border: var(--success-border);
-  
+
   --color-status-success-light: var(--success-light);
   --color-status-success-light-foreground: var(--success-light-foreground);
   --color-status-success-light-border: var(--success-light-border);
@@ -252,10 +268,10 @@
   --color-pink-900: var(--pink-900);
 
   --radius-full: var(--radius-full);
-  --radius: var(--radius);
+  --radius-rounded: var(--radius-rounded);
 
   --color-ring: var(--ring);
-  
+
   --color-input-background: var(--input-background);
   --color-input-foreground: var(--input-foreground);
   --color-input-border: var(--input-border);
@@ -316,7 +332,7 @@
     @apply text-tertiary-foreground;
   }
   *::selection {
-    @apply bg-blue-950 text-blue-700;
+    @apply bg-highlight-blue text-white;
   }
 }
 
