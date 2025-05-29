@@ -7,16 +7,15 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --sh-class: #a05ddc; /* Console Purple */
-  --sh-sign: #a05ddc; /* Console Purple */
-  --sh-string: #8a63d2; /* Console Purple */
-  --sh-keyword: #fff; /* Console Purple */
-  --sh-comment: #fff; /* Console Purple Foreground */
-  --sh-jsxliterals: #3392ff; /* Console Blue */
-  --sh-property: #fff; /* Console Blue Foreground */
-  --sh-entity: #eb367f; /* Console Pink */
-  --sh-identifier: #fff; /* Console Pink Foreground */
-  --sh-line: #fff; /* Console Line */
+  --sh-class: #a05ddc;
+  --sh-sign: #222222;
+  --sh-string: #3392ff;
+  --sh-keyword: #eb367f;
+  --sh-comment: #838383;
+  --sh-jsxliterals: #3392ff;
+  --sh-property: #000;
+  --sh-entity: #eb367f;
+  --sh-identifier: #a05ddc;
 }
 
 .dark {
