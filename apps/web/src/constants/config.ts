@@ -1,17 +1,4 @@
 export const config = {
-  modal: {
-    command: {
-      enabled: true,
-      shortcutKey: 'j',
-      shortcutModifier: '⌘',
-    },
-  },
-  projects: {
-    enabled: true,
-  },
-  posts: {
-    enabled: true,
-  },
   social: {
     twitter: {
       url: 'https://x.com/gabfon_',

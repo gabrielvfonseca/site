@@ -1,6 +1,5 @@
 import { HoverList } from '@/components/hover-list';
-import { blog } from '@repo/cms';
-import { Feed } from '@repo/cms/components/feed';
+import { posts } from '@/constants/posts';
 import type { Blog, WithContext } from '@repo/seo/json-ld';
 import { JsonLd } from '@repo/seo/json-ld';
 
@@ -14,26 +13,18 @@ export async function PostList() {
     <>
       <JsonLd code={jsonLd} />
       <div className="grid grid-cols-1 items-start md:grid-cols-12">
-        <Feed queries={[blog.postsQuery]}>
-          {async ([data]) => {
-            'use server';
-
-            if (!data.blog.posts.items.length) {
-              return null;
-            }
-
-            return (
-              <HoverList
-                items={data.blog.posts.items.map((post) => ({
-                  title: post._title,
-                  description: post.date,
-                  href: `/blog/${post._slug}`,
-                }))}
-                className="-mx-3 col-span-12"
-              />
-            );
-          }}
-        </Feed>
+        <HoverList
+          items={posts
+            .sort(
+              (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+            )
+            .map((post) => ({
+              title: post.title,
+              description: post.description,
+              href: `posts/${post.slug}`,
+            }))}
+          className="-mx-3 col-span-12"
+        />
       </div>
     </>
   );
