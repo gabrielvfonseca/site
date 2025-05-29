@@ -7,7 +7,7 @@ type MetadataGenerator = Omit<Metadata, 'description' | 'title'> & {
   image?: string;
 };
 
-const applicationName = 'site';
+const applicationName = 'Gabriel Fonseca';
 const author: Metadata['authors'] = {
   name: 'Gabriel Fonseca',
   url: 'https://gabfon.com/',
@@ -21,9 +21,8 @@ export const createMetadata = ({
   image,
   ...properties
 }: MetadataGenerator): Metadata => {
-  const parsedTitle = `${title} | ${applicationName}`;
   const defaultMetadata: Metadata = {
-    title: parsedTitle,
+    title: title,
     description,
     applicationName,
     authors: [author],
@@ -34,10 +33,10 @@ export const createMetadata = ({
     appleWebApp: {
       capable: true,
       statusBarStyle: 'default',
-      title: parsedTitle,
+      title: title,
     },
     openGraph: {
-      title: parsedTitle,
+      title: title,
       description,
       type: 'website',
       siteName: applicationName,
