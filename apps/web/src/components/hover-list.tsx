@@ -49,13 +49,13 @@ export function HoverList({ items, className, ...props }: HoverListProps) {
       )}
     >
       <div
-        className="absolute rounded-[10px] bg-[#0e0f1114] transition-all duration-300 ease-out dark:bg-[#ffffff14]"
+        className="absolute rounded-lg border border-accent-2 bg-accent-1 transition-all duration-300 ease-out"
         style={{
           ...activePillStyle,
           opacity: hoveredIndex !== null ? 1 : 0,
         }}
       />
-      <div className="relative flex w-full flex-col items-start space-y-2">
+      <div className="relative flex w-full flex-col flex-col items-start gap-2">
         {items.map((item, index: number) => (
           <Link
             key={index}
@@ -64,15 +64,13 @@ export function HoverList({ items, className, ...props }: HoverListProps) {
                 featureRefs.current[index] = el;
               }
             }}
-            className="inline-block w-full rounded-[10px] px-3 py-3 text-left transition-colors duration-300"
+            className="inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
             {...{ ...props, href: item.href }}
           >
-            <div className="font-medium text-[#0e0e10] text-sm leading-5 dark:text-white">
-              {item.title}
-            </div>
-            <div className="text-[#0e0f1199] text-sm leading-5 dark:text-[#ffffff99]">
+            <div className="font-medium text-sm leading-5">{item.title}</div>
+            <div className="text-sm text-tertiary leading-5">
               {item.description}
             </div>
           </Link>

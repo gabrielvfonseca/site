@@ -1,14 +1,10 @@
 import type React from 'react';
-
 import '@repo/design-system/styles/globals.css';
+import { DesignSystemProvider } from '@repo/design-system';
 import { fonts } from '@repo/design-system/lib/fonts';
-
+import { Toolbar } from '@repo/feature-flags/components/toolbar';
 import { createMetadata } from '@repo/seo/metadata';
 import { createViewport } from '@repo/seo/viewport';
-
-import { DesignSystemProvider } from '@repo/design-system';
-import { Toolbar } from '@repo/feature-flags/components/toolbar';
-
 import type { Metadata, Viewport } from 'next';
 
 export const viewport: Viewport = createViewport();
@@ -19,7 +15,7 @@ export const metadata: Metadata = createMetadata({
 });
 
 type RootLayoutProps = {
-  children: React.ReactNode;
+  readonly children: React.ReactNode;
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {

@@ -16,9 +16,6 @@ type InternalServerErrorProps = {
 export function InternalServerError({
   reset,
 }: InternalServerErrorProps): JSX.Element {
-  /**
-   * @description The function to reset the error.
-   */
   const handleReset = () => {
     reset();
   };
@@ -43,7 +40,7 @@ export function InternalServerError({
               onClick={handleReset}
               className={buttonVariants({
                 variant: 'default',
-                shape: 'pill',
+                shape: 'full',
               })}
             >
               Try again
