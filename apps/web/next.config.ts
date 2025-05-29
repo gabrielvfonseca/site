@@ -1,28 +1,15 @@
 import { env } from '@/env';
-import { withCMS } from '@repo/cms/next-config';
+import createMdx from '@next/mdx';
 import { withToolbar } from '@repo/feature-flags/lib/toolbar';
-import { config, withAnalyzer } from '@repo/next-config';
+import { withAnalyzer } from '@repo/next-config';
 import { withLogging, withSentry } from '@repo/observability/next-config';
 import type { NextConfig } from 'next';
 
-let nextConfig: NextConfig = withToolbar(withLogging(config));
-
-nextConfig.images?.remotePatterns?.push({
-  protocol: 'https',
-  hostname: 'assets.basehub.com',
-});
-
-if (process.env.NODE_ENV === 'production') {
-  const redirects: NextConfig['redirects'] = async () => [
-    {
-      source: '/legal',
-      destination: '/legal/privacy',
-      statusCode: 301,
-    },
-  ];
-
-  nextConfig.redirects = redirects;
-}
+let nextConfig: NextConfig = withToolbar(
+  withLogging({
+    pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  })
+);
 
 if (env.VERCEL) {
   nextConfig = withSentry(nextConfig);
@@ -32,4 +19,8 @@ if (env.ANALYZE === 'true') {
   nextConfig = withAnalyzer(nextConfig);
 }
 
-export default withCMS(nextConfig);
+const withMdx = createMdx({
+  // Add markdown plugins here, as desired
+});
+
+export default withMdx(nextConfig);
