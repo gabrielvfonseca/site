@@ -7,19 +7,59 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --console-purple: oklch(0.59 0.1652 297.31); /* Console Purple */
-  --console-purple-foreground: oklch(1 0 0); /* Console Purple Foreground */
-  --console-blue: oklch(0.66 0.1851 254.96); /* Console Blue */
-  --console-blue-foreground: oklch(1 0 0); /* Console Blue Foreground */
-  --console-pink: oklch(0.63 0.2203 2.01); /* Console Pink */
-  --console-pink-foreground: oklch(1 0 0); /* Console Pink Foreground */
+  --sh-class: #a05ddc; /* Console Purple */
+  --sh-sign: #a05ddc; /* Console Purple */
+  --sh-string: #8a63d2; /* Console Purple */
+  --sh-keyword: #fff; /* Console Purple */
+  --sh-comment: #fff; /* Console Purple Foreground */
+  --sh-jsxliterals: #3392ff; /* Console Blue */
+  --sh-property: #fff; /* Console Blue Foreground */
+  --sh-entity: #eb367f; /* Console Pink */
+  --sh-identifier: #fff; /* Console Pink Foreground */
+  --sh-line: #fff; /* Console Line */
 }
 
 .dark {
-  --console-purple: oklch(0.59 0.1652 297.31); /* Console Purple */
-  --console-purple-foreground: oklch(1 0 0); /* Console Purple Foreground */
-  --console-blue: oklch(0.66 0.1851 254.96); /* Console Blue */
-  --console-blue-foreground: oklch(1 0 0); /* Console Blue Foreground */
-  --console-pink: oklch(0.63 0.2203 2.01); /* Console Pink */
-  --console-pink-foreground: oklch(1 0 0); /* Console Pink Foreground */
+  --sh-class: #a05ddc;
+  --sh-sign: #e0e0e0;
+  --sh-string: #3392ff;
+  --sh-keyword: #eb367f;
+  --sh-comment: #b4b4b4;
+  --sh-jsxliterals: #3392ff;
+  --sh-property: #ffffff;
+  --sh-entity: #eb367f;
+  --sh-identifier: #a05ddc;
+}
+
+@layer components {
+  span.sh__token--comment {
+    color: var(--sh-comment);
+  }
+  span.sh__token--keyword {
+    color: var(--sh-keyword);
+  }
+  span.sh__token--string {
+    color: var(--sh-string);
+  }
+  span.sh__token--entity {
+    color: var(--sh-entity);
+  }
+  span.sh__token--identifier {
+    color: var(--sh-identifier);
+  }
+  span.sh__token--property {
+    color: var(--sh-property);
+  }
+  span.sh__token--jsxliterals {
+    color: var(--sh-jsxliterals);
+  }
+  span.sh__token--class {
+    color: var(--sh-class);
+  }
+  span.sh__token--sign {
+    color: var(--sh-sign);
+  }
+  span.sh__token--line {
+    color: var(--sh-line);
+  }
 }

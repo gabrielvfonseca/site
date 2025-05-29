@@ -7,135 +7,36 @@
 :root {
   /* Colors --------------------------------------------------------------- */
   /* Primary Colors */
-  --primary: oklch(1 0 0); /* Primary */
-  --primary-foreground: oklch(0 0 0); /* Primary Foreground */
+  --primary: oklch(0 0 0); /* Primary Foreground */
 
   /* Secondary Colors */
-  --secondary: oklch(0.99 0 0); /* Secondary */
-  --secondary-foreground: oklch(0.44 0 0); /* Secondary Foreground */
+  --secondary: oklch(0.44 0 0); /* Secondary Foreground */
 
   /* Tertiary Colors */
-  --tertiary: oklch(0.86 0 0); /* Tertiary */
-  --tertiary-foreground: oklch(0.56 0 0); /* Tertiary Foreground */
+  --tertiary: oklch(0.56 0 0); /* Tertiary Foreground */
 
   /* Quaternary Colors */
-  --quaternary: oklch(0.96 0 0); /* Quaternary */
-  --quaternary-foreground: oklch(0.68 0 0); /* Quaternary Foreground */
+  --quaternary: oklch(0.68 0 0); /* Quaternary Foreground */
 
   /* Link Colors */
   --link-color: var(--blue-700);
   --link-color-hover: var(--blue-600);
   --link-color-active: var(--blue-500);
-
-  /* Heading -------------------------------------------------------------- */
-  --heading-72: 4.5rem;
-  --line-height-72: 4.5rem;
-  --letter-spacing-72: -0.27rem;
-
-  --heading-64: 4rem;
-  --line-height-64: 4rem;
-  --letter-spacing-64: -0.24rem;
-
-  --heading-56: 3.5rem;
-  --line-height-56: 3.5rem;
-  --letter-spacing-56: -0.21rem;
-
-  --heading-48: 3rem;
-  --line-height-48: 3rem;
-  --letter-spacing-48: -0.18rem;
-
-  --heading-40: 2.5rem;
-  --line-height-40: 2.5rem;
-  --letter-spacing-40: -0.15rem;
-
-  --heading-32: 2rem;
-  --line-height-32: 2.5rem;
-  --letter-spacing-32: -0.08rem;
-
-  --heading-24: 1.5rem;
-  --line-height-24: 2rem;
-  --letter-spacing-24: -0.06rem;
-
-  --heading-20: 1.25rem;
-  --line-height-20: 1.625rem;
-  --letter-spacing-20: -0.025rem;
-
-  --heading-16: 1rem;
-  --line-height-16: 1.5rem;
-  --letter-spacing-16: -0.02rem;
-
-  --heading-14: 0.875rem;
-  --line-height-14: 1.25rem;
-  --letter-spacing-14: -0.018rem;
-
-  /* Label --------------------------------------------------------------- */
-  --label-20: 1.25rem;
-  --line-height-label-20: 2rem;
-
-  --label-18: 1.125rem;
-  --line-height-label-18: 1.25rem;
-
-  --label-16: 1rem;
-  --line-height-label-16: 1.25rem;
-
-  --label-14: 0.875rem;
-  --line-height-label-14: 1.25rem;
-
-  --label-14-mono: 0.875rem;
-  --line-height-label-14-mono: 1.25rem;
-
-  --label-13: 0.813rem;
-  --line-height-label-13: 1rem;
-
-  --label-13-mono: 0.813rem;
-  --line-height-label-13-mono: 1rem;
-
-  --label-12: 0.75rem;
-  --line-height-label-12: 1rem;
-
-  --label-12-mono: 0.75rem;
-  --line-height-label-12-mono: 1rem;
-
-  /* Copy --------------------------------------------------------------- */
-  --copy-24: 1.5rem;
-  --line-height-copy-24: 2.25rem;
-
-  --copy-20: 1.25rem;
-  --line-height-copy-20: 2.25rem;
-
-  --copy-18: 1.125rem;
-  --line-height-copy-18: 1.75rem;
-
-  --copy-16: 1rem;
-  --line-height-copy-16: 1.5rem;
-
-  --copy-14: 0.875rem;
-  --line-height-copy-14: 1.25rem;
-
-  --copy-13: 0.813rem;
-  --line-height-copy-13: 1rem;
-
-  --copy-13-mono: 0.813rem;
-  --line-height-copy-13-mono: 1rem;
 }
 
 .dark {
   /* Colors --------------------------------------------------------------- */
   /* Primary Colors */
-  --primary: oklch(0.16 0 0); /* Primary */
-  --primary-foreground: oklch(0.97 0 0); /* Primary Foreground */
+  --primary: oklch(0.97 0 0); /* Primary Foreground */
 
   /* Secondary Colors */
-  --secondary: oklch(0.2 0 0); /* Secondary */
-  --secondary-foreground: oklch(0.87 0 0); /* Secondary Foreground */
+  --secondary: oklch(0.87 0 0); /* Secondary Foreground */
 
   /* Tertiary Colors */
-  --tertiary: oklch(0.97 0 0); /* Tertiary */
-  --tertiary-foreground: oklch(0.76 0 0); /* Tertiary Foreground */
+  --tertiary: oklch(0.76 0 0); /* Tertiary Foreground */
 
   /* Quaternary Colors */
-  --quaternary: oklch(0.31 0 0); /* Quaternary */
-  --quaternary-foreground: oklch(0.65 0 0); /* Quaternary Foreground */
+  --quaternary: oklch(0.65 0 0); /* Quaternary Foreground */
 
   /* Link Colors */
   --link-color: var(--blue-600);
@@ -157,181 +58,5 @@
   a.link:active {
     color: var(--link-color-active);
     cursor: pointer;
-  }
-
-  .heading-72 {
-    font-size: var(--heading-72);
-    line-height: var(--line-height-72);
-    letter-spacing: var(--letter-spacing-72);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-64 {
-    font-size: var(--heading-64);
-    line-height: var(--line-height-64);
-    letter-spacing: var(--letter-spacing-64);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-56 {
-    font-size: var(--heading-56);
-    line-height: var(--line-height-56);
-    letter-spacing: var(--letter-spacing-56);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-48 {
-    font-size: var(--heading-48);
-    line-height: var(--line-height-48);
-    letter-spacing: var(--letter-spacing-48);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-40 {
-    font-size: var(--heading-40);
-    line-height: var(--line-height-40);
-    letter-spacing: var(--letter-spacing-40);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-32 {
-    font-size: var(--heading-32);
-    line-height: var(--line-height-32);
-    letter-spacing: var(--letter-spacing-32);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-24 {
-    font-size: var(--heading-24);
-    line-height: var(--line-height-24);
-    letter-spacing: var(--letter-spacing-24);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-20 {
-    font-size: var(--heading-20);
-    line-height: var(--line-height-20);
-    letter-spacing: var(--letter-spacing-20);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-16 {
-    font-size: var(--heading-16);
-    line-height: var(--line-height-16);
-    letter-spacing: var(--letter-spacing-16);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .heading-14 {
-    font-size: var(--heading-14);
-    line-height: var(--line-height-14);
-    letter-spacing: var(--letter-spacing-14);
-    color: var(--foreground-200);
-    font-weight: 500;
-  }
-
-  .label-20 {
-    font-size: var(--label-20);
-    line-height: var(--line-height-label-20);
-    font-weight: 500;
-  }
-
-  .label-18 {
-    font-size: var(--label-18);
-    line-height: var(--line-height-label-18);
-    font-weight: 500;
-  }
-
-  .label-16 {
-    font-size: var(--label-16);
-    line-height: var(--line-height-label-16);
-    font-weight: 500;
-  }
-
-  .label-14 {
-    font-size: var(--label-14);
-    line-height: var(--line-height-label-14);
-    font-weight: 500;
-  }
-
-  .label-14-mono {
-    font-size: var(--label-14-mono);
-    line-height: var(--line-height-label-14-mono);
-    font-weight: 500;
-  }
-
-  .label-13 {
-    font-size: var(--label-13);
-    line-height: var(--line-height-label-13);
-    font-weight: 500;
-  }
-
-  .label-13-mono {
-    font-size: var(--label-13-mono);
-    line-height: var(--line-height-label-13-mono);
-    font-weight: 500;
-  }
-
-  .label-12 {
-    font-size: var(--label-12);
-    line-height: var(--line-height-label-12);
-    font-weight: 500;
-  }
-
-  .label-12-mono {
-    font-size: var(--label-12-mono);
-    line-height: var(--line-height-label-12-mono);
-    font-weight: 500;
-  }
-
-  .copy-24 {
-    font-size: var(--copy-24);
-    line-height: var(--line-height-copy-24);
-    font-weight: 500;
-  }
-
-  .copy-20 {
-    font-size: var(--copy-20);
-    line-height: var(--line-height-copy-20);
-    font-weight: 500;
-  }
-
-  .copy-18 {
-    font-size: var(--copy-18);
-    line-height: var(--line-height-copy-18);
-    font-weight: 500;
-  }
-
-  .copy-16 {
-    font-size: var(--copy-16);
-    line-height: var(--line-height-copy-16);
-    font-weight: 500;
-  }
-
-  .copy-14 {
-    font-size: var(--copy-14);
-    line-height: var(--line-height-copy-14);
-    font-weight: 500;
-  }
-
-  .copy-13 {
-    font-size: var(--copy-13);
-    line-height: var(--line-height-copy-13);
-    font-weight: 500;
-  }
-
-  .copy-13-mono {
-    font-size: var(--copy-13-mono);
-    line-height: var(--line-height-copy-13-mono);
-    font-weight: 500;
   }
 }

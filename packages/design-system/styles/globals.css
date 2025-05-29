@@ -7,10 +7,7 @@
 @import "./components/chart.css";
 @import "./components/console.css";
 @import "./components/highlight.css";
-@import "./components/icon.css";
 @import "./components/input.css";
-@import "./components/modal.css";
-@import "./components/sidebar.css";
 @import "./components/spinner.css";
 @import "./components/status.css";
 
@@ -38,23 +35,13 @@
     --high-contrast-background-active
   );
 
-  --color-foreground: var(--foreground-200);
-  --color-foreground-100: var(--foreground-100);
-
   --color-selection: var(--selection);
   --color-selection-foreground: var(--selection-foreground);
 
   --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
   --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-
   --color-tertiary: var(--tertiary);
-  --color-tertiary-foreground: var(--tertiary-foreground);
-
   --color-quaternary: var(--quaternary);
-  --color-quaternary-foreground: var(--quaternary-foreground);
 
   --color-link: var(--link-color);
   --color-link-hover: var(--link-color-hover);
@@ -77,13 +64,6 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
-
-  --color-console-purple: var(--console-purple);
-  --color-console-purple-foreground: var(--console-purple-foreground);
-  --color-console-blue: var(--console-blue);
-  --color-console-blue-foreground: var(--console-blue-foreground);
-  --color-console-pink: var(--console-pink);
-  --color-console-pink-foreground: var(--console-pink-foreground);
 
   --color-highlight-purple: var(--highlight-purple);
   --color-highlight-purple-foreground: var(--highlight-purple-foreground);
@@ -167,14 +147,14 @@
   --color-border-active: var(--border-active);
   --color-border-disabled: var(--border-disabled);
 
-  --color-accents-1: var(--accents-1);
-  --color-accents-2: var(--accents-2);
-  --color-accents-3: var(--accents-3);
-  --color-accents-4: var(--accents-4);
-  --color-accents-5: var(--accents-5);
-  --color-accents-6: var(--accents-6);
-  --color-accents-7: var(--accents-7);
-  --color-accents-8: var(--accents-8);
+  --color-accent-1: var(--accent-1);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-accent-4: var(--accent-4);
+  --color-accent-5: var(--accent-5);
+  --color-accent-6: var(--accent-6);
+  --color-accent-7: var(--accent-7);
+  --color-accent-8: var(--accent-8);
 
   --color-white: var(--white);
   --color-black: var(--black);
@@ -304,7 +284,19 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-primary;
+  }
+  *::-webkit-scrollbar {
+    @apply h-[5px] w-[5px];
+  }
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply bg-accent-2 rounded-full;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-3;
   }
 }
 
@@ -328,8 +320,19 @@
   [role="button"]:not(:disabled) {
     @apply cursor-pointer;
   }
+  div {
+    @apply text-primary;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-primary font-medium;
+  }
   p {
-    @apply text-tertiary-foreground;
+    @apply text-tertiary;
   }
   *::selection {
     @apply bg-highlight-blue text-white;
