@@ -8,7 +8,7 @@ type AppLayoutProps = {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="container mx-auto max-w-lg py-14 sm:max-w-xl sm:py-28">
+    <div className="container mx-auto max-w-lg px-4 py-14 sm:max-w-xl sm:py-28">
       <Header />
       <main className="mt-14 sm:mt-24">{children}</main>
       <Footer />
