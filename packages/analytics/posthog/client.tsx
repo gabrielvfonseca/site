@@ -15,10 +15,15 @@ export const PostHogProvider = (
 ) => {
   useEffect(() => {
     posthog.init(keys().NEXT_PUBLIC_POSTHOG_KEY, {
+      // biome-ignore lint: Posthog API host
       api_host: '/ingest',
+      // biome-ignore lint: Posthog UI host
       ui_host: keys().NEXT_PUBLIC_POSTHOG_HOST,
+      // biome-ignore lint: Posthog person profiles
       person_profiles: 'identified_only',
+      // biome-ignore lint: Posthog capture pageview
       capture_pageview: false, // Disable automatic pageview capture, as we capture manually
+      // biome-ignore lint: Posthog capture pageleave
       capture_pageleave: true, // Overrides the `capture_pageview` setting
     }) as PostHog;
   }, []);
