@@ -1,24 +1,9 @@
 # Site
 
-A modern web application built with Next.js, TypeScript, and pnpm.
-
-<div>
-  <img src="https://img.shields.io/github/license/gabrielvfonseca/site" alt="License" />
-  <img src="https://img.shields.io/github/package-json/v/gabrielvfonseca/site" alt="Version" />
-  <img src="https://img.shields.io/github/last-commit/gabrielvfonseca/site" alt="Last commit" />
-</div>
-
-## Features
-
-- 🚀 Next.js 14 with App Router
-- ⚡️ TurboRepo for monorepo management
-- 📦 pnpm for fast, disk space efficient package management
-- 🐳 Docker support for development and production
-- 🔒 Security best practices and automated updates
-- 📝 Conventional commits and automated changelog
-- 🧪 Testing setup with Jest and React Testing Library
-- 💅 Styled with Tailwind CSS and shadcn/ui
-- 📱 Fully responsive design
+- **Framework**: [Next.js 15](https://nextjs.org/)
+- **Deployment**: [Vercel](https://vercel.com)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com)
+- **Analytics**: [Vercel Analytics](https://vercel.com/analytics) and [Posthog](https://posthog.com)
 
 ## Getting Started
 
@@ -53,23 +38,20 @@ A modern web application built with Next.js, TypeScript, and pnpm.
    docker-compose up -d
    ```
 
-2. Access the application at `http://localhost:3000`
+2. Access the application at `http://localhost:3001`
 
-## Project Structure
+## Development
 
-```
-site/
-├── apps/              # Applications
-│   ├── web/          # Main web application
-│   └── storybook/    # Component documentation
-├── packages/         # Shared packages
-│   ├── design-system # UI components and styles
-│   ├── email/        # Email templates and services
-│   └── ...          # Other shared packages
-├── .github/          # GitHub configurations
-├── .husky/           # Git hooks
-└── .vscode/          # VSCode settings
-```
+### Available Scripts
+
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build the application
+- `pnpm start` - Start production server
+- `pnpm lint` - Linting
+- `pnpm format` - Formatting
+- `pnpm analyze` - Analyze bundle size
+- `pnpm typecheck` - Run TypeScript type checking
+- `pnpm clean` - Clean build artifacts and dependencies
 
 ## Contributing
 
@@ -77,4 +59,4 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
