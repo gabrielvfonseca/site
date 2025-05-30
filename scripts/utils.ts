@@ -14,11 +14,9 @@ export const internalContentDirs = [join('.github', 'workflows'), 'internals'];
 
 export const internalContentFiles = [
   join('.github', 'CONTRIBUTING.md'),
-  join('.github', 'FUNDING.yml'),
   join('.github', 'SECURITY.md'),
-  '.autorc',
   'CHANGELOG.md',
-  'license.md',
+  'LICENSE.md',
 ];
 
 export const allInternalContent = [

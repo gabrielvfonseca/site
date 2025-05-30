@@ -16,7 +16,7 @@ import {
   exec,
   getAvailableVersions,
   tempDirName,
-} from './utils';
+} from './utils.js';
 
 const compareVersions = (a: string, b: string) => {
   const [aMajor, aMinor, aPatch] = a.split('.').map(Number);

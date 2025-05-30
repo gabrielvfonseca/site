@@ -17,7 +17,7 @@ import {
   internalContentDirs,
   internalContentFiles,
   supportedPackageManagers,
-} from './utils';
+} from './utils.js';
 
 const cloneNextForge = async (name: string, packageManager: string) => {
   const command = [
