@@ -1,6 +1,6 @@
 import type { Viewport } from 'next';
 
-type createViewportProps = {
+type CreateViewportProps = {
   themeColor?: { media: string; color: string }[];
   width?: string;
   initialScale?: number;
@@ -17,7 +17,7 @@ export function createViewport({
   initialScale = 1,
   maximumScale = 1,
   userScalable = false,
-}: createViewportProps = {}): Viewport {
+}: CreateViewportProps = {}): Viewport {
   return {
     themeColor,
     width,
