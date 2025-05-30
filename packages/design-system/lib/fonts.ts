@@ -1,6 +1,6 @@
 import { cn } from '@repo/design-system/lib/utils';
-import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 
 export const fonts = cn(
   GeistSans.variable,

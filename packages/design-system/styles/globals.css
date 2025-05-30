@@ -260,9 +260,6 @@
   *::-webkit-scrollbar-thumb {
     @apply bg-accent-2 rounded-full;
   }
-  *::-webkit-scrollbar-thumb:hover {
-    @apply bg-accent-3;
-  }
 }
 
 @layer base {

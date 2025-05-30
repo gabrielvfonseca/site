@@ -1,13 +1,12 @@
+import { cn } from '@repo/design-system/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { HTMLAttributes, JSX } from 'react';
-
-import { cn } from '@repo/design-system/lib/utils';
 
 const spinnerVariants = cva('spinner-blade', {
   variants: {
     variant: {
-      default: 'bg-[var(--spinner-blade)]',
-      secondary: 'bg-[var(--spinner-blade-contrast)]',
+      default: 'bg-accent-1',
+      secondary: 'bg-accent-8',
     },
   },
   defaultVariants: {
