@@ -1,0 +1,24 @@
+{
+  "name": "Gabriel Fonseca",
+  "email": "gabrielvfonseca@gmail.com",
+  "plugins": [
+    "@auto-it/first-time-contributor"
+  ],
+  "labels": [
+    {
+      "name": "major",
+      "description": "Major version bump",
+      "color": "#FF0000"
+    },
+    {
+      "name": "minor",
+      "description": "Minor version bump",
+      "color": "#00FF00"
+    },
+    {
+      "name": "patch",
+      "description": "Patch version bump",
+      "color": "#0000FF"
+    }
+  ]
+} 
