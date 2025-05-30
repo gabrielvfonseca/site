@@ -1,4 +1,0 @@
-
-echo "Running pre-merge checks..."
-pnpm lint
-pnpm build 
