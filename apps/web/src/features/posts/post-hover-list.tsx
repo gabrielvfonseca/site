@@ -9,18 +9,22 @@ import {
   useState,
 } from 'react';
 
-export type Item = {
+export type PostItem = {
   title: string;
   description: string;
   href: string;
 };
 
-export interface HoverListProps
+export interface PostHoverListProps
   extends Partial<ComponentPropsWithoutRef<typeof Link>> {
-  items: Item[];
+  items: PostItem[];
 }
 
-export function HoverList({ items, className, ...props }: HoverListProps) {
+export function PostHoverList({
+  items,
+  className,
+  ...props
+}: PostHoverListProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activePillStyle, setActivePillStyle] = useState({});
   const featureRefs = useRef<(HTMLAnchorElement | null)[]>([]);

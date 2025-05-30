@@ -1,7 +1,7 @@
-import { HoverList } from '@/components/hover-list';
 import { posts } from '@/constants/posts';
 import type { Blog, WithContext } from '@repo/seo/json-ld';
 import { JsonLd } from '@repo/seo/json-ld';
+import { PostHoverList } from './post-hover-list';
 
 export async function PostList() {
   const jsonLd: WithContext<Blog> = {
@@ -13,7 +13,7 @@ export async function PostList() {
     <>
       <JsonLd code={jsonLd} />
       <div className="grid grid-cols-1 items-start md:grid-cols-12">
-        <HoverList
+        <PostHoverList
           items={posts
             .sort(
               (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
