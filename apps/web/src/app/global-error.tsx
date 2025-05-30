@@ -6,16 +6,14 @@ import { fonts } from '@repo/design-system/lib/fonts';
 import Link from 'next/link';
 import type { JSX } from 'react';
 
-type InternalServerErrorProps = {
+type GlobalErrorProps = {
   error: Error & {
     digest?: string;
   };
   reset: () => void;
 };
 
-export function InternalServerError({
-  reset,
-}: InternalServerErrorProps): JSX.Element {
+export default function GlobalError({ reset }: GlobalErrorProps): JSX.Element {
   const handleReset = () => {
     reset();
   };
