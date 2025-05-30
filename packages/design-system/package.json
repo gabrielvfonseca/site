@@ -1,7 +1,9 @@
 {
   "name": "@repo/design-system",
   "version": "0.0.1",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
