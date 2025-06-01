@@ -5,7 +5,20 @@ import {
   type render as rtlRender,
 } from '@testing-library/react';
 import type { ReactElement } from 'react';
+import * as React from 'react';
 import { afterEach, vi } from 'vitest';
+
+// Patch React.act for React 19 compatibility
+if (!React.act) {
+  Object.defineProperty(React, 'act', {
+    value: (callback: () => void) => {
+      callback();
+      return Promise.resolve();
+    },
+    writable: true,
+    configurable: true,
+  });
+}
 
 // Configure testing library to use React's act
 vi.mock('@testing-library/react', async () => {
