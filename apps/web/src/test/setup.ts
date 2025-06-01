@@ -7,7 +7,7 @@ afterEach(() => {
   cleanup();
 });
 
-// Mock next/navigation
+// Mock Next.js components
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: vi.fn(),
@@ -15,13 +15,17 @@ vi.mock('next/navigation', () => ({
     prefetch: vi.fn(),
     back: vi.fn(),
   }),
-  usePathname: () => '',
+  usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),
 }));
 
-// Mock next/link
 vi.mock('next/link', () => ({
   default: 'a',
+}));
+
+// Mock environment variables
+vi.mock('@repo/analytics', () => ({
+  trackEvent: vi.fn(),
 }));
 
 // Mock environment variables
