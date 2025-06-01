@@ -1,10 +1,14 @@
-import { projects } from '@/constants/projects';
+import type { Projects } from '@/constants/projects';
 import { ProjectsHoverList } from './projects-hover-list';
 
-export function ProjectList() {
+type ProjectListProps = {
+  readonly items: Projects;
+};
+
+export function ProjectList({ items }: ProjectListProps) {
   return (
     <div className="grid grid-cols-1 items-start md:grid-cols-12">
-      <ProjectsHoverList items={projects} className="-mx-3 col-span-12" />
+      <ProjectsHoverList items={items} className="-mx-3 col-span-12" />
     </div>
   );
 }
