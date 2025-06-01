@@ -1,1 +1,4 @@
-npx lint-staged
+#!/usr/bin/env sh
+
+pnpm lint-staged
+pnpm test

@@ -5,15 +5,8 @@
   "envMode": "loose",
   "tasks": {
     "build": {
-      "dependsOn": ["^build", "test"],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        ".basehub/**",
-        "**/generated/**",
-        "storybook-static/**",
-        ".react-email/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "test": {
       "dependsOn": ["^test"]

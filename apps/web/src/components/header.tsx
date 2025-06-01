@@ -7,8 +7,8 @@ export function Header() {
       <div className="flex flex-col items-start">
         <Link
           href="/"
-          aria-label={config.name.alt}
-          title={config.name.alt}
+          aria-label={config.name.value}
+          title={config.name.value}
           className="mb-px inline-block font-medium text-primary-foreground no-underline"
         >
           {config.name.value}
