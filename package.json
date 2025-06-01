@@ -15,7 +15,6 @@
     "dev": "turbo dev",
     "lint": "ultracite lint",
     "format": "ultracite format",
-    "test": "turbo test",
     "analyze": "turbo analyze",
     "translate": "turbo translate",
     "boundaries": "turbo boundaries",
@@ -34,9 +33,6 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@repo/typescript-config": "workspace:*",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
     "@turbo/gen": "^2.5.0",
     "@types/node": "^22.14.1",
     "@vitejs/plugin-react": "^4.3.4",
@@ -45,8 +41,7 @@
     "tsup": "^8.4.0",
     "turbo": "^2.5.0",
     "typescript": "^5.8.3",
-    "ultracite": "^4.2.1",
-    "vitest": "^3.1.1"
+    "ultracite": "^4.2.1"
   },
   "engines": {
     "node": ">=18"
