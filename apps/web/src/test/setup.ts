@@ -1,6 +1,27 @@
 import '@testing-library/jest-dom';
-import { cleanup } from '@testing-library/react';
+import {
+  type RenderResult,
+  cleanup,
+  type render as rtlRender,
+} from '@testing-library/react';
+import type { ReactElement } from 'react';
 import { afterEach, vi } from 'vitest';
+
+// Configure testing library to use React's act
+vi.mock('@testing-library/react', async () => {
+  const actual = await vi.importActual<typeof import('@testing-library/react')>(
+    '@testing-library/react'
+  );
+  return {
+    ...actual,
+    render: (
+      ui: ReactElement,
+      options?: Parameters<typeof rtlRender>[1]
+    ): RenderResult => {
+      return actual.render(ui, options);
+    },
+  };
+});
 
 // Automatically cleanup after each test
 afterEach(() => {
