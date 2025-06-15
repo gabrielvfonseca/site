@@ -32,7 +32,7 @@ importers:
         version: 19.8.1
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:packages/typescript-config
+        version: link:configs/typescript-config
       '@turbo/gen':
         specifier: ^2.5.0
         version: 2.5.0(@types/node@22.14.1)(typescript@5.8.3)
@@ -61,7 +61,7 @@ importers:
         specifier: ^4.2.1
         version: 4.2.1
 
-  apps/web:
+  apps/site:
     dependencies:
       '@arcjet/next':
         specifier: 1.0.0-beta.5
@@ -86,7 +86,7 @@ importers:
         version: link:../../packages/design-system
       '@repo/next-config':
         specifier: workspace:*
-        version: link:../../packages/next-config
+        version: link:../../configs/next-config
       '@repo/observability':
         specifier: workspace:*
         version: link:../../packages/observability
@@ -101,7 +101,7 @@ importers:
         version: link:../../packages/seo
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../configs/typescript-config
       '@sentry/nextjs':
         specifier: ^9.12.0
         version: 9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.0(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(webpack@5.98.0(esbuild@0.25.2))
@@ -189,7 +189,7 @@ importers:
         version: 19.1.2(@types/react@19.1.1)
       autoprefixer:
         specifier: ^10.4.19
-        version: 10.4.21(postcss@8.5.3)
+        version: 10.4.21(postcss@8.5.4)
       eslint:
         specifier: ^8.57.0
         version: 8.57.1
@@ -198,13 +198,40 @@ importers:
         version: 15.3.0(eslint@8.57.1)(typescript@5.8.3)
       postcss:
         specifier: ^8.4.38
-        version: 8.5.3
+        version: 8.5.4
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.17(ts-node@10.9.2(@types/node@20.17.57)(typescript@5.8.3))
       typescript:
         specifier: ^5.4.5
         version: 5.8.3
+
+  configs/next-config:
+    dependencies:
+      '@next/bundle-analyzer':
+        specifier: 15.3.0
+        version: 15.3.0(bufferutil@4.0.9)
+      '@prisma/nextjs-monorepo-workaround-plugin':
+        specifier: ^6.6.0
+        version: 6.6.0
+      '@t3-oss/env-core':
+        specifier: ^0.12.0
+        version: 0.12.0(typescript@5.8.3)(zod@3.24.2)
+      '@t3-oss/env-nextjs':
+        specifier: ^0.12.0
+        version: 0.12.0(typescript@5.8.3)(zod@3.24.2)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      next:
+        specifier: 15.3.0
+        version: 15.3.0(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+
+  configs/typescript-config: {}
 
   packages/analytics:
     dependencies:
@@ -232,7 +259,7 @@ importers:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@types/node':
         specifier: 22.14.1
         version: 22.14.1
@@ -407,7 +434,7 @@ importers:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@tailwindcss/postcss':
         specifier: ^4.1.3
         version: 4.1.3
@@ -429,31 +456,6 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
-
-  packages/next-config:
-    dependencies:
-      '@next/bundle-analyzer':
-        specifier: 15.3.0
-        version: 15.3.0(bufferutil@4.0.9)
-      '@prisma/nextjs-monorepo-workaround-plugin':
-        specifier: ^6.6.0
-        version: 6.6.0
-      '@t3-oss/env-core':
-        specifier: ^0.12.0
-        version: 0.12.0(typescript@5.8.3)(zod@3.24.2)
-      '@t3-oss/env-nextjs':
-        specifier: ^0.12.0
-        version: 0.12.0(typescript@5.8.3)(zod@3.24.2)
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      next:
-        specifier: 15.3.0
-        version: 15.3.0(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
   packages/observability:
     dependencies:
@@ -478,7 +480,7 @@ importers:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@types/node':
         specifier: 22.14.1
         version: 22.14.1
@@ -509,7 +511,7 @@ importers:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -531,7 +533,7 @@ importers:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -550,7 +552,7 @@ importers:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../../configs/typescript-config
       '@types/lodash.merge':
         specifier: ^4.6.9
         version: 4.6.9
@@ -566,8 +568,6 @@ importers:
       next:
         specifier: 15.3.0
         version: 15.3.0(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-
-  packages/typescript-config: {}
 
 packages:
 
@@ -1027,9 +1027,6 @@ packages:
 
   '@emnapi/core@1.4.3':
     resolution: {integrity: sha512-4m62DuCE07lw01soJwPiBGC0nAww0Q+RY70VZ+n49yDIO13yyinhbWCeNnaob0lakDtWQzSdtNWzJeOJt2ma+g==}
-
-  '@emnapi/runtime@1.4.1':
-    resolution: {integrity: sha512-LMshMVP0ZhACNjQNYXiU1iZJ6QCcv0lUdPDPugqGvCGXt5xtRVBPdtA0qU12pEXZzpWAhWlZYptfdAFq10DOVQ==}
 
   '@emnapi/runtime@1.4.3':
     resolution: {integrity: sha512-pBPWdu6MLKROBX05wSNKcNb++m5Er+KQ9QkB+WVM+pW2Kx9hoSrVTnu3BdkI5eBLZoKu/J6mW/B6i6bJB2ytXQ==}
@@ -9036,11 +9033,6 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@emnapi/runtime@1.4.1':
-    dependencies:
-      tslib: 2.8.1
-    optional: true
-
   '@emnapi/runtime@1.4.3':
     dependencies:
       tslib: 2.8.1
@@ -9367,7 +9359,7 @@ snapshots:
 
   '@img/sharp-wasm32@0.34.1':
     dependencies:
-      '@emnapi/runtime': 1.4.1
+      '@emnapi/runtime': 1.4.3
     optional: true
 
   '@img/sharp-win32-ia32@0.34.1':
@@ -11351,7 +11343,7 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.1.3
       '@tailwindcss/oxide': 4.1.3
-      postcss: 8.5.3
+      postcss: 8.5.4
       tailwindcss: 4.1.3
 
   '@tailwindcss/typography@0.5.16(tailwindcss@4.1.3)':
@@ -11484,7 +11476,7 @@ snapshots:
 
   '@types/estree-jsx@1.0.5':
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
 
   '@types/estree@1.0.6': {}
 
@@ -12043,14 +12035,14 @@ snapshots:
 
   author-regex@1.0.0: {}
 
-  autoprefixer@10.4.21(postcss@8.5.3):
+  autoprefixer@10.4.21(postcss@8.5.4):
     dependencies:
-      browserslist: 4.24.4
-      caniuse-lite: 1.0.30001702
+      browserslist: 4.25.0
+      caniuse-lite: 1.0.30001720
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
-      postcss: 8.5.3
+      postcss: 8.5.4
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -13708,7 +13700,7 @@ snapshots:
 
   hast-util-to-jsx-runtime@2.3.6:
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       '@types/hast': 3.0.4
       '@types/unist': 3.0.3
       comma-separated-tokens: 2.0.3
@@ -15277,7 +15269,7 @@ snapshots:
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001702
+      caniuse-lite: 1.0.30001720
       postcss: 8.4.31
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -15680,24 +15672,24 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-import@15.1.0(postcss@8.5.3):
+  postcss-import@15.1.0(postcss@8.5.4):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.10
 
-  postcss-js@4.0.1(postcss@8.5.3):
+  postcss-js@4.0.1(postcss@8.5.4):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.5.3
+      postcss: 8.5.4
 
-  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@types/node@20.17.57)(typescript@5.8.3)):
+  postcss-load-config@4.0.2(postcss@8.5.4)(ts-node@10.9.2(@types/node@20.17.57)(typescript@5.8.3)):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.7.0
     optionalDependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
       ts-node: 10.9.2(@types/node@20.17.57)(typescript@5.8.3)
 
   postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.4)(yaml@2.7.0):
@@ -15708,9 +15700,9 @@ snapshots:
       postcss: 8.5.4
       yaml: 2.7.0
 
-  postcss-nested@6.2.0(postcss@8.5.3):
+  postcss-nested@6.2.0(postcss@8.5.4):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
       postcss-selector-parser: 6.1.2
 
   postcss-selector-parser@6.0.10:
@@ -16785,11 +16777,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.3
-      postcss-import: 15.1.0(postcss@8.5.3)
-      postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@types/node@20.17.57)(typescript@5.8.3))
-      postcss-nested: 6.2.0(postcss@8.5.3)
+      postcss: 8.5.4
+      postcss-import: 15.1.0(postcss@8.5.4)
+      postcss-js: 4.0.1(postcss@8.5.4)
+      postcss-load-config: 4.0.2(postcss@8.5.4)(ts-node@10.9.2(@types/node@20.17.57)(typescript@5.8.3))
+      postcss-nested: 6.2.0(postcss@8.5.4)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
       sucrase: 3.35.0
