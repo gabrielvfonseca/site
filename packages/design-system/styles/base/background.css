@@ -8,18 +8,10 @@
   /* Backgrounds ---------------------------------------------------------- */
   --background-100: oklch(100 0 89.876); /* Background 100 */
   --background-200: oklch(1 0 0); /* Background 200 */
-
-  --high-contrast-background: var(--gray-700); /* High Contrast Background */
-  --high-contrast-background-hover: var(--gray-800); /* High Contrast Background Hover */
-  --high-contrast-background-active: var(--gray-900); /* High Contrast Background Active */
 }
 
 .dark {
   /* Backgrounds ---------------------------------------------------------- */
   --background-100: oklch(0 0 4); /* Background 100 */
   --background-200: oklch(0 0 0); /* Background 200 */
-
-  --high-contrast-background: var(--gray-700); /* High Contrast Background */
-  --high-contrast-background-hover: var(--gray-800); /* High Contrast Background Hover */
-  --high-contrast-background-active: var(--gray-900); /* High Contrast Background Active */
 }
