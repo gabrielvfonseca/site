@@ -5,7 +5,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/env": ["./env.ts"],
-      "@repo/*": ["../../packages/*", "../../configs/*"]
+      "@repo/*": ["../../packages/*", "../../internals/*"]
     }
   },
   "include": [
