@@ -1,9 +1,9 @@
 {
-  "name": "site",
+  "name": "gabfon-site",
   "version": "0.1.0",
   "author": {
     "name": "Gabriel Fonseca",
-    "email": "jg.fonseca@outlook.pt"
+    "email": "hey@gabfon.com"
   },
   "type": "module",
   "bin": {
