@@ -1,18 +1,26 @@
-import { env } from '@/env';
 import createMdx from '@next/mdx';
+import { withAnalyzer } from '@repo/next-config';
 import { withLogging, withSentry } from '@repo/observability/next-config';
 import type { NextConfig } from 'next';
-import { withAnalyzer } from '../../configs/next-config';
 
 let nextConfig: NextConfig = withLogging({
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  transpilePackages: [
+    '@repo/analytics',
+    '@repo/next-config',
+    '@repo/observability',
+    '@repo/design-system',
+    '@repo/rate-limit',
+    '@repo/security',
+    '@repo/seo',
+  ],
 });
 
-if (env.VERCEL) {
+if (process.env.VERCEL) {
   nextConfig = withSentry(nextConfig);
 }
 
-if (env.ANALYZE === 'true') {
+if (process.env.ANALYZE === 'true') {
   nextConfig = withAnalyzer(nextConfig);
 }
 
