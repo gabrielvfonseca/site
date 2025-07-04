@@ -30,11 +30,7 @@ export const env = createEnv({
       .url()
       .optional()
       .default('https://calendar.notion.so/meet/gabfon/schedule'),
-    NEXT_PUBLIC_EMAIL: z
-      .string()
-      .email()
-      .optional()
-      .default('hey@gabfon.com'),
+    NEXT_PUBLIC_EMAIL: z.string().email().optional().default('hey@gabfon.com'),
   },
   runtimeEnv: {
     NEXT_PUBLIC_TWITTER_URL: process.env.NEXT_PUBLIC_TWITTER_URL,
