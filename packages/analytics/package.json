@@ -4,6 +4,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "exports": {
+    ".": "./index.tsx",
+    "./keys": "./keys.ts"
+  },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"

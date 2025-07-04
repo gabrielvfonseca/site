@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { PostHogProvider } from './posthog/client';
+import { PostHogProvider } from './lib/client';
 import { VercelAnalytics } from './vercel';
 
 type AnalyticsProviderProps = {
