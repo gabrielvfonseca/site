@@ -1,8 +1,10 @@
 {
   "name": "@repo/seo",
   "version": "0.0.1",
-  "publishConfig": {
-    "access": "public"
+  "exports": {
+    "./json-ld": "./json-ld.tsx",
+    "./metadata": "./metadata.tsx",
+    "./viewport": "./viewport.tsx"
   },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",

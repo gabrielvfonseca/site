@@ -1,7 +1,11 @@
 {
   "name": "@repo/next-config",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "exports": {
+    ".": "./index.ts",
+    "./keys": "./keys.ts"
+  },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"

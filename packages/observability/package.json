@@ -2,6 +2,14 @@
   "name": "@repo/observability",
   "version": "0.0.0",
   "private": true,
+  "exports": {
+    "./keys": "./keys.ts",
+    "./next-config": "./next-config.ts",
+    "./client": "./client.ts",
+    "./log": "./log.ts",
+    "./instrumentation": "./instrumentation.ts",
+    "./error": "./error.ts"
+  },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"

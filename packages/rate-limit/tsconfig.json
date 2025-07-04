@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@repo/*": ["../*"],
-      "@repo/seo/*": ["./*"]
+      "@repo/rate-limit/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
