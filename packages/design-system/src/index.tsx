@@ -1,5 +1,6 @@
 import { AnalyticsProvider } from '@repo/analytics';
 import type { ThemeProviderProps } from 'next-themes';
+import type React from 'react';
 import { Toaster } from './components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
 import { ThemeProvider } from './providers/theme';
@@ -16,7 +17,7 @@ export const DesignSystemProvider = ({
   termsUrl,
   helpUrl,
   ...properties
-}: DesignSystemProviderProperties) => (
+}: DesignSystemProviderProperties): React.JSX.Element => (
   <ThemeProvider {...properties}>
     <AnalyticsProvider>
       <TooltipProvider>{children}</TooltipProvider>

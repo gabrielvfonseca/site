@@ -8,7 +8,7 @@ import { cn } from '@repo/design-system/lib/utils';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-function Toaster({ className, ...props }: ToasterProps) {
+export function Toaster({ className, ...props }: ToasterProps) {
   const { theme = 'system' } = useTheme();
 
   return (
@@ -35,5 +35,3 @@ function Toaster({ className, ...props }: ToasterProps) {
     />
   );
 }
-
-export { Toaster };

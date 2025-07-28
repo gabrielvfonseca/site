@@ -1,10 +1,12 @@
-import type { ThemeProviderProps } from 'next-themes';
-import { ThemeProvider as NextThemeProvider } from 'next-themes';
+import {
+  ThemeProvider as NextThemeProvider,
+  type ThemeProviderProps as NextThemeProviderProps,
+} from 'next-themes';
 
 export const ThemeProvider = ({
   children,
   ...properties
-}: ThemeProviderProps) => (
+}: NextThemeProviderProps) => (
   <NextThemeProvider
     attribute="class"
     defaultTheme="system"
