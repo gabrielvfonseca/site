@@ -14,7 +14,6 @@
   "files": {
     "include": [
       "src/**/*",
-      "test/**/*",
       "scripts/**/*",
       "**/*.ts",
       "**/*.tsx",
@@ -25,15 +24,19 @@
     ],
     "ignore": [
       "node_modules",
+      "manifest.ts",
       "dist",
       "build",
       "public",
       "public/**",
-      "public/**/**"
+      "public/**/**",
+      "packages/database/generated/**",
+      "**/tests/**"
     ]
   },
   "linter": {
     "enabled": true,
+    "ignore": ["packages/database/generated/**"],
     "rules": {
       "all": true,
       "a11y": {

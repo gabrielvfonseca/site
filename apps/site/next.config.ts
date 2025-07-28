@@ -1,4 +1,4 @@
-import createMdx from '@next/mdx';
+import { withMdx } from '@repo/mdx';
 import { withAnalyzer } from '@repo/next-config';
 import { withLogging, withSentry } from '@repo/observability/next-config';
 import type { NextConfig } from 'next';
@@ -10,6 +10,7 @@ let nextConfig: NextConfig = withLogging({
     '@repo/next-config',
     '@repo/observability',
     '@repo/design-system',
+    '@repo/database',
     '@repo/rate-limit',
     '@repo/security',
     '@repo/seo',
@@ -23,9 +24,5 @@ if (process.env.VERCEL) {
 if (process.env.ANALYZE === 'true') {
   nextConfig = withAnalyzer(nextConfig);
 }
-
-const withMdx = createMdx({
-  // Add markdown plugins here, as desired
-});
 
 export default withMdx(nextConfig);
