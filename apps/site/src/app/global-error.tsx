@@ -1,7 +1,7 @@
-'use client'; // Error boundaries must be Client Components
+'use client'; // Error boundaries must be client components
 
 import { DesignSystemProvider } from '@repo/design-system';
-import { buttonVariants } from '@repo/design-system/components/ui/button';
+import { Button } from '@repo/design-system/components/button';
 import { fonts } from '@repo/design-system/lib/fonts';
 import Link from 'next/link';
 import type { JSX } from 'react';
@@ -14,35 +14,21 @@ type GlobalErrorProps = {
 };
 
 export default function GlobalError({ reset }: GlobalErrorProps): JSX.Element {
-  const handleReset = () => {
-    reset();
-  };
-
   return (
     // global-error must include html and body tags
     <html lang="en" className={fonts}>
       <body>
         <DesignSystemProvider>
-          <div
-            data-testid="error-container"
-            className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4"
-          >
+          <div className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4">
             <h2 className="font-semibold text-foreground text-lg">
               Internal Server Error
             </h2>
             <p className="text-center font-medium text-md">
               The server encountered an error.
             </p>
-            <Link
-              href="/"
-              onClick={handleReset}
-              className={buttonVariants({
-                variant: 'default',
-                shape: 'full',
-              })}
-            >
-              Try again
-            </Link>
+            <Button onClick={() => reset()} variant="default" shape="full">
+              <Link href="/">Try again</Link>
+            </Button>
           </div>
         </DesignSystemProvider>
       </body>

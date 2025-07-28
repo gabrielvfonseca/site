@@ -1,12 +1,12 @@
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
-import type React from 'react';
+import type { JSX, ReactNode } from 'react';
 
 type LayoutProps = {
-  readonly children: React.ReactNode;
+  readonly children: ReactNode;
 };
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <div className="container mx-auto max-w-lg px-4 py-14 sm:max-w-xl sm:py-28">
       <Header />

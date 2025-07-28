@@ -1,7 +1,8 @@
-import { buttonVariants } from '@repo/design-system/components/ui/button';
+import { buttonVariants } from '@repo/design-system/components/button';
 import Link from 'next/link';
+import type { JSX } from 'react';
 
-export default function NotFound() {
+export default function NotFound(): JSX.Element {
   return (
     <div className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4">
       <h2 className="font-semibold text-lg text-primary">Not Found</h2>

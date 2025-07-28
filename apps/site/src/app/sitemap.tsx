@@ -1,11 +1,8 @@
-import { posts } from '@/data/posts';
+import { getAllPosts } from '@/data-access';
 import type { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const allPosts = posts.map((post) => ({
-    url: post.slug,
-    lastModified: post.date,
-  }));
+  const allPosts = await getAllPosts();
 
   return [
     ...['', '/posts'].map((route: string) => ({

@@ -1,13 +1,18 @@
+import { Posts } from '@/components/posts';
+import { Projects } from '@/components/projects';
 import { config } from '@/constants/config';
-import { posts } from '@/data/posts';
-import { projects } from '@/data/projects';
-import { PostList } from '@/features/posts/post-list';
-import { ProjectList } from '@/features/projects/project-list';
-import { Skeleton } from '@repo/design-system/components/ui/skeleton';
+import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
+import { getCachedAllProjects } from '@/data-access/cache/project-cache';
+import type { Post } from '@/types/posts';
+import type { Project } from '@/types/projects';
+import { Skeleton } from '@repo/design-system/components/skeleton';
 import Link from 'next/link';
-import React from 'react';
+import { type JSX, Suspense } from 'react';
 
-export default function Page() {
+export default async function Page(): Promise<JSX.Element> {
+  const posts: Post[] = await getCachedPublishedPosts();
+  const projects: Project[] = await getCachedAllProjects();
+
   return (
     <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-4">
@@ -110,9 +115,9 @@ export default function Page() {
               View more
             </Link>
           </div>
-          <React.Suspense fallback={<Skeleton className="h-8 w-full" />}>
-            <ProjectList items={projects} />
-          </React.Suspense>
+          <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+            <Projects />
+          </Suspense>
         </section>
       )}
 
@@ -127,9 +132,9 @@ export default function Page() {
               View more
             </Link>
           </div>
-          <React.Suspense fallback={<Skeleton className="h-8 w-full" />}>
-            <PostList items={posts} />
-          </React.Suspense>
+          <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+            <Posts />
+          </Suspense>
         </section>
       )}
     </div>
