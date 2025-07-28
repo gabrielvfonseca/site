@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./index.ts",
-    "./keys": "./keys.ts",
-    "./middleware": "./middleware.ts"
+    ".": "./src/index.ts",
+    "./keys": "./src/keys.ts",
+    "./middleware": "./src/middleware.ts"
   },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",

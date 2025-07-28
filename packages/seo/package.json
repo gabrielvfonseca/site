@@ -2,9 +2,9 @@
   "name": "@repo/seo",
   "version": "0.0.1",
   "exports": {
-    "./json-ld": "./json-ld.tsx",
-    "./metadata": "./metadata.tsx",
-    "./viewport": "./viewport.tsx"
+    "./json-ld": "./src/json-ld.tsx",
+    "./metadata": "./src/metadata.ts",
+    "./viewport": "./src/viewport.tsx"
   },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
