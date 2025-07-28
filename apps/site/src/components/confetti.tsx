@@ -1,11 +1,9 @@
+import { confettiColors } from '@/constants/colors';
 import confetti from 'canvas-confetti';
 
 export function ConfettiSideCannons() {
   // Set the end time for the confetti
   const end = Date.now() + 3 * 1000; // 3 seconds
-
-  // Define the colors for the confetti
-  const colors: string[] = ['#a786ff', '#fd8bbc', '#eca184', '#f8deb1'];
 
   // Define the frame function
   const frame = () => {
@@ -21,7 +19,7 @@ export function ConfettiSideCannons() {
       spread: 55,
       startVelocity: 60,
       origin: { x: 0, y: 0.5 },
-      colors: colors,
+      colors: confettiColors,
     });
     // Call the frame function recursively
     confetti({
@@ -30,7 +28,7 @@ export function ConfettiSideCannons() {
       spread: 55,
       startVelocity: 60,
       origin: { x: 1, y: 0.5 },
-      colors: colors,
+      colors: confettiColors,
     });
 
     // Call the frame function recursively
@@ -38,5 +36,5 @@ export function ConfettiSideCannons() {
   };
 
   // Start the frame function
-  frame();
+  return frame();
 }

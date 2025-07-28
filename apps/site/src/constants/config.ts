@@ -1,12 +1,8 @@
 import { env } from '@/env';
 
 export const config = {
-  name: {
-    value: 'Gabriel Fonseca',
-  },
-  title: {
-    value: 'Software Developer',
-  },
+  name: 'Gabriel Fonseca',
+  title: 'Software Developer',
   location: {
     value: 'Lisbon, Portugal',
     alt: 'Lisbon, Portugal',
@@ -34,6 +30,4 @@ export const config = {
     url: env.NEXT_PUBLIC_SCHEDULE_URL,
     alt: 'Schedule a meeting',
   },
-};
-
-export type Config = typeof config;
+} as const;

@@ -1,6 +1,7 @@
-import { Skeleton } from '@repo/design-system/components/ui/skeleton';
+import { Skeleton } from '@repo/design-system/components/skeleton';
+import type { JSX } from 'react';
 
-export default function Loading() {
+export default function Loading(): JSX.Element {
   // Minimum number of skeletons to show
   const minCount = 4;
   const maxCount = 10;
