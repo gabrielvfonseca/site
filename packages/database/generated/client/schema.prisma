@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+  output          = "../generated/client"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Tag {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  posts     Posts[]    @relation("PostTags")
+  projects  Projects[] @relation("ProjectTags")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+}
+
+model Projects {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  slug        String
+  isFeatured  Boolean  @default(false)
+  priority    Int? // Optional ordering mechanism
+  tags        Tag[]    @relation("ProjectTags")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Posts {
+  id              String   @id @default(uuid())
+  status          Status   @default(DRAFT)
+  title           String
+  description     String
+  slug            String   @unique
+  content         String
+  isFeatured      Boolean  @default(false)
+  readingTime     Int? // In minutes
+  coverImageUrl   String?
+  metaTitle       String?
+  metaDescription String?
+  priority        Int? // Optional ordering mechanism
+  tags            Tag[]    @relation("PostTags")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@repo/mdx",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./remote": "./src/remote.ts",
+    "./serialize": "./src/serialize.ts",
+    "./components": "./src/components.tsx"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@repo/design-system": "workspace:*",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.3.3",
+    "next": "15.3.0",
+    "next-mdx-remote": "5.0.0",
+    "@t3-oss/env-nextjs": "^0.12.0",
+    "sugar-high": "^0.9.3",
+    "react": "^19.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/mdx": "^2.0.13",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "22.14.1",
+    "@types/react": "19.1.1",
+    "@types/react-dom": "^19.1.2",
+    "typescript": "^5.8.3"
+  }
+}
