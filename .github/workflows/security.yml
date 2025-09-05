@@ -1,0 +1,213 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run security scan daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      severity_threshold:
+        description: 'Minimum severity threshold (low, medium, high, critical)'
+        required: false
+        default: 'medium'
+        type: choice
+        options:
+          - low
+          - medium
+          - high
+          - critical
+      fail_on_issues:
+        description: 'Fail the workflow if security issues are found'
+        required: false
+        default: true
+        type: boolean
+
+env:
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for better vulnerability detection
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: ${{ github.event.inputs.fail_on_issues == 'false' || github.event_name == 'schedule' }}
+        with:
+          args: --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }} --file=package.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run Snyk to check for vulnerabilities in workspace packages
+        uses: snyk/actions/node@master
+        continue-on-error: ${{ github.event.inputs.fail_on_issues == 'false' || github.event_name == 'schedule' }}
+        with:
+          args: --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }} --file=apps/site/package.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run Snyk to check for vulnerabilities in packages
+        uses: snyk/actions/node@master
+        continue-on-error: ${{ github.event.inputs.fail_on_issues == 'false' || github.event_name == 'schedule' }}
+        with:
+          args: --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }} --file=packages/*/package.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run Snyk Code Analysis
+        uses: snyk/actions/node@master
+        continue-on-error: ${{ github.event.inputs.fail_on_issues == 'false' || github.event_name == 'schedule' }}
+        with:
+          args: code test --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Upload Snyk results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: snyk.sarif
+        continue-on-error: true
+
+      - name: Comment PR with Snyk results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Check if Snyk found any issues
+            const snykOutput = process.env.SNYK_OUTPUT || '';
+            const hasIssues = snykOutput.includes('✗') || snykOutput.includes('vulnerabilities found');
+            
+            if (hasIssues) {
+              const commentBody = `## 🔒 Security Scan Results
+              
+              Snyk security scan found potential security issues in this PR.
+              
+              **Severity Threshold:** ${{ github.event.inputs.severity_threshold || 'medium' }}
+              **Scan Type:** Dependencies + Code Analysis
+              
+              Please review the security findings and address any critical or high-severity issues before merging.
+              
+              <details>
+              <summary>View detailed results</summary>
+              
+              \`\`\`
+              ${snykOutput}
+              \`\`\`
+              </details>
+              
+              For more information, visit the [Snyk dashboard](https://app.snyk.io/org/${{ secrets.SNYK_ORG_ID }})`;
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            } else {
+              const commentBody = `## ✅ Security Scan Results
+              
+              Snyk security scan completed successfully with no issues found.
+              
+              **Severity Threshold:** ${{ github.event.inputs.severity_threshold || 'medium' }}
+              **Scan Type:** Dependencies + Code Analysis`;
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
+
+  docker-security-scan:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          # Build Docker image if Dockerfile exists
+          if [ -f "Dockerfile" ]; then
+            docker build -t ${{ github.repository }}:${{ github.sha }} .
+          else
+            echo "No Dockerfile found, skipping Docker security scan"
+            exit 0
+          fi
+
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        continue-on-error: ${{ github.event.inputs.fail_on_issues == 'false' || github.event_name == 'schedule' }}
+        with:
+          image: ${{ github.repository }}:${{ github.sha }}
+          args: --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  security-summary:
+    runs-on: ubuntu-latest
+    needs: [security-scan, docker-security-scan]
+    if: always()
+    
+    steps:
+      - name: Security Scan Summary
+        run: |
+          echo "## Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependencies & Code Scan | ${{ needs.security-scan.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Docker Image Scan | ${{ needs.docker-security-scan.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.security-scan.result }}" = "failure" ] || [ "${{ needs.docker-security-scan.result }}" = "failure" ]; then
+            echo "⚠️ **Security issues detected!** Please review the scan results and address any critical or high-severity vulnerabilities." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **All security scans passed successfully!**" >> $GITHUB_STEP_SUMMARY
+          fi

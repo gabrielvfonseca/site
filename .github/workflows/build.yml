@@ -9,7 +9,7 @@ jobs:
   
   build:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -92,6 +92,14 @@ jobs:
         run: |
           touch packages/cms/.env.local
           echo "BASEHUB_TOKEN=${{ secrets.BASEHUB_TOKEN }}" >> packages/cms/.env.local
+
+      - name: Quick security check
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        with:
+          args: --severity-threshold=high --file=package.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Build with bundle analysis
         run: pnpm analyze

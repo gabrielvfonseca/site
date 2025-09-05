@@ -1,0 +1,65 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+
+# Ignore specific vulnerabilities (use with caution)
+# patches:
+#   'npm:package-name:version':
+#     - 'vulnerability-id':
+#         reason: 'Brief explanation of why this is safe to ignore'
+#         expires: '2024-12-31T23:59:59.999Z'
+
+# Ignore specific vulnerabilities globally
+# ignore:
+#   'vulnerability-id':
+#     reason: 'Brief explanation of why this is safe to ignore'
+#     expires: '2024-12-31T23:59:59.999Z'
+
+# Language settings
+language-settings:
+  javascript:
+    # Scan dev dependencies
+    dev-dependencies: true
+    # Scan peer dependencies
+    peer-dependencies: true
+    # Scan optional dependencies
+    optional-dependencies: true
+    # Scan bundled dependencies
+    bundled-dependencies: true
+
+# Patch settings
+patch:
+  # Automatically create patches for vulnerabilities
+  auto-patch: false
+  # Patch only high and critical severity issues
+  min-severity: medium
+
+# Test settings
+test:
+  # Fail on high and critical severity issues
+  fail-on: high
+  # Include dev dependencies in testing
+  dev-dependencies: true
+  # Include peer dependencies in testing
+  peer-dependencies: true
+
+# Monitor settings
+monitor:
+  # Include dev dependencies in monitoring
+  dev-dependencies: true
+  # Include peer dependencies in monitoring
+  peer-dependencies: true
+  # Include optional dependencies in monitoring
+  optional-dependencies: true
+  # Include bundled dependencies in monitoring
+  bundled-dependencies: true
+
+# Code analysis settings
+code:
+  # Enable code analysis
+  enabled: true
+  # Fail on high and critical severity issues
+  fail-on: high
+  # Include test files in analysis
+  include-tests: true
+  # Include configuration files in analysis
+  include-config: true
