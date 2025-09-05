@@ -1,6 +1,6 @@
 import { cn } from '@gabfon/design-system/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
 
 const badgeVariants = cva(
@@ -28,8 +28,8 @@ function Badge({
 
   return (
     <Comp
-      data-slot="badge"
       className={cn(badgeVariants({ variant }), className)}
+      data-slot="badge"
       {...props}
     />
   );

@@ -2,8 +2,8 @@
 
 import { program } from 'commander';
 import { autoChangelog } from './auto-changelog.js';
-import { changelogAdvanced } from './changelog-advanced.js';
 import { changelog } from './changelog.js';
+import { changelogAdvanced } from './changelog-advanced.js';
 import { initialize } from './initialize.js';
 import { update } from './update.js';
 

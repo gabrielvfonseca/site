@@ -1,6 +1,10 @@
-import { getAllPosts } from '@/data-access';
 import type { MetadataRoute } from 'next';
+import { getAllPosts } from '@/data-access';
 
+/**
+ * The sitemap for the site.
+ * @returns The sitemap for the site.
+ */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPosts = await getAllPosts();
 

@@ -1,7 +1,11 @@
+import type { JSX } from 'react';
 import { config } from '@/constants/config';
 import { getCurrentYear } from '@/utils/date';
-import type { JSX } from 'react';
 
+/**
+ * The Footer for the site.
+ * @returns The Footer for the site.
+ */
 export function Footer(): JSX.Element {
   // Get the current year
   const currentYear = getCurrentYear();
@@ -14,11 +18,11 @@ export function Footer(): JSX.Element {
       <nav className="flex flex-row gap-x-2 text-xs leading-none tracking-normal">
         {Object.entries(config.social).map(([key, value]) => (
           <a
-            key={key}
-            target="_blank"
-            rel="noopener noreferrer"
-            href={value.url}
             className="text-tertiary transition-colors duration-300 hover:text-secondary"
+            href={value.url}
+            key={key}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {value.alt}
           </a>

@@ -1,4 +1,4 @@
-import { copyFile, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { copyFile, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
   cancel,
@@ -11,12 +11,12 @@ import {
   text,
 } from '@clack/prompts';
 import {
-  url,
   exec,
   execSyncOpts,
   internalContentDirs,
   internalContentFiles,
   supportedPackageManagers,
+  url,
 } from './utils.js';
 
 const cloneNextForge = async (name: string, packageManager: string) => {

@@ -1,3 +1,4 @@
+import { database } from '@gabfon/database';
 import { PostQueryError } from '@/exceptions/errors';
 import type {
   PostIncludeClause,
@@ -6,7 +7,6 @@ import type {
   PostWhereClause,
   Status,
 } from '@/types';
-import { database } from '@gabfon/database';
 
 /**
  * Builds the "where" clause for querying posts based on the provided config.

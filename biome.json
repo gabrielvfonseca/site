@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.2.3/schema.json",
   "extends": ["ultracite"],
   "formatter": {
     "enabled": true,
@@ -10,35 +10,31 @@
     "lineWidth": 80,
     "attributePosition": "auto"
   },
-  "organizeImports": { "enabled": true },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "files": {
-    "include": [
-      "src/**/*",
-      "scripts/**/*",
+    "includes": [
+      "**/src/**/*",
+      "**/scripts/**/*",
       "**/*.ts",
       "**/*.tsx",
       "**/*.js",
       "**/*.jsx",
       "**/*.json",
-      "**/*.css"
-    ],
-    "ignore": [
-      "node_modules",
-      "manifest.ts",
-      "dist",
-      "build",
-      "public",
-      "public/**",
-      "public/**/**",
-      "packages/database/generated/**",
-      "**/tests/**"
+      "**/*.css",
+      "!**/node_modules",
+      "!**/manifest.ts",
+      "!**/dist",
+      "!**/build",
+      "!**/public",
+      "!**/public",
+      "!**/packages/database/generated",
+      "!**/tests"
     ]
   },
   "linter": {
     "enabled": true,
-    "ignore": ["packages/database/generated/**"],
+    "includes": ["**", "!**/packages/database/generated/**"],
     "rules": {
-      "all": true,
       "a11y": {
         "noAutofocus": "off"
       },
@@ -51,14 +47,8 @@
         "noNodejsModules": "off"
       },
       "nursery": {
-        "all": true,
-        "noCommonJs": "off",
-        "noProcessEnv": "off",
         "noSecrets": "off",
-        "useComponentExportOnlyModules": "off",
         "useExplicitType": "off",
-        "useImportRestrictions": "off",
-        "useConsistentCurlyBraces": "off",
         "useSortedClasses": {
           "fix": "safe",
           "level": "error",
@@ -70,13 +60,13 @@
       },
       "performance": {
         "noBarrelFile": "off",
-        "noReExportAll": "off"
+        "noReExportAll": "off",
+        "noNamespaceImport": "off"
       },
       "style": {
         "noDefaultExport": "off",
         "noImplicitBoolean": "off",
         "useExplicitLengthCheck": "off",
-        "noNamespaceImport": "off",
         "useFilenamingConvention": {
           "level": "error",
           "options": {
@@ -103,7 +93,11 @@
               }
             ]
           }
-        }
+        },
+        "noCommonJs": "off",
+        "noProcessEnv": "off",
+        "useComponentExportOnlyModules": "off",
+        "useConsistentCurlyBraces": "off"
       },
       "suspicious": {
         "noReactSpecificProps": "off",

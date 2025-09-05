@@ -1,6 +1,6 @@
 import type { Viewport } from 'next';
 
-interface CreateViewportProps {
+type CreateViewportProps = {
   /**
    * The theme color for the viewport.
    * @default [{ media: '(prefers-color-scheme: light)', color: 'white' }, { media: '(prefers-color-scheme: dark)', color: 'black' }]
@@ -22,7 +22,7 @@ interface CreateViewportProps {
    */
   maximumScale?: number;
   userScalable?: boolean;
-}
+};
 
 /**
  * The createViewport function for the SEO.

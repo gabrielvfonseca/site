@@ -1,10 +1,10 @@
+import { database } from '@gabfon/database';
 import { ProjectQueryError } from '@/exceptions/errors';
 import type {
   ProjectOrderClause,
   ProjectQueryConfig,
   ProjectWhereClause,
 } from '@/types';
-import { database } from '@gabfon/database';
 
 /**
  * Builds the "where" clause for querying projects based on the provided config.

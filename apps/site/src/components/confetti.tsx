@@ -1,9 +1,14 @@
-import { confettiColors } from '@/constants/colors';
 import confetti from 'canvas-confetti';
+import { confettiColors } from '@/constants/colors';
 
-export function ConfettiSideCannons() {
+/**
+ * The ConfettiSideCannons for the site.
+ * @returns The ConfettiSideCannons for the site.
+ */
+export function ConfettiSideCannons(): void {
   // Set the end time for the confetti
-  const end = Date.now() + 3 * 1000; // 3 seconds
+  const CONFETTI_DURATION_MS = 3 * 1000; // 3 seconds
+  const end = Date.now() + CONFETTI_DURATION_MS;
 
   // Define the frame function
   const frame = () => {
@@ -36,5 +41,5 @@ export function ConfettiSideCannons() {
   };
 
   // Start the frame function
-  return frame();
+  frame();
 }

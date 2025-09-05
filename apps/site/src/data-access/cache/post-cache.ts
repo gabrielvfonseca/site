@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache';
 import { CACHE_DURATIONS, CACHE_TAGS } from '@/constants/cache';
 import {
   queryAllArchivedPosts,
@@ -6,7 +7,6 @@ import {
   queryPostsByStatus,
 } from '@/data-access/queries/query-posts';
 import type { PostQueryConfig, PostStatus } from '@/types';
-import { unstable_cache } from 'next/cache';
 
 /*
  * Cached wrapper for queryAllPosts (published posts)

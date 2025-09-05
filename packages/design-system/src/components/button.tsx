@@ -1,6 +1,6 @@
 import { cn } from '@gabfon/design-system/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
 
 const buttonVariants = cva(
@@ -48,8 +48,8 @@ function Button({
 
   return (
     <Comp
-      data-slot="button"
       className={cn(buttonVariants({ variant, size, shape, className }))}
+      data-slot="button"
       {...props}
     />
   );

@@ -1,6 +1,10 @@
 import { Skeleton } from '@gabfon/design-system/components/skeleton';
 import type { JSX } from 'react';
 
+/**
+ * The Loading for the site.
+ * @returns The Loading for the site.
+ */
 export default function Loading(): JSX.Element {
   // Minimum number of skeletons to show
   const minCount = 4;
@@ -22,8 +26,8 @@ export default function Loading(): JSX.Element {
 
         return (
           <Skeleton
-            key={index}
             className="h-10"
+            key={index}
             style={{ width: `${width}%` }}
           />
         );

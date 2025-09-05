@@ -1,6 +1,5 @@
 'use client'; // Ensure this is rendered in the client
 
-import type { Project } from '@/types/projects';
 import { cn } from '@gabfon/design-system/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -11,11 +10,22 @@ import {
   useRef,
   useState,
 } from 'react';
+import type { Project } from '@/types/projects';
 
-export type ProjectsHoverListProps = {
+/**
+ * The ProjectsHoverListProps for the site.
+ * @returns The ProjectsHoverListProps for the site.
+ */
+export interface ProjectsHoverListProps
+  extends Partial<ComponentPropsWithoutRef<typeof Link>> {
   items: Project[];
-} & Partial<ComponentPropsWithoutRef<typeof Link>>;
+}
 
+/**
+ * The ProjectsList for the site.
+ * @param props - The ProjectsHoverListProps.
+ * @returns The ProjectsList for the site.
+ */
 export function ProjectsList({
   items,
   className,
@@ -58,16 +68,16 @@ export function ProjectsList({
       <div className="relative flex w-full flex-col flex-col items-start gap-2">
         {items.map((item, index: number) => (
           <Link
+            className="group inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
             key={index}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
             ref={(el) => {
               if (el) {
                 featureRefs.current[index] = el;
               }
             }}
             target="_blank"
-            className="group inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
             {...{ ...props, href: item.href }}
           >
             <div className="flex items-center gap-1">

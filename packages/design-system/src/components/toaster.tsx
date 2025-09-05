@@ -1,10 +1,9 @@
 'use client';
 
+import { cn } from '@gabfon/design-system/lib/utils';
 import { useTheme } from 'next-themes';
 import type * as React from 'react';
 import { Toaster as Sonner } from 'sonner';
-
-import { cn } from '@gabfon/design-system/lib/utils';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
@@ -13,8 +12,8 @@ export function Toaster({ className, ...props }: ToasterProps) {
 
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
       className={cn('toaster group', className)}
+      theme={theme as ToasterProps['theme']}
       toastOptions={{
         classNames: {
           toast:

@@ -1,6 +1,5 @@
 'use client'; // Ensure this is rendered in the client
 
-import type { Post } from '@/types/posts';
 import { cn } from '@gabfon/design-system/lib/utils';
 import Link from 'next/link';
 import {
@@ -10,11 +9,22 @@ import {
   useRef,
   useState,
 } from 'react';
+import type { Post } from '@/types/posts';
 
-export type PostsListProps = {
+/**
+ * The PostsListProps for the site.
+ * @returns The PostsListProps for the site.
+ */
+export interface PostsListProps
+  extends Partial<ComponentPropsWithoutRef<typeof Link>> {
   items: Post[];
-} & Partial<ComponentPropsWithoutRef<typeof Link>>;
+}
 
+/**
+ * The PostsList for the site.
+ * @param props - The PostsListProps.
+ * @returns The PostsList for the site.
+ */
 export function PostsList({
   items,
   className,
@@ -57,15 +67,15 @@ export function PostsList({
       <div className="relative flex w-full flex-col flex-col items-start gap-2">
         {items.map((item, index: number) => (
           <Link
+            className="inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
             key={index}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
             ref={(el) => {
               if (el) {
                 featureRefs.current[index] = el;
               }
             }}
-            className="inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
             {...{ ...props, href: `/posts/${item.slug}` }}
           >
             <div className="font-medium text-sm leading-5">{item.title}</div>

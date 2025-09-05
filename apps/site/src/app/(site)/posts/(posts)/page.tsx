@@ -1,9 +1,13 @@
+import { type Blog, JsonLd, type WithContext } from '@gabfon/seo/json-ld';
+import type { JSX } from 'react';
 import { PostsList } from '@/components/posts-list';
 import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
 import type { Post } from '@/types/posts';
-import { type Blog, JsonLd, type WithContext } from '@gabfon/seo/json-ld';
-import type { JSX } from 'react';
 
+/**
+ * The Page for the site.
+ * @returns The Page for the site.
+ */
 export default async function Page(): Promise<JSX.Element> {
   const allPosts: Post[] = await getCachedPublishedPosts();
 
@@ -22,7 +26,7 @@ export default async function Page(): Promise<JSX.Element> {
     <>
       <section className="flex flex-col gap-4">
         <div className="grid grid-cols-1 items-start md:grid-cols-12">
-          <PostsList items={sortedPosts} className="-mx-3 col-span-12" />
+          <PostsList className="-mx-3 col-span-12" items={sortedPosts} />
         </div>
       </section>
       <JsonLd code={jsonLd} />

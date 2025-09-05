@@ -1,3 +1,6 @@
+import { Skeleton } from '@gabfon/design-system/components/skeleton';
+import Link from 'next/link';
+import { type JSX, Suspense } from 'react';
 import { Posts } from '@/components/posts';
 import { Projects } from '@/components/projects';
 import { config } from '@/constants/config';
@@ -5,10 +8,11 @@ import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
 import { getCachedAllProjects } from '@/data-access/cache/project-cache';
 import type { Post } from '@/types/posts';
 import type { Project } from '@/types/projects';
-import { Skeleton } from '@gabfon/design-system/components/skeleton';
-import Link from 'next/link';
-import { type JSX, Suspense } from 'react';
 
+/**
+ * The Page for the site.
+ * @returns The Page for the site.
+ */
 export default async function Page(): Promise<JSX.Element> {
   const posts: Post[] = await getCachedPublishedPosts();
   const projects: Project[] = await getCachedAllProjects();
@@ -20,12 +24,12 @@ export default async function Page(): Promise<JSX.Element> {
           I'm a Lisbon-based software developer, founder, and Computer
           Engineering student at{' '}
           <Link
-            href="https://www.fct.unl.pt"
             aria-label="NOVA School of Science and Technology"
-            title="NOVA School of Science and Technology"
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-link hover:text-link-hover"
+            href="https://www.fct.unl.pt"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="NOVA School of Science and Technology"
           >
             NOVA School of Science and Technology
           </Link>
@@ -47,56 +51,56 @@ export default async function Page(): Promise<JSX.Element> {
           and anyone interested in AI, productivity, and organizational clarity.
           Feel free to reach out on{' '}
           <Link
-            href={config.social.twitter.url}
             aria-label={config.social.twitter.alt}
-            title={config.social.twitter.alt}
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-link hover:text-link-hover"
+            href={config.social.twitter.url}
+            rel="noopener noreferrer"
+            target="_blank"
+            title={config.social.twitter.alt}
           >
             {config.social.twitter.alt}
           </Link>
           ,{' '}
           <Link
-            href={config.social.linkedin.url}
             aria-label={config.social.linkedin.alt}
-            title={config.social.linkedin.alt}
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-link hover:text-link-hover"
+            href={config.social.linkedin.url}
+            rel="noopener noreferrer"
+            target="_blank"
+            title={config.social.linkedin.alt}
           >
             {config.social.linkedin.alt}
           </Link>
           , or{' '}
           <Link
-            href={config.social.github.url}
             aria-label={config.social.github.alt}
-            title={config.social.github.alt}
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-link hover:text-link-hover"
+            href={config.social.github.url}
+            rel="noopener noreferrer"
+            target="_blank"
+            title={config.social.github.alt}
           >
             {config.social.github.alt}
           </Link>
           . If you'd like to schedule a meeting, you can do so{' '}
           <Link
-            target="_blank"
-            rel="noopener noreferrer"
             aria-label={config.schedule.alt}
-            title={config.schedule.alt}
-            href={config.schedule.url}
             className="text-link hover:text-link-hover"
+            href={config.schedule.url}
+            rel="noopener noreferrer"
+            target="_blank"
+            title={config.schedule.alt}
           >
             here
           </Link>
           {' or '}
           <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href={config.email.url}
             aria-label={config.email.alt}
-            title={config.email.alt}
             className="text-link hover:text-link-hover"
+            href={config.email.url}
+            rel="noopener noreferrer"
+            target="_blank"
+            title={config.email.alt}
           >
             email me
           </Link>
@@ -104,13 +108,13 @@ export default async function Page(): Promise<JSX.Element> {
         </p>
       </div>
 
-      {projects && (
+      {projects.length > 0 && (
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h4>Projecs</h4>
             <Link
-              href="/projects"
               className="text-quaternary text-xs transition-color duration-300 hover:text-tertiary"
+              href="/projects"
             >
               View more
             </Link>
@@ -121,13 +125,13 @@ export default async function Page(): Promise<JSX.Element> {
         </section>
       )}
 
-      {posts && (
+      {posts.length > 0 && (
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h4>Posts</h4>
             <Link
-              href="/posts"
               className="text-quaternary text-xs transition-color duration-300 hover:text-tertiary"
+              href="/posts"
             >
               View more
             </Link>

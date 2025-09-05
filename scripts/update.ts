@@ -10,12 +10,12 @@ import {
   spinner,
 } from '@clack/prompts';
 import {
-  url,
   allInternalContent,
   cleanFileName,
   exec,
   getAvailableVersions,
   tempDirName,
+  url,
 } from './utils.js';
 
 const compareVersions = (a: string, b: string) => {

@@ -1,11 +1,23 @@
+import type { JSX, ReactNode } from 'react';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
-import type { JSX, ReactNode } from 'react';
 
+/**
+ * The LayoutProps for the site.
+ */
 type LayoutProps = {
+  /**
+   * The children for the site.
+   * @returns The children for the site.
+   */
   readonly children: ReactNode;
 };
 
+/**
+ * The Layout for the site.
+ * @param props - The LayoutProps.
+ * @returns The Layout for the site.
+ */
 export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <div className="container mx-auto max-w-lg px-4 py-14 sm:max-w-xl sm:py-28">

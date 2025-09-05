@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import {
   cancel,
@@ -14,7 +14,7 @@ import {
 } from '@clack/prompts';
 import { exec } from './utils.js';
 
-interface CommitInfo {
+type CommitInfo = {
   hash: string;
   message: string;
   author: string;
@@ -25,18 +25,18 @@ interface CommitInfo {
   breaking?: boolean;
   packages: string[];
   files: string[];
-}
+};
 
-interface PackageInfo {
+type PackageInfo = {
   name: string;
   path: string;
   version: string;
   hasChangelog: boolean;
   dependencies: string[];
   devDependencies: string[];
-}
+};
 
-interface ChangelogEntry {
+type ChangelogEntry = {
   type: string;
   description: string;
   hash: string;
@@ -44,16 +44,16 @@ interface ChangelogEntry {
   date: string;
   breaking?: boolean;
   scope?: string;
-}
+};
 
-interface ChangelogConfig {
+type ChangelogConfig = {
   format: 'keepachangelog' | 'conventional' | 'custom';
   includeAuthors: boolean;
   includeCommitHashes: boolean;
   groupByScope: boolean;
   sortOrder: 'date' | 'type' | 'scope';
   template?: string;
-}
+};
 
 const COMMIT_TYPES = {
   feat: { emoji: '✨', title: 'Features' },

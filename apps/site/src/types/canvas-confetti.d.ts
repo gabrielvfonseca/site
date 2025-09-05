@@ -1,5 +1,5 @@
 declare module 'canvas-confetti' {
-  interface ConfettiOptions {
+  type ConfettiOptions = {
     particleCount?: number;
     angle?: number;
     spread?: number;
@@ -17,7 +17,7 @@ declare module 'canvas-confetti' {
     scalar?: number;
     zIndex?: number;
     disableForReducedMotion?: boolean;
-  }
+  };
 
   function confetti(options?: ConfettiOptions): Promise<void>;
   export default confetti;

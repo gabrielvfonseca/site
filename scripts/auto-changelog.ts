@@ -1,16 +1,16 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { log, spinner } from '@clack/prompts';
 import { changelog } from './changelog.js';
 import { exec } from './utils.js';
 
-interface PackageVersion {
+type PackageVersion = {
   name: string;
   path: string;
   oldVersion: string;
   newVersion: string;
   hasChanges: boolean;
-}
+};
 
 const getPackageVersions = async (): Promise<PackageVersion[]> => {
   const packages: PackageVersion[] = [];

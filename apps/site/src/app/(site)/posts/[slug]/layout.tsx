@@ -1,20 +1,38 @@
+import { notFound } from 'next/navigation';
+import type { JSX, ReactNode } from 'react';
 import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
 import type { Post } from '@/types/posts';
-import { notFound } from 'next/navigation';
-import type { ReactNode } from 'react';
-import type React from 'react';
 
+/**
+ * The PostLayoutProps for the site.
+ */
 type PostLayoutProps = {
+  /**
+   * The children for the site.
+   * @returns The children for the site.
+   */
   readonly children: ReactNode;
+  /**
+   * The params for the site.
+   * @returns The params for the site.
+   */
   readonly params: Promise<{
+    /**
+     * The slug for the site.
+     */
     slug: string;
   }>;
 };
 
+/**
+ * The PostLayout for the site.
+ * @param props - The PostLayoutProps.
+ * @returns The PostLayout for the site.
+ */
 export default async function PostLayout({
   children,
   params,
-}: PostLayoutProps): Promise<React.JSX.Element> {
+}: PostLayoutProps): Promise<JSX.Element> {
   const { slug } = await params;
 
   if (!slug) {
@@ -23,7 +41,7 @@ export default async function PostLayout({
 
   const allPosts = await getCachedPublishedPosts();
 
-  const post = allPosts.find((post: Post) => post.slug === slug);
+  const post = allPosts.find((p: Post) => p.slug === slug);
 
   if (!post) {
     notFound();

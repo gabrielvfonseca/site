@@ -53,8 +53,8 @@ export const components = {
     if (href?.startsWith('/')) {
       return (
         <Link
-          href={href}
           className="text-link hover:text-link-hover active:text-link-active"
+          href={href}
           {...props}
         >
           {children}
@@ -64,8 +64,8 @@ export const components = {
     if (href?.startsWith('#')) {
       return (
         <a
-          href={href}
           className="text-link hover:text-link-hover active:text-link-active"
+          href={href}
           {...props}
         >
           {children}
@@ -74,10 +74,10 @@ export const components = {
     }
     return (
       <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
         className="text-link hover:text-link-hover active:text-link-active"
+        href={href}
+        rel="noopener noreferrer"
+        target="_blank"
         {...props}
       >
         {children}

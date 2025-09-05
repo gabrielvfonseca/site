@@ -1,8 +1,8 @@
 import type { Thing, WithContext } from 'schema-dts';
 
-interface JsonLdProps {
+type JsonLdProps = {
   code: WithContext<Thing>;
-}
+};
 
 /**
  * The JsonLd component for the SEO.
@@ -12,10 +12,10 @@ interface JsonLdProps {
 export function JsonLd({ code }: JsonLdProps) {
   return (
     <script
-      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(code) }}
       // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a JSON-LD script, not user-generated content."
       // biome-ignore lint/style/useNamingConvention: "This is a React-specific prop name"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(code) }}
+      type="application/ld+json"
     />
   );
 }

@@ -1,4 +1,4 @@
-import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
   cancel,
@@ -12,7 +12,7 @@ import {
 } from '@clack/prompts';
 import { exec } from './utils.js';
 
-interface CommitInfo {
+type CommitInfo = {
   hash: string;
   message: string;
   author: string;
@@ -22,23 +22,23 @@ interface CommitInfo {
   description: string;
   breaking?: boolean;
   packages: string[];
-}
+};
 
-interface PackageInfo {
+type PackageInfo = {
   name: string;
   path: string;
   version: string;
   hasChangelog: boolean;
-}
+};
 
-interface ChangelogEntry {
+type ChangelogEntry = {
   type: string;
   description: string;
   hash: string;
   author: string;
   date: string;
   breaking?: boolean;
-}
+};
 
 const COMMIT_TYPES = {
   feat: 'Features',

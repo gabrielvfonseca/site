@@ -22,7 +22,7 @@ export const createMetadata = ({
   ...properties
 }: MetadataGenerator): Metadata => {
   const defaultMetadata: Metadata = {
-    title: title,
+    title,
     description,
     applicationName,
     authors: [author],
@@ -33,10 +33,10 @@ export const createMetadata = ({
     appleWebApp: {
       capable: true,
       statusBarStyle: 'default',
-      title: title,
+      title,
     },
     openGraph: {
-      title: title,
+      title,
       description,
       type: 'website',
       siteName: applicationName,

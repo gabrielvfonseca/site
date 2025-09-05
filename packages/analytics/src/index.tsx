@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import { PostHogProvider } from './lib/client';
 import { VercelAnalytics } from './vercel';
 
-interface AnalyticsProviderProps {
+type AnalyticsProviderProps = {
   readonly children: ReactNode;
-}
+};
 
 /**
  * The AnalyticsProvider for the analytics.

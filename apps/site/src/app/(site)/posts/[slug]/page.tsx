@@ -1,5 +1,3 @@
-import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
-import type { Post } from '@/types/posts';
 import { components } from '@gabfon/mdx/components';
 import { MdxRemote } from '@gabfon/mdx/remote';
 import { serialize } from '@gabfon/mdx/serialize';
@@ -7,20 +5,46 @@ import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { JSX, ReactNode } from 'react';
+import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
+import type { Post } from '@/types/posts';
 
+/**
+ * The PostPageProps for the site.
+ */
 type PostPageProps = {
+  /**
+   * The children for the site.
+   * @returns The children for the site.
+   */
   readonly children: ReactNode;
+  /**
+   * The params for the site.
+   * @returns The params for the site.
+   */
   readonly params: Promise<{
+    /**
+     * The slug for the site.
+     */
     slug: string;
   }>;
 };
 
+/**
+ * The getPost for the site.
+ * @param slug - The slug for the site.
+ * @returns The getPost for the site.
+ */
 const getPost = async (slug: string): Promise<Post | undefined> => {
   const allPosts = await getCachedPublishedPosts();
 
   return allPosts.find((post: Post) => post.slug === slug);
 };
 
+/**
+ * The generateMetadata for the site.
+ * @param props - The PostPageProps.
+ * @returns The generateMetadata for the site.
+ */
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
@@ -39,6 +63,11 @@ export async function generateMetadata({
   });
 }
 
+/**
+ * The PostPage for the site.
+ * @param props - The PostPageProps.
+ * @returns The PostPage for the site.
+ */
 export default async function PostPage({
   params,
 }: PostPageProps): Promise<JSX.Element> {
@@ -52,9 +81,5 @@ export default async function PostPage({
 
   const source = await serialize(post.content);
 
-  return (
-    <>
-      <MdxRemote {...source} components={components} />
-    </>
-  );
+  return <MdxRemote {...source} components={components} />;
 }

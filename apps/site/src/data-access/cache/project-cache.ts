@@ -1,7 +1,7 @@
+import { unstable_cache } from 'next/cache';
 import { CACHE_DURATIONS, CACHE_TAGS } from '@/constants/cache';
 import { queryAllProjects } from '@/data-access/queries/query-projects';
 import type { ProjectQueryConfig } from '@/types';
-import { unstable_cache } from 'next/cache';
 
 /*
  * Cached wrapper for queryAllProjects with featured filter

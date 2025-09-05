@@ -1,14 +1,39 @@
 import { ImageResponse } from 'next/og';
 
-// Image metadata
-export const size = {
+/**
+ * The size for the site.
+ * @returns The size for the site.
+ */
+type Size = {
+  /**
+   * The width for the site.
+   */
+  width: number;
+  /**
+   * The height for the site.
+   */
+  height: number;
+};
+
+/**
+ * The size for the site.
+ * @returns The size for the site.
+ */
+export const size: Size = {
   width: 32,
   height: 32,
 };
 
-export const contentType = 'image/png';
+/**
+ * The contentType for the site.
+ * @returns The contentType for the site.
+ */
+export const contentType: string = 'image/png';
 
-// Image generation
+/**
+ * The Icon for the site.
+ * @returns The Icon for the site.
+ */
 export default function Icon(): ImageResponse {
   return new ImageResponse(
     // ImageResponse JSX element

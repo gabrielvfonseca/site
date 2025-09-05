@@ -6,9 +6,9 @@ import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import { keys } from '../keys';
 
-interface PostHogProviderProps {
+type PostHogProviderProps = {
   readonly children: ReactNode;
-}
+};
 
 /**
  * The PostHogProvider for the analytics.

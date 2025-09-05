@@ -1,5 +1,9 @@
 import type { MetadataRoute } from 'next';
 
+/**
+ * The manifest for the site.
+ * @returns The manifest for the site.
+ */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Gabriel Fonseca',

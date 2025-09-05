@@ -1,5 +1,5 @@
 import { cn } from '@gabfon/design-system/lib/utils';
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes, JSX } from 'react';
 
 const spinnerVariants = cva('spinner-blade', {
@@ -27,10 +27,10 @@ function Spinner({
 }: SpinnerProps): JSX.Element {
   return (
     <div className="spinner">
-      {Array.from({ length: length }, (_, index: number) => (
+      {Array.from({ length }, (_, index: number) => (
         <span
-          key={index}
           className={cn(spinnerVariants({ variant, className }))}
+          key={index}
           {...props}
         />
       ))}
