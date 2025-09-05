@@ -1,7 +1,11 @@
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
-export const keys = () =>
+/**
+ * The keys for the observability.
+ * @returns The keys for the observability.
+ */
+export const keys = (): ReturnType<typeof createEnv> =>
   createEnv({
     server: {
       // Added by Sentry Integration, Vercel Marketplace

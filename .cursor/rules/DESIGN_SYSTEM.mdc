@@ -1,0 +1,56 @@
+---
+description: Design system package rules and component patterns
+globs:
+  - "packages/design-system/**/*"
+alwaysApply: true
+---
+
+# Design System Package Rules
+
+## Component Architecture
+- Build on Radix UI primitives with custom styling
+- Use `class-variance-authority` for variant management
+- Implement compound component patterns where appropriate
+- Export individual components and barrel exports
+
+## Styling Approach
+- Use Tailwind CSS with custom design tokens
+- Implement `cn()` utility for className merging
+- Use CSS variables for theming and customization
+- Follow mobile-first responsive design principles
+
+## Component Structure
+- Each component in its own file: `src/components/component-name.tsx`
+- Include TypeScript interfaces for props
+- Use forwardRef for DOM element access
+- Implement proper accessibility attributes
+
+## Export Strategy
+- Export individual components: `./components/button`
+- Provide barrel exports in main `index.tsx`
+- Export utilities: `./lib/utils`, `./lib/fonts`
+- Export providers: `./providers/theme`
+
+## Dependencies
+- Use `@gabfon/analytics` and `@gabfon/observability` for tracking
+- Keep external dependencies minimal and focused
+- Use `server-only` for server-side utilities
+- Prefer React 19+ patterns and hooks
+
+## Theming
+- Implement dark/light mode support with `next-themes`
+- Use CSS custom properties for theme values
+- Provide theme provider component
+- Support system preference detection
+
+## Accessibility
+- Follow WCAG 2.1 AA guidelines
+- Implement proper ARIA attributes
+- Support keyboard navigation
+- Provide screen reader support
+
+## Testing
+- Write unit tests for component behavior
+- Test accessibility with testing-library
+- Validate prop types and error states
+- Test theme switching functionality

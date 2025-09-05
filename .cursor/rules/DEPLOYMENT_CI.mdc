@@ -1,0 +1,66 @@
+---
+description: Deployment and CI/CD pipeline rules
+globs:
+  - "vercel.json"
+  - ".github/**/*"
+  - "**/vercel.json"
+  - "**/Dockerfile"
+alwaysApply: true
+---
+
+# Deployment and CI/CD Rules
+
+## Vercel Deployment
+- Use Vercel for Next.js app deployment
+- Configure in `vercel.json` with proper settings
+- Use environment variables for configuration
+- Enable Vercel Analytics and Speed Insights
+
+## Environment Management
+- Use different environments: development, preview, production
+- Store secrets in Vercel environment variables
+- Use `@t3-oss/env-nextjs` for validation
+- Never commit sensitive data to repository
+
+## Build Process
+- Use Turbo for build orchestration
+- Cache build outputs for faster deployments
+- Run tests before deployment
+- Generate and validate types
+
+## Performance Optimization
+- Enable Vercel Edge Functions where appropriate
+- Use proper caching strategies
+- Optimize images and assets
+- Monitor Core Web Vitals
+
+## Security
+- Use `@gabfon/security` package for security headers
+- Implement rate limiting with `@gabfon/rate-limit`
+- Use Arcjet for additional security
+- Enable HTTPS and security headers
+
+## Monitoring and Observability
+- Use `@gabfon/observability` for logging and monitoring
+- Integrate Sentry for error tracking
+- Monitor performance metrics
+- Set up alerts for critical issues
+
+## Database
+- Use Neon serverless database
+- Configure proper connection pooling
+- Monitor database performance
+- Implement proper backup strategies
+
+## CI/CD Pipeline
+- Use GitHub Actions for CI/CD
+- Run tests on every pull request
+- Deploy preview environments for PRs
+- Automate releases with Changesets
+
+## Quality Gates
+- All tests must pass
+- No linting errors
+- Type checking must pass
+- Security scans must pass
+- Performance budgets must be met

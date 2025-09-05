@@ -30,7 +30,7 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:internals/typescript-config
       '@turbo/gen':
@@ -75,37 +75,37 @@ importers:
       '@next/mdx':
         specifier: ^15.3.3
         version: 15.3.3(@mdx-js/loader@3.1.0(acorn@8.14.1)(webpack@5.98.0(esbuild@0.25.2)))(@mdx-js/react@3.1.0(@types/react@19.1.1)(react@19.1.0))
-      '@repo/analytics':
+      '@gabfon/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
-      '@repo/database':
+      '@gabfon/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@repo/design-system':
+      '@gabfon/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
-      '@repo/mdx':
+      '@gabfon/mdx':
         specifier: workspace:*
         version: link:../../packages/mdx
-      '@repo/next-config':
+      '@gabfon/next-config':
         specifier: workspace:*
         version: link:../../internals/next-config
-      '@repo/observability':
+      '@gabfon/observability':
         specifier: workspace:*
         version: link:../../packages/observability
-      '@repo/rate-limit':
+      '@gabfon/rate-limit':
         specifier: workspace:*
         version: link:../../packages/rate-limit
-      '@repo/security':
+      '@gabfon/security':
         specifier: workspace:*
         version: link:../../packages/security
-      '@repo/seo':
+      '@gabfon/seo':
         specifier: workspace:*
         version: link:../../packages/seo
-      '@repo/testing':
+      '@gabfon/testing':
         specifier: workspace:*
         version: link:../../packages/testing
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       '@sentry/nextjs':
@@ -242,7 +242,7 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       next:
@@ -275,7 +275,7 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       '@types/node':
@@ -315,7 +315,7 @@ importers:
         specifier: ^3.25.28
         version: 3.25.76
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       '@types/node':
@@ -423,10 +423,10 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@19.1.2(@types/react@19.1.1))(@types/react@19.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@repo/analytics':
+      '@gabfon/analytics':
         specifier: workspace:*
         version: link:../analytics
-      '@repo/observability':
+      '@gabfon/observability':
         specifier: workspace:*
         version: link:../observability
       class-variance-authority:
@@ -496,7 +496,7 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       '@tailwindcss/postcss':
@@ -532,7 +532,7 @@ importers:
       '@next/mdx':
         specifier: ^15.3.3
         version: 15.3.3(@mdx-js/loader@3.1.0(acorn@8.14.1)(webpack@5.98.0(esbuild@0.25.0)))(@mdx-js/react@3.1.0(@types/react@19.1.1)(react@19.1.0))
-      '@repo/design-system':
+      '@gabfon/design-system':
         specifier: workspace:*
         version: link:../design-system
       '@t3-oss/env-nextjs':
@@ -554,7 +554,7 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       '@types/mdx':
@@ -594,7 +594,7 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       '@types/node':
@@ -625,7 +625,7 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       typescript:
@@ -647,7 +647,7 @@ importers:
         specifier: ^3.24.2
         version: 3.24.2
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       typescript:
@@ -666,7 +666,7 @@ importers:
         specifier: ^1.1.5
         version: 1.1.5
     devDependencies:
-      '@repo/typescript-config':
+      '@gabfon/typescript-config':
         specifier: workspace:*
         version: link:../../internals/typescript-config
       '@types/lodash.merge':

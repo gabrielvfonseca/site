@@ -7,8 +7,18 @@ import arcjet, {
 } from '@arcjet/next';
 import { keys } from './keys';
 
+/**
+ * The arcjet key for the security.
+ * @returns The arcjet key for the security.
+ */
 const arcjetKey = keys().ARCJET_KEY;
 
+/**
+ * The secure function for the security.
+ * @param allow - The allow function for the security.
+ * @param sourceRequest - The source request for the security.
+ * @returns The secure function for the security.
+ */
 export const secure = async (
   allow: (ArcjetWellKnownBot | ArcjetBotCategory)[],
   sourceRequest?: Request

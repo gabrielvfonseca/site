@@ -1,5 +1,5 @@
 {
-  "name": "@repo/analytics",
+  "name": "@gabfon/analytics",
   "version": "0.0.1",
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@gabfon/typescript-config": "workspace:*",
     "@types/node": "22.14.1",
     "@types/react": "19.1.1",
     "@types/react-dom": "^19.1.2"

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@gabfon/typescript-config",
   "version": "0.0.1",
   "private": true,
   "scripts": {

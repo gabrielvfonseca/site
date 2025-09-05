@@ -1,8 +1,8 @@
 'use client'; // Error boundaries must be client components
 
-import { DesignSystemProvider } from '@repo/design-system';
-import { Button } from '@repo/design-system/components/button';
-import { fonts } from '@repo/design-system/lib/fonts';
+import { DesignSystemProvider } from '@gabfon/design-system';
+import { Button } from '@gabfon/design-system/components/button';
+import { fonts } from '@gabfon/design-system/lib/fonts';
 import Link from 'next/link';
 import type { JSX } from 'react';
 

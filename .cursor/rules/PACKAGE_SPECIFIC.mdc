@@ -1,0 +1,75 @@
+---
+description: Rules for specific packages and their purposes
+globs:
+  - "packages/analytics/**/*"
+  - "packages/cache/**/*"
+  - "packages/mdx/**/*"
+  - "packages/observability/**/*"
+  - "packages/rate-limit/**/*"
+  - "packages/security/**/*"
+  - "packages/seo/**/*"
+  - "packages/testing/**/*"
+alwaysApply: true
+---
+
+# Package-Specific Rules
+
+## Analytics Package (`@gabfon/analytics`)
+- Integrate Vercel Analytics and PostHog
+- Provide both client and server-side tracking
+- Use proper privacy-compliant tracking
+- Export tracking utilities and hooks
+
+## Cache Package (`@gabfon/cache`)
+- Implement caching strategies for data access
+- Use appropriate cache keys and TTL
+- Provide cache invalidation mechanisms
+- Support different cache backends
+
+## MDX Package (`@gabfon/mdx`)
+- Configure MDX with proper plugins
+- Support syntax highlighting with Shiki
+- Implement custom MDX components
+- Provide serialization utilities
+
+## Observability Package (`@gabfon/observability`)
+- Integrate Sentry for error tracking
+- Provide logging utilities
+- Configure Next.js instrumentation
+- Support different log levels
+
+## Rate Limiting Package (`@gabfon/rate-limit`)
+- Implement rate limiting middleware
+- Support different rate limiting strategies
+- Provide configuration options
+- Handle rate limit exceeded scenarios
+
+## Security Package (`@gabfon/security`)
+- Implement security headers
+- Provide middleware for security
+- Support CSP and other security policies
+- Handle security-related configurations
+
+## SEO Package (`@gabfon/seo`)
+- Provide metadata utilities
+- Support structured data (JSON-LD)
+- Implement viewport configuration
+- Support different SEO strategies
+
+## Testing Package (`@gabfon/testing`)
+- Provide shared testing utilities
+- Configure testing environment
+- Support different testing scenarios
+- Provide test helpers and mocks
+
+## Package Dependencies
+- Keep dependencies minimal and focused
+- Use `workspace:*` for internal packages
+- Prefer peer dependencies where appropriate
+- Document all external dependencies
+
+## Export Strategy
+- Export only what's needed publicly
+- Use proper TypeScript types
+- Provide both ESM and CJS when needed
+- Document public API clearly

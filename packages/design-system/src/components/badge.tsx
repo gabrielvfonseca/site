@@ -1,5 +1,5 @@
+import { cn } from '@gabfon/design-system/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
-import { cn } from '@repo/design-system/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type * as React from 'react';
 

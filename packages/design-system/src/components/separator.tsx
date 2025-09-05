@@ -1,7 +1,7 @@
 'use client';
 
+import { cn } from '@gabfon/design-system/lib/utils';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
-import { cn } from '@repo/design-system/lib/utils';
 import type * as React from 'react';
 
 function Separator({

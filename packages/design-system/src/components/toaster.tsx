@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes';
 import type * as React from 'react';
 import { Toaster as Sonner } from 'sonner';
 
-import { cn } from '@repo/design-system/lib/utils';
+import { cn } from '@gabfon/design-system/lib/utils';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 

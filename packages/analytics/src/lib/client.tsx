@@ -1,4 +1,4 @@
-'use client';
+'use client'; // Ensure this is a client component
 
 import posthog, { type PostHog } from 'posthog-js';
 import { PostHogProvider as PostHogProviderRaw } from 'posthog-js/react';
@@ -6,13 +6,18 @@ import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import { keys } from '../keys';
 
-type PostHogProviderProps = {
+interface PostHogProviderProps {
   readonly children: ReactNode;
-};
+}
 
-export const PostHogProvider = (
+/**
+ * The PostHogProvider for the analytics.
+ * @param properties - The PostHogProviderProps.
+ * @returns The PostHogProvider for the analytics.
+ */
+export function PostHogProvider(
   properties: Omit<PostHogProviderProps, 'client'>
-) => {
+) {
   useEffect(() => {
     posthog.init(keys().NEXT_PUBLIC_POSTHOG_KEY, {
       // biome-ignore lint: Posthog API host
@@ -29,6 +34,6 @@ export const PostHogProvider = (
   }, []);
 
   return <PostHogProviderRaw client={posthog} {...properties} />;
-};
+}
 
 export { usePostHog as useAnalytics } from 'posthog-js/react';

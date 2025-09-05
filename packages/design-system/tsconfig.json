@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@gabfon/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "target": "ESNext",
@@ -15,8 +15,8 @@
       }
     ],
     "paths": {
-      "@repo/*": ["../*"],
-      "@repo/design-system/*": ["./*"]
+      "@gabfon/*": ["../*"],
+      "@gabfon/design-system/*": ["./src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

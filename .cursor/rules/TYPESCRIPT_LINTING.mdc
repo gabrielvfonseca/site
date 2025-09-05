@@ -1,0 +1,62 @@
+---
+description: TypeScript configuration and linting rules
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.js"
+  - "**/*.jsx"
+alwaysApply: true
+---
+
+# TypeScript and Linting Rules
+
+## TypeScript Configuration
+- Use strict mode with all strict flags enabled
+- Target ES2022 with NodeNext module resolution
+- Use `@gabfon/typescript-config` for shared configs
+- Enable declaration generation for packages
+
+## Code Style (Biome)
+- Use Biome for linting and formatting
+- Follow ultracite configuration
+- Use 2-space indentation with LF line endings
+- Max line width of 80 characters
+- Single quotes for strings, double quotes for JSX
+
+## Naming Conventions
+- Use kebab-case for files and directories
+- Use camelCase for variables and functions
+- Use PascalCase for components and classes
+- Use CONSTANT_CASE for constants
+- Use descriptive, meaningful names
+
+## Import/Export Rules
+- Use explicit imports and exports
+- Prefer named exports over default exports
+- Organize imports with Biome's organizeImports
+- Use proper import extensions when needed
+
+## Type Safety
+- Use strict TypeScript configuration
+- Define proper interfaces and types
+- Use Zod for runtime validation
+- Avoid `any` type, use `unknown` instead
+- Use proper generic constraints
+
+## Error Handling
+- Implement proper error boundaries
+- Use custom error classes
+- Handle async operations with try/catch
+- Provide meaningful error messages
+
+## Performance
+- Use proper React patterns (memo, useMemo, useCallback)
+- Avoid unnecessary re-renders
+- Use proper dependency arrays
+- Implement code splitting where appropriate
+
+## Testing
+- Write unit tests for utilities and components
+- Use Vitest for testing framework
+- Test error cases and edge conditions
+- Maintain good test coverage

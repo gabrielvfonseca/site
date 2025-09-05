@@ -5,7 +5,7 @@ import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
 import { getCachedAllProjects } from '@/data-access/cache/project-cache';
 import type { Post } from '@/types/posts';
 import type { Project } from '@/types/projects';
-import { Skeleton } from '@repo/design-system/components/skeleton';
+import { Skeleton } from '@gabfon/design-system/components/skeleton';
 import Link from 'next/link';
 import { type JSX, Suspense } from 'react';
 

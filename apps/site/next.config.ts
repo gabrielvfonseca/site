@@ -1,19 +1,20 @@
-import { withMdx } from '@repo/mdx';
-import { withAnalyzer } from '@repo/next-config';
-import { withLogging, withSentry } from '@repo/observability/next-config';
+import { withMdx } from '@gabfon/mdx';
+import { withAnalyzer } from '@gabfon/next-config';
+import { withLogging, withSentry } from '@gabfon/observability/next-config';
 import type { NextConfig } from 'next';
 
 let nextConfig: NextConfig = withLogging({
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   transpilePackages: [
-    '@repo/analytics',
-    '@repo/next-config',
-    '@repo/observability',
-    '@repo/design-system',
-    '@repo/database',
-    '@repo/rate-limit',
-    '@repo/security',
-    '@repo/seo',
+    '@gabfon/analytics',
+    '@gabfon/next-config',
+    '@gabfon/observability',
+    '@gabfon/design-system',
+    '@gabfon/database',
+    '@gabfon/rate-limit',
+    '@gabfon/security',
+    '@gabfon/seo',
+    '@gabfon/mdx',
   ],
 });
 

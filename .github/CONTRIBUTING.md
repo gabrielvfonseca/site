@@ -1,6 +1,6 @@
-# Contributing to This Project
+# Contributing to gabfon.com
 
-Thank you for your interest in contributing! This document outlines the process for contributing to our project.
+Thank you for your interest in contributing! This document outlines the process for contributing to gabfon.com.
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ Thank you for your interest in contributing! This document outlines the process 
 - Follow existing code style and conventions
 - Include tests if applicable
 - Update documentation as needed
-- Ensure your PR follows the [project's philosophy](/docs/overview.mdx)
+- Ensure your PR follows the project's coding standards and conventions
 
 ## Code Style
 

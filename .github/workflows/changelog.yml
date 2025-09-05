@@ -1,0 +1,194 @@
+name: Generate Changelog
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'Generate changelog since date (e.g., "1 week ago", "2024-01-01")'
+        required: false
+        default: '1 week ago'
+        type: string
+      version:
+        description: 'Version number for the changelog (e.g., "1.0.0")'
+        required: false
+        type: string
+      packages:
+        description: 'Comma-separated list of package names to generate changelogs for'
+        required: false
+        type: string
+      dry_run:
+        description: 'Show what would be generated without writing files'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for git log
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build CLI
+        run: npx tsup
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          # Set default values
+          SINCE="${{ github.event.inputs.since || '1 week ago' }}"
+          VERSION="${{ github.event.inputs.version || '' }}"
+          PACKAGES="${{ github.event.inputs.packages || '' }}"
+          DRY_RUN="${{ github.event.inputs.dry_run || 'false' }}"
+          
+          # Use auto-changelog for automatic detection, fallback to manual
+          if [ -z "$VERSION" ] && [ -z "$PACKAGES" ]; then
+            CMD="node dist/index.js changelog:auto --since=\"$SINCE\""
+            echo "Using auto-changelog detection"
+          else
+            # Build manual command
+            CMD="node dist/index.js changelog --since=\"$SINCE\""
+            
+            if [ -n "$VERSION" ]; then
+              CMD="$CMD --version=\"$VERSION\""
+            fi
+            
+            if [ -n "$PACKAGES" ]; then
+              CMD="$CMD --packages=\"$PACKAGES\""
+            fi
+          fi
+          
+          if [ "$DRY_RUN" = "true" ]; then
+            CMD="$CMD --dry-run"
+          fi
+          
+          echo "Running: $CMD"
+          eval $CMD
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true' && github.event_name == 'push'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update changelogs'
+          title: 'chore: update changelogs'
+          body: |
+            This PR updates the changelog files based on recent commits.
+            
+            Generated on: ${{ github.run_number }}
+            Since: ${{ github.event.inputs.since || '1 week ago' }}
+            Version: ${{ github.event.inputs.version || 'auto' }}
+            Packages: ${{ github.event.inputs.packages || 'all' }}
+          branch: update-changelogs
+          delete-branch: true
+          labels: |
+            chore
+            changelog
+            automated
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && steps.changes.outputs.has_changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Changelog Preview')
+            );
+            
+            const commentBody = `## 📝 Changelog Preview
+            
+            This PR includes changes that would update the changelog files.
+            
+            **Generated on:** Run #${{ github.run_number }}
+            **Since:** ${{ github.event.inputs.since || '1 week ago' }}
+            **Version:** ${{ github.event.inputs.version || 'auto' }}
+            **Packages:** ${{ github.event.inputs.packages || 'all' }}
+            
+            <details>
+            <summary>View generated changelog</summary>
+            
+            \`\`\`
+            ${{ steps.changelog.outputs.stdout }}
+            \`\`\`
+            </details>`;
+            
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
+
+      - name: Upload changelog artifacts
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog-files
+          path: |
+            **/CHANGELOG.md
+            !node_modules/**/CHANGELOG.md
+          retention-days: 30

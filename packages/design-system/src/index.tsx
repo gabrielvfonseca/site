@@ -1,4 +1,4 @@
-import { AnalyticsProvider } from '@repo/analytics';
+import { AnalyticsProvider } from '@gabfon/analytics';
 import type { ThemeProviderProps } from 'next-themes';
 import type React from 'react';
 import { Toaster } from './components/ui/sonner';

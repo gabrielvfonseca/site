@@ -1,7 +1,11 @@
-import 'server-only';
+import 'server-only'; // Ensure this is a server component
 import { PostHog } from 'posthog-node';
 import { keys } from '../keys';
 
+/**
+ * The analytics for the analytics.
+ * @returns The analytics for the analytics.
+ */
 export const analytics = new PostHog(keys().NEXT_PUBLIC_POSTHOG_KEY, {
   host: keys().NEXT_PUBLIC_POSTHOG_HOST,
 

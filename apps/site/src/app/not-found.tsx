@@ -1,4 +1,4 @@
-import { buttonVariants } from '@repo/design-system/components/button';
+import { buttonVariants } from '@gabfon/design-system/components/button';
 import Link from 'next/link';
 import type { JSX } from 'react';
 

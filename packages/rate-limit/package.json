@@ -1,10 +1,9 @@
 {
-  "name": "@repo/rate-limit",
-  "version": "0.0.0",
+  "name": "@gabfon/rate-limit",
+  "version": "0.0.1",
   "private": true,
   "exports": {
-    ".": "./src/index.ts",
-    "./keys": "./src/keys.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
@@ -13,11 +12,11 @@
   "dependencies": {
     "@t3-oss/env-nextjs": "^0.12.0",
     "@upstash/ratelimit": "^2.0.5",
-    "@upstash/redis": "^1.34.7",
+    "@gabfon/cache": "workspace:*",
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@gabfon/typescript-config": "workspace:*",
     "typescript": "^5.8.3"
   }
 }

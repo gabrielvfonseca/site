@@ -1,5 +1,5 @@
 {
-  "name": "@repo/mdx",
+  "name": "@gabfon/mdx",
   "version": "0.0.1",
   "private": true,
   "main": "./src/index.ts",
@@ -15,7 +15,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@repo/design-system": "workspace:*",
+    "@gabfon/design-system": "workspace:*",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.3",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@types/mdx": "^2.0.13",
-    "@repo/typescript-config": "workspace:*",
+    "@gabfon/typescript-config": "workspace:*",
     "@types/node": "22.14.1",
     "@types/react": "19.1.1",
     "@types/react-dom": "^19.1.2",

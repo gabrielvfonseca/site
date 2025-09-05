@@ -1,5 +1,5 @@
 {
-  "name": "@repo/seo",
+  "name": "@gabfon/seo",
   "version": "0.0.1",
   "exports": {
     "./json-ld": "./src/json-ld.tsx",
@@ -16,7 +16,7 @@
     "schema-dts": "^1.1.5"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@gabfon/typescript-config": "workspace:*",
     "@types/lodash.merge": "^4.6.9",
     "@types/node": "22.14.1",
     "@types/react": "19.1.1",

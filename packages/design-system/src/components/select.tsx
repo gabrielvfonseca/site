@@ -1,7 +1,7 @@
 'use client';
 
+import { cn } from '@gabfon/design-system/lib/utils';
 import * as SelectPrimitive from '@radix-ui/react-select';
-import { cn } from '@repo/design-system/lib/utils';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import type * as React from 'react';
 

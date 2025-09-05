@@ -1,7 +1,11 @@
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
-export const keys = () =>
+/**
+ * The keys for the rate limiter.
+ * @returns The keys for the rate limiter.
+ */
+export const keys = (): ReturnType<typeof createEnv> =>
   createEnv({
     server: {
       UPSTASH_REDIS_REST_URL: z.string().min(1).url().optional(),

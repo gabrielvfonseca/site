@@ -1,6 +1,11 @@
 import { captureException } from '@sentry/nextjs';
 import { log } from './log';
 
+/**
+ * The parseError function for the observability.
+ * @param error - The error to parse.
+ * @returns The parsed error.
+ */
 export const parseError = (error: unknown): string => {
   let message = 'An error occurred';
 

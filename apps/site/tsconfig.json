@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@gabfon/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "incremental": true,
@@ -11,7 +11,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@/*": ["./src/*"],
-      "@repo/*": ["../../packages/*", "../../internals/*"]
+      "@gabfon/*": ["../../packages/*", "../../internals/*"]
     }
   },
   "include": [

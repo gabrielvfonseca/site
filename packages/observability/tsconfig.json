@@ -1,10 +1,10 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@gabfon/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@repo/*": ["../*"],
-      "@repo/observability/*": ["./*"]
+      "@gabfon/*": ["../*"],
+      "@gabfon/observability/*": ["./*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

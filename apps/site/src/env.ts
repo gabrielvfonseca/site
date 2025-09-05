@@ -1,8 +1,8 @@
-import { keys as analytics } from '@repo/analytics/keys';
-import { keys as core } from '@repo/next-config/keys';
-import { keys as observability } from '@repo/observability/keys';
-import { keys as rateLimit } from '@repo/rate-limit/keys';
-import { keys as security } from '@repo/security/keys';
+import { keys as analytics } from '@gabfon/analytics/keys';
+import { keys as core } from '@gabfon/next-config/keys';
+import { keys as observability } from '@gabfon/observability/keys';
+import { keys as rateLimit } from '@gabfon/rate-limit/keys';
+import { keys as security } from '@gabfon/security/keys';
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 

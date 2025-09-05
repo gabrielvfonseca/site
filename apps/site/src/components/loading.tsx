@@ -1,4 +1,4 @@
-import { Skeleton } from '@repo/design-system/components/skeleton';
+import { Skeleton } from '@gabfon/design-system/components/skeleton';
 import type { JSX } from 'react';
 
 export default function Loading(): JSX.Element {

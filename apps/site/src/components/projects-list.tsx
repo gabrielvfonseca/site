@@ -1,7 +1,7 @@
 'use client'; // Ensure this is rendered in the client
 
 import type { Project } from '@/types/projects';
-import { cn } from '@repo/design-system/lib/utils';
+import { cn } from '@gabfon/design-system/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
 import Link from 'next/link';
 import {

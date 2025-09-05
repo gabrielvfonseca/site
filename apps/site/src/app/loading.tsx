@@ -1,4 +1,4 @@
-import { Spinner } from '@repo/design-system/components/spinner';
+import { Spinner } from '@gabfon/design-system/components/spinner';
 import type { JSX } from 'react';
 
 export default function Loading(): JSX.Element {

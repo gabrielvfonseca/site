@@ -7,6 +7,10 @@
 import { init, replayIntegration } from '@sentry/nextjs';
 import { keys } from './keys';
 
+/**
+ * The initializeSentry function for the observability.
+ * @returns The initializeSentry function.
+ */
 export const initializeSentry = (): ReturnType<typeof init> =>
   init({
     dsn: keys().NEXT_PUBLIC_SENTRY_DSN,

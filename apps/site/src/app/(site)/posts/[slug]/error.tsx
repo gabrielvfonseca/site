@@ -1,6 +1,6 @@
 'use client'; // Error boundaries must be client components
 
-import { Button } from '@repo/design-system/components/button';
+import { Button } from '@gabfon/design-system/components/button';
 import type React from 'react';
 
 type ErrorProps = {

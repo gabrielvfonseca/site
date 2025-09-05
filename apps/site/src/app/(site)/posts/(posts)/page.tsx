@@ -1,7 +1,7 @@
 import { PostsList } from '@/components/posts-list';
 import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
 import type { Post } from '@/types/posts';
-import { type Blog, JsonLd, type WithContext } from '@repo/seo/json-ld';
+import { type Blog, JsonLd, type WithContext } from '@gabfon/seo/json-ld';
 import type { JSX } from 'react';
 
 export default async function Page(): Promise<JSX.Element> {

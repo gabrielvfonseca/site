@@ -10,7 +10,7 @@ const config = defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './'),
-      '@repo': path.resolve(__dirname, '../../packages'),
+      '@gabfon': path.resolve(__dirname, '../../packages'),
     },
   },
 });

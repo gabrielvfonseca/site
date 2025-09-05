@@ -1,7 +1,7 @@
 'use client';
 
+import { cn } from '@gabfon/design-system/lib/utils';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
-import { cn } from '@repo/design-system/lib/utils';
 import { XIcon } from 'lucide-react';
 import type * as React from 'react';
 

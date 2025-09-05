@@ -1,4 +1,4 @@
-import { cn } from '@repo/design-system/lib/utils';
+import { cn } from '@gabfon/design-system/lib/utils';
 import type * as React from 'react';
 
 function Input({ className, type, ...props }: React.ComponentProps<'input'>) {

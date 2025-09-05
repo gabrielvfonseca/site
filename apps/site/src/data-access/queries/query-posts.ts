@@ -6,7 +6,7 @@ import type {
   PostWhereClause,
   Status,
 } from '@/types';
-import { database } from '@repo/database';
+import { database } from '@gabfon/database';
 
 /**
  * Builds the "where" clause for querying posts based on the provided config.

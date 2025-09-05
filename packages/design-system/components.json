@@ -11,11 +11,11 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@repo/design-system/components",
-    "utils": "@repo/design-system/lib/utils",
-    "hooks": "@repo/design-system/hooks",
-    "lib": "@repo/design-system/lib",
-    "ui": "@repo/design-system/components/ui"
+    "components": "@gabfon/design-system/components",
+    "utils": "@gabfon/design-system/lib/utils",
+    "hooks": "@gabfon/design-system/hooks",
+    "lib": "@gabfon/design-system/lib",
+    "ui": "@gabfon/design-system/components/ui"
   },
   "iconLibrary": "lucide"
 }

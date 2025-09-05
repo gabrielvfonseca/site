@@ -1,7 +1,7 @@
 'use client';
 
+import { cn } from '@gabfon/design-system/lib/utils';
 import * as LabelPrimitive from '@radix-ui/react-label';
-import { cn } from '@repo/design-system/lib/utils';
 import type * as React from 'react';
 
 function Label({

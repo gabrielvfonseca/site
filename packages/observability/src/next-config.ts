@@ -2,6 +2,10 @@ import { withLogtail } from '@logtail/next';
 import { withSentryConfig } from '@sentry/nextjs';
 import { keys } from './keys';
 
+/**
+ * The sentry config for the observability.
+ * @returns The sentry config for the observability.
+ */
 export const sentryConfig: Parameters<typeof withSentryConfig>[1] = {
   org: keys().SENTRY_ORG,
   project: keys().SENTRY_PROJECT,

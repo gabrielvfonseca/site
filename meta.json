@@ -1,0 +1,108 @@
+{
+  "name": "site",
+  "description": "A modern monorepo website built with Next.js, TypeScript, and pnpm workspaces",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "workspace": {
+    "type": "pnpm",
+    "packages": ["apps/*", "packages/*", "internals/*"]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=10.8.0"
+  },
+  "packageManager": "pnpm@10.8.0",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "test": "turbo test",
+    "typecheck": "turbo typecheck",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "clean": "turbo clean"
+  },
+  "keywords": [
+    "nextjs",
+    "typescript",
+    "monorepo",
+    "pnpm",
+    "turbo",
+    "tailwindcss",
+    "radix-ui",
+    "vercel"
+  ],
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "gabriel@example.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabrielfonseca/site.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gabrielfonseca/site/issues"
+  },
+  "homepage": "https://github.com/gabrielfonseca/site#readme",
+  "architecture": {
+    "type": "monorepo",
+    "buildSystem": "turbo",
+    "packageManager": "pnpm",
+    "apps": ["site"],
+    "packages": [
+      "analytics",
+      "cache",
+      "database",
+      "design-system",
+      "mdx",
+      "observability",
+      "rate-limit",
+      "security",
+      "seo",
+      "testing"
+    ]
+  },
+  "techStack": {
+    "frontend": {
+      "framework": "Next.js 15+",
+      "language": "TypeScript",
+      "styling": "Tailwind CSS",
+      "ui": "Radix UI",
+      "deployment": "Vercel"
+    },
+    "backend": {
+      "database": "Neon (PostgreSQL)",
+      "orm": "Prisma",
+      "caching": "Custom cache layer"
+    },
+    "development": {
+      "packageManager": "pnpm",
+      "buildTool": "Turbo",
+      "testing": "Vitest",
+      "linting": "Biome",
+      "typeChecking": "TypeScript"
+    },
+    "monitoring": {
+      "analytics": "Vercel Analytics + PostHog",
+      "errorTracking": "Sentry",
+      "observability": "Custom observability package"
+    }
+  },
+  "features": [
+    "Server-side rendering (SSR)",
+    "Static site generation (SSG)",
+    "TypeScript strict mode",
+    "Component library with design system",
+    "MDX support for content",
+    "Database integration with Prisma",
+    "Caching strategies",
+    "Rate limiting",
+    "Security headers",
+    "SEO optimization",
+    "Analytics integration",
+    "Error tracking",
+    "Testing suite",
+    "CI/CD with GitHub Actions"
+  ]
+}

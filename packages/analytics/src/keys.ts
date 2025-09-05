@@ -1,7 +1,11 @@
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
-export const keys = () =>
+/**
+ * The keys for the analytics.
+ * @returns The keys for the analytics.
+ */
+export const keys = (): ReturnType<typeof createEnv> =>
   createEnv({
     client: {
       NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1).startsWith('phc_'),

@@ -1,10 +1,10 @@
 import type { JSX, ReactNode } from 'react';
-import '@repo/design-system/styles/globals.css';
+import '@gabfon/design-system/styles/globals.css';
 import { meta } from '@/constants/metadata';
-import { DesignSystemProvider } from '@repo/design-system';
-import { fonts } from '@repo/design-system/lib/fonts';
-import { createMetadata } from '@repo/seo/metadata';
-import { createViewport } from '@repo/seo/viewport';
+import { DesignSystemProvider } from '@gabfon/design-system';
+import { fonts } from '@gabfon/design-system/lib/fonts';
+import { createMetadata } from '@gabfon/seo/metadata';
+import { createViewport } from '@gabfon/seo/viewport';
 import type { Metadata, Viewport } from 'next';
 
 export const viewport: Viewport = createViewport();

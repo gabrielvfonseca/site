@@ -1,7 +1,7 @@
 'use client'; // Ensure this is rendered in the client
 
 import type { Post } from '@/types/posts';
-import { cn } from '@repo/design-system/lib/utils';
+import { cn } from '@gabfon/design-system/lib/utils';
 import Link from 'next/link';
 import {
   type ComponentPropsWithoutRef,

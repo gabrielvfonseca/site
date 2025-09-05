@@ -1,6 +1,6 @@
 {
-  "name": "@repo/testing",
-  "version": "0.0.0",
+  "name": "@gabfon/testing",
+  "version": "0.0.1",
   "private": true,
   "main": "./index.js",
   "type": "commonjs",

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/next-config",
+  "name": "@gabfon/next-config",
   "version": "0.0.1",
   "private": true,
   "main": "./src/index.ts",
@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@gabfon/typescript-config": "workspace:*",
     "next": "15.3.0"
   },
   "dependencies": {

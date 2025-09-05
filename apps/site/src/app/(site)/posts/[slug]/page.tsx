@@ -1,9 +1,9 @@
 import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
 import type { Post } from '@/types/posts';
-import { components } from '@repo/mdx/components';
-import { MdxRemote } from '@repo/mdx/remote';
-import { serialize } from '@repo/mdx/serialize';
-import { createMetadata } from '@repo/seo/metadata';
+import { components } from '@gabfon/mdx/components';
+import { MdxRemote } from '@gabfon/mdx/remote';
+import { serialize } from '@gabfon/mdx/serialize';
+import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { JSX, ReactNode } from 'react';

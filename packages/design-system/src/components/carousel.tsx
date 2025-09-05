@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@repo/design-system/components/ui/button';
-import { cn } from '@repo/design-system/lib/utils';
+import { Button } from '@gabfon/design-system/components/ui/button';
+import { cn } from '@gabfon/design-system/lib/utils';
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react';

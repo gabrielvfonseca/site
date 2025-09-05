@@ -1,5 +1,5 @@
 {
-  "name": "gabfon-site",
+  "name": "gabfon",
   "version": "0.1.0",
   "author": {
     "name": "Gabriel Fonseca",
@@ -13,6 +13,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "test": "turbo test",
     "lint": "ultracite lint",
     "format": "ultracite format",
     "analyze": "turbo analyze",
@@ -32,7 +33,7 @@
     "@changesets/cli": "^2.29.2",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@repo/typescript-config": "workspace:*",
+    "@gabfon/typescript-config": "workspace:*",
     "@turbo/gen": "^2.5.0",
     "@types/node": "^22.14.1",
     "@vitejs/plugin-react": "^4.3.4",

@@ -1,12 +1,11 @@
+import { redis } from '@gabfon/cache';
 import { Ratelimit, type RatelimitConfig } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
-import { keys } from './keys';
 
-export const redis = new Redis({
-  url: keys().UPSTASH_REDIS_REST_URL,
-  token: keys().UPSTASH_REDIS_REST_TOKEN,
-});
-
+/**
+ * Creates a rate limiter using the Redis cache.
+ * @param props - The rate limiter configuration.
+ * @returns The rate limiter.
+ */
 export const createRateLimiter = (props: Omit<RatelimitConfig, 'redis'>) =>
   new Ratelimit({
     redis,
@@ -14,4 +13,7 @@ export const createRateLimiter = (props: Omit<RatelimitConfig, 'redis'>) =>
     prefix: props.prefix ?? 'site-app',
   });
 
+/**
+ * The sliding window rate limiting algorithm.
+ */
 export const { slidingWindow } = Ratelimit;

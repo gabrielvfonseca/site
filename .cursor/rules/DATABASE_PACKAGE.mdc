@@ -1,0 +1,57 @@
+---
+description: Database package rules and Prisma patterns
+globs:
+  - "packages/database/**/*"
+  - "**/prisma/**/*"
+alwaysApply: true
+---
+
+# Database Package Rules
+
+## Prisma Configuration
+- Use Prisma 6.12+ with Neon serverless adapter
+- Keep schema in `packages/database/prisma/schema.prisma`
+- Generate client to `packages/database/generated/`
+- Use `@neondatabase/serverless` for production
+
+## Schema Management
+- Define models with proper relationships
+- Use descriptive field names and types
+- Add proper indexes for performance
+- Include validation and constraints
+
+## Client Usage
+- Export Prisma client from main package
+- Use `server-only` to prevent client-side usage
+- Implement proper connection pooling
+- Handle connection errors gracefully
+
+## Environment Variables
+- Use `@t3-oss/env-nextjs` for validation
+- Define database URL in environment config
+- Support different environments (dev, staging, prod)
+- Use proper secret management
+
+## Type Safety
+- Generate TypeScript types from schema
+- Export generated types for use in apps
+- Use Zod schemas for runtime validation
+- Implement proper error handling
+
+## Performance
+- Use connection pooling for serverless
+- Implement query optimization
+- Use proper indexing strategies
+- Monitor query performance
+
+## Security
+- Validate all inputs with Zod schemas
+- Use parameterized queries
+- Implement proper access controls
+- Sanitize user inputs
+
+## Migration Strategy
+- Use Prisma migrations for schema changes
+- Test migrations in development first
+- Backup data before major changes
+- Document breaking changes

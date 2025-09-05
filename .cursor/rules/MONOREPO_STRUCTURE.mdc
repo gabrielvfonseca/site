@@ -1,0 +1,44 @@
+---
+description: Monorepo structure and workspace management rules
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Monorepo Structure Rules
+
+## Workspace Organization
+- This is a pnpm workspace monorepo with apps and packages
+- Apps go in `apps/` directory (e.g., `apps/site/`)
+- Shared packages go in `packages/` directory
+- Internal tooling goes in `internals/` directory
+- Use workspace protocol (`workspace:*`) for internal dependencies
+
+## Package Naming
+- All packages use `@gabfon/` scope
+- Package names should be descriptive and follow kebab-case
+- Examples: `@gabfon/design-system`, `@gabfon/analytics`, `@gabfon/database`
+
+## Dependencies
+- Use `pnpm` as package manager (version 10.8.0+)
+- Prefer workspace dependencies over external when possible
+- Use `workspace:*` for internal package references
+- Keep external dependencies minimal and well-justified
+
+## File Organization
+- Each package should have its own `package.json`, `tsconfig.json`
+- Shared TypeScript configs in `internals/typescript-config/`
+- Root-level configs apply to all packages unless overridden
+- Use `turbo.json` for build orchestration
+
+## Import/Export Patterns
+- Use explicit exports in package.json
+- Prefer named exports over default exports
+- Use barrel files (`index.ts`) for clean public APIs
+- Keep internal implementation details private
+
+## Build and Development
+- Use Turbo for build orchestration and caching
+- All packages should have `build`, `test`, `typecheck` scripts
+- Use `turbo dev` for development across all packages
+- Cache outputs in `.next/`, `dist/`, `.turbo/` directories

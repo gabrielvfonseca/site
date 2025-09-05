@@ -1,5 +1,5 @@
 import { meta } from '@/constants/metadata';
-import { createMetadata } from '@repo/seo/metadata';
+import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import type { JSX } from 'react';

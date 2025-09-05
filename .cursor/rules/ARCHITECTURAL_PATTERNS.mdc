@@ -1,0 +1,50 @@
+---
+description: Core architectural patterns and design principles
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Architectural Patterns
+
+## Monorepo Architecture
+- Use pnpm workspaces for package management
+- Implement proper dependency management
+- Use Turbo for build orchestration and caching
+- Maintain clear package boundaries
+
+## Package Design
+- Single Responsibility Principle for each package
+- Clear public APIs with proper exports
+- Internal implementation details hidden
+- Consistent naming and structure
+
+## Data Flow
+- Server Components for data fetching
+- Client Components for interactivity
+- Proper state management patterns
+- Clear data access layer
+
+## Error Handling
+- Consistent error boundaries
+- Proper error types and messages
+- Graceful degradation
+- User-friendly error states
+
+## Performance
+- Code splitting and lazy loading
+- Proper caching strategies
+- Optimized bundle sizes
+- Core Web Vitals optimization
+
+## Security
+- Input validation with Zod
+- Proper authentication and authorization
+- Security headers and policies
+- Rate limiting and abuse prevention
+
+## Testing
+- Comprehensive test coverage
+- Unit, integration, and E2E tests
+- Proper mocking and test utilities
+- Continuous quality assurance

@@ -1,4 +1,4 @@
-import { Separator } from '@repo/design-system/components/separator';
+import { Separator } from '@gabfon/design-system/components/separator';
 import Link from 'next/link';
 import type { ComponentPropsWithoutRef } from 'react';
 import { highlight } from 'sugar-high';
@@ -10,6 +10,10 @@ type ListItemProps = ComponentPropsWithoutRef<'li'>;
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 
+/**
+ * The components for the mdx.
+ * @returns The components for the mdx.
+ */
 export const components = {
   h1: (props: HeadingProps) => (
     <h1 className="pb-4 font-medium text-primary" {...props} />

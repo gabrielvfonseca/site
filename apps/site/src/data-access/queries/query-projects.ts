@@ -4,7 +4,7 @@ import type {
   ProjectQueryConfig,
   ProjectWhereClause,
 } from '@/types';
-import { database } from '@repo/database';
+import { database } from '@gabfon/database';
 
 /**
  * Builds the "where" clause for querying projects based on the provided config.
