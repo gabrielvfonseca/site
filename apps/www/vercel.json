@@ -1,3 +1,6 @@
 {
+  "buildCommand": "cd ../.. && corepack enable && pnpm install && pnpm build --filter=www",
+  "installCommand": "cd ../.. && corepack enable && pnpm install",
+  "framework": "nextjs",
   "crons": []
 }

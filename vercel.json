@@ -1,0 +1,7 @@
+{
+  "buildCommand": "./build-vercel.sh",
+  "installCommand": "corepack enable && pnpm install --frozen-lockfile",
+  "framework": "nextjs",
+  "outputDirectory": "apps/www/.next",
+  "crons": []
+}
