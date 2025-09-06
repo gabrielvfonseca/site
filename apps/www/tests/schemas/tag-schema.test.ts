@@ -86,7 +86,7 @@ describe('Tag Schema', () => {
         ...validTagData,
         description: 'A test description',
       });
-      expect(withDescription.posts).toBe('A test description');
+      expect(withDescription.description).toBe('A test description');
     });
 
     it('should accept color as optional', () => {

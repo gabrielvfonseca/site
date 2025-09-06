@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { render, screen, cleanup } from '@testing-library/react';
+import { describe, expect, it, vi, afterEach } from 'vitest';
 import { Header } from '../../src/components/header';
 
 // Mock the config module
@@ -20,6 +20,9 @@ vi.mock('next/link', () => ({
 }));
 
 describe('Header Component', () => {
+  afterEach(() => {
+    cleanup();
+  });
   it('should render the header with site name and title', () => {
     render(<Header />);
 
@@ -59,13 +62,13 @@ describe('Header Component', () => {
     expect(linkClasses).toContain('mb-px');
     expect(linkClasses).toContain('inline-block');
     expect(linkClasses).toContain('font-medium');
-    expect(linkClasses).toContain('text-primary-foreground');
+    expect(linkClasses).toContain('text-primary');
     expect(linkClasses).toContain('no-underline');
 
     const titleElement = screen.getByText('Test Developer & Designer');
     const titleClasses = titleElement.className.split(' ');
     expect(titleClasses).toContain('font-medium');
-    expect(titleClasses).toContain('text-quaternary-foreground');
+    expect(titleClasses).toContain('text-quaternary');
     expect(titleClasses).toContain('leading-none');
   });
 
