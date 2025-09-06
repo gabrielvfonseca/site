@@ -10,5 +10,9 @@ import { ProjectsList } from './projects-list';
 export async function Projects(): Promise<JSX.Element> {
   const projects: Project[] = await getCachedAllProjects();
 
-  return <ProjectsList items={projects} />;
+  return (
+    <div className="-mx-3">
+      <ProjectsList items={projects} />
+    </div>
+  );
 }

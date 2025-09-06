@@ -78,7 +78,7 @@ export function ProjectsList({
               }
             }}
             target="_blank"
-            {...{ ...props, href: item.href }}
+            {...{ ...props, href: item.slug }}
           >
             <div className="flex items-center gap-1">
               <div className="font-medium text-sm leading-5">{item.title}</div>

@@ -301,6 +301,10 @@
   }
 }
 
+@utility container {
+  --container-width: var(--container-width);
+}
+
 /* Typography plugin */
 @utility prose {
   --tw-prose-body: var(--color-foreground);

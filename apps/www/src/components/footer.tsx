@@ -18,13 +18,13 @@ export function Footer(): JSX.Element {
       <nav className="flex flex-row gap-x-2 text-xs leading-none tracking-normal">
         {Object.entries(config.social).map(([key, value]) => (
           <a
-            className="text-tertiary transition-colors duration-300 hover:text-secondary"
-            href={value.url}
+            className="cursor-pointer text-tertiary transition-colors duration-300 hover:text-secondary"
+            href={value}
             key={key}
             rel="noopener noreferrer"
             target="_blank"
           >
-            {value.alt}
+            {key.charAt(0).toUpperCase() + key.slice(1)}
           </a>
         ))}
       </nav>

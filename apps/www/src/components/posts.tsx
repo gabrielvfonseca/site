@@ -10,5 +10,9 @@ import { PostsList } from './posts-list';
 export async function Posts(): Promise<JSX.Element> {
   const posts: Post[] = await getCachedPublishedPosts();
 
-  return <PostsList items={posts} />;
+  return (
+    <div className="-mx-3">
+      <PostsList items={posts} />
+    </div>
+  );
 }
