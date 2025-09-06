@@ -4,8 +4,8 @@ import type {
   PostIncludeClause,
   PostOrderClause,
   PostQueryConfig,
+  PostStatus,
   PostWhereClause,
-  Status,
 } from '@/types';
 
 /**
@@ -103,10 +103,10 @@ export const queryAllArchivedPosts = async (
  * Fetches posts by a specific status.
  */
 export const queryPostsByStatus = async (
-  status: Status,
+  status: PostStatus,
   config: Omit<PostQueryConfig, 'status'> = {}
 ) => {
-  const statusMessages: Record<Status, string> = {
+  const statusMessages: Record<PostStatus, string> = {
     PUBLISHED: 'Failed to fetch published posts',
     DRAFT: 'Failed to fetch drafted posts',
     ARCHIVED: 'Failed to fetch archived posts',

@@ -12,7 +12,7 @@ export const ProjectsSchema = z.object({
   description: z.string(),
   slug: z.string().url(),
   isFeatured: z.boolean().default(false),
-  priority: z.number().int().optional(),
+  priority: z.number().int().nullable().optional(),
   tags: z.array(TagSchema).optional(), // Or z.array(z.string().uuid()) if you're just validating IDs
   createdAt: z.date().default(() => new Date()),
   updatedAt: z.date().default(() => new Date()),

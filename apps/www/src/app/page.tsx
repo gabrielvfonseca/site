@@ -4,18 +4,17 @@ import { type JSX, Suspense } from 'react';
 import { Posts } from '@/components/posts';
 import { Projects } from '@/components/projects';
 import { config } from '@/constants/config';
-import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
-import { getCachedAllProjects } from '@/data-access/cache/project-cache';
-import type { Post } from '@/types/posts';
-import type { Project } from '@/types/projects';
+import { hasPublishedPosts } from '@/utils/post';
+import { hasProjects } from '@/utils/project';
 
 /**
  * The Page for the site.
  * @returns The Page for the site.
  */
 export default async function Page(): Promise<JSX.Element> {
-  const posts: Post[] = await getCachedPublishedPosts();
-  const projects: Project[] = await getCachedAllProjects();
+  // Check if there are posts and projects
+  const posts: boolean = await hasPublishedPosts();
+  const projects: boolean = await hasProjects();
 
   return (
     <div className="flex flex-col gap-12">
@@ -108,7 +107,7 @@ export default async function Page(): Promise<JSX.Element> {
         </p>
       </div>
 
-      {projects.length > 0 && (
+      {projects && (
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h4>Projecs</h4>
@@ -125,7 +124,7 @@ export default async function Page(): Promise<JSX.Element> {
         </section>
       )}
 
-      {posts.length > 0 && (
+      {posts && (
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h4>Posts</h4>

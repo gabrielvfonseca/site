@@ -5,10 +5,10 @@
     "incremental": true,
     "composite": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "paths": {
       "@/*": ["./src/*"],
       "@gabfon/*": ["../../packages/*", "../../internals/*"]
@@ -21,6 +21,10 @@
     "src/**/*.tsx",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../packages/**/*.ts",
+    "../../packages/**/*.tsx",
+    "../../internals/**/*.ts",
+    "../../internals/**/*.tsx"
   ]
 }

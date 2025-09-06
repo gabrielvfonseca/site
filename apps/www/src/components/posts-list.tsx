@@ -1,7 +1,6 @@
 'use client'; // Ensure this is rendered in the client
 
 import { cn } from '@gabfon/design-system/lib/utils';
-import { ArrowUpRightIcon } from 'lucide-react';
 import Link from 'next/link';
 import {
   type ComponentPropsWithoutRef,
@@ -10,27 +9,27 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { Project } from '@/types/projects';
+import type { Post } from '@/types/posts';
 
 /**
- * The ProjectsHoverListProps for the site.
- * @returns The ProjectsHoverListProps for the site.
+ * The PostsListProps for the site.
+ * @returns The PostsListProps for the site.
  */
-export interface ProjectsHoverListProps
+export interface PostsListProps
   extends Partial<ComponentPropsWithoutRef<typeof Link>> {
-  items: Project[];
+  items: Post[];
 }
 
 /**
- * The ProjectsList for the site.
- * @param props - The ProjectsHoverListProps.
- * @returns The ProjectsList for the site.
+ * The PostsList for the site.
+ * @param props - The PostsListProps.
+ * @returns The PostsList for the site.
  */
-export function ProjectsList({
+export function PostsList({
   items,
   className,
   ...props
-}: ProjectsHoverListProps): JSX.Element {
+}: PostsListProps): JSX.Element {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activePillStyle, setActivePillStyle] = useState({});
   const featureRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -68,22 +67,18 @@ export function ProjectsList({
       <div className="relative flex w-full flex-col flex-col items-start gap-2">
         {items.map((item, index: number) => (
           <Link
-            className="group inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
+            className="inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            ref={(el) => {
-              if (el) {
-                featureRefs.current[index] = el;
+            ref={(element: HTMLAnchorElement | null) => {
+              if (element) {
+                featureRefs.current[index] = element;
               }
             }}
-            target="_blank"
-            {...{ ...props, href: item.href }}
+            {...{ ...props, href: `/posts/${item.slug}` }}
           >
-            <div className="flex items-center gap-1">
-              <div className="font-medium text-sm leading-5">{item.title}</div>
-              <ArrowUpRightIcon className="size-3 text-tertiary transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-            </div>
+            <div className="font-medium text-sm leading-5">{item.title}</div>
             <div className="text-sm text-tertiary leading-5">
               {item.description}
             </div>

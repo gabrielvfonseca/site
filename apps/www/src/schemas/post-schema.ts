@@ -13,11 +13,11 @@ export const PostSchema = z.object({
   slug: z.string(), // Add regex if you want slug format validation
   content: z.string(),
   isFeatured: z.boolean().default(false),
-  readingTime: z.number().int().optional(),
-  coverImageUrl: z.string().url().optional(),
-  metaTitle: z.string().optional(),
-  metaDescription: z.string().optional(),
-  priority: z.number().int().optional(),
+  readingTime: z.number().int().nullable().optional(),
+  coverImageUrl: z.string().url().nullable().optional(),
+  metaTitle: z.string().nullable().optional(),
+  metaDescription: z.string().nullable().optional(),
+  priority: z.number().int().nullable().optional(),
   tags: z.array(TagSchema).optional(), // Or z.array(z.string().uuid())
   createdAt: z.date().default(() => new Date()),
   updatedAt: z.date().default(() => new Date()),

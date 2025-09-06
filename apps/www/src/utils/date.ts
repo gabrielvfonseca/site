@@ -37,7 +37,10 @@ export function getEndOfMonth(): Date {
 export function getStartOfWeek(): Date {
   const now = getToday();
   const day = now.getDay(); // Sunday = 0, Monday = 1
-  const diff = (day === 0 ? -6 : 1) - day;
+  const SUNDAY = 0;
+  const MONDAY = 1;
+  const DAYS_FROM_SUNDAY_TO_MONDAY = -6;
+  const diff = (day === SUNDAY ? DAYS_FROM_SUNDAY_TO_MONDAY : MONDAY) - day;
   now.setDate(now.getDate() + diff);
   return now;
 }
@@ -48,7 +51,8 @@ export function getStartOfWeek(): Date {
 export function getEndOfWeek(): Date {
   const startOfWeek = getStartOfWeek();
   const end = new Date(startOfWeek);
-  end.setDate(startOfWeek.getDate() + 6);
+  const DAYS_IN_WEEK = 7;
+  end.setDate(startOfWeek.getDate() + DAYS_IN_WEEK - 1);
   return end;
 }
 
