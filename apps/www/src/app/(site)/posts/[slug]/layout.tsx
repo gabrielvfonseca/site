@@ -47,5 +47,13 @@ export default async function PostLayout({
     notFound();
   }
 
-  return <article className="flex min-h-[500px] flex-col">{children}</article>;
+  return (
+    <article
+      aria-label="Blog post content"
+      className="flex flex-col"
+      id="post-article"
+    >
+      {children}
+    </article>
+  );
 }

@@ -18,12 +18,12 @@ export default async function Page(): Promise<JSX.Element> {
 
   return (
     <div className="flex flex-col gap-12">
-      <section className="flex flex-col gap-4">
+      <section aria-label="About" className="flex flex-col gap-4">
         <p className="font-medium text-primary">
           I'm a Lisbon-based software developer, founder, and Computer
           Engineering student at{' '}
           <Link
-            aria-label="NOVA School of Science and Technology"
+            aria-label="NOVA School of Science and Technology (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href="https://www.fct.unl.pt"
             rel="noopener noreferrer"
@@ -37,7 +37,7 @@ export default async function Page(): Promise<JSX.Element> {
         <p>
           I'm currently building an{' '}
           <Link
-            aria-label="AI-powered platform"
+            aria-label="AI-powered platform (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href="https://frontal.so"
             rel="noopener noreferrer"
@@ -49,7 +49,7 @@ export default async function Page(): Promise<JSX.Element> {
           to streamline business operations and decision-making. As the founder
           & CEO of{' '}
           <Link
-            aria-label="frontal.so"
+            aria-label="Frontal (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href="https://frontal.so"
             rel="noopener noreferrer"
@@ -84,7 +84,7 @@ export default async function Page(): Promise<JSX.Element> {
           </Link>{' '}
           about my experiences and believe in{' '}
           <Link
-            aria-label="building in public"
+            aria-label="building in public (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href={config.social.twitter}
             rel="noopener noreferrer"
@@ -100,7 +100,7 @@ export default async function Page(): Promise<JSX.Element> {
         <p>
           I'm{' '}
           <Link
-            aria-label="open to connecting"
+            aria-label="open to connecting (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href={config.social.linkedin}
             rel="noopener noreferrer"
@@ -113,7 +113,7 @@ export default async function Page(): Promise<JSX.Element> {
           in AI, productivity, and organizational clarity. Feel free to reach
           out on{' '}
           <Link
-            aria-label="Twitter"
+            aria-label="Twitter (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href={config.social.twitter}
             rel="noopener noreferrer"
@@ -124,7 +124,7 @@ export default async function Page(): Promise<JSX.Element> {
           </Link>
           ,{' '}
           <Link
-            aria-label="LinkedIn"
+            aria-label="LinkedIn (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href={config.social.linkedin}
             rel="noopener noreferrer"
@@ -135,7 +135,7 @@ export default async function Page(): Promise<JSX.Element> {
           </Link>
           , or{' '}
           <Link
-            aria-label="GitHub"
+            aria-label="GitHub (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href={config.social.github}
             rel="noopener noreferrer"
@@ -146,7 +146,7 @@ export default async function Page(): Promise<JSX.Element> {
           </Link>
           . If you'd like to schedule a meeting or a quick call, you can do so{' '}
           <Link
-            aria-label="Schedule a meeting"
+            aria-label="Schedule a meeting (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href={config.schedule}
             rel="noopener noreferrer"
@@ -157,7 +157,7 @@ export default async function Page(): Promise<JSX.Element> {
           </Link>
           {' or '}
           <Link
-            aria-label="Email me"
+            aria-label="Email me (opens in a new tab)"
             className="text-link hover:text-link-hover"
             href={config.email}
             rel="noopener noreferrer"
@@ -171,34 +171,65 @@ export default async function Page(): Promise<JSX.Element> {
       </section>
 
       {projects && (
-        <section className="flex flex-col gap-4">
+        <section
+          aria-labelledby="homepage-projects-heading"
+          className="flex flex-col gap-4"
+        >
           <div className="flex items-center justify-between">
-            <h4>Projecs</h4>
+            <h2
+              className="font-semibold text-lg"
+              id="homepage-projects-heading"
+            >
+              Projects
+            </h2>
             <Link
+              aria-label="View more projects"
               className="text-quaternary text-xs transition-color duration-300 hover:text-tertiary"
               href="/projects"
             >
               View more
             </Link>
           </div>
-          <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+          <Suspense
+            fallback={
+              <Skeleton
+                aria-busy="true"
+                aria-label="Loading projects"
+                className="h-8 w-full"
+              />
+            }
+          >
             <Projects />
           </Suspense>
         </section>
       )}
 
       {posts && (
-        <section className="flex flex-col gap-4">
+        <section
+          aria-labelledby="homepage-posts-heading"
+          className="flex flex-col gap-4"
+        >
           <div className="flex items-center justify-between">
-            <h4>Posts</h4>
+            <h2 className="font-semibold text-lg" id="homepage-posts-heading">
+              Posts
+            </h2>
             <Link
+              aria-label="View more posts"
               className="text-quaternary text-xs transition-color duration-300 hover:text-tertiary"
               href="/posts"
             >
               View more
             </Link>
           </div>
-          <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+          <Suspense
+            fallback={
+              <Skeleton
+                aria-busy="true"
+                aria-label="Loading posts"
+                className="h-8 w-full"
+              />
+            }
+          >
             <Posts />
           </Suspense>
         </section>

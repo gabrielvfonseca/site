@@ -30,9 +30,15 @@ type LayoutProps = {
  */
 export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
-    <div className="flex min-h-[500px] flex-col">
-      <h4 className="mb-4">Posts</h4>
+    <section
+      aria-labelledby="posts-heading"
+      className="flex flex-col"
+      id="posts-section"
+    >
+      <h2 className="mb-4" id="posts-heading">
+        Posts
+      </h2>
       {children}
-    </div>
+    </section>
   );
 }

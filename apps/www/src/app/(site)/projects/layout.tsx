@@ -32,9 +32,15 @@ export default function ProjectsLayout({
   children,
 }: ProjectsLayoutProps): JSX.Element {
   return (
-    <div className="flex flex-col">
-      <h4 className="mb-4">Projects</h4>
+    <section
+      aria-labelledby="projects-heading"
+      className="flex flex-col"
+      id="projects-section"
+    >
+      <h2 className="mb-4" id="projects-heading">
+        Projects
+      </h2>
       {children}
-    </div>
+    </section>
   );
 }

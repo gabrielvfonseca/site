@@ -28,16 +28,25 @@ type ErrorProps = {
  */
 export default function PostsError({ reset }: ErrorProps): JSX.Element {
   return (
-    <div className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4">
-      <h2 className="font-semibold text-foreground text-lg">
+    <section
+      aria-describedby="error-description"
+      aria-labelledby="error-title"
+      className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4"
+    >
+      <h2 className="font-semibold text-foreground text-lg" id="error-title">
         Internal Server Error
       </h2>
-      <p className="text-center font-medium text-md">
+      <p className="text-center font-medium text-md" id="error-description">
         The server encountered an error.
       </p>
-      <Button onClick={() => reset()} shape="full" variant="default">
+      <Button
+        aria-label="Try to reload the post"
+        onClick={() => reset()}
+        shape="full"
+        variant="default"
+      >
         Try again
       </Button>
-    </div>
+    </section>
   );
 }

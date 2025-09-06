@@ -24,9 +24,20 @@ export default async function Page(): Promise<JSX.Element> {
 
   return (
     <>
-      <section className="flex flex-col gap-4">
+      <section
+        aria-labelledby="posts-list-heading"
+        className="flex flex-col gap-4"
+        id="posts-list-section"
+      >
+        <h2 className="sr-only" id="posts-list-heading">
+          Blog Posts
+        </h2>
         <div className="grid grid-cols-1 items-start md:grid-cols-12">
-          <PostsList className="-mx-3 col-span-12" items={sortedPosts} />
+          <PostsList
+            aria-label="List of published blog posts"
+            className="-mx-3 col-span-12"
+            items={sortedPosts}
+          />
         </div>
       </section>
       <JsonLd code={jsonLd} />
