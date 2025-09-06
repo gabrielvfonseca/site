@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0  # Fetch all history for git log
 
       - name: Prepare repository
-        run: git fetch --unshallow --tags
+        run: git fetch --tags
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm

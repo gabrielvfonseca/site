@@ -33,7 +33,7 @@ jobs:
   security-scan:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
           fetch-depth: 0  # Fetch all history for better vulnerability detection
 
       - name: Prepare repository
-        run: git fetch --unshallow --tags
+        run: git fetch --tags
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
@@ -82,7 +82,7 @@ jobs:
         uses: snyk/actions/node@master
         continue-on-error: ${{ github.event.inputs.fail_on_issues == 'false' || github.event_name == 'schedule' }}
         with:
-          args: --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }} --file=apps/site/package.json
+          args: --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }} --file=apps/www/package.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -130,7 +130,7 @@ jobs:
               **Scan Type:** Dependencies + Code Analysis
               
               Please review the security findings and address any critical or high-severity issues before merging.
-              
+
               <details>
               <summary>View detailed results</summary>
               
@@ -140,7 +140,7 @@ jobs:
               </details>
               
               For more information, visit the [Snyk dashboard](https://app.snyk.io/org/${{ secrets.SNYK_ORG_ID }})`;
-              
+
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -166,22 +166,29 @@ jobs:
   docker-security-scan:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build Docker image
+      - name: Check for Dockerfile
+        id: check-dockerfile
         run: |
-          # Build Docker image if Dockerfile exists
           if [ -f "Dockerfile" ]; then
-            docker build -t ${{ github.repository }}:${{ github.sha }} .
+            echo "dockerfile-exists=true" >> $GITHUB_OUTPUT
+            echo "Dockerfile found, proceeding with Docker security scan"
           else
+            echo "dockerfile-exists=false" >> $GITHUB_OUTPUT
             echo "No Dockerfile found, skipping Docker security scan"
-            exit 0
           fi
 
+      - name: Build Docker image
+        if: steps.check-dockerfile.outputs.dockerfile-exists == 'true'
+        run: |
+          docker build -t ${{ github.repository }}:${{ github.sha }} .
+
       - name: Run Snyk to check Docker image for vulnerabilities
+        if: steps.check-dockerfile.outputs.dockerfile-exists == 'true'
         uses: snyk/actions/docker@master
         continue-on-error: ${{ github.event.inputs.fail_on_issues == 'false' || github.event_name == 'schedule' }}
         with:
@@ -189,6 +196,11 @@ jobs:
           args: --severity-threshold=${{ github.event.inputs.severity_threshold || 'medium' }}
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Skip Docker scan message
+        if: steps.check-dockerfile.outputs.dockerfile-exists == 'false'
+        run: |
+          echo "ℹ️ No Dockerfile found in repository, skipping Docker security scan"
 
   security-summary:
     runs-on: ubuntu-latest
