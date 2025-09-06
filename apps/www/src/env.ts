@@ -45,8 +45,6 @@ export const env = createEnv({
     NEXT_PUBLIC_EMAIL: z.string().email().optional().default('hey@gabfon.com'),
   },
   runtimeEnv: {
-    ENCRYPTION_PASSWORD: process.env.ENCRYPTION_PASSWORD,
-    ENCRYPTED_ENV_FILE: process.env.ENCRYPTED_ENV_FILE,
     NEXT_PUBLIC_TWITTER_URL: process.env.NEXT_PUBLIC_TWITTER_URL,
     NEXT_PUBLIC_LINKEDIN_URL: process.env.NEXT_PUBLIC_LINKEDIN_URL,
     NEXT_PUBLIC_GITHUB_URL: process.env.NEXT_PUBLIC_GITHUB_URL,
