@@ -22,7 +22,13 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <div className="container mx-auto max-w-lg px-4 py-14 sm:max-w-xl sm:py-28">
       <Header />
-      <main className="mt-14 sm:mt-24">{children}</main>
+      <main
+        aria-label="Main content"
+        className="mt-14 sm:mt-24"
+        id="main-content"
+      >
+        {children}
+      </main>
       <Footer />
     </div>
   );

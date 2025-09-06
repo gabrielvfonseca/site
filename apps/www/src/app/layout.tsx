@@ -38,7 +38,9 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
     <html className={fonts} lang="en" suppressHydrationWarning>
       <body className="flex min-h-screen flex-1 flex-col">
-        <DesignSystemProvider>{children}</DesignSystemProvider>
+        <DesignSystemProvider>
+          <main id="main-content">{children}</main>
+        </DesignSystemProvider>
       </body>
     </html>
   );

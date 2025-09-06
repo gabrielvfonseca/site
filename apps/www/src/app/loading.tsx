@@ -7,8 +7,12 @@ import type { JSX } from 'react';
  */
 export default function Loading(): JSX.Element {
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <Spinner />
+    <div
+      aria-live="polite"
+      className="flex h-screen w-screen items-center justify-center"
+    >
+      <Spinner aria-hidden="true" />
+      <span className="sr-only">Loading...</span>
     </div>
   );
 }

@@ -11,7 +11,13 @@ export default async function Page(): Promise<JSX.Element> {
   const projects: Project[] = await getCachedAllProjects();
 
   return (
-    <section className="flex flex-col gap-4">
+    <section
+      aria-labelledby="projects-list-heading"
+      className="flex flex-col gap-4"
+    >
+      <h2 className="sr-only" id="projects-list-heading">
+        List of Projects
+      </h2>
       <div className="grid grid-cols-1 items-start md:grid-cols-12">
         <ProjectsList className="-mx-3 col-span-12" items={projects} />
       </div>

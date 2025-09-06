@@ -8,15 +8,28 @@ import type { JSX } from 'react';
  */
 export default function NotFound(): JSX.Element {
   return (
-    <div className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4">
-      <h2 className="font-semibold text-lg text-primary">Not Found</h2>
-      <p className="text-center text-md">Could not find requested resource</p>
+    <main
+      aria-describedby="not-found-description"
+      aria-labelledby="not-found-title"
+      className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4"
+    >
+      <h1
+        autoFocus
+        className="font-semibold text-lg text-primary"
+        id="not-found-title"
+      >
+        Not Found
+      </h1>
+      <p className="text-center text-md" id="not-found-description">
+        Could not find requested resource
+      </p>
       <Link
+        aria-label="Go to homepage"
         className={buttonVariants({ variant: 'default', shape: 'full' })}
         href="/"
       >
         Go home
       </Link>
-    </div>
+    </main>
   );
 }

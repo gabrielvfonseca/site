@@ -35,17 +35,35 @@ export default function GlobalError({ reset }: GlobalErrorProps): JSX.Element {
     <html className={fonts} lang="en">
       <body>
         <DesignSystemProvider>
-          <div className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4">
-            <h2 className="font-semibold text-foreground text-lg">
+          <main
+            aria-describedby="global-error-description"
+            aria-labelledby="global-error-title"
+            className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4"
+          >
+            <h1
+              autoFocus
+              className="font-semibold text-foreground text-lg"
+              id="global-error-title"
+            >
               Internal Server Error
-            </h2>
-            <p className="text-center font-medium text-md">
+            </h1>
+            <p
+              className="text-center font-medium text-md"
+              id="global-error-description"
+            >
               The server encountered an error.
             </p>
-            <Button onClick={() => reset()} shape="full" variant="default">
-              <Link href="/">Try again</Link>
+            <Button
+              aria-label="Try to reload the page"
+              onClick={() => reset()}
+              shape="full"
+              variant="default"
+            >
+              <Link aria-hidden="true" href="/">
+                Try again
+              </Link>
             </Button>
-          </div>
+          </main>
         </DesignSystemProvider>
       </body>
     </html>
