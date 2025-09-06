@@ -7,6 +7,14 @@ import { keys } from './keys';
  */
 const opts = {
   dsn: keys().NEXT_PUBLIC_SENTRY_DSN,
+  // Suppress OpenTelemetry warnings
+  integrations: [],
+  // Disable automatic instrumentation to avoid warnings
+  autoInstrumentRemix: false,
+  autoInstrumentNextjs: false,
+  autoInstrumentServerFunctions: false,
+  autoInstrumentMiddleware: false,
+  autoInstrumentAppDirectory: false,
 };
 
 /**
@@ -14,11 +22,14 @@ const opts = {
  * @returns The initializeSentry function.
  */
 export const initializeSentry = () => {
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
-    init(opts);
-  }
+  // Only initialize in production or when explicitly enabled
+  if (process.env.NODE_ENV === 'production' && keys().NEXT_PUBLIC_SENTRY_DSN) {
+    if (process.env.NEXT_RUNTIME === 'nodejs') {
+      init(opts);
+    }
 
-  if (process.env.NEXT_RUNTIME === 'edge') {
-    init(opts);
+    if (process.env.NEXT_RUNTIME === 'edge') {
+      init(opts);
+    }
   }
 };

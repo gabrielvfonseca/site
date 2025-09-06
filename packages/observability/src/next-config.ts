@@ -39,6 +39,11 @@ export const sentryConfig: Parameters<typeof withSentryConfig>[1] = {
    * https://vercel.com/docs/cron-jobs
    */
   automaticVercelMonitors: true,
+
+  // Suppress OpenTelemetry warnings
+  sourcemaps: {
+    disable: false,
+  },
 };
 
 export const withSentry = (sourceConfig: object): object => {
