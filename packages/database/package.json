@@ -14,14 +14,14 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.0",
+    "@neondatabase/serverless": "^1.0.1",
     "@prisma/adapter-neon": "6.4.1",
     "@prisma/client": "6.15.0",
-    "@t3-oss/env-nextjs": "^0.13.4",
+    "@t3-oss/env-nextjs": "^0.13.8",
     "server-only": "^0.0.1",
-    "undici": "^7.10.0",
-    "ws": "^8.18.2",
-    "zod": "^3.25.28"
+    "undici": "^7.15.0",
+    "ws": "^8.18.3",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@gabfon/typescript-config": "workspace:*",
@@ -29,6 +29,6 @@
     "@types/ws": "^8.18.1",
     "bufferutil": "^4.0.9",
     "prisma": "6.15.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   }
 }

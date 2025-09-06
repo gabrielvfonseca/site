@@ -10,13 +10,13 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@t3-oss/env-nextjs": "^0.12.0",
-    "@upstash/ratelimit": "^2.0.5",
     "@gabfon/cache": "workspace:*",
-    "zod": "^3.24.2"
+    "@t3-oss/env-nextjs": "^0.12.0",
+    "@upstash/ratelimit": "^2.0.6",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@gabfon/typescript-config": "workspace:*",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   }
 }
