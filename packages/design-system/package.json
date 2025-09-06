@@ -6,7 +6,10 @@
   },
   "exports": {
     ".": "./src/index.tsx",
-    "./postcss.config.mjs": "./src/postcss.config.mjs",
+    "./postcss.config.mjs": {
+      "types": "./src/postcss.config.d.ts",
+      "default": "./src/postcss.config.mjs"
+    },
     "./styles/globals.css": "./src/styles/globals.css",
     "./providers/theme": "./src/providers/theme.tsx",
     "./lib/fonts": "./src/lib/fonts.ts",
