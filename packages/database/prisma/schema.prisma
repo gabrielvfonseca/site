@@ -14,24 +14,24 @@ datasource db {
 }
 
 model Tag {
-  id String @id @default(uuid())
-  name String @unique
-  posts Posts[] @relation("PostTags")
-  projects Projects[] @relation("ProjectTags")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id        String     @id @default(uuid())
+  name      String     @unique
+  posts     Posts[]    @relation("PostTags")
+  projects  Projects[] @relation("ProjectTags")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
 }
 
 model Projects {
-  id String @id @default(uuid())
-  title String
+  id          String   @id @default(uuid())
+  title       String
   description String
-  slug String
-  isFeatured Boolean @default(false)
-  priority Int? // Optional ordering mechanism
-  tags Tag[] @relation("ProjectTags")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  slug        String
+  isFeatured  Boolean  @default(false)
+  priority    Int? // Optional ordering mechanism
+  tags        Tag[]    @relation("ProjectTags")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 }
 
 enum Status {
@@ -41,19 +41,19 @@ enum Status {
 }
 
 model Posts {
-  id String @id @default(uuid())
-  status Status @default(DRAFT)
-  title String
-  description String
-  slug String @unique
-  content String
-  isFeatured Boolean @default(false)
-  readingTime Int? // In minutes
-  coverImageUrl String?
-  metaTitle String?
+  id              String   @id @default(uuid())
+  status          Status   @default(DRAFT)
+  title           String
+  description     String
+  slug            String   @unique
+  content         String
+  isFeatured      Boolean  @default(false)
+  readingTime     Int? // In minutes
+  coverImageUrl   String?
+  metaTitle       String?
   metaDescription String?
-  priority Int? // Optional ordering mechanism
-  tags Tag[] @relation("PostTags")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  priority        Int? // Optional ordering mechanism
+  tags            Tag[]    @relation("PostTags")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
 }
