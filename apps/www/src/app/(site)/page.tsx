@@ -18,7 +18,7 @@ export default async function Page(): Promise<JSX.Element> {
 
   return (
     <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-4">
+      <section className="flex flex-col gap-4">
         <p className="font-medium text-primary">
           I'm a Lisbon-based software developer, founder, and Computer
           Engineering student at{' '}
@@ -35,77 +35,140 @@ export default async function Page(): Promise<JSX.Element> {
           .
         </p>
         <p>
-          I'm currently building an AI-powered platform to streamline business
-          operations and decision-making. As the founder, I'm deeply involved in
-          product development and user research.
+          I'm currently building an{' '}
+          <Link
+            aria-label="AI-powered platform"
+            className="text-link hover:text-link-hover"
+            href="https://frontal.so"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="AI-powered platform"
+          >
+            AI-powered platform
+          </Link>{' '}
+          to streamline business operations and decision-making. As the founder
+          & CEO of{' '}
+          <Link
+            aria-label="frontal.so"
+            className="text-link hover:text-link-hover"
+            href="https://frontal.so"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="frontal.so"
+          >
+            Frontal
+          </Link>
+          , I'm deeply involved in product development and user research.
         </p>
         <p>
           Outside of my startup, I engage in full-stack development for
-          freelance and personal projects, always seeking to solve real-world
-          problems creatively. I'm an active participant in the tech, business,
-          and startup communities, constantly learning and iterating.
-        </p>
-        <p>
-          I'm open to connecting with fellow builders, potential collaborators,
-          and anyone interested in AI, productivity, and organizational clarity.
-          Feel free to reach out on{' '}
+          freelance and{' '}
           <Link
-            aria-label={config.social.twitter.alt}
+            aria-label="personal projects"
             className="text-link hover:text-link-hover"
-            href={config.social.twitter.url}
+            href="/projects"
+            rel="noopener noreferrer"
+            title="personal projects"
+          >
+            personal projects
+          </Link>{' '}
+          , always seeking to solve real-world problems creatively. I regularly{' '}
+          <Link
+            aria-label="write posts"
+            className="text-link hover:text-link-hover"
+            href="/posts"
+            rel="noopener noreferrer"
+            title="write posts"
+          >
+            write posts
+          </Link>{' '}
+          about my experiences and believe in{' '}
+          <Link
+            aria-label="building in public"
+            className="text-link hover:text-link-hover"
+            href={config.social.twitter}
             rel="noopener noreferrer"
             target="_blank"
-            title={config.social.twitter.alt}
+            title="building in public"
           >
-            {config.social.twitter.alt}
+            building in public
+          </Link>{' '}
+          to share my journey and learnings. I'm an active participant in the
+          tech, business, and startup communities, constantly learning and
+          iterating.
+        </p>
+        <p>
+          I'm{' '}
+          <Link
+            aria-label="open to connecting"
+            className="text-link hover:text-link-hover"
+            href={config.social.linkedin}
+            rel="noopener noreferrer"
+            target="_blank"
+            title="open to connecting"
+          >
+            open to connecting
+          </Link>{' '}
+          with fellow builders, potential collaborators, and anyone interested
+          in AI, productivity, and organizational clarity. Feel free to reach
+          out on{' '}
+          <Link
+            aria-label="Twitter"
+            className="text-link hover:text-link-hover"
+            href={config.social.twitter}
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Twitter"
+          >
+            Twitter
           </Link>
           ,{' '}
           <Link
-            aria-label={config.social.linkedin.alt}
+            aria-label="LinkedIn"
             className="text-link hover:text-link-hover"
-            href={config.social.linkedin.url}
+            href={config.social.linkedin}
             rel="noopener noreferrer"
             target="_blank"
-            title={config.social.linkedin.alt}
+            title="LinkedIn"
           >
-            {config.social.linkedin.alt}
+            LinkedIn
           </Link>
           , or{' '}
           <Link
-            aria-label={config.social.github.alt}
+            aria-label="GitHub"
             className="text-link hover:text-link-hover"
-            href={config.social.github.url}
+            href={config.social.github}
             rel="noopener noreferrer"
             target="_blank"
-            title={config.social.github.alt}
+            title="GitHub"
           >
-            {config.social.github.alt}
+            GitHub
           </Link>
-          . If you'd like to schedule a meeting, you can do so{' '}
+          . If you'd like to schedule a meeting or a quick call, you can do so{' '}
           <Link
-            aria-label={config.schedule.alt}
+            aria-label="Schedule a meeting"
             className="text-link hover:text-link-hover"
-            href={config.schedule.url}
+            href={config.schedule}
             rel="noopener noreferrer"
             target="_blank"
-            title={config.schedule.alt}
+            title="Schedule a meeting"
           >
             here
           </Link>
           {' or '}
           <Link
-            aria-label={config.email.alt}
+            aria-label="Email me"
             className="text-link hover:text-link-hover"
-            href={config.email.url}
+            href={config.email}
             rel="noopener noreferrer"
             target="_blank"
-            title={config.email.alt}
+            title="Email me"
           >
             email me
           </Link>
           .
         </p>
-      </div>
+      </section>
 
       {projects && (
         <section className="flex flex-col gap-4">
