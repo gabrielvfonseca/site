@@ -3,7 +3,9 @@ import { z } from 'zod';
 // Tag Schema
 export const TagSchema = z.object({
   id: z.string().uuid(),
-  name: z.string(),
+  name: z.string().min(1),
+  description: z.string().optional(),
+  color: z.string().optional(),
   // You can populate these separately as arrays of nested objects or just IDs
   posts: z.array(z.any()).optional(), // Replace z.any() with PostsSchema if needed
   projects: z.array(z.any()).optional(), // Replace z.any() with ProjectsSchema if needed

@@ -2,18 +2,20 @@ import { z } from 'zod';
 import { TagSchema } from './tag-schema';
 
 // Enum
-export const StatusEnum = z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']);
+export const StatusEnum = z
+  .enum(['DRAFT', 'PUBLISHED', 'ARCHIVED'])
+  .default('DRAFT');
 
 // Posts Schema
 export const PostSchema = z.object({
   id: z.string().uuid(),
-  status: StatusEnum.default('DRAFT'),
-  title: z.string(),
-  description: z.string(),
-  slug: z.string(), // Add regex if you want slug format validation
-  content: z.string(),
+  status: StatusEnum,
+  title: z.string().min(1),
+  description: z.string().min(1),
+  slug: z.string().min(1), // Add regex if you want slug format validation
+  content: z.string().min(1),
   isFeatured: z.boolean().default(false),
-  readingTime: z.number().int().nullable().optional(),
+  readingTime: z.number().int().min(0).nullable().optional(),
   coverImageUrl: z.string().url().nullable().optional(),
   metaTitle: z.string().nullable().optional(),
   metaDescription: z.string().nullable().optional(),
