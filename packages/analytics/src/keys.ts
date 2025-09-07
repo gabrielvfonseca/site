@@ -5,7 +5,7 @@ import { z } from 'zod';
  * The keys for the analytics.
  * @returns The keys for the analytics.
  */
-export const keys = (): ReturnType<typeof createEnv> =>
+export const keys = () =>
   createEnv({
     client: {
       NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1).startsWith('phc_'),

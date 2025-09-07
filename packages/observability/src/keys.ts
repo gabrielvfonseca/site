@@ -5,7 +5,7 @@ import { z } from 'zod';
  * The keys for the observability.
  * @returns The keys for the observability.
  */
-export const keys = (): ReturnType<typeof createEnv> =>
+export const keys = () =>
   createEnv({
     server: {
       // Added by Sentry Integration, Vercel Marketplace

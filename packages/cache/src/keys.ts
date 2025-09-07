@@ -5,7 +5,7 @@ import { z } from 'zod';
  * The keys for the cache.
  * @returns The keys for the cache.
  */
-export const keys = (): ReturnType<typeof createEnv> =>
+export const keys = () =>
   createEnv({
     server: {
       UPSTASH_REDIS_REST_URL: z.string().min(1).url().optional(),

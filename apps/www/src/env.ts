@@ -44,4 +44,4 @@ export const env = createEnv({
     NEXT_PUBLIC_SCHEDULE_URL: process.env.NEXT_PUBLIC_SCHEDULE_URL,
     NEXT_PUBLIC_EMAIL: process.env.NEXT_PUBLIC_EMAIL,
   },
-}) as ReturnType<typeof createEnv>;
+});
