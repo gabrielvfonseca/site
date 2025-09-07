@@ -9,12 +9,10 @@ import type { Post } from '@/types/posts';
 type PostLayoutProps = {
   /**
    * The children for the site.
-   * @returns The children for the site.
    */
   readonly children: ReactNode;
   /**
    * The params for the site.
-   * @returns The params for the site.
    */
   readonly params: Promise<{
     /**

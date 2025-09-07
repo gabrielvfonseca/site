@@ -18,7 +18,6 @@ export const metadata: Metadata = createMetadata({
 type LayoutProps = {
   /**
    * The children for the site.
-   * @returns The children for the site.
    */
   readonly children: ReactNode;
 };

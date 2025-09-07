@@ -9,7 +9,6 @@ import type { JSX, ReactNode } from 'react';
 type TemplateProps = {
   /**
    * The children for the site.
-   * @returns The children for the site.
    */
   readonly children: ReactNode;
 };

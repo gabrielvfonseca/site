@@ -4,7 +4,7 @@ import { serialize } from '@gabfon/mdx/serialize';
 import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import type { JSX, ReactNode } from 'react';
+import type { JSX } from 'react';
 import { getCachedPublishedPosts } from '@/data-access/cache/post-cache';
 import type { Post } from '@/types/posts';
 
@@ -13,13 +13,7 @@ import type { Post } from '@/types/posts';
  */
 type PostPageProps = {
   /**
-   * The children for the site.
-   * @returns The children for the site.
-   */
-  readonly children: ReactNode;
-  /**
    * The params for the site.
-   * @returns The params for the site.
    */
   readonly params: Promise<{
     /**

@@ -9,14 +9,12 @@ import type { JSX } from 'react';
 type ErrorProps = {
   /**
    * The error for the site.
-   * @returns The error for the site.
    */
   readonly error: Error & {
     digest?: string;
   };
   /**
    * The reset for the site.
-   * @returns The reset for the site.
    */
   reset: () => void;
 };
