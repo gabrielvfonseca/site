@@ -48,6 +48,9 @@
     "./components/tooltip": "./src/components/tooltip.tsx"
   },
   "scripts": {
+    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "echo 'No tests specified'",
+    "analyze": "echo 'No analysis specified'",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
