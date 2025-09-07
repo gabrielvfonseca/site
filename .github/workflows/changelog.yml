@@ -27,20 +27,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
           node-version: '20'
-          cache: 'pnpm'
+          
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.8.0
+        run: npm install -g pnpm@10.8.0
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -94,7 +90,6 @@ jobs:
       - name: Create Pull Request
         if: steps.changes.outputs.has-changes == 'true'
         uses: peter-evans/create-pull-request@v5
-        with:
           token: ${{ secrets.GH_PAT }}
           branch: update-changelogs
           base: main

@@ -15,20 +15,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
           # Use fetch-depth: 0 to get full history, but don't use --unshallow
           fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
           node-version: '20'
-          cache: 'pnpm'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.8.0
+      - name: Install pnpm
+        run: npm install -g pnpm@10.8.0
 
       - name: Get pnpm store directory
         shell: bash
@@ -37,7 +32,6 @@ jobs:
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
-        with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -49,7 +43,6 @@ jobs:
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
-        with:
           # This expects you to have a script called release which does a build for your packages and publishes them
           publish: pnpm changeset publish
           version: pnpm changeset version

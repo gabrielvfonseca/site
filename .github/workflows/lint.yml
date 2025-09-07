@@ -45,12 +45,8 @@ jobs:
       - name: Prepare repository
         run: git fetch --tags
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          version: ${{ env.PNPM_VERSION }}
-          run_install: false
-
+      - name: Install pnpm
+        run: npm install -g pnpm@10.8.0
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -63,8 +59,8 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - uses: actions/cache@v4
-        name: Setup pnpm cache
         with:
+        name: Setup pnpm cache
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -75,8 +71,6 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v46
-        with:
           files: |
             **/*.{js,jsx,ts,tsx,json,css,md}
             !**/node_modules/**

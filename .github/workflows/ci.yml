@@ -17,20 +17,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
           # Use fetch-depth: 0 to get full history, but don't use --unshallow
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.8.0
+        run: npm install -g pnpm@10.8.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
           node-version: '20'
-          cache: 'pnpm'
+          
 
       - name: Get pnpm store directory
         shell: bash
@@ -39,7 +35,6 @@ jobs:
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
-        with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -60,19 +55,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.8.0
+        run: npm install -g pnpm@10.8.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
           node-version: '20'
-          cache: 'pnpm'
+          
 
       - name: Get pnpm store directory
         shell: bash
@@ -81,7 +72,6 @@ jobs:
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
-        with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -100,19 +90,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.8.0
+        run: npm install -g pnpm@10.8.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
           node-version: '20'
-          cache: 'pnpm'
+          
 
       - name: Get pnpm store directory
         shell: bash
@@ -121,7 +107,6 @@ jobs:
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
-        with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -135,7 +120,6 @@ jobs:
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
-        with:
           name: build-artifacts
           path: |
             apps/*/dist

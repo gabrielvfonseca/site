@@ -16,60 +16,30 @@ jobs:
       - name: Prepare repository
         run: git fetch --tags
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-
       - name: Install Node.js
         uses: actions/setup-node@v4
-        with:
           node-version: 20
-          cache: pnpm
+
+      - name: Install pnpm
+        run: npm install -g pnpm@10.8.0
 
       - name: Get pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: Create .env.local file for www app
-        run: |
-          touch apps/www/.env.local
-          echo "DATABASE_URL=postgresql://test:test@localhost:5432/test" >> apps/www/.env.local
-          echo "NEXT_PUBLIC_APP_URL=http://localhost:3000" >> apps/www/.env.local
-
-      - name: Create specific Database .env file
-        run: |
-          touch packages/database/.env
-          echo "DATABASE_URL=postgresql://test:test@localhost:5432/test" >> packages/database/.env
-
-      - name: Quick security check
-        uses: snyk/actions/node@master
-        continue-on-error: true
-        with:
-          args: --severity-threshold=high --file=package.json
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Build with bundle analysis
+      - name: Build packages
         run: pnpm build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: |
-            apps/*/dist
-            packages/*/dist
-          retention-days: 7
+      - name: Type check
+        run: pnpm typecheck
