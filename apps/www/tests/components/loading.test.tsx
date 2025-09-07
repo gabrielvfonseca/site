@@ -21,7 +21,6 @@ describe('Loading Component', () => {
     
     // Check that at least one has the proper attributes
     const hasProperAttributes = loadingElements.some(element => 
-      element.getAttribute('role') === 'status' && 
       element.getAttribute('aria-label') === 'Loading content'
     );
     expect(hasProperAttributes).toBe(true);

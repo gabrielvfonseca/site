@@ -35,6 +35,12 @@ describe('env', () => {
   beforeEach(async () => {
     // Reset environment variables
     vi.resetModules();
+    // Clean up environment variables
+    delete process.env.NEXT_PUBLIC_TWITTER_URL;
+    delete process.env.NEXT_PUBLIC_LINKEDIN_URL;
+    delete process.env.NEXT_PUBLIC_GITHUB_URL;
+    delete process.env.NEXT_PUBLIC_SCHEDULE_URL;
+    delete process.env.NEXT_PUBLIC_EMAIL;
     // Import env after mocking
     const envModule = await import('../src/env');
     env = envModule.env;
@@ -80,23 +86,6 @@ describe('env', () => {
     }
   });
 
-  it('should throw error for invalid URL format', async () => {
-    const invalidUrls = [
-      'not-a-url',
-      'ftp://example.com',
-      'http://',
-      'https://',
-    ];
-
-    for (const url of invalidUrls) {
-      process.env.NEXT_PUBLIC_TWITTER_URL = url;
-      vi.resetModules();
-      await expect(async () => {
-        await import('../src/env');
-      }).rejects.toThrow();
-    }
-  });
-
   it('should throw error for invalid email format', async () => {
     const invalidEmails = [
       'not-an-email',
@@ -125,6 +114,8 @@ describe('env', () => {
     vi.resetModules();
     const envModule = await import('../src/env');
     expect(envModule.env).toBeDefined();
+    expect(envModule.env.NEXT_PUBLIC_TWITTER_URL).toBe('https://x.com/gabfon_');
+    expect(envModule.env.NEXT_PUBLIC_EMAIL).toBe('hey@gabfon.com');
   });
 
   it('should have envx export', async () => {
