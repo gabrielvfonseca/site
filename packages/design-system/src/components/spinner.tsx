@@ -1,6 +1,6 @@
-import { cn } from '@gabfon/design-system/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes, JSX } from 'react';
+import { cn } from '../lib/utils';
 
 const spinnerVariants = cva('spinner-blade', {
   variants: {

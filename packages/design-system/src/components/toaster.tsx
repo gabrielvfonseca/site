@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@gabfon/design-system/lib/utils';
 import { useTheme } from 'next-themes';
 import type * as React from 'react';
 import { Toaster as Sonner } from 'sonner';
+import { cn } from '../lib/utils';
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 

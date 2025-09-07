@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@gabfon/design-system/lib/utils';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import type * as React from 'react';
+import { cn } from '../lib/utils';
 
 function Tabs({
   className,

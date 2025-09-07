@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@gabfon/design-system/lib/utils';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import { MinusIcon } from 'lucide-react';
 import * as React from 'react';
+import { cn } from '../lib/utils';
 
 // biome-ignore lint: input-otp
 function InputOTP({

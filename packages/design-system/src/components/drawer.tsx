@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@gabfon/design-system/lib/utils';
 import type * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
+import { cn } from '../lib/utils';
 
 function Drawer({
   ...props
