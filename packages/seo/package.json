@@ -21,8 +21,8 @@
   "devDependencies": {
     "@gabfon/typescript-config": "workspace:*",
     "@types/lodash.merge": "^4.6.9",
-    "@types/node": "22.14.1",
-    "@types/react": "19.1.1",
+    "@types/node": "24.3.1",
+    "@types/react": "19.1.12",
     "@types/react-dom": "^19.1.9",
     "next": "^15.5.2"
   }

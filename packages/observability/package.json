@@ -21,16 +21,16 @@
   },
   "dependencies": {
     "@logtail/next": "^0.2.1",
-    "@sentry/nextjs": "^9.46.0",
-    "@t3-oss/env-nextjs": "^0.12.0",
+    "@sentry/nextjs": "^10.10.0",
+    "@t3-oss/env-nextjs": "^0.13.8",
     "react": "^19.1.1",
     "server-only": "^0.0.1",
-    "zod": "^3.25.76"
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@gabfon/typescript-config": "workspace:*",
-    "@types/node": "22.14.1",
-    "@types/react": "19.1.1",
+    "@types/node": "24.3.1",
+    "@types/react": "19.1.12",
     "@types/react-dom": "^19.1.9",
     "typescript": "^5.9.2"
   }
