@@ -22,27 +22,20 @@ export const env = createEnv({
     database(),
   ],
   client: {
-    NEXT_PUBLIC_TWITTER_URL: z
-      .string()
-      .url()
-      .optional()
-      .default('https://x.com/gabfon_'),
+    NEXT_PUBLIC_TWITTER_URL: z.string().url().default('https://x.com/gabfon_'),
     NEXT_PUBLIC_LINKEDIN_URL: z
       .string()
       .url()
-      .optional()
       .default('https://www.linkedin.com/in/gabrielvfonseca/'),
     NEXT_PUBLIC_GITHUB_URL: z
       .string()
       .url()
-      .optional()
       .default('https://github.com/gabrielvfonseca'),
     NEXT_PUBLIC_SCHEDULE_URL: z
       .string()
       .url()
-      .optional()
       .default('https://calendar.notion.so/meet/gabfon/schedule'),
-    NEXT_PUBLIC_EMAIL: z.string().email().optional().default('hey@gabfon.com'),
+    NEXT_PUBLIC_EMAIL: z.string().email().default('hey@gabfon.com'),
   },
   runtimeEnv: {
     NEXT_PUBLIC_TWITTER_URL: process.env.NEXT_PUBLIC_TWITTER_URL,
