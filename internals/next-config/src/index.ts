@@ -35,15 +35,15 @@ export const config: NextConfig = {
     ];
   },
 
-  webpack(config, { isServer }) {
+  webpack(webpackConfig, { isServer }) {
     if (isServer) {
-      config.plugins = config.plugins || [];
-      config.plugins.push(new PrismaPlugin());
+      webpackConfig.plugins = webpackConfig.plugins || [];
+      webpackConfig.plugins.push(new PrismaPlugin());
     }
 
-    config.ignoreWarnings = [{ module: otelRegex }];
+    webpackConfig.ignoreWarnings = [{ module: otelRegex }];
 
-    return config;
+    return webpackConfig;
   },
 
   // This is required to support PostHog trailing slash API requests

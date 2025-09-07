@@ -215,16 +215,18 @@ const getPackages = async (): Promise<PackageInfo[]> => {
   return packages;
 };
 
+const HASH_SHORT_LENGTH = 7;
+
 const formatChangelogEntry = (entry: ChangelogEntry): string => {
   const breaking = entry.breaking ? ' **BREAKING CHANGE**' : '';
-  return `- ${entry.description}${breaking} (${entry.hash.substring(0, 7)})`;
+  return `- ${entry.description}${breaking} (${entry.hash.substring(0, HASH_SHORT_LENGTH)})`;
 };
 
-const generatePackageChangelog = async (
+const generatePackageChangelog = (
   packageInfo: PackageInfo,
   commits: CommitInfo[],
   version: string
-): Promise<string> => {
+): string => {
   const packageCommits = commits.filter(
     (commit) =>
       commit.packages.includes(packageInfo.name) ||
@@ -301,11 +303,11 @@ const generatePackageChangelog = async (
   return changelogContent;
 };
 
-const generateGlobalChangelog = async (
+const generateGlobalChangelog = (
   _packages: PackageInfo[],
   commits: CommitInfo[],
   version: string
-): Promise<string> => {
+): string => {
   const entries: Record<string, ChangelogEntry[]> = {};
 
   for (const commit of commits) {
@@ -400,6 +402,119 @@ const updateExistingChangelog = async (
   }
 };
 
+const selectPackages = async (
+  allPackages: PackageInfo[],
+  packagesOption?: string
+): Promise<PackageInfo[]> => {
+  if (packagesOption) {
+    const packageNames = packagesOption.split(',').map((name) => name.trim());
+    return allPackages.filter((pkg) => packageNames.includes(pkg.name));
+  }
+
+  const packageChoices = allPackages.map((pkg) => ({
+    value: pkg.name,
+    label: `${pkg.name} (v${pkg.version})`,
+  }));
+
+  const selected = await select({
+    message: 'Which packages should have changelogs generated?',
+    options: [{ value: 'all', label: 'All packages' }, ...packageChoices],
+    initialValue: 'all',
+  });
+
+  if (isCancel(selected)) {
+    cancel('Operation cancelled.');
+    process.exit(0);
+  }
+
+  if (selected !== 'all') {
+    return allPackages.filter((pkg) => pkg.name === selected);
+  }
+
+  return allPackages;
+};
+
+const getVersion = async (versionOption?: string): Promise<string> => {
+  if (versionOption) {
+    return versionOption;
+  }
+
+  const versionInput = await text({
+    message: 'What version should be used for the changelog?',
+    placeholder: '1.0.0',
+    validate(value: string) {
+      if (value.length === 0) {
+        return 'Please enter a version number.';
+      }
+    },
+  });
+
+  if (isCancel(versionInput)) {
+    cancel('Operation cancelled.');
+    process.exit(0);
+  }
+
+  return versionInput.toString();
+};
+
+const generatePackageChangelogs = async (
+  selectedPackages: PackageInfo[],
+  commits: CommitInfo[],
+  version: string,
+  dryRun: boolean
+): Promise<void> => {
+  for (const packageInfo of selectedPackages) {
+    const changelogContent = generatePackageChangelog(
+      packageInfo,
+      commits,
+      version
+    );
+
+    if (changelogContent) {
+      const changelogPath = join(packageInfo.path, 'CHANGELOG.md');
+
+      if (dryRun) {
+        log.info(`Would write to ${changelogPath}:`);
+        log.info(changelogContent);
+      } else {
+        await updateExistingChangelog(changelogPath, changelogContent);
+      }
+    }
+  }
+};
+
+const generateGlobalChangelogIfNeeded = async (options: {
+  allPackages: PackageInfo[];
+  commits: CommitInfo[];
+  version: string;
+  globalOption: boolean | undefined;
+  dryRun: boolean;
+}): Promise<void> => {
+  if (options.globalOption === false) {
+    return;
+  }
+
+  const globalChangelogContent = generateGlobalChangelog(
+    options.allPackages,
+    options.commits,
+    options.version
+  );
+
+  if (globalChangelogContent) {
+    const globalChangelogPath = join(process.cwd(), 'CHANGELOG.md');
+
+    if (options.dryRun) {
+      log.info(`Would write to ${globalChangelogPath}:`);
+      log.info(globalChangelogContent);
+    } else {
+      await updateExistingChangelog(
+        globalChangelogPath,
+        globalChangelogContent
+      );
+    }
+  }
+};
+
 export const changelog = async (options: {
   since?: string;
   version?: string;
@@ -430,109 +545,30 @@ export const changelog = async (options: {
 
     s.stop('Analysis complete');
 
-    // Select packages to generate changelogs for
-    let selectedPackages = allPackages;
-    if (options.packages) {
-      const packageNames = options.packages
-        .split(',')
-        .map((name) => name.trim());
-      selectedPackages = allPackages.filter((pkg) =>
-        packageNames.includes(pkg.name)
-      );
-    } else {
-      const packageChoices = allPackages.map((pkg) => ({
-        value: pkg.name,
-        label: `${pkg.name} (v${pkg.version})`,
-      }));
-
-      const selected = await select({
-        message: 'Which packages should have changelogs generated?',
-        options: [{ value: 'all', label: 'All packages' }, ...packageChoices],
-        initialValue: 'all',
-      });
-
-      if (isCancel(selected)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
-      }
-
-      if (selected !== 'all') {
-        selectedPackages = allPackages.filter((pkg) => pkg.name === selected);
-      }
-    }
-
-    // Get version
-    let version = options.version;
-    if (!version) {
-      const versionInput = await text({
-        message: 'What version should be used for the changelog?',
-        placeholder: '1.0.0',
-        validate(value: string) {
-          if (value.length === 0) {
-            return 'Please enter a version number.';
-          }
-        },
-      });
-
-      if (isCancel(versionInput)) {
-        cancel('Operation cancelled.');
-        process.exit(0);
-      }
-
-      version = versionInput.toString();
-    }
+    // Select packages and get version
+    const selectedPackages = await selectPackages(
+      allPackages,
+      options.packages
+    );
+    const version = await getVersion(options.version);
 
     // Generate changelogs
     s.start('Generating changelogs...');
-
-    for (const packageInfo of selectedPackages) {
-      s.message(`Generating changelog for ${packageInfo.name}...`);
-
-      const changelogContent = await generatePackageChangelog(
-        packageInfo,
-        commits,
-        version
-      );
-
-      if (changelogContent) {
-        const changelogPath = join(packageInfo.path, 'CHANGELOG.md');
-
-        if (options.dryRun) {
-          log.info(`Would write to ${changelogPath}:`);
-          log.info(changelogContent);
-        } else {
-          await updateExistingChangelog(changelogPath, changelogContent);
-        }
-      }
-    }
-
-    // Generate global changelog
-    if (options.global !== false) {
-      s.message('Generating global changelog...');
-
-      const globalChangelogContent = await generateGlobalChangelog(
-        allPackages,
-        commits,
-        version
-      );
-
-      if (globalChangelogContent) {
-        const globalChangelogPath = join(process.cwd(), 'CHANGELOG.md');
-
-        if (options.dryRun) {
-          log.info(`Would write to ${globalChangelogPath}:`);
-          log.info(globalChangelogContent);
-        } else {
-          await updateExistingChangelog(
-            globalChangelogPath,
-            globalChangelogContent
-          );
-        }
-      }
-    }
+    await generatePackageChangelogs(
+      selectedPackages,
+      commits,
+      version,
+      options.dryRun || false
+    );
+    await generateGlobalChangelogIfNeeded({
+      allPackages,
+      commits,
+      version,
+      globalOption: options.global,
+      dryRun: options.dryRun || false,
+    });
 
     s.stop('Changelog generation complete!');
-
     outro('Changelogs have been generated successfully.');
   } catch (error) {
     const message = error instanceof Error ? error.message : `${error}`;

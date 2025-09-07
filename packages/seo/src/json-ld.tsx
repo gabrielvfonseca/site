@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import type { Thing, WithContext } from 'schema-dts';
 
 type JsonLdProps = {
@@ -9,12 +10,12 @@ type JsonLdProps = {
  * @param props - The JsonLd props.
  * @returns The JsonLd component.
  */
-export function JsonLd({ code }: JsonLdProps) {
+export function JsonLd({ code }: JsonLdProps): JSX.Element {
   return (
     <script
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(code) }}
       // biome-ignore lint/security/noDangerouslySetInnerHtml: "This is a JSON-LD script, not user-generated content."
       // biome-ignore lint/style/useNamingConvention: "This is a React-specific prop name"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(code) }}
       type="application/ld+json"
     />
   );

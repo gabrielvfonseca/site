@@ -90,7 +90,7 @@ export const components = {
       {...props}
     />
   ),
-  code: async ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
+  code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
     const codeHtml = highlight(children as string);
     return (
       <code

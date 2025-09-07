@@ -179,68 +179,54 @@ const getCommitsSince = async (since: string): Promise<CommitInfo[]> => {
   }
 };
 
-const getPackages = async (): Promise<PackageInfo[]> => {
+const getPackageInfo = async (
+  dirPath: string,
+  dirName: string
+): Promise<PackageInfo | null> => {
+  const packagePath = join(dirPath, dirName, 'package.json');
+  try {
+    const packageJson = JSON.parse(await readFile(packagePath, 'utf8'));
+    const changelogPath = join(dirPath, dirName, 'CHANGELOG.md');
+
+    return {
+      name: packageJson.name || dirName,
+      path: join(dirPath, dirName),
+      version: packageJson.version || '0.0.0',
+      hasChangelog: await stat(changelogPath)
+        .then(() => true)
+        .catch(() => false),
+      dependencies: Object.keys(packageJson.dependencies || {}),
+      devDependencies: Object.keys(packageJson.devDependencies || {}),
+    };
+  } catch {
+    return null;
+  }
+};
+
+const getPackagesFromDirectory = async (
+  dirPath: string
+): Promise<PackageInfo[]> => {
   const packages: PackageInfo[] = [];
-
-  // Get packages from packages directory
   try {
-    const packagesDir = join(process.cwd(), 'packages');
-    const packageDirs = await readdir(packagesDir);
-
-    for (const dir of packageDirs) {
-      const packagePath = join(packagesDir, dir, 'package.json');
-      try {
-        const packageJson = JSON.parse(await readFile(packagePath, 'utf8'));
-        const changelogPath = join(packagesDir, dir, 'CHANGELOG.md');
-
-        packages.push({
-          name: packageJson.name || dir,
-          path: join(packagesDir, dir),
-          version: packageJson.version || '0.0.0',
-          hasChangelog: await stat(changelogPath)
-            .then(() => true)
-            .catch(() => false),
-          dependencies: Object.keys(packageJson.dependencies || {}),
-          devDependencies: Object.keys(packageJson.devDependencies || {}),
-        });
-      } catch {
-        // Skip if package.json doesn't exist or is invalid
+    const dirs = await readdir(dirPath);
+    for (const dir of dirs) {
+      const packageInfo = await getPackageInfo(dirPath, dir);
+      if (packageInfo) {
+        packages.push(packageInfo);
       }
     }
   } catch {
-    // Skip if packages directory doesn't exist
+    // Skip if directory doesn't exist
   }
-
-  // Get apps from apps directory
-  try {
-    const appsDir = join(process.cwd(), 'apps');
-    const appDirs = await readdir(appsDir);
-
-    for (const dir of appDirs) {
-      const packagePath = join(appsDir, dir, 'package.json');
-      try {
-        const packageJson = JSON.parse(await readFile(packagePath, 'utf8'));
-        const changelogPath = join(appsDir, dir, 'CHANGELOG.md');
-
-        packages.push({
-          name: packageJson.name || dir,
-          path: join(appsDir, dir),
-          version: packageJson.version || '0.0.0',
-          hasChangelog: await stat(changelogPath)
-            .then(() => true)
-            .catch(() => false),
-          dependencies: Object.keys(packageJson.dependencies || {}),
-          devDependencies: Object.keys(packageJson.devDependencies || {}),
-        });
-      } catch {
-        // Skip if package.json doesn't exist or is invalid
-      }
-    }
-  } catch {
-    // Skip if apps directory doesn't exist
-  }
-
   return packages;
+};
+
+const getPackages = async (): Promise<PackageInfo[]> => {
+  const packages = await getPackagesFromDirectory(
+    join(process.cwd(), 'packages')
+  );
+  const apps = await getPackagesFromDirectory(join(process.cwd(), 'apps'));
+  return [...packages, ...apps];
 };
 
 const formatChangelogEntry = (
@@ -248,20 +234,21 @@ const formatChangelogEntry = (
   config: ChangelogConfig
 ): string => {
   const breaking = entry.breaking ? ' **BREAKING CHANGE**' : '';
+  const HASH_SHORT_LENGTH = 7;
   const hash = config.includeCommitHashes
-    ? ` (${entry.hash.substring(0, 7)})`
+    ? ` (${entry.hash.substring(0, HASH_SHORT_LENGTH)})`
     : '';
   const author = config.includeAuthors ? ` - ${entry.author}` : '';
 
   return `- ${entry.description}${breaking}${hash}${author}`;
 };
 
-const generatePackageChangelog = async (
+const generatePackageChangelog = (
   packageInfo: PackageInfo,
   commits: CommitInfo[],
   version: string,
   config: ChangelogConfig
-): Promise<string> => {
+): string => {
   const packageCommits = commits.filter(
     (commit) =>
       commit.packages.includes(packageInfo.name) ||
@@ -341,12 +328,12 @@ const generatePackageChangelog = async (
   return changelogContent;
 };
 
-const generateGlobalChangelog = async (
+const generateGlobalChangelog = (
   _packages: PackageInfo[],
   commits: CommitInfo[],
   version: string,
   config: ChangelogConfig
-): Promise<string> => {
+): string => {
   const entries: Record<string, ChangelogEntry[]> = {};
 
   for (const commit of commits) {
@@ -566,30 +553,30 @@ const getVersion = async (versionOption?: string): Promise<string> => {
   return versionInput.toString();
 };
 
-const generatePackageChangelogs = async (
-  selectedPackages: PackageInfo[],
-  commits: CommitInfo[],
-  version: string,
-  config: ChangelogConfig,
-  dryRun: boolean
-): Promise<void> => {
+const generatePackageChangelogs = async (options: {
+  selectedPackages: PackageInfo[];
+  commits: CommitInfo[];
+  version: string;
+  config: ChangelogConfig;
+  dryRun: boolean;
+}): Promise<void> => {
   const s = spinner();
   s.start('Generating changelogs...');
 
-  for (const packageInfo of selectedPackages) {
+  for (const packageInfo of options.selectedPackages) {
     s.message(`Generating changelog for ${packageInfo.name}...`);
 
-    const changelogContent = await generatePackageChangelog(
+    const changelogContent = generatePackageChangelog(
       packageInfo,
-      commits,
-      version,
-      config
+      options.commits,
+      options.version,
+      options.config
     );
 
     if (changelogContent) {
       const changelogPath = join(packageInfo.path, 'CHANGELOG.md');
 
-      if (dryRun) {
+      if (options.dryRun) {
         log.info(`Would write to ${changelogPath}:`);
         log.info(changelogContent);
       } else {
@@ -599,32 +586,32 @@ const generatePackageChangelogs = async (
   }
 };
 
-const generateGlobalChangelogIfNeeded = async (
-  allPackages: PackageInfo[],
-  commits: CommitInfo[],
-  version: string,
-  config: ChangelogConfig,
-  global: boolean,
-  dryRun: boolean
-): Promise<void> => {
-  if (global === false) {
+const generateGlobalChangelogIfNeeded = async (options: {
+  allPackages: PackageInfo[];
+  commits: CommitInfo[];
+  version: string;
+  config: ChangelogConfig;
+  global: boolean;
+  dryRun: boolean;
+}): Promise<void> => {
+  if (options.global === false) {
     return;
   }
 
   const s = spinner();
   s.message('Generating global changelog...');
 
-  const globalChangelogContent = await generateGlobalChangelog(
-    allPackages,
-    commits,
-    version,
-    config
+  const globalChangelogContent = generateGlobalChangelog(
+    options.allPackages,
+    options.commits,
+    options.version,
+    options.config
   );
 
   if (globalChangelogContent) {
     const globalChangelogPath = join(process.cwd(), 'CHANGELOG.md');
 
-    if (dryRun) {
+    if (options.dryRun) {
       log.info(`Would write to ${globalChangelogPath}:`);
       log.info(globalChangelogContent);
     } else {
@@ -678,23 +665,23 @@ export const changelogAdvanced = async (options: {
     const version = await getVersion(options.version);
 
     // Generate changelogs
-    await generatePackageChangelogs(
+    await generatePackageChangelogs({
       selectedPackages,
       commits,
       version,
       config,
-      options.dryRun || false
-    );
+      dryRun: options.dryRun || false,
+    });
 
     // Generate global changelog
-    await generateGlobalChangelogIfNeeded(
+    await generateGlobalChangelogIfNeeded({
       allPackages,
       commits,
       version,
       config,
-      options.global !== false,
-      options.dryRun || false
-    );
+      global: options.global !== false,
+      dryRun: options.dryRun || false,
+    });
 
     s.stop('Advanced changelog generation complete!');
 

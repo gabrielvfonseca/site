@@ -96,6 +96,10 @@ const selectVersion = async (
   return version.toString();
 };
 
+const KILOBYTE = 1024;
+const MEGABYTE = KILOBYTE * KILOBYTE;
+const GIGABYTE_IN_BYTES = MEGABYTE * KILOBYTE;
+
 const getDiff = async (
   from: { version: string; files: string[] },
   to: { version: string; files: string[] }
@@ -113,7 +117,7 @@ const getDiff = async (
       (
         await exec(
           `git diff ${from.version} ${to.version} -- "${cleanFileName(file)}"`,
-          { maxBuffer: 1024 * 1024 * 1024 }
+          { maxBuffer: GIGABYTE_IN_BYTES }
         )
       )
         .toString()
