@@ -1,6 +1,5 @@
 {
-  "buildCommand": "cd ../.. && corepack enable && pnpm install && pnpm build --filter=www",
-  "installCommand": "cd ../.. && corepack enable && pnpm install",
+  "buildCommand": "cd ../.. && corepack enable && pnpm install --frozen-lockfile && pnpm build --filter=site",
   "framework": "nextjs",
   "crons": []
 }
