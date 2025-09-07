@@ -27,7 +27,11 @@
     "prepare": "husky",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "security": "snyk test --severity-threshold=high --file=package.json",
+    "security:packages": "for package in packages/*/; do if [ -f \"$package/package.json\" ]; then echo \"Scanning $package\"; npx snyk test --severity-threshold=high --file=\"$package/package.json\" || true; fi; done",
+    "security:apps": "for app in apps/*/; do if [ -f \"$app/package.json\" ]; then echo \"Scanning $app\"; npx snyk test --severity-threshold=high --file=\"$app/package.json\" || true; fi; done",
+    "security:all": "./scripts/security-scan.sh"
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.0",
@@ -42,6 +46,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "tsup": "^8.5.0",
+    "tsx": "^4.20.5",
     "turbo": "^2.5.6",
     "typescript": "^5.9.2",
     "ultracite": "^5.3.4"
