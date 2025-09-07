@@ -60,12 +60,12 @@ function Carousel({
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
 
-  const onSelect = React.useCallback((api: CarouselApi) => {
-    if (!api) {
+  const onSelect = React.useCallback((carouselApi: CarouselApi) => {
+    if (!carouselApi) {
       return;
     }
-    setCanScrollPrev(api.canScrollPrev());
-    setCanScrollNext(api.canScrollNext());
+    setCanScrollPrev(carouselApi.canScrollPrev());
+    setCanScrollNext(carouselApi.canScrollNext());
   }, []);
 
   const scrollPrev = React.useCallback(() => {
@@ -124,7 +124,6 @@ function Carousel({
       }}
     >
       <div
-        aria-roledescription="carousel"
         className={cn('relative', className)}
         data-slot="carousel"
         onKeyDownCapture={handleKeyDown}
@@ -157,19 +156,21 @@ function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
+function CarouselItem({
+  className,
+  ...props
+}: React.ComponentProps<'fieldset'>) {
   const { orientation } = useCarousel();
 
   return (
-    <div
+    <fieldset
       aria-roledescription="slide"
       className={cn(
-        'min-w-0 shrink-0 grow-0 basis-full',
+        'm-0 min-w-0 shrink-0 grow-0 basis-full border-0 p-0',
         orientation === 'horizontal' ? 'pl-4' : 'pt-4',
         className
       )}
       data-slot="carousel-item"
-      role="group"
       {...props}
     />
   );
