@@ -10,7 +10,42 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@gabfon': path.resolve(__dirname, '../../packages'),
+      '@gabfon/analytics': path.resolve(
+        __dirname,
+        '../../packages/analytics/src'
+      ),
+      '@gabfon/cache': path.resolve(__dirname, '../../packages/cache/src'),
+      '@gabfon/database': path.resolve(
+        __dirname,
+        '../../packages/database/src'
+      ),
+      '@gabfon/design-system': path.resolve(
+        __dirname,
+        '../../packages/design-system/src'
+      ),
+      '@gabfon/mdx': path.resolve(__dirname, '../../packages/mdx/src'),
+      '@gabfon/next-config': path.resolve(
+        __dirname,
+        '../../internals/next-config/src'
+      ),
+      '@gabfon/observability': path.resolve(
+        __dirname,
+        '../../packages/observability/src'
+      ),
+      '@gabfon/rate-limit': path.resolve(
+        __dirname,
+        '../../packages/rate-limit/src'
+      ),
+      '@gabfon/security': path.resolve(
+        __dirname,
+        '../../packages/security/src'
+      ),
+      '@gabfon/seo': path.resolve(__dirname, '../../packages/seo/src'),
+      '@gabfon/testing': path.resolve(__dirname, '../../packages/testing'),
+      '@gabfon/typescript-config': path.resolve(
+        __dirname,
+        '../../internals/typescript-config'
+      ),
     },
   },
 });

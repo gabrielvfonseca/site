@@ -19,7 +19,11 @@ export default function Loading(): JSX.Element {
   const maxWidth = 100;
 
   return (
-    <div className="flex flex-col gap-4">
+    <output
+      aria-label="Loading content"
+      className="flex flex-col gap-4"
+      data-testid="loading"
+    >
       {Array.from({ length: randomCount }, (_, index) => {
         const width =
           Math.floor(Math.random() * (maxWidth - minWidth + 1)) + minWidth;
@@ -32,6 +36,6 @@ export default function Loading(): JSX.Element {
           />
         );
       })}
-    </div>
+    </output>
   );
 }
