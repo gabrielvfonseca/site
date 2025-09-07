@@ -12,6 +12,7 @@
   "files": [
     "dist/index.js"
   ],
+  "packageManager": "pnpm@7.5.1",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -55,7 +56,6 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@10.8.0",
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "commander": "^14.0.0"
