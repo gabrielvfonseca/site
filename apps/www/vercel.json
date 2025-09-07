@@ -1,4 +1,7 @@
 {
   "framework": "nextjs",
-  "crons": []
+  "crons": [],
+  "env": {
+    "ENABLE_EXPERIMENTAL_COREPACK": "1"
+  }
 }
