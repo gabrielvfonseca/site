@@ -2,8 +2,11 @@
   "name": "@gabfon/testing",
   "version": "0.0.1",
   "private": true,
-  "main": "./index.js",
-  "type": "commonjs",
+  "main": "./src/index.mjs",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "type": "module",
   "scripts": {
     "build": "echo 'No build specified'",
     "test": "echo 'No tests specified'",
