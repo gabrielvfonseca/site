@@ -7,7 +7,7 @@ import { defineConfig } from 'vitest/config';
 const Dirname = path.dirname(fileUrlToPath(import.meta.url));
 
 // Shared Vitest config for @gabfon/testing
-export default defineConfig({
+export const testingConfig = defineConfig({
   // Register React plugin for Vite
   plugins: [react()],
   test: {
@@ -23,3 +23,6 @@ export default defineConfig({
     },
   },
 });
+
+// Default export for backward compatibility
+export default testingConfig;

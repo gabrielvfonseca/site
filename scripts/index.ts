@@ -5,6 +5,7 @@ import { autoChangelog } from './auto-changelog.js';
 import { changelog } from './changelog.js';
 import { changelogAdvanced } from './changelog-advanced.js';
 import { initialize } from './initialize.js';
+import { SecurityScanner } from './security-scan.js';
 import { update } from './update.js';
 
 program
@@ -82,5 +83,29 @@ program
     'Comma-separated list of package names to generate changelogs for'
   )
   .action(autoChangelog);
+
+program
+  .command('security')
+  .description('Run security vulnerability scan using Snyk')
+  .option(
+    '-s, --severity-threshold <level>',
+    'Set severity threshold (low, medium, high, critical)',
+    'high'
+  )
+  .option(
+    '-a, --all-projects',
+    'Use Snyk --all-projects flag for faster scanning'
+  )
+  .option('-v, --verbose', 'Show detailed output')
+  .option('--no-fail', "Don't exit with error code on security issues")
+  .action(async (options) => {
+    const scanner = new SecurityScanner({
+      severityThreshold: options.severityThreshold,
+      allProjects: options.allProjects,
+      verbose: options.verbose,
+      failOnError: options.fail !== false,
+    });
+    await scanner.scan();
+  });
 
 program.parse(process.argv);

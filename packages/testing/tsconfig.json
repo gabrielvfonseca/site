@@ -7,6 +7,6 @@
       "@gabfon/testing/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mjs"],
   "exclude": ["node_modules"]
 }
