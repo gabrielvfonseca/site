@@ -3,5 +3,6 @@
   "crons": [],
   "env": {
     "ENABLE_EXPERIMENTAL_COREPACK": "1"
-  }
+  },
+  "installCommand": "pnpm install --legacy-peer-deps"
 }
