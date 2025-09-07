@@ -23,6 +23,7 @@ export const PostSchema = z.object({
     .refine((url) => url.startsWith('http://') || url.startsWith('https://'), {
       message: 'URL must start with http:// or https://',
     })
+    .nullable()
     .optional(),
   metaTitle: z.string().nullable().optional(),
   metaDescription: z.string().nullable().optional(),
