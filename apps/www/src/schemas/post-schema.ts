@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TagSchema } from './tag-schema';
+import { TagSchema } from './tag-schema.js';
 
 // Enum
 export const StatusEnum = z
@@ -16,7 +16,14 @@ export const PostSchema = z.object({
   content: z.string().min(1),
   isFeatured: z.boolean().default(false),
   readingTime: z.number().int().min(0).nullable().optional(),
-  coverImageUrl: z.string().url().nullable().optional(),
+  coverImageUrl: z
+    .string()
+    .min(1)
+    .url()
+    .refine((url) => url.startsWith('http://') || url.startsWith('https://'), {
+      message: 'URL must start with http:// or https://',
+    })
+    .optional(),
   metaTitle: z.string().nullable().optional(),
   metaDescription: z.string().nullable().optional(),
   priority: z.number().int().nullable().optional(),

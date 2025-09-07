@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TagSchema } from './tag-schema';
+import { TagSchema } from './tag-schema.js';
 
 // Enum
 export const StatusEnum = z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']);
@@ -11,9 +11,30 @@ export const ProjectsSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
   slug: z.string().min(1),
-  githubUrl: z.string().url().optional(),
-  demoUrl: z.string().url().optional(),
-  imageUrl: z.string().url().optional(),
+  githubUrl: z
+    .string()
+    .min(1)
+    .url()
+    .refine((url) => url.startsWith('http://') || url.startsWith('https://'), {
+      message: 'URL must start with http:// or https://',
+    })
+    .optional(),
+  demoUrl: z
+    .string()
+    .min(1)
+    .url()
+    .refine((url) => url.startsWith('http://') || url.startsWith('https://'), {
+      message: 'URL must start with http:// or https://',
+    })
+    .optional(),
+  imageUrl: z
+    .string()
+    .min(1)
+    .url()
+    .refine((url) => url.startsWith('http://') || url.startsWith('https://'), {
+      message: 'URL must start with http:// or https://',
+    })
+    .optional(),
   isFeatured: z.boolean().default(false),
   priority: z.number().int().nullable().optional(),
   tags: z.array(TagSchema).optional(), // Or z.array(z.string().uuid()) if you're just validating IDs
