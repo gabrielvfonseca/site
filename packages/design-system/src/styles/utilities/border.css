@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @source "../**/*.{ts,tsx}";
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @custom-variant dark (&:is(.dark *));
 
 :root {

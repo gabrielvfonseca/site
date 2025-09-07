@@ -15,12 +15,16 @@
 @import "./utilities/radius.css";
 @import "./utilities/ring.css";
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @source "../**/*.{ts,tsx}";
 
-@plugin '@tailwindcss/typography';  
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
+@plugin '@tailwindcss/typography';
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @custom-variant dark (&:is(.dark *));
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @theme inline {
   --font-sans: var(--font-inter);
   --font-mono: var(--font-ibm-plex-mono);
@@ -246,18 +250,23 @@
 
 @layer base {
   * {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply border-border outline-ring/50;
   }
   body {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply bg-background text-primary;
   }
   *::-webkit-scrollbar {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply h-[5px] w-[5px];
   }
   *::-webkit-scrollbar-track {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply bg-transparent;
   }
   *::-webkit-scrollbar-thumb {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply bg-accent-2 rounded-full;
   }
 }
@@ -267,22 +276,27 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply border-border;
   }
   * {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply min-w-0;
   }
   html {
     text-rendering: optimizelegibility;
   }
   body {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply min-h-[100dvh];
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply cursor-pointer;
   }
   div {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply text-primary;
   }
   h1,
@@ -291,21 +305,26 @@
   h4,
   h5,
   h6 {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply text-primary font-medium;
   }
   p {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply text-tertiary;
   }
   *::selection {
+    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply bg-highlight-blue text-white;
   }
 }
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @utility container {
   --container-width: var(--container-width);
 }
 
 /* Typography plugin */
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @utility prose {
   --tw-prose-body: var(--color-foreground);
   --tw-prose-headings: var(--color-foreground);
