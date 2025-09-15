@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@gabfon/typescript-config": "workspace:*",
-    "next": "^15.5.2"
+    "next": "^15.5.3"
   },
   "dependencies": {
     "@next/bundle-analyzer": "15.5.2",
