@@ -1,6 +1,3 @@
-import { components } from '@gabfon/mdx/components';
-import { MdxRemote } from '@gabfon/mdx/remote';
-import { serialize } from '@gabfon/mdx/serialize';
 import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -77,7 +74,10 @@ export default async function PostPage({
     notFound();
   }
 
-  const source = await serialize(post.content);
-
-  return <MdxRemote {...source} components={components} />;
+  return (
+    <div className="prose prose-lg max-w-none">
+      <h1>{post.title}</h1>
+      <div className="whitespace-pre-wrap">{post.content}</div>
+    </div>
+  );
 }
