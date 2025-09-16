@@ -49,6 +49,7 @@
       "nursery": {
         "noSecrets": "off",
         "useExplicitType": "off",
+        "useConsistentTypeDefinitions": "off",
         "useSortedClasses": {
           "fix": "safe",
           "level": "error",
@@ -97,7 +98,8 @@
         "noCommonJs": "off",
         "noProcessEnv": "off",
         "useComponentExportOnlyModules": "off",
-        "useConsistentCurlyBraces": "off"
+        "useConsistentCurlyBraces": "off",
+        "useShorthandFunctionType": "off"
       },
       "suspicious": {
         "noReactSpecificProps": "off",
