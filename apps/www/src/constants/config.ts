@@ -3,6 +3,8 @@ import { env } from '@/env';
 export const config = {
   name: 'Gabriel Fonseca',
   title: 'Software Developer',
+  description:
+    'Personal website of Gabriel Fonseca, a computer engineering student living in Lisbon, Portugal. Portfolio, blog, and projects.',
   location: 'Lisbon, Portugal',
   email: `mailto:${env.NEXT_PUBLIC_EMAIL}`,
   social: {
