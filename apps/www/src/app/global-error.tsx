@@ -3,33 +3,39 @@
 import { DesignSystemProvider } from '@gabfon/design-system';
 import { Button } from '@gabfon/design-system/components/button';
 import { fonts } from '@gabfon/design-system/lib/fonts';
+import { parseError } from '@gabfon/observability';
 import Link from 'next/link';
-import type { JSX } from 'react';
+import { type JSX, useEffect } from 'react';
 
 /**
  * The GlobalErrorProps for the site.
  */
-type GlobalErrorProps = {
+interface GlobalErrorProps {
   /**
    * The error for the site.
-   * @returns The error for the site.
    */
   readonly error: Error & {
     digest?: string;
   };
   /**
    * The reset for the site.
-   * @returns The reset for the site.
    */
-  reset: () => void;
-};
+  readonly reset: () => void;
+}
 
 /**
  * The GlobalError for the site.
  * @param props - The GlobalErrorProps.
  * @returns The GlobalError for the site.
  */
-export default function GlobalError({ reset }: GlobalErrorProps): JSX.Element {
+export default function GlobalError({
+  error,
+  reset,
+}: GlobalErrorProps): JSX.Element {
+  useEffect(() => {
+    parseError(error);
+  }, [error]);
+
   return (
     // global-error must include html and body tags
     <html className={fonts} lang="en">

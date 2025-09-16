@@ -6,13 +6,12 @@ import type { JSX, ReactNode } from 'react';
 /**
  * The TemplateProps for the site.
  */
-type TemplateProps = {
+interface TemplateProps {
   /**
    * The children for the site.
-   * @returns The children for the site.
    */
   readonly children: ReactNode;
-};
+}
 
 /**
  * The Template for the site.

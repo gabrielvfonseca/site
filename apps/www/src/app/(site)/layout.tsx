@@ -5,13 +5,12 @@ import { Header } from '@/components/header';
 /**
  * The LayoutProps for the site.
  */
-type LayoutProps = {
+interface LayoutProps {
   /**
    * The children for the site.
-   * @returns The children for the site.
    */
   readonly children: ReactNode;
-};
+}
 
 /**
  * The Layout for the site.

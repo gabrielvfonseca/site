@@ -8,7 +8,7 @@ import type { Post } from '@/types/posts';
 /**
  * The PostPageProps for the site.
  */
-type PostPageProps = {
+interface PostPageProps {
   /**
    * The params for the site.
    */
@@ -18,7 +18,7 @@ type PostPageProps = {
      */
     slug: string;
   }>;
-};
+}
 
 /**
  * The getPost for the site.

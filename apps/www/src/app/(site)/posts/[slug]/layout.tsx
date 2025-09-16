@@ -6,7 +6,7 @@ import type { Post } from '@/types/posts';
 /**
  * The PostLayoutProps for the site.
  */
-type PostLayoutProps = {
+interface PostLayoutProps {
   /**
    * The children for the site.
    */
@@ -20,7 +20,7 @@ type PostLayoutProps = {
      */
     slug: string;
   }>;
-};
+}
 
 /**
  * The PostLayout for the site.

@@ -1,12 +1,13 @@
 'use client'; // Error boundaries must be client components
 
 import { Button } from '@gabfon/design-system/components/button';
-import type { JSX } from 'react';
+import { parseError } from '@gabfon/observability';
+import { type JSX, useEffect } from 'react';
 
 /**
  * The ErrorProps for the site.
  */
-type ErrorProps = {
+interface ErrorProps {
   /**
    * The error for the site.
    */
@@ -16,15 +17,19 @@ type ErrorProps = {
   /**
    * The reset for the site.
    */
-  reset: () => void;
-};
+  readonly reset: () => void;
+}
 
 /**
  * The PostsError for the site.
  * @param props - The ErrorProps.
  * @returns The PostsError for the site.
  */
-export default function PostsError({ reset }: ErrorProps): JSX.Element {
+export default function PostsError({ error, reset }: ErrorProps): JSX.Element {
+  useEffect(() => {
+    parseError(error);
+  }, [error]);
+
   return (
     <section
       aria-describedby="error-description"

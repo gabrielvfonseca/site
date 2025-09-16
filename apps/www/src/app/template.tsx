@@ -6,13 +6,13 @@ import type { JSX, ReactNode } from 'react';
 /**
  * The TransitionProps for the site.
  */
-type TransitionProps = {
+interface TransitionProps {
   /**
    * The children for the site.
    * @returns The children for the site.
    */
   readonly children: ReactNode;
-};
+}
 
 /**
  * The Transition for the site.

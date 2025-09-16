@@ -22,16 +22,16 @@ export const metadata: Metadata = createMetadata({ ...meta });
 /**
  * The RootLayoutProps for the site.
  */
-type RootLayoutProps = {
+interface RootLayoutProps {
   /**
    * The children for the site.
-   * @returns The children for the site.
    */
   readonly children: ReactNode;
-};
+}
 
 /**
  * The RootLayout for the site.
+ * @param props - The RootLayoutProps.
  * @returns The RootLayout for the site.
  */
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {

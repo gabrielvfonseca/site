@@ -15,13 +15,12 @@ export const metadata: Metadata = createMetadata({
 /**
  * The ProjectsLayoutProps for the site.
  */
-type ProjectsLayoutProps = {
+interface ProjectsLayoutProps {
   /**
    * The children for the site.
-   * @returns The children for the site.
    */
   readonly children: ReactNode;
-};
+}
 
 /**
  * The ProjectsLayout for the site.

@@ -4,7 +4,7 @@ import { ImageResponse } from 'next/og';
  * The size for the site.
  * @returns The size for the site.
  */
-type Size = {
+interface Size {
   /**
    * The width for the site.
    */
@@ -13,7 +13,7 @@ type Size = {
    * The height for the site.
    */
   height: number;
-};
+}
 
 /**
  * The size for the site.
