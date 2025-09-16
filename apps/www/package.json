@@ -41,7 +41,7 @@
     "import-in-the-middle": "^1.14.2",
     "lucide-react": "^0.542.0",
     "motion": "^12.23.12",
-    "next": "^15.5.2",
+    "next": "^15.5.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-wrap-balancer": "^1.1.1",
