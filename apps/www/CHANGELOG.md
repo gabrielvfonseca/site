@@ -1,5 +1,36 @@
 # site
 
+## 0.2.1
+
+### Patch Changes
+
+- ## PWA Enhancements and Code Improvements
+
+  ### 🚀 PWA Features
+
+  - Enhanced PWA manifest with comprehensive features
+  - Added multiple icon sizes (192x192, 512x512, Apple touch icon)
+  - Included screenshots for app store listings
+  - Added navigation shortcuts for About, Projects, and Blog
+  - Set proper theme colors and orientation
+  - Added categories and language specification
+  - Improved PWA installation and user experience
+
+  ### 🔧 Code Improvements
+
+  - Convert type aliases to interfaces for component props
+  - Enhanced type definitions across all layout components
+  - Improved JSDoc comments and documentation
+  - Added comprehensive site description for metadata
+  - Updated linting configuration for better type flexibility
+
+  ### 📱 User Experience
+
+  - Better PWA installation experience
+  - Improved app store presentation
+  - Enhanced navigation shortcuts
+  - Better type safety and code maintainability
+
 ## 0.2.0
 
 ### Minor Changes
