@@ -9,10 +9,12 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient | null };
 // The Neon connection string works with standard Prisma client
 export const database = (() => {
   try {
-    const env = keys();
-    if (!env.DATABASE_URL) {
+    // Check if DATABASE_URL is available before calling keys()
+    if (!process.env.DATABASE_URL) {
       return null;
     }
+
+    const env = keys();
 
     return (
       globalForPrisma.prisma ||
