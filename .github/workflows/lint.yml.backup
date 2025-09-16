@@ -1,0 +1,306 @@
+name: Lint Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      fix_issues:
+        description: 'Automatically fix linting issues where possible'
+        required: false
+        default: false
+        type: boolean
+      check_all:
+        description: 'Check all files, not just changed ones'
+        required: false
+        default: false
+        type: boolean
+      severity_threshold:
+        description: 'Minimum severity threshold (error, warning, info)'
+        required: false
+        default: 'error'
+        type: choice
+        options:
+          - error
+          - warning
+          - info
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '10.8.0'
+
+jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Fetch all history for better diff analysis
+
+      - name: Prepare repository
+        run: git fetch --tags
+
+      - name: Install pnpm
+        run: npm install -g pnpm@10.8.0
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        with:
+        name: Setup pnpm cache
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Get changed files
+        id: changed-files
+          files: |
+            **/*.{js,jsx,ts,tsx,json,css,md}
+            !**/node_modules/**
+            !**/dist/**
+            !**/build/**
+            !**/.next/**
+            !**/coverage/**
+            !**/packages/database/generated/**
+          files_ignore: |
+            **/*.d.ts
+            **/manifest.ts
+            **/next-env.d.ts
+          dir_names: false
+          dir_names_max_depth: 2
+
+      - name: Run Biome Lint Check
+        id: biome-lint
+        run: |
+          echo "Running Biome lint check..."
+          
+          # Determine which files to check
+          if [ "${{ github.event.inputs.check_all }}" = "true" ]; then
+            echo "Checking all files"
+            FILES_TO_CHECK=""
+          else
+            # Get changed files from the previous step
+            CHANGED_FILES="${{ steps.changed-files.outputs.all_changed_files }}"
+            if [ -z "$CHANGED_FILES" ]; then
+              echo "No changed files detected, checking all files"
+              FILES_TO_CHECK=""
+            else
+              echo "Checking changed files: $CHANGED_FILES"
+              FILES_TO_CHECK="$CHANGED_FILES"
+            fi
+          fi
+          
+          # Run Biome check with appropriate options
+          if [ "${{ github.event.inputs.fix_issues }}" = "true" ]; then
+            echo "Running Biome with auto-fix enabled"
+            if [ -n "$FILES_TO_CHECK" ]; then
+              echo "$FILES_TO_CHECK" | tr ' ' '\n' | xargs npx biome check --write --unsafe
+            else
+              npx biome check --write --unsafe
+            fi
+          else
+            echo "Running Biome check-only mode"
+            if [ -n "$FILES_TO_CHECK" ]; then
+              echo "$FILES_TO_CHECK" | tr ' ' '\n' | xargs npx biome check
+            else
+              npx biome check
+            fi
+          fi
+          
+          # Capture exit code
+          BIOME_EXIT_CODE=$?
+          echo "biome_exit_code=$BIOME_EXIT_CODE" >> $GITHUB_OUTPUT
+          
+          if [ $BIOME_EXIT_CODE -eq 0 ]; then
+            echo "biome_status=success" >> $GITHUB_OUTPUT
+            echo "✅ Biome lint check passed"
+          else
+            echo "biome_status=failure" >> $GITHUB_OUTPUT
+            echo "❌ Biome lint check failed"
+          fi
+
+      - name: Run TypeScript Type Check
+        id: typescript-check
+        run: |
+          echo "Running TypeScript type check..."
+          
+          # Run type check across all packages
+          if pnpm turbo typecheck; then
+            echo "typescript_status=success" >> $GITHUB_OUTPUT
+            echo "✅ TypeScript type check passed"
+          else
+            echo "typescript_status=failure" >> $GITHUB_OUTPUT
+            echo "❌ TypeScript type check failed"
+          fi
+
+      - name: Run Tests
+        id: test-check
+        run: |
+          echo "Running tests..."
+          
+          # Run tests across all packages
+          if pnpm turbo test; then
+            echo "test_status=success" >> $GITHUB_OUTPUT
+            echo "✅ Tests passed"
+          else
+            echo "test_status=failure" >> $GITHUB_OUTPUT
+            echo "❌ Tests failed"
+          fi
+
+      - name: Check for uncommitted changes
+        id: check-changes
+        if: steps.biome-lint.outputs.biome_status == 'success' && github.event.inputs.fix_issues == 'true'
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "📝 Auto-fix made changes to files"
+            git diff --name-only
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "✅ No changes made by auto-fix"
+          fi
+
+      - name: Create Pull Request with fixes
+        if: steps.check-changes.outputs.has_changes == 'true' && github.event_name == 'push'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'style: fix linting issues automatically'
+          title: 'style: fix linting issues automatically'
+          body: |
+            This PR automatically fixes linting issues found by Biome.
+            
+            **Auto-fix enabled:** ${{ github.event.inputs.fix_issues }}
+            **Files checked:** ${{ github.event.inputs.check_all == 'true' && 'All files' || 'Changed files only' }}
+            **Severity threshold:** ${{ github.event.inputs.severity_threshold || 'error' }}
+            
+            The following changes were made automatically:
+            - Code formatting fixes
+            - Import organization
+            - Unused variable removal
+            - Type definition improvements
+          branch: fix-linting-issues
+          delete-branch: true
+          labels: |
+            style
+            linting
+            automated
+
+      - name: Comment on PR with lint results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const biomeStatus = '${{ steps.biome-lint.outputs.biome_status }}';
+            const typescriptStatus = '${{ steps.typescript-check.outputs.typescript_status }}';
+            const testStatus = '${{ steps.test-check.outputs.test_status }}';
+            const fixIssues = '${{ github.event.inputs.fix_issues }}';
+            const checkAll = '${{ github.event.inputs.check_all }}';
+            const severityThreshold = '${{ github.event.inputs.severity_threshold || 'error' }}';
+            
+            // Determine overall status
+            const allPassed = biomeStatus === 'success' && typescriptStatus === 'success' && testStatus === 'success';
+            
+            let statusEmoji = allPassed ? '✅' : '❌';
+            let statusText = allPassed ? 'All checks passed!' : 'Some checks failed';
+            
+            const commentBody = `## 🔍 Lint Check Results ${statusEmoji}
+            
+            **Overall Status:** ${statusText}
+            
+            | Check | Status | Details |
+            |-------|--------|---------|
+            | Biome Lint | ${biomeStatus === 'success' ? '✅ Passed' : '❌ Failed'} | Code style, formatting, and best practices |
+            | TypeScript | ${typescriptStatus === 'success' ? '✅ Passed' : '❌ Failed'} | Type checking and definitions |
+            | Tests | ${testStatus === 'success' ? '✅ Passed' : '❌ Failed'} | Unit and integration tests |
+            
+            **Configuration:**
+            - **Auto-fix:** ${fixIssues === 'true' ? 'Enabled' : 'Disabled'}
+            - **Check scope:** ${checkAll === 'true' ? 'All files' : 'Changed files only'}
+            - **Severity threshold:** ${severityThreshold}
+            
+            ${!allPassed ? '⚠️ **Please review the failed checks and fix any issues before merging.**' : '🎉 **All checks passed! This PR is ready for review.**'}`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
+
+      - name: Upload lint artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-results
+          path: |
+            biome.json
+            **/biome.json
+            **/.biomejs.json
+          retention-days: 7
+
+      - name: Lint Check Summary
+        if: always()
+        run: |
+          echo "## Lint Check Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Biome Lint | ${{ steps.biome-lint.outputs.biome_status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| TypeScript | ${{ steps.typescript-check.outputs.typescript_status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tests | ${{ steps.test-check.outputs.test_status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.biome-lint.outputs.biome_status }}" = "failure" ] || [ "${{ steps.typescript-check.outputs.typescript_status }}" = "failure" ] || [ "${{ steps.test-check.outputs.test_status }}" = "failure" ]; then
+            echo "❌ **Some checks failed!** Please review the results and fix any issues." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **All checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ steps.check-changes.outputs.has_changes }}" = "true" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📝 **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
+          fi
+
+  lint-summary:
+    runs-on: ubuntu-latest
+    needs: [lint-check]
+    if: always()
+    
+    steps:
+      - name: Lint Summary
+        run: |
+          echo "## 🔍 Lint Check Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Workflow:** Lint Check" >> $GITHUB_STEP_SUMMARY
+          echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.lint-check.result }}" = "success" ]; then
+            echo "✅ **All lint checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The codebase meets all quality standards and is ready for review." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Some lint checks failed!**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Please review the failed checks and address any issues before merging." >> $GITHUB_STEP_SUMMARY
+          fi

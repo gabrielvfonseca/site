@@ -163,7 +163,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/gabrielfonseca/Projects/site/packages/database/generated/client",
+      "value": "/Users/gabriel/Desktop/site/packages/database/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -172,19 +172,18 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "darwin",
         "native": true
       }
     ],
     "previewFeatures": [
       "driverAdapters"
     ],
-    "sourceFilePath": "/Users/gabrielfonseca/Projects/site/packages/database/prisma/schema.prisma",
+    "sourceFilePath": "/Users/gabriel/Desktop/site/packages/database/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.15.0",

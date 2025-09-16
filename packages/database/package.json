@@ -8,7 +8,7 @@
     "./keys": "./src/keys.ts"
   },
   "scripts": {
-    "build": "prisma generate --no-hints --schema=./prisma/schema.prisma",
+    "build": "prisma generate --no-hints --schema=./prisma/schema.prisma && tsc --noEmit --emitDeclarationOnly false",
     "test": "echo 'No tests specified'",
     "analyze": "prisma generate --no-hints --schema=./prisma/schema.prisma",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
