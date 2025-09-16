@@ -118,8 +118,8 @@ describe('env', () => {
     expect(envModule.env.NEXT_PUBLIC_EMAIL).toBe('hey@gabfon.com');
   });
 
-  it('should have envx export', async () => {
+  it('should have env export', async () => {
     const envModule = await import('../src/env');
-    expect(envModule.envx).toBeDefined();
+    expect(envModule.env).toBeDefined();
   });
 });
