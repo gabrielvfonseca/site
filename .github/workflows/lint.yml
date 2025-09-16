@@ -27,6 +27,13 @@ on:
           - warning
           - info
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: write
+  actions: read
+
 env:
   NODE_VERSION: '20'
   PNPM_VERSION: '10.8.0'
@@ -65,7 +72,8 @@ jobs:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install
@@ -173,7 +181,7 @@ jobs:
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "📝 Auto-fix made changes to files"
+            echo "�� Auto-fix made changes to files"
             git diff --name-only
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -279,7 +287,7 @@ jobs:
           
           if [ "${{ steps.check-changes.outputs.has_changes }}" = "true" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "�� **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
+            echo "📝 **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
           fi
 
   lint-summary:

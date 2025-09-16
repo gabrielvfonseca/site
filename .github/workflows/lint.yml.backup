@@ -1,7 +1,13 @@
 name: Lint Check
 
 on:
-  push:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: write
+  actions: read  push:
     branches: [main]
   pull_request:
     branches: [main]
@@ -47,6 +53,7 @@ jobs:
 
       - name: Install pnpm
         run: npm install -g pnpm@10.8.0
+        
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -58,19 +65,21 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - uses: actions/cache@v4
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
         with:
-        name: Setup pnpm cache
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-store-            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Get changed files
         id: changed-files
+        uses: tj-actions/changed-files@v46
+        with:
           files: |
             **/*.{js,jsx,ts,tsx,json,css,md}
             !**/node_modules/**
@@ -156,7 +165,7 @@ jobs:
           echo "Running tests..."
           
           # Run tests across all packages
-          if pnpm turbo test; then
+          if pnpm turbo test --no-watch; then
             echo "test_status=success" >> $GITHUB_OUTPUT
             echo "✅ Tests passed"
           else
@@ -276,7 +285,7 @@ jobs:
           
           if [ "${{ steps.check-changes.outputs.has_changes }}" = "true" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "📝 **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
+            echo "�� **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
           fi
 
   lint-summary:
