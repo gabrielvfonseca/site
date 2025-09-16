@@ -53,5 +53,5 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./apps/www
-          vercel-args: '--prod'
+          working-directory: ./
+          vercel-args: '--prod --build-env ENABLE_EXPERIMENTAL_COREPACK=1'

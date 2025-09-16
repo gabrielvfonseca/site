@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd apps/www && pnpm install && pnpm build",
+  "outputDirectory": "apps/www/.next",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "crons": [],
+  "env": {
+    "ENABLE_EXPERIMENTAL_COREPACK": "1"
+  }
+}
