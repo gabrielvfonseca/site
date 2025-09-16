@@ -1,4 +1,3 @@
-import { config } from '@dotenvx/dotenvx';
 import { keys as analytics } from '@gabfon/analytics/keys';
 import { keys as cache } from '@gabfon/cache/keys';
 import { keys as database } from '@gabfon/database/keys';
@@ -7,9 +6,6 @@ import { keys as observability } from '@gabfon/observability/keys';
 import { keys as security } from '@gabfon/security/keys';
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
-
-// Initialize DotenvX
-export const envx = config() as ReturnType<typeof config>;
 
 // Create the environment variables
 export const env = createEnv({
@@ -22,20 +18,23 @@ export const env = createEnv({
     database(),
   ],
   client: {
-    NEXT_PUBLIC_TWITTER_URL: z.string().url().default('https://x.com/gabfon_'),
-    NEXT_PUBLIC_LINKEDIN_URL: z
-      .string()
+    NEXT_PUBLIC_TWITTER_URL: z
       .url()
+      .optional()
+      .default('https://x.com/gabfon_'),
+    NEXT_PUBLIC_LINKEDIN_URL: z
+      .url()
+      .optional()
       .default('https://www.linkedin.com/in/gabrielvfonseca/'),
     NEXT_PUBLIC_GITHUB_URL: z
-      .string()
       .url()
+      .optional()
       .default('https://github.com/gabrielvfonseca'),
     NEXT_PUBLIC_SCHEDULE_URL: z
-      .string()
       .url()
+      .optional()
       .default('https://calendar.notion.so/meet/gabfon/schedule'),
-    NEXT_PUBLIC_EMAIL: z.string().email().default('hey@gabfon.com'),
+    NEXT_PUBLIC_EMAIL: z.email().optional().default('hey@gabfon.com'),
   },
   runtimeEnv: {
     NEXT_PUBLIC_TWITTER_URL: process.env.NEXT_PUBLIC_TWITTER_URL,
