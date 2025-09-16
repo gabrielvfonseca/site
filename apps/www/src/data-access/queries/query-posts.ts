@@ -48,6 +48,11 @@ const queryPostsWithConfig = async (
   config: PostQueryConfig,
   errorMessage: string
 ) => {
+  if (!database) {
+    // Return empty array if database is not available
+    return [];
+  }
+
   const whereClause = buildPostWhereClause(config);
   const includeClause = buildPostIncludeClause(config);
   const orderClause = buildPostOrderClause(config);

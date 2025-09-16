@@ -43,6 +43,11 @@ const buildOrderClause = (config: ProjectQueryConfig): ProjectOrderClause => {
  * Throws ProjectQueryError if the query fails.
  */
 export const queryAllProjects = async (config: ProjectQueryConfig = {}) => {
+  if (!database) {
+    // Return empty array if database is not available
+    return [];
+  }
+
   const whereClause = buildWhereClause(config);
   const orderClause = buildOrderClause(config);
 
