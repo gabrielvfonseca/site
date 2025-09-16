@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "prisma generate --no-hints --schema=./prisma/schema.prisma && tsc --noEmit --emitDeclarationOnly false",
+    "postinstall": "prisma generate --no-hints --schema=./prisma/schema.prisma",
     "test": "echo 'No tests specified'",
     "analyze": "prisma generate --no-hints --schema=./prisma/schema.prisma",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
@@ -16,7 +17,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
-    "@prisma/adapter-neon": "6.15.0",
+    "@prisma/adapter-neon": "6.16.1",
     "@prisma/client": "6.16.1",
     "@t3-oss/env-nextjs": "^0.13.8",
     "server-only": "^0.0.1",
@@ -29,7 +30,7 @@
     "@types/node": "24.3.1",
     "@types/ws": "^8.18.1",
     "bufferutil": "^4.0.9",
-    "prisma": "6.15.0",
+    "prisma": "6.16.1",
     "typescript": "^5.9.2"
   }
 }

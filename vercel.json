@@ -1,5 +1,5 @@
 {
-  "buildCommand": "turbo build --filter=site",
+  "buildCommand": "pnpm install && pnpm run build --filter=site",
   "outputDirectory": "apps/www/.next",
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": "nextjs",

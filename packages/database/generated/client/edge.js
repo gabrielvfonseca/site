@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.15.0
- * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
+ * Prisma Client JS version: 6.16.1
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.15.0",
-  engine: "85179d7826409ee107a6ba334b5e305ae3fba9fb"
+  client: "6.16.1",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -174,6 +174,10 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -185,8 +189,8 @@ const config = {
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
-  "clientVersion": "6.15.0",
-  "engineVersion": "85179d7826409ee107a6ba334b5e305ae3fba9fb",
+  "clientVersion": "6.16.1",
+  "engineVersion": "1c57fdcd7e44b29b9313256c76699e91c3ac3c43",
   "datasourceNames": [
     "db"
   ],
@@ -200,8 +204,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/client\"\n}\n\ndatasource db {\n  provider     = \"postgresql\"\n  url          = env(\"DATABASE_URL\")\n  relationMode = \"prisma\"\n}\n\nmodel Tag {\n  id        String     @id @default(uuid())\n  name      String     @unique\n  posts     Posts[]    @relation(\"PostTags\")\n  projects  Projects[] @relation(\"ProjectTags\")\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @default(now())\n}\n\nmodel Projects {\n  id          String   @id @default(uuid())\n  title       String\n  description String\n  slug        String\n  isFeatured  Boolean  @default(false)\n  priority    Int? // Optional ordering mechanism\n  tags        Tag[]    @relation(\"ProjectTags\")\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @default(now())\n}\n\nenum Status {\n  DRAFT\n  PUBLISHED\n  ARCHIVED\n}\n\nmodel Posts {\n  id              String   @id @default(uuid())\n  status          Status   @default(DRAFT)\n  title           String\n  description     String\n  slug            String   @unique\n  content         String\n  isFeatured      Boolean  @default(false)\n  readingTime     Int? // In minutes\n  coverImageUrl   String?\n  metaTitle       String?\n  metaDescription String?\n  priority        Int? // Optional ordering mechanism\n  tags            Tag[]    @relation(\"PostTags\")\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "b3ec45be70a5999dcab9c2b9a613774eb8dc57897b670f7af3ee6d2cd8cb7f71",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider     = \"postgresql\"\n  url          = env(\"DATABASE_URL\")\n  relationMode = \"prisma\"\n}\n\nmodel Tag {\n  id        String     @id @default(uuid())\n  name      String     @unique\n  posts     Posts[]    @relation(\"PostTags\")\n  projects  Projects[] @relation(\"ProjectTags\")\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @default(now())\n}\n\nmodel Projects {\n  id          String   @id @default(uuid())\n  title       String\n  description String\n  slug        String\n  isFeatured  Boolean  @default(false)\n  priority    Int? // Optional ordering mechanism\n  tags        Tag[]    @relation(\"ProjectTags\")\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @default(now())\n}\n\nenum Status {\n  DRAFT\n  PUBLISHED\n  ARCHIVED\n}\n\nmodel Posts {\n  id              String   @id @default(uuid())\n  status          Status   @default(DRAFT)\n  title           String\n  description     String\n  slug            String   @unique\n  content         String\n  isFeatured      Boolean  @default(false)\n  readingTime     Int? // In minutes\n  coverImageUrl   String?\n  metaTitle       String?\n  metaDescription String?\n  priority        Int? // Optional ordering mechanism\n  tags            Tag[]    @relation(\"PostTags\")\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "cc67c6f1c0a7cf695a37f52b91f6c0ad7a23c3a2d706e64ee971d98534111352",
   "copyEngine": true
 }
 config.dirname = '/'
