@@ -1,6 +1,6 @@
 {
   "name": "@gabfon/seo",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "exports": {
     "./json-ld": "./src/json-ld.tsx",
     "./metadata": "./src/metadata.ts",
