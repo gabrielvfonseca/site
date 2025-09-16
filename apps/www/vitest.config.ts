@@ -13,6 +13,8 @@ export default defineConfig({
         resources: 'usable',
       },
     },
+    // Ensure React 19 compatibility
+    testTimeout: 10_000,
   },
   resolve: {
     alias: {

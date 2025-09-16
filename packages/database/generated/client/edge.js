@@ -176,14 +176,13 @@ const config = {
         "native": true
       }
     ],
-    "previewFeatures": [
-      "driverAdapters"
-    ],
+    "previewFeatures": [],
     "sourceFilePath": "/Users/gabriel/Desktop/site/packages/database/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.15.0",
@@ -201,8 +200,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"driverAdapters\"]\n  output          = \"../generated/client\"\n}\n\ndatasource db {\n  provider     = \"postgresql\"\n  url          = env(\"DATABASE_URL\")\n  relationMode = \"prisma\"\n}\n\nmodel Tag {\n  id        String     @id @default(uuid())\n  name      String     @unique\n  posts     Posts[]    @relation(\"PostTags\")\n  projects  Projects[] @relation(\"ProjectTags\")\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @default(now())\n}\n\nmodel Projects {\n  id          String   @id @default(uuid())\n  title       String\n  description String\n  slug        String\n  isFeatured  Boolean  @default(false)\n  priority    Int? // Optional ordering mechanism\n  tags        Tag[]    @relation(\"ProjectTags\")\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @default(now())\n}\n\nenum Status {\n  DRAFT\n  PUBLISHED\n  ARCHIVED\n}\n\nmodel Posts {\n  id              String   @id @default(uuid())\n  status          Status   @default(DRAFT)\n  title           String\n  description     String\n  slug            String   @unique\n  content         String\n  isFeatured      Boolean  @default(false)\n  readingTime     Int? // In minutes\n  coverImageUrl   String?\n  metaTitle       String?\n  metaDescription String?\n  priority        Int? // Optional ordering mechanism\n  tags            Tag[]    @relation(\"PostTags\")\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "25d65365eaa453d8649c52a9c035cac7e9ee56184f52ed41474981044efcae63",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/client\"\n}\n\ndatasource db {\n  provider     = \"postgresql\"\n  url          = env(\"DATABASE_URL\")\n  relationMode = \"prisma\"\n}\n\nmodel Tag {\n  id        String     @id @default(uuid())\n  name      String     @unique\n  posts     Posts[]    @relation(\"PostTags\")\n  projects  Projects[] @relation(\"ProjectTags\")\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @default(now())\n}\n\nmodel Projects {\n  id          String   @id @default(uuid())\n  title       String\n  description String\n  slug        String\n  isFeatured  Boolean  @default(false)\n  priority    Int? // Optional ordering mechanism\n  tags        Tag[]    @relation(\"ProjectTags\")\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @default(now())\n}\n\nenum Status {\n  DRAFT\n  PUBLISHED\n  ARCHIVED\n}\n\nmodel Posts {\n  id              String   @id @default(uuid())\n  status          Status   @default(DRAFT)\n  title           String\n  description     String\n  slug            String   @unique\n  content         String\n  isFeatured      Boolean  @default(false)\n  readingTime     Int? // In minutes\n  coverImageUrl   String?\n  metaTitle       String?\n  metaDescription String?\n  priority        Int? // Optional ordering mechanism\n  tags            Tag[]    @relation(\"PostTags\")\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "b3ec45be70a5999dcab9c2b9a613774eb8dc57897b670f7af3ee6d2cd8cb7f71",
   "copyEngine": true
 }
 config.dirname = '/'

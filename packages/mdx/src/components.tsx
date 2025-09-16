@@ -1,7 +1,5 @@
-import { Separator } from '@gabfon/design-system/components/separator';
 import Link from 'next/link';
 import type { ComponentPropsWithoutRef } from 'react';
-import { highlight } from 'sugar-high';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -45,7 +43,7 @@ export const components = {
   em: (props: ComponentPropsWithoutRef<'em'>) => (
     <em className="font-medium" {...props} />
   ),
-  hr: () => <Separator />,
+  hr: () => <hr className="my-4 border-0 border-accent-2 border-t" />,
   strong: (props: ComponentPropsWithoutRef<'strong'>) => (
     <strong className="font-medium text-primary" {...props} />
   ),
@@ -91,14 +89,13 @@ export const components = {
     />
   ),
   code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
-    const codeHtml = highlight(children as string);
     return (
       <code
         className="flex rounded-lg border border-accent-2 bg-accent px-1 py-0.5 text-secondary"
-        // biome-ignore lint: This is a valid MDX component
-        dangerouslySetInnerHTML={{ __html: codeHtml }}
         {...props}
-      />
+      >
+        {children}
+      </code>
     );
   },
   // biome-ignore lint: This is a valid MDX component

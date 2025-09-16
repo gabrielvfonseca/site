@@ -6,6 +6,6 @@ import { keys } from './keys';
  * @returns The redis client for the cache.
  */
 export const redis = new Redis({
-  url: keys().UPSTASH_REDIS_REST_URL,
-  token: keys().UPSTASH_REDIS_REST_TOKEN,
+  url: keys().KV_REST_API_URL,
+  token: keys().KV_REST_API_TOKEN,
 });
