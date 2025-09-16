@@ -1,5 +1,36 @@
 # site
 
+## 0.2.3
+
+### Patch Changes
+
+- ## Remove Vercel Deployment Workflow
+
+  ### 🗑️ Deployment Changes
+
+  - Remove Vercel deployment workflow (.github/workflows/deploy.yml)
+  - Simplify CI/CD pipeline by removing external deployment dependencies
+  - Focus on build and test workflows for better reliability
+
+  ### 🔧 Workflow Simplification
+
+  - Remove dependency on Vercel secrets and external services
+  - Streamline GitHub Actions to focus on code quality
+  - Reduce complexity in deployment pipeline
+
+  ### 📦 Benefits
+
+  - Eliminates deployment failures due to missing Vercel tokens
+  - Reduces external dependencies and potential points of failure
+  - Simplifies maintenance and debugging of CI/CD pipeline
+  - Focuses on core development workflows (build, test, lint)
+
+  ### 🚀 Alternative Deployment
+
+  - Manual deployment can be handled directly through Vercel dashboard
+  - Automated deployment can be configured through Vercel's Git integration
+  - Maintains flexibility while reducing GitHub Actions complexity
+
 ## 0.2.2
 
 ### Patch Changes
