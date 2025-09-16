@@ -7,33 +7,19 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient | null };
 
 // Use standard Prisma client with Neon connection string
 // The Neon connection string works with standard Prisma client
-export const database = (() => {
-  try {
-    // Check if DATABASE_URL is available before calling keys()
-    if (!process.env.DATABASE_URL) {
-      return null;
-    }
-
-    const env = keys();
-
-    return (
-      globalForPrisma.prisma ||
-      new PrismaClient({
-        datasources: {
-          db: {
-            url: env.DATABASE_URL,
-          },
-        },
-        log:
-          process.env.NODE_ENV === 'development'
-            ? ['query', 'error', 'warn']
-            : ['error'],
-      })
-    );
-  } catch {
-    return null;
-  }
-})();
+export const database =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    datasources: {
+      db: {
+        url: keys().DATABASE_URL,
+      },
+    },
+    log:
+      process.env.NODE_ENV === 'development'
+        ? ['query', 'error', 'warn']
+        : ['error'],
+  });
 
 if (process.env.NODE_ENV !== 'production' && database) {
   globalForPrisma.prisma = database;

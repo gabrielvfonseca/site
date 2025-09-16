@@ -29,9 +29,13 @@ type PostPageProps = {
  * @returns The getPost for the site.
  */
 const getPost = async (slug: string): Promise<Post | undefined> => {
-  const allPosts = await getCachedPublishedPosts();
-
-  return allPosts.find((post: Post) => post.slug === slug);
+  try {
+    const allPosts = await getCachedPublishedPosts();
+    return allPosts.find((post: Post) => post.slug === slug);
+  } catch {
+    // If database is not available, return undefined
+    return;
+  }
 };
 
 /**

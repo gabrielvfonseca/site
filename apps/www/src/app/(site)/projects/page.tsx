@@ -8,7 +8,14 @@ import type { Project } from '@/types/projects';
  * @returns The Page for the site.
  */
 export default async function Page(): Promise<JSX.Element> {
-  const projects: Project[] = await getCachedAllProjects();
+  let projects: Project[] = [];
+
+  try {
+    projects = await getCachedAllProjects();
+  } catch {
+    // If database is not available, use empty array
+    projects = [];
+  }
 
   return (
     <section

@@ -9,7 +9,14 @@ import type { Post } from '@/types/posts';
  * @returns The Page for the site.
  */
 export default async function Page(): Promise<JSX.Element> {
-  const allPosts: Post[] = await getCachedPublishedPosts();
+  let allPosts: Post[] = [];
+
+  try {
+    allPosts = await getCachedPublishedPosts();
+  } catch {
+    // If database is not available, use empty array
+    allPosts = [];
+  }
 
   const jsonLd: WithContext<Blog> = {
     '@type': 'Blog',

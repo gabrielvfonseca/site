@@ -8,7 +8,7 @@ import { z } from 'zod';
 export const keys = () =>
   createEnv({
     server: {
-      DATABASE_URL: z.string().url().optional(),
+      DATABASE_URL: z.string().startsWith('postgres://'),
     },
     runtimeEnv: {
       DATABASE_URL: process.env.DATABASE_URL,
