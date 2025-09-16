@@ -1,5 +1,57 @@
 # site
 
+## 0.2.2
+
+### Patch Changes
+
+- ## MDX Package Enhancements and Build System
+
+  ### 🚀 MDX Package Enhancements
+
+  - Add proper build system with tsup configuration
+  - Implement comprehensive MDX components library
+  - Add Next.js MDX configuration with remark plugins
+  - Create MDX components export for app integration
+  - Enhance serialization and component handling
+
+  ### 🔧 Build System Improvements
+
+  - Configure tsup for dual ESM/CJS builds
+  - Add proper TypeScript declarations
+  - Update package.json with correct exports
+  - Add build scripts and configuration
+
+  ### 📝 Component Library
+
+  - Add comprehensive MDX components (Code, Pre, etc.)
+  - Implement syntax highlighting with Sugar High
+  - Add GitHub Flavored Markdown support
+  - Create reusable component patterns
+
+  ### 🌐 App Integration
+
+  - Add mdx-components.tsx for Next.js integration
+  - Update Next.js config for MDX support
+  - Remove unused Skeleton imports
+  - Update external link to frontal.dev
+
+  ### 🐛 Bug Fixes
+
+  - Fix linting issues and code formatting
+  - Resolve variable shadowing conflicts
+  - Add proper biome-ignore comments
+  - Improve regex performance with top-level constants
+
+  ### 📦 Dependencies
+
+  - Add remark-gfm for GitHub Flavored Markdown
+  - Add remark-sugar-high for syntax highlighting
+  - Update MDX-related dependencies
+  - Improve package structure and exports
+
+- Updated dependencies
+  - @gabfon/mdx@0.2.0
+
 ## 0.2.1
 
 ### Patch Changes
