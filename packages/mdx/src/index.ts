@@ -1,12 +1,2 @@
-import createMdx from '@next/mdx';
-
-/**
- * The withMdx function for the mdx.
- * @returns The withMdx function.
- */
-export const withMdx = createMdx({
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-  },
-});
+export { components, useMDXComponents } from './components';
+export { serializeMdxContent } from './serialize';

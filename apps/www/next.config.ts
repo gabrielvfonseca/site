@@ -1,4 +1,4 @@
-import { withMdx } from '@gabfon/mdx';
+import { withMdx } from '@gabfon/mdx/next-config';
 import { config as baseConfig, withAnalyzer } from '@gabfon/next-config';
 import { withLogging, withSentry } from '@gabfon/observability/next-config';
 import type { NextConfig } from 'next';

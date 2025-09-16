@@ -1,6 +1,5 @@
-import { Skeleton } from '@gabfon/design-system/components/skeleton';
 import Link from 'next/link';
-import { type JSX, Suspense } from 'react';
+import type { JSX } from 'react';
 import { Posts } from '@/components/posts';
 import { Projects } from '@/components/projects';
 import { config } from '@/constants/config';
@@ -39,7 +38,7 @@ export default async function Page(): Promise<JSX.Element> {
           <Link
             aria-label="AI-powered platform (opens in a new tab)"
             className="text-link hover:text-link-hover"
-            href="https://frontal.so"
+            href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
             title="AI-powered platform"
@@ -51,10 +50,10 @@ export default async function Page(): Promise<JSX.Element> {
           <Link
             aria-label="Frontal (opens in a new tab)"
             className="text-link hover:text-link-hover"
-            href="https://frontal.so"
+            href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
-            title="frontal.so"
+            title="frontal.dev"
           >
             Frontal
           </Link>
@@ -190,17 +189,7 @@ export default async function Page(): Promise<JSX.Element> {
               View more
             </Link>
           </div>
-          <Suspense
-            fallback={
-              <Skeleton
-                aria-busy="true"
-                aria-label="Loading projects"
-                className="h-8 w-full"
-              />
-            }
-          >
-            <Projects />
-          </Suspense>
+          <Projects />
         </section>
       )}
 
@@ -221,17 +210,7 @@ export default async function Page(): Promise<JSX.Element> {
               View more
             </Link>
           </div>
-          <Suspense
-            fallback={
-              <Skeleton
-                aria-busy="true"
-                aria-label="Loading posts"
-                className="h-8 w-full"
-              />
-            }
-          >
-            <Posts />
-          </Suspense>
+          <Posts />
         </section>
       )}
     </div>
