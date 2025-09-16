@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-          # Use fetch-depth: 0 to get full history, but don't use --unshallow
+        with:
           fetch-depth: 0
 
       - name: Setup Node.js
