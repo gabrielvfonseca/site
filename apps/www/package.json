@@ -50,7 +50,7 @@
     "remark-parse": "^11.0.0",
     "remark-sugar-high": "^0.6.0",
     "require-in-the-middle": "^7.5.2",
-    "sharp": "^0.34.3",
+    "sharp": "^0.34.4",
     "shiki": "^3.12.2",
     "sugar-high": "^0.9.3",
     "unified": "^11.0.5",
