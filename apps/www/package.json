@@ -36,7 +36,7 @@
     "canvas-confetti": "^1.9.3",
     "contentlayer": "^0.3.4",
     "date-fns": "^4.1.0",
-    "fumadocs-core": "^15.7.10",
+    "fumadocs-core": "^15.8.1",
     "import-in-the-middle": "^1.14.2",
     "lucide-react": "^0.542.0",
     "motion": "^12.23.12",
