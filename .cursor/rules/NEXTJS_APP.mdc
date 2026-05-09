@@ -1,0 +1,58 @@
+---
+description: Next.js application specific rules and patterns
+globs:
+  - "apps/site/**/*"
+  - "apps/*/src/**/*"
+alwaysApply: true
+---
+
+# Next.js Application Rules
+
+## App Router Structure
+- Use Next.js 15+ App Router with `app/` directory
+- Group routes with parentheses: `(site)/` for layout groups
+- Use `page.tsx` for route pages, `layout.tsx` for layouts
+- Place shared components in `src/components/`
+- Use `loading.tsx` and `error.tsx` for UI states
+
+## File Naming
+- Use kebab-case for file and directory names
+- Page files: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`
+- Component files: `component-name.tsx`
+- Utility files: `utility-name.ts`
+
+## Component Organization
+- Place reusable components in `src/components/`
+- Use TypeScript for all components
+- Prefer function components with proper typing
+- Use React 19+ features and patterns
+
+## Data Fetching
+- Use Server Components by default
+- Place data access in `src/data-access/`
+- Use caching strategies from `src/constants/cache.ts`
+- Implement proper error boundaries
+
+## Styling
+- Use Tailwind CSS with design system components
+- Import from `@gabfon/design-system` for UI components
+- Use CSS modules for component-specific styles
+- Follow design system patterns and tokens
+
+## Environment and Configuration
+- Use `@t3-oss/env-nextjs` for environment validation
+- Configure in `src/env.ts`
+- Use Next.js config composition pattern
+- Transpile workspace packages in `next.config.ts`
+
+## Performance
+- Use dynamic imports for code splitting
+- Implement proper loading states
+- Optimize images with Next.js Image component
+- Use React Suspense for async components
+
+## SEO and Metadata
+- Use `@gabfon/seo` package for metadata
+- Implement proper meta tags and structured data
+- Use `sitemap.ts` and `robots.ts` for SEO
+- Follow Next.js metadata API patterns

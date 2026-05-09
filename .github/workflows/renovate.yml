@@ -1,0 +1,57 @@
+name: Renovate
+
+on:
+  schedule:
+    # Run Renovate every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  checks: write
+  actions: write
+  deployments: write
+  packages: write
+  security-events: write
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+          
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+        
+      - name: Run Renovate
+        uses: renovatebot/github-action@v39.2.4
+        with:
+          configurationFile: renovate.json
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          LOG_LEVEL: info
+          RENOVATE_DRY_RUN: ${{ github.event_name == 'pull_request' && 'true' || 'false' }}
+          RENOVATE_REPOSITORY_CACHE: enabled
+          
+      - name: Upload Renovate logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: renovate-logs
+          path: |
+            renovate-log.json
+            renovate-debug.json
+          retention-days: 7

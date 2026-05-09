@@ -1,0 +1,452 @@
+{
+  "$schema": "https://code.claude.com/attribution-schema.json",
+  "version": "1.0.0",
+  
+  "attribution": {
+    "commit": {
+      "enabled": true,
+      "template": "Generated with [Claude Code](https://claude.com/claude-code)\nCo-Authored-By: Claude Sonnet 4.6 <claude@anthropic.com>",
+      "includeCoAuthoredBy": true,
+      "trailerType": "git",
+      "customTrailers": [
+        "Generated-by: Claude Code",
+        "AI-assisted: true",
+        "Model: claude-3.5-sonnet"
+      ]
+    },
+    "pr": {
+      "enabled": true,
+      "template": "Generated with [Claude Code](https://claude.com/claude-code)\n\nThis pull request was generated with AI assistance. Please review all changes carefully before merging.",
+      "includeCoAuthoredBy": false,
+      "addLabels": ["ai-generated", "claude-code"],
+      "addReviewers": [],
+      "autoAssign": false
+    },
+    "changelog": {
+      "enabled": true,
+      "template": "- AI-generated changes via Claude Code",
+      "categorize": true,
+      "categories": {
+        "feat": "Features",
+        "fix": "Bug Fixes", 
+        "docs": "Documentation",
+        "style": "Style Changes",
+        "refactor": "Code Refactoring",
+        "test": "Test Coverage",
+        "chore": "Maintenance"
+      }
+    }
+  },
+  
+  "hooks": {
+    "allowManagedHooksOnly": false,
+    "allowedHttpHookUrls": [
+      "https://hooks.example.com/*",
+      "http://localhost:*",
+      "https://api.github.com/*",
+      "https://api.vercel.com/*"
+    ],
+    "httpHookAllowedEnvVars": [
+      "MY_TOKEN",
+      "HOOK_SECRET",
+      "VERCEL_TOKEN",
+      "GITHUB_TOKEN",
+      "SENTRY_AUTH_TOKEN",
+      "SANITY_API_WRITE_TOKEN"
+    ],
+    "hooks": {
+      "pre-commit": {
+        "enabled": true,
+        "commands": [
+          {
+            "name": "lint-check",
+            "command": "bun run lint",
+            "runOnFileChange": true,
+            "filePatterns": ["**/*.{ts,tsx,js,jsx}"],
+            "failOnError": true
+          },
+          {
+            "name": "type-check",
+            "command": "bun run typecheck",
+            "runOnFileChange": true,
+            "filePatterns": ["**/*.{ts,tsx}"],
+            "failOnError": true
+          },
+          {
+            "name": "format-check",
+            "command": "bun run format:check",
+            "runOnFileChange": true,
+            "filePatterns": ["**/*.{ts,tsx,js,jsx,json,md}"],
+            "failOnError": false
+          }
+        ]
+      },
+      
+      "pre-push": {
+        "enabled": true,
+        "commands": [
+          {
+            "name": "test-run",
+            "command": "bun run test",
+            "runOnPush": true,
+            "failOnError": true
+          },
+          {
+            "name": "build-check",
+            "command": "bun run build",
+            "runOnPush": true,
+            "failOnError": true
+          }
+        ]
+      },
+      
+      "post-commit": {
+        "enabled": true,
+        "commands": [
+          {
+            "name": "notify-team",
+            "command": "curl -X POST https://hooks.slack.com/...",
+            "runOnCommit": true,
+            "async": true,
+            "failOnError": false
+          }
+        ]
+      },
+      
+      "pre-deploy": {
+        "enabled": true,
+        "commands": [
+          {
+            "name": "full-test-suite",
+            "command": "bun run test:coverage",
+            "runOnDeploy": true,
+            "failOnError": true
+          },
+          {
+            "name": "e2e-tests",
+            "command": "bun run test:e2e",
+            "runOnDeploy": true,
+            "failOnError": true
+          },
+          {
+            "name": "security-audit",
+            "command": "bun audit",
+            "runOnDeploy": true,
+            "failOnError": false
+          }
+        ]
+      },
+      
+      "post-deploy": {
+        "enabled": true,
+        "commands": [
+          {
+            "name": "health-check",
+            "command": "curl -f https://your-app.com/api/health",
+            "runOnDeploy": true,
+            "async": true,
+            "failOnError": false
+          },
+          {
+            "name": "notify-deployment",
+            "command": "node scripts/notify-deployment.js",
+            "runOnDeploy": true,
+            "async": true,
+            "failOnError": false
+          }
+        ]
+      },
+      
+      "file-change": {
+        "enabled": true,
+        "commands": [
+          {
+            "name": "component-test",
+            "command": "bun run test --related",
+            "runOnFileChange": true,
+            "filePatterns": ["src/components/**/*"],
+            "async": true,
+            "failOnError": false
+          },
+          {
+            "name": "storybook-update",
+            "command": "bun run storybook:build",
+            "runOnFileChange": true,
+            "filePatterns": ["src/components/**/*.stories.*"],
+            "async": true,
+            "failOnError": false
+          },
+          {
+            "name": "type-check-file",
+            "command": "tsc --noEmit --skipLibCheck",
+            "runOnFileChange": true,
+            "filePatterns": ["**/*.{ts,tsx}"],
+            "async": true,
+            "failOnError": false
+          }
+        ]
+      }
+    },
+    
+    "webhooks": {
+      "github": {
+        "enabled": true,
+        "url": "https://api.github.com/webhooks",
+        "events": [
+          "push",
+          "pull_request",
+          "pull_request_review",
+          "issues",
+          "release"
+        ],
+        "secret": "${GITHUB_WEBHOOK_SECRET}",
+        "actions": {
+          "push": [
+            "trigger-ci",
+            "update-docs",
+            "notify-team"
+          ],
+          "pull_request": [
+            "run-pr-checks",
+            "add-ai-labels",
+            "generate-preview"
+          ],
+          "pull_request_review": [
+            "update-pr-status",
+            "merge-if-ready"
+          ]
+        }
+      },
+      
+      "vercel": {
+        "enabled": true,
+        "url": "https://api.vercel.com/v1/webhooks",
+        "events": [
+          "deployment.created",
+          "deployment.ready",
+          "deployment.error"
+        ],
+        "secret": "${VERCEL_WEBHOOK_SECRET}",
+        "actions": {
+          "deployment.created": [
+            "start-deployment-monitoring",
+            "notify-team-start"
+          ],
+          "deployment.ready": [
+            "run-smoke-tests",
+            "notify-team-success",
+            "update-analytics"
+          ],
+          "deployment.error": [
+            "notify-team-failure",
+            "create-incident",
+            "rollback-if-needed"
+          ]
+        }
+      },
+      
+      "sentry": {
+        "enabled": true,
+        "url": "https://sentry.io/api/hooks",
+        "events": [
+          "error.created",
+          "issue.created"
+        ],
+        "secret": "${SENTRY_WEBHOOK_SECRET}",
+        "actions": {
+          "error.created": [
+            "assess-severity",
+            "notify-team-if-critical",
+            "create-github-issue"
+          ],
+          "issue.created": [
+            "triage-issue",
+            "assign-to-team",
+            "create-backlog-item"
+          ]
+        }
+      }
+    },
+    
+    "customHooks": [
+      {
+        "name": "ai-code-review",
+        "description": "AI-powered code review for pull requests",
+        "trigger": "pull_request.opened",
+        "command": "node scripts/ai-code-review.js",
+        "async": true,
+        "timeout": 300,
+        "env": {
+          "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+          "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+        }
+      },
+      {
+        "name": "component-docs-generator",
+        "description": "Generate component documentation automatically",
+        "trigger": "file_change",
+        "filePatterns": ["src/components/**/*.{ts,tsx}"],
+        "command": "node scripts/generate-component-docs.js",
+        "async": true,
+        "timeout": 60
+      },
+      {
+        "name": "performance-monitor",
+        "description": "Monitor performance metrics on deployment",
+        "trigger": "deployment.ready",
+        "command": "node scripts/performance-monitor.js",
+        "async": true,
+        "timeout": 120
+      }
+    ]
+  },
+  
+  "automation": {
+    "enabled": true,
+    "autoMerge": {
+      "enabled": false,
+      "conditions": {
+        "minApprovals": 2,
+        "requiredChecks": ["lint", "test", "build"],
+        "requiredLabels": ["ready-to-merge"],
+        "forbiddenLabels": ["do-not-merge", "work-in-progress"]
+      }
+    },
+    "autoLabel": {
+      "enabled": true,
+      "rules": [
+        {
+          "pattern": "**/*.test.*",
+          "labels": ["test", "coverage"]
+        },
+        {
+          "pattern": "**/*.stories.*",
+          "labels": ["storybook", "documentation"]
+        },
+        {
+          "pattern": "src/components/**/*",
+          "labels": ["component", "ui"]
+        },
+        {
+          "pattern": "src/app/api/**/*",
+          "labels": ["api", "backend"]
+        },
+        {
+          "pattern": "sanity/**/*",
+          "labels": ["cms", "content"]
+        }
+      ]
+    },
+    "autoAssign": {
+      "enabled": true,
+      "rules": [
+        {
+          "pattern": "src/components/**/*",
+          "assignees": ["@frontend-team"]
+        },
+        {
+          "pattern": "src/app/api/**/*",
+          "assignees": ["@backend-team"]
+        },
+        {
+          "pattern": "sanity/**/*",
+          "assignees": ["@content-team"]
+        }
+      ]
+    }
+  },
+  
+  "notifications": {
+    "enabled": true,
+    "channels": {
+      "slack": {
+        "enabled": true,
+        "webhook": "${SLACK_WEBHOOK_URL}",
+        "channels": {
+          "deployments": "#deployments",
+          "errors": "#alerts",
+          "pull-requests": "#pr-reviews",
+          "general": "#development"
+        }
+      },
+      "email": {
+        "enabled": true,
+        "smtp": {
+          "host": "${SMTP_HOST}",
+          "port": 587,
+          "user": "${SMTP_USER}",
+          "password": "${SMTP_PASSWORD}"
+        },
+        "recipients": {
+          "deployments": ["team@frontallabs.com"],
+          "errors": ["devops@frontallabs.com"],
+          "pull-requests": ["leads@frontallabs.com"]
+        }
+      },
+      "github": {
+        "enabled": true,
+        "token": "${GITHUB_TOKEN}",
+        "createIssues": true,
+        "createComments": true,
+        "updateStatus": true
+      }
+    },
+    "events": {
+      "deployment": {
+        "slack": ["#deployments"],
+        "email": ["team@frontallabs.com"],
+        "github": true
+      },
+      "error": {
+        "slack": ["#alerts"],
+        "email": ["devops@frontallabs.com"],
+        "github": true
+      },
+      "pull_request": {
+        "slack": ["#pr-reviews"],
+        "email": ["leads@frontallabs.com"],
+        "github": true
+      }
+    }
+  },
+  
+  "reporting": {
+    "enabled": true,
+    "reports": {
+      "daily": {
+        "enabled": true,
+        "metrics": [
+          "commits",
+          "pull_requests",
+          "deployments",
+          "errors",
+          "test_coverage"
+        ],
+        "recipients": ["team@frontallabs.com"],
+        "schedule": "0 9 * * *"
+      },
+      "weekly": {
+        "enabled": true,
+        "metrics": [
+          "performance_trends",
+          "code_quality",
+          "security_scan",
+          "feature_usage"
+        ],
+        "recipients": ["leads@frontallabs.com"],
+        "schedule": "0 9 * * 1"
+      },
+      "monthly": {
+        "enabled": true,
+        "metrics": [
+          "project_health",
+          "team_productivity",
+          "roi_metrics",
+          "strategic_goals"
+        ],
+        "recipients": ["management@frontallabs.com"],
+        "schedule": "0 9 1 * *"
+      }
+    }
+  }
+}

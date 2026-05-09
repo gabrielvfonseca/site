@@ -1,0 +1,258 @@
+{
+  "$schema": "https://code.claude.com/settings-schema.json",
+  "version": "1.0.0",
+  
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(bun *)",
+      "Bash(npm *)",
+      "Bash(git *)",
+      "Bash(node *)",
+      "Read(**/*)",
+      "Write(**/*)",
+      "Edit(**/*)",
+      "MultiEdit(**/*)",
+      "ListDir(**/*)",
+      "FindByName(**/*)",
+      "GrepSearch(**/*)",
+      "BrowserPreview(http://localhost:*)",
+      "ReadUrlContent(https://*.vercel.app/**)",
+      "ReadUrlContent(https://*.github.com/**)",
+      "ReadUrlContent(https://code.claude.com/**)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git pull --rebase)",
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "ReadUrlContent(*)",
+      "WebFetch(*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./secrets/**)",
+      "Read(**/.env*)",
+      "Read(**/private/**)",
+      "Write(**/.env*)",
+      "Write(./secrets/**)",
+      "Bash(curl -X POST *)",
+      "Bash(curl --data *)"
+    ],
+    "additionalDirectories": ["../docs/", "../shared/"],
+    "disableBypassPermissionsMode": "disable"
+  },
+
+  "attribution": {
+    "commit": "🤖 Generated with [Claude Code](https://claude.com/claude-code)\nCo-Authored-By: Claude Sonnet 4.6 <claude@anthropic.com>",
+    "pr": "🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+    "includeCoAuthoredBy": true
+  },
+
+  "fileSuggestion": {
+    "type": "command",
+    "command": "~/.claude/file-suggestion.sh"
+  },
+
+  "hooks": {
+    "allowManagedHooksOnly": false,
+    "allowedHttpHookUrls": [
+      "https://hooks.example.com/*",
+      "http://localhost:*"
+    ],
+    "httpHookAllowedEnvVars": [
+      "MY_TOKEN",
+      "HOOK_SECRET",
+      "VERCEL_TOKEN",
+      "GITHUB_TOKEN"
+    ]
+  },
+
+  "mcp": {
+    "enableAllProjectMcpServers": true,
+    "enabledMcpServers": ["memory", "github", "filesystem"],
+    "disabledMcpServers": [],
+    "allowedMcpServers": [
+      { "serverName": "github" },
+      { "serverName": "memory" },
+      { "serverName": "filesystem" }
+    ],
+    "deniedMcpServers": []
+  },
+
+  "plugins": {
+    "enabledPlugins": {
+      "formatter@acme-tools": true,
+      "deployer@acme-tools": true,
+      "analyzer@security-plugins": true,
+      "typescript-tools@official": true,
+      "nextjs-helper@official": true,
+      "tailwind-assistant@official": true,
+      "sanity-cms-helper@official": true
+    },
+    "extraKnownMarketplaces": {
+      "acme-tools": {
+        "source": "github",
+        "repo": "acme-corp/claude-plugins"
+      },
+      "security-plugins": {
+        "source": "git",
+        "url": "https://git.example.com/security/plugins.git"
+      },
+      "team-tools": {
+        "source": "settings",
+        "name": "team-tools",
+        "plugins": [
+          {
+            "name": "code-formatter",
+            "source": {
+              "source": "github",
+              "repo": "acme-corp/code-formatter"
+            }
+          }
+        ]
+      }
+    }
+  },
+
+  "ui": {
+    "channelsEnabled": false,
+    "allowedChannelPlugins": [
+      { "marketplace": "claude-plugins-official", "plugin": "telegram" }
+    ],
+    "alwaysThinkingEnabled": true,
+    "plansDirectory": "./plans",
+    "showClearContextOnPlanAccept": true,
+    "spinnerVerbs": {
+      "mode": "append",
+      "verbs": ["Pondering", "Crafting", "Analyzing", "Optimizing", "Designing"]
+    },
+    "language": "english",
+    "voiceEnabled": false,
+    "autoUpdatesChannel": "stable",
+    "spinnerTipsEnabled": true,
+    "spinnerTipsOverride": {
+      "excludeDefault": false,
+      "tips": [
+        "Use shadcn/ui components for consistent design",
+        "Follow TypeScript strict mode requirements",
+        "Test with Playwright before deployment",
+        "Check Sentry for error patterns",
+        "Use absolute imports with @/ prefix"
+      ]
+    },
+    "prefersReducedMotion": false,
+    "fastModePerSessionOptIn": true,
+    "feedbackSurveyRate": 0.05
+  },
+
+  "global": {
+    "autoConnectIde": true,
+    "autoInstallIdeExtension": true,
+    "editorMode": "normal",
+    "showTurnDuration": false,
+    "terminalProgressBarEnabled": true,
+    "teammateMode": "in-process"
+  },
+
+  "worktree": {
+    "symlinkDirectories": ["node_modules", ".cache", ".next", "dist"],
+    "sparsePaths": ["src/", "public/", "docs/"]
+  },
+
+  "development": {
+    "codeStyle": {
+      "indentation": "spaces",
+      "indentSize": 2,
+      "semicolons": true,
+      "quotes": "double",
+      "trailingCommas": "es5"
+    },
+    "imports": {
+      "sortImports": true,
+      "absoluteImports": true,
+      "importAlias": "@",
+      "organizeImports": true
+    },
+    "typescript": {
+      "strictMode": true,
+      "explicitTypes": true,
+      "noImplicitAny": true,
+      "noImplicitReturns": true
+    }
+  },
+
+  "testing": {
+    "coverage": {
+      "threshold": 80,
+      "exclude": ["**/*.stories.tsx", "**/*.test.tsx", "**/*.spec.ts"]
+    },
+    "frameworks": {
+      "vitest": true,
+      "testingLibrary": true,
+      "playwright": true
+    }
+  },
+
+  "security": {
+    "environmentVariables": {
+      "required": ["NEXT_PUBLIC_SANITY_PROJECT_ID", "NEXT_PUBLIC_SITE_URL"],
+      "optional": ["SENTRY_DSN", "VERCEL_ANALYTICS_ID"]
+    },
+    "cors": {
+      "allowedOrigins": ["https://vercel.app", "http://localhost:3000"]
+    }
+  },
+
+  "performance": {
+    "imageOptimization": true,
+    "codeSplitting": true,
+    "bundleAnalysis": true,
+    "caching": {
+      "strategy": "stale-while-revalidate",
+      "ttl": 3600
+    }
+  },
+
+  "accessibility": {
+    "wcagCompliance": "AA",
+    "semanticHtml": true,
+    "ariaLabels": true,
+    "keyboardNavigation": true,
+    "screenReaderSupport": true
+  },
+
+  "integrations": {
+    "nextjs": {
+      "appRouter": true,
+      "serverComponents": true,
+      "clientComponents": true,
+      "apiRoutes": true,
+      "middleware": true
+    },
+    "tailwind": {
+      "enabled": true,
+      "classCompletion": true,
+      "responsiveDesign": true,
+      "darkMode": true
+    },
+    "shadcn": {
+      "enabled": true,
+      "components": true,
+      "uiLibrary": true,
+      "customization": true
+    },
+    "sanity": {
+      "enabled": true,
+      "cms": true,
+      "schemas": true,
+      "groq": true,
+      "client": true
+    },
+    "deployment": {
+      "vercel": true,
+      "sentry": true,
+      "analytics": true
+    }
+  }
+}
