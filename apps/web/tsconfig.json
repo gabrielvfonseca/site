@@ -1,0 +1,40 @@
+{
+  "extends": "@gabfon/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "incremental": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@source": ["./.source"],
+      "@gabfon/analytics/*": ["../../packages/analytics/src/*"],
+      "@gabfon/ai/*": ["../../packages/ai/src/*"],
+      "@gabfon/email/*": ["../../packages/email/src/*"],
+      "@gabfon/observability/*": ["../../packages/observability/src/*"],
+      "@gabfon/rate-limit/*": ["../../packages/rate-limit/src/*"],
+      "@gabfon/security/*": ["../../packages/security/src/*"],
+      "@gabfon/next-config/*": ["../../packages/next-config/src/*"],
+      "@gabfon/typescript-config/*": ["../../internals/typescript-config/src/*"],
+      "@gabfon/cache/*": ["../../packages/cache/src/*"],
+      "@gabfon/design-system/*": ["../../packages/design-system/src/*"],
+      "@gabfon/github/*": ["../../packages/github/src/*"],
+      "@gabfon/seo/*": ["../../packages/seo/src/*"],
+      "@gabfon/spotify/*": ["../../packages/spotify/src/*"],
+      "@gabfon/strava/*": ["../../packages/strava/src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".source/**/*.ts",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    ".next/types/**/*.ts"
+  ]
+}

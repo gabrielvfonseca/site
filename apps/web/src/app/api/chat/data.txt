@@ -1,0 +1,755 @@
+
+
+
+
+
+
+
+
+/**
+ * The Page for the site.
+ * @returns The Page for the site.
+ */
+export default async function Page(): Promise {
+  // Check if there are posts and projects
+  const posts: boolean = await hasPublishedPosts();
+  const projects: boolean = await hasProjects();
+
+  return (
+    
+      
+        
+          I'm a Lisbon-based software developer, founder, and Computer
+          Engineering student at{' '}
+          
+            NOVA School of Science and Technology
+          
+          .
+        
+        
+          I'm currently building an{' '}
+          
+            AI-powered platform
+          {' '}
+          to streamline business operations and decision-making. As the founder
+          & CEO of{' '}
+          
+            Frontal
+          
+          , I'm deeply involved in product development and user research.
+        
+        
+          Outside of my startup, I engage in full-stack development for
+          freelance and{' '}
+          
+            personal projects
+          {' '}
+          , always seeking to solve real-world problems creatively. I regularly{' '}
+          
+            write posts
+          {' '}
+          about my experiences and believe in{' '}
+          
+            building in public
+          {' '}
+          to share my journey and learnings. I'm an active participant in the
+          tech, business, and startup communities, constantly learning and
+          iterating.
+        
+        
+          I'm{' '}
+          
+            open to connecting
+          {' '}
+          with fellow builders, potential collaborators, and anyone interested
+          in AI, productivity, and organizational clarity. Feel free to reach
+          out on{' '}
+          
+            Twitter
+          
+          ,{' '}
+          
+            LinkedIn
+          
+          , or{' '}
+          
+            GitHub
+          
+          . If you'd like to schedule a meeting or a quick call, you can do so{' '}
+          
+            here
+          
+          {' or '}
+          
+            email me
+          
+          .
+        
+
+        
+          
+            See my projects
+          
+          /
+          
+            Read my posts
+          
+          /
+          
+            What I use daily
+          
+          /
+          
+            My live stats
+          
+          /
+          
+            Talk to my local AI
+          
+        
+      
+
+      {projects && (
+        
+          
+            
+              Projects
+            
+            
+              View more
+            
+          
+          
+        
+      )}
+
+      {posts && (
+        
+          
+            
+              Posts
+            
+            
+              View more
+            
+          
+          
+        
+      )}
+
+      
+        
+          
+            Currently
+            
+              Digital Twin →
+            
+          
+          
+            Live stats on my weekly running mileage, what I'm scrobbling on
+            Spotify, and recent GitHub activity.
+          
+        
+        
+          
+            
+              Local AI Coach
+            
+            
+              WebGPU →
+            
+          
+          
+            Talk to an AI that runs entirely on your GPU. No data ever leaves
+            your browser.
+          
+        
+      
+    
+  );
+}
+\n'use client';
+
+
+
+
+
+
+
+interface NowData {
+  spotify: {
+    nowPlaying: any;
+    recentSpotify: any[];
+  };
+  strava: {
+    weeklyDistance: number;
+  };
+  github: {
+    totalContributions: number;
+  };
+  timestamp: string;
+}
+
+export default function NowPage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/now');
+        const json = await res.json();
+        setData(json);
+      } catch (_error) {
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+    const interval = setInterval(fetchData, 300_000); // refresh every 5 mins
+    return () => clearInterval(interval);
+  }, []);
+
+  if (loading) {
+    return (
+      
+        
+          Now
+          
+            What's happening right now in my life.
+          
+        
+        
+          
+          
+          
+          
+        
+      
+    );
+  }
+
+  const spotify = data?.spotify.nowPlaying;
+  const recent = data?.spotify.recentSpotify?.[0];
+  const currentMusic = spotify || recent;
+
+  return (
+    
+      
+        Now
+        
+          What I'm building, listening to, and how I'm moving. Last updated{' '}
+          {data?.timestamp && formatDate(new Date(data.timestamp), 'h:mm a')}.
+        
+      
+
+      
+        
+          
+            
+            Music
+          
+          {currentMusic ? (
+            
+              
+                {currentMusic.item?.album?.images?.[0]?.url && (
+                  
+                )}
+                {!currentMusic.item?.album?.images?.[0]?.url &&
+                  currentMusic.track?.album?.images?.[0]?.url && (
+                    
+                  )}
+                
+                  
+                    {currentMusic.item?.name || currentMusic.track?.name}
+                  
+                  
+                    {currentMusic.item?.artists
+                      ?.map((a: any) => a.name)
+                      .join(', ') ||
+                      currentMusic.track?.artists
+                        ?.map((a: any) => a.name)
+                        .join(', ')}
+                  
+                  {spotify ? (
+                    
+                      Now Playing
+                    
+                  ) : (
+                    
+                      Recently Played
+                    
+                  )}
+                
+              
+            
+          ) : (
+            
+              Not playing anything right now.
+            
+          )}
+        
+
+        
+          
+            
+            Movement
+          
+          
+            
+              {data?.strava.weeklyDistance.toFixed(1)} km
+            
+            this week on Strava
+          
+        
+
+        
+          
+            
+            Code
+          
+          
+            
+              {data?.github.totalContributions}
+            
+            
+              contributions in the last year
+            
+          
+        
+
+        
+          
+            
+            Current Focus
+          
+          
+            
+              Building Frontal Labs, studying Computer Engineering at NOVA, and
+              training for my next half-marathon.
+            
+          
+        
+      
+    
+  );
+}
+\n
+
+
+const USES = [
+  {
+    category: 'Code',
+    icon: ,
+    items: [
+      {
+        name: 'VS Code',
+        description: 'Primary editor with my own Fluent Theme.',
+        link: 'https://marketplace.visualstudio.com/items?itemName=gabriel-fonseca.fluent-theme',
+      },
+      {
+        name: 'GitHub',
+        description: 'Where all my code lives.',
+        link: 'https://github.com',
+      },
+      {
+        name: 'Cursor',
+        description: 'AI-first code editor for complex refactors.',
+        link: 'https://cursor.com',
+      },
+      {
+        name: 'Vercel',
+        description: 'Hosting and deployments.',
+        link: 'https://vercel.com',
+      },
+    ],
+  },
+  {
+    category: 'Productivity',
+    icon: ,
+    items: [
+      {
+        name: 'Notion',
+        description: 'Second brain for tasks, docs, and notes.',
+        link: 'https://notion.so',
+      },
+      {
+        name: 'Raycast',
+        description: 'Spotlight replacement on steroids.',
+        link: 'https://raycast.com',
+      },
+      {
+        name: 'Arc',
+        description: 'The only browser that feels like an OS.',
+        link: 'https://arc.net',
+      },
+    ],
+  },
+  {
+    category: 'Music & Life',
+    icon: ,
+    items: [
+      {
+        name: 'Spotify',
+        description: 'Fueling my focus since 2012.',
+        link: 'https://spotify.com',
+      },
+      {
+        name: 'Last.fm',
+        description: 'Tracking every scrobble.',
+        link: 'https://last.fm/user/gab_fon',
+      },
+      {
+        name: 'Strava',
+        description: 'Motivation for my weekly runs.',
+        link: 'https://strava.com/athletes/gabriel_fonseca',
+      },
+    ],
+  },
+  {
+    category: 'AI Lab',
+    icon: ,
+    items: [
+      {
+        name: 'WebLLM',
+        description: 'Running LLMs at the edge (in the browser).',
+        link: 'https://webllm.mlc-ai.org/',
+      },
+      {
+        name: 'Frontal Labs',
+        description: 'Building the future of AI operations.',
+        link: 'https://frontal.dev',
+      },
+    ],
+  },
+];
+
+export default function UsesPage() {
+  return (
+    
+      
+        Uses
+        
+          The tools, hardware, and software I use daily to build and stay
+          productive.
+        
+      
+
+      
+        {USES.map((group) => (
+          
+            
+              {group.icon}
+              {group.category}
+            
+            
+              {group.items.map((item) => (
+                
+                  
+                    
+                      {item.name}
+                    
+                    
+                      Visit
+                    
+                  
+                  
+                    {item.description}
+                  
+                
+              ))}
+            
+          
+        ))}
+      
+    
+  );
+}
+\n'use client';
+
+
+
+
+
+export default function AI() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+  return (
+    
+      
+        {messages.map((m) => (
+          
+            {m.role === 'user' ? 'User: ' : 'AI: '}
+            {m.content}
+          
+        ))}
+      
+
+      
+        
+          
+            
+          
+        
+      
+    
+  );
+}
+\n
+
+
+
+
+
+
+
+/**
+ * The metadata for the site.
+ * @returns The metadata for the site.
+ */
+export const metadata: Metadata = createMetadata({
+  ...meta,
+  title: meta.projects.title,
+});
+
+/**
+ * The Page for the site.
+ * @returns The Page for the site.
+ */
+export default function Page(): JSX.Element {
+  const projects: Project[] = source.getPages('projects').map((page) => ({
+    slug: page.slugs.join('/'),
+    title: page.data.title as string,
+    description: page.data.description as string,
+    date: page.data.date,
+    url: page.url,
+  }));
+
+  return (
+    
+      
+        List of Projects
+      
+      
+        
+      
+    
+  );
+}
+\n
+
+
+
+
+
+
+
+
+/**
+ * The metadata for the site.
+ * @returns The metadata for the site.
+ */
+export const metadata: Metadata = createMetadata({
+  ...meta,
+  title: meta.posts.title,
+});
+
+/**
+ * The Page for the site.
+ * @returns The Page for the site.
+ */
+export default function Page(): JSX.Element {
+  const allPosts: Post[] = source.getPages('posts').map((page) => ({
+    slug: page.slugs.join('/'),
+    title: page.data.title as string,
+    description: page.data.description as string,
+    date: page.data.date,
+    url: page.url,
+  }));
+
+  const jsonLd: WithContext = {
+    '@type': 'Blog',
+    '@context': 'https://schema.org',
+  };
+
+  // Sort items by date in descending order
+  const sortedPosts: Post[] = allPosts.sort(
+    (a: Post, b: Post) =>
+      new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
+  );
+
+  return (
+    
+      
+        Posts
+      
+      
+        
+          Blog Posts
+        
+        
+          
+        
+      
+      
+    
+  );
+}
+\n
+
+export default function ColophonPage() {
+  const lastUpdated = new Date('2026-03-26');
+
+  return (
+    
+      
+        Colophon
+        
+          Behind the scenes of how this site was built.
+        
+      
+
+      
+        
+          gabfon.com is designed to be a minimal, fast, and 100% static-first
+          digital portfolio. Everything runs with client-side JavaScript fetches
+          or browser-based WebLLM.
+        
+
+        
+          Stack
+          
+            
+              Framework: Next.js (App
+              Router)
+            
+            
+              Styling: Tailwind CSS 4.x
+            
+            
+              Aesthetics: Dark-first,
+              Glassmorphism, Fluent-inspired
+            
+            
+              Deployment: Vercel
+              (Static Generation)
+            
+            
+              AI: WebLLM + WebGPU for
+              on-device reasoning
+            
+            
+              Data: Public fetches for
+              GitHub, Spotify, and Strava
+            
+          
+        
+
+        
+          Philosophy
+          
+            This site is built around the "zero-backend" philosophy for my
+            personal presence. By leveraging client-side APIs and edge-AI, the
+            site is free to host, blisteringly fast, and respects visitor
+            privacy by never storing session data on a server.
+          
+        
+
+        
+          Typography & Design
+          
+            The design follows a clean, spacious layout using modern sans-serif
+            fonts. The interactive elements (like the /now page and /ai coach)
+            bring life to what would otherwise be a static resume.
+          
+        
+
+        
+          Last updated on {format(lastUpdated, 'MMMM do, yyyy')}. Built with
+          care in Lisbon.
+        
+      
+    
+  );
+}
+\n
+
+
+export default function ContactPage(): JSX.Element {
+  return (
+    
+      
+        
+          List of Projects
+        
+        
+          Have a question or want to work together? Drop me a message below.
+        
+      
+
+      
+    
+  );
+}
+\n
+
+
+
+
+
+/**
+ * The PostPageProps for the site.
+ */
+interface PostPageProps {
+  /**
+   * The params for the site.
+   */
+  readonly params: Promise;
+}
+
+/**
+ * The generateMetadata for the site.
+ * @param props - The PostPageProps.
+ * @returns The generateMetadata for the site.
+ */
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise {
+  const { slug } = await params;
+  const page = source.getPage([slug], 'posts');
+
+  if (!page) {
+    notFound();
+  }
+
+  return createMetadata({
+    title: `${page.data.title} | Gabriel Fonseca`,
+    description: page.data.description,
+  });
+}
+
+/**
+ * The PostPage for the site.
+ * @param props - The PostPageProps.
+ * @returns The PostPage for the site.
+ */
+export default async function PostPage({
+  params,
+}: PostPageProps): Promise {
+  const { slug } = await params;
+  const page = source.getPage([slug], 'posts');
+
+  if (!page) {
+    notFound();
+  }
+
+  const { body: Content } = page.data;
+
+  return (
+    
+      
+    
+  );
+}
+\n
