@@ -1,0 +1,40 @@
+{
+  "name": "@gabfon/security",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./keys": {
+      "types": "./src/keys.ts",
+      "import": "./src/keys.ts",
+      "default": "./src/keys.ts"
+    },
+    "./proxy": {
+      "types": "./src/proxy.ts",
+      "import": "./src/proxy.ts",
+      "default": "./src/proxy.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "echo 'No tests specified'",
+    "analyze": "echo 'No analysis specified'",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@arcjet/next": "1.0.0-beta.11",
+    "@nosecone/next": "1.0.0-beta.11",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@gabfon/typescript-config": "workspace:*",
+    "typescript": "^5.9.2"
+  }
+}

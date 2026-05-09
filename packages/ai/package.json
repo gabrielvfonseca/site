@@ -1,0 +1,59 @@
+{
+  "name": "@gabfon/ai",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./keys": {
+      "import": "./src/keys.ts",
+      "types": "./src/keys.ts"
+    },
+    "./components/*": {
+      "import": "./src/components/*.tsx",
+      "types": "./src/components/*.tsx"
+    },
+    "./lib/*": {
+      "import": "./src/lib/*.ts",
+      "types": "./src/lib/*.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "vitest run",
+    "test:unit": "vitest run unit",
+    "test:integration": "vitest run integration",
+    "test:e2e": "vitest run e2e",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "analyze": "echo 'No analysis specified'",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.53",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "ai": "^5.0.107",
+    "react": "19.2.1",
+    "streamdown": "^1.6.10",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@gabfon/typescript-config": "workspace:*",
+    "@gabfon/testing": "workspace:*",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^5.0.2",
+    "jsdom": "^27.0.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "@gabfon/analytics",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.tsx",
+      "import": "./src/index.tsx",
+      "default": "./src/index.tsx"
+    },
+    "./keys": {
+      "types": "./src/keys.ts",
+      "import": "./src/keys.ts",
+      "default": "./src/keys.ts"
+    },
+    "./vercel": {
+      "types": "./src/vercel.ts",
+      "import": "./src/vercel.ts",
+      "default": "./src/vercel.ts"
+    },
+    "./lib/client": {
+      "types": "./src/lib/client.tsx",
+      "import": "./src/lib/client.tsx",
+      "default": "./src/lib/client.tsx"
+    },
+    "./lib/server": {
+      "types": "./src/lib/server.ts",
+      "import": "./src/lib/server.ts",
+      "default": "./src/lib/server.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "vitest run",
+    "test:unit": "vitest run unit",
+    "test:integration": "vitest run integration",
+    "test:e2e": "vitest run e2e",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "analyze": "echo 'No analysis specified'",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "@vercel/analytics": "^1.5.0",
+    "posthog-js": "^1.266.0",
+    "posthog-node": "^5.8.2",
+    "react": "19.2.1",
+    "server-only": "^0.0.1",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@gabfon/typescript-config": "workspace:*",
+    "@gabfon/testing": "workspace:*",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/node": "24.3.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^5.0.2",
+    "jsdom": "^27.0.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

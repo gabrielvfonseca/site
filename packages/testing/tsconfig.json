@@ -1,0 +1,12 @@
+{
+  "extends": "@gabfon/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@gabfon/*": ["../*"],
+      "@gabfon/testing/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mjs"],
+  "exclude": ["node_modules"]
+}

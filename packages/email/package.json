@@ -1,0 +1,52 @@
+{
+  "name": "@gabfon/email",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./keys": {
+      "import": "./src/keys.ts",
+      "require": "./src/keys.ts"
+    },
+    "./templates/*": {
+      "import": "./src/templates/*.tsx",
+      "require": "./src/templates/*.tsx"
+    }
+  },
+  "scripts": {
+    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "vitest run",
+    "test:unit": "vitest run unit",
+    "test:integration": "vitest run integration",
+    "test:e2e": "vitest run e2e",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "analyze": "echo 'No analysis specified'",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@gabfon/analytics": "workspace:*",
+    "@react-email/components": "^0.0.33",
+    "@react-email/render": "^1.0.2",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "resend": "^6.5.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@gabfon/typescript-config": "workspace:*",
+    "@gabfon/testing": "workspace:*",
+    "@types/node": "^24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

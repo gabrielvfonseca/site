@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**", "test/**", "package.json", "tsconfig.json"]
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**", "test/**", "package.json", "*.config.*"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "typecheck": {
+      "outputs": []
+    }
+  }
+}
