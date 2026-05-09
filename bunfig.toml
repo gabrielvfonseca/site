@@ -1,0 +1,359 @@
+# Bun Configuration File
+# https://bun.sh/docs/runtime/configuration
+
+[install]
+# Configure the install cache directory
+cache = "/var/folders/3t/5c8z8q7d7xlg9x8l9r8x8x8w00000gn/T/bun-cache"
+
+# Configure the global modules directory
+global = "/Users/gabrielfonseca/.bun/global"
+
+# Configure the registry
+registry = "https://registry.npmjs.org/"
+
+# Enable/disable telemetry
+telemetry = false
+
+# Configure the lockfile
+lockfile = true
+
+# Configure the save prefix
+save-prefix = "^"
+
+# Configure the exact version
+exact = false
+
+# Configure the optional dependencies
+optional = true
+
+# Configure the production dependencies
+production = false
+
+# Configure the development dependencies
+dev = true
+
+# Configure the peer dependencies
+peer = true
+
+# Configure the workspace
+workspace = true
+
+# Configure the hoisting
+hoist = true
+
+# Configure the deduping
+dedupe = true
+
+# Configure the resolution strategy
+resolution = "highest"
+
+[install.scopes]
+# Configure scoped registries
+"@sentry" = "https://registry.npmjs.org/"
+"@vercel" = "https://registry.npmjs.org/"
+"@clack" = "https://registry.npmjs.org/"
+"@changesets" = "https://registry.npmjs.org/"
+"@commitlint" = "https://registry.npmjs.org/"
+"@biomejs" = "https://registry.npmjs.org/"
+"@turbo" = "https://registry.npmjs.org/"
+"@octokit" = "https://registry.npmjs.org/"
+"@vitejs" = "https://registry.npmjs.org/"
+"@types" = "https://registry.npmjs.org/"
+
+[run]
+# Configure the runtime
+shell = "bun"
+
+# Configure the environment
+env = "development"
+
+# Configure the node modules path
+node_modules = "node_modules"
+
+# Configure the prefer local packages
+preferLocalPackages = true
+
+# Configure the silent mode
+silent = false
+
+# Configure the verbose mode
+verbose = false
+
+# Configure the bail mode
+bail = false
+
+# Configure the timeout
+timeout = 300000
+
+# Configure the max old space size
+maxOldSpaceSize = 4096
+
+[test]
+# Configure the test runner
+preload = ["./packages/testing/src/setup.ts"]
+
+# Configure the test coverage
+coverage = true
+
+# Configure the test coverage directory
+coverageDir = "./coverage"
+
+# Configure the test coverage reporter
+coverageReporter = ["text", "html", "json"]
+
+# Configure the test coverage threshold
+coverageThreshold = 80
+
+# Configure the test timeout
+timeout = 5000
+
+# Configure the test bail
+bail = false
+
+# Configure the test verbose
+verbose = false
+
+# Configure the test watch
+watch = false
+
+# Configure the test max workers
+maxWorkers = 4
+
+[build]
+# Configure the build target
+target = "node"
+
+# Configure the build format
+format = "esm"
+
+# Configure the build minify
+minify = false
+
+# Configure the build sourcemap
+sourcemap = true
+
+# Configure the build splitting
+splitting = true
+
+# Configure the build tree shaking
+treeShaking = true
+
+# Configure the build dead code elimination
+deadCodeElimination = true
+
+# Configure the build asset naming
+assetNaming = "[name].[hash].[ext]"
+
+# Configure the build chunk naming
+chunkNaming = "[name].[hash].js"
+
+# Configure the build entry naming
+entryNaming = "[name].[hash].js"
+
+[dev]
+# Configure the development server
+port = 3000
+
+# Configure the development host
+host = "localhost"
+
+# Configure the development hot reload
+hot = true
+
+# Configure the development live reload
+liveReload = true
+
+# Configure the development open browser
+open = false
+
+# Configure the development https
+https = false
+
+# Configure the development cors
+cors = true
+
+# Configure the development strict
+strict = false
+
+[lockfile]
+# Configure the lockfile path
+path = "./bun.lockb"
+
+# Configure the lockfile save
+save = true
+
+# Configure the lockfile print
+print = false
+
+# Configure the lockfile check
+check = true
+
+# Configure the lockfile frozen
+frozen = false
+
+# Configure the lockfile prefer offline
+preferOffline = false
+
+# Configure the lockfile prefer frozen
+preferFrozen = false
+
+[loglevel]
+# Configure the log level
+level = "info"
+
+# Configure the log format
+format = "pretty"
+
+# Configure the log color
+color = true
+
+# Configure the log timestamp
+timestamp = false
+
+# Configure the log file
+file = "./bun.log"
+
+[pm]
+# Configure the process manager
+enabled = false
+
+# Configure the process manager port
+port = 3001
+
+# Configure the process manager host
+host = "localhost"
+
+# Configure the process manager workers
+workers = 4
+
+# Configure the process manager max memory
+maxMemory = "1GB"
+
+# Configure the process manager max cpu
+maxCpu = 80
+
+[scripts]
+# Configure the scripts pre hook
+pre = "echo 'Running pre-hook...'"
+
+# Configure the scripts post hook
+post = "echo 'Running post-hook...'"
+
+# Configure the scripts error hook
+error = "echo 'Script failed!'"
+
+[security]
+# Configure the security audit
+audit = true
+
+# Configure the security audit level
+auditLevel = "moderate"
+
+# Configure the security force
+force = false
+
+# Configure the security ignore scripts
+ignoreScripts = false
+
+# Configure the security ignore optional dependencies
+ignoreOptionalDependencies = false
+
+# Configure the security ignore platform
+ignorePlatform = false
+
+# Configure the security ignore engines
+ignoreEngines = false
+
+[performance]
+# Configure the performance memory limit
+memoryLimit = "4GB"
+
+# Configure the performance cpu limit
+cpuLimit = 80
+
+# Configure the performance cache
+cache = true
+
+# Configure the performance cache directory
+cacheDir = "./.bun-cache"
+
+# Configure the performance cache max age
+cacheMaxAge = 86400
+
+# Configure the performance cache max size
+cacheMaxSize = "1GB"
+
+[workspace]
+# Configure the workspace root
+root = "."
+
+# Configure the workspace packages
+packages = ["apps/*", "packages/*", "internals/*"]
+
+# Configure the workspace exclude
+exclude = ["node_modules", ".git", "dist", "build"]
+
+# Configure the workspace include
+include = ["**/package.json"]
+
+# Configure the workspace hoist
+hoist = true
+
+# Configure the workspace hoist pattern
+hoistPattern = ["@types/*", "@types/node", "@types/react", "@types/react-dom"]
+
+# Configure the workspace no hoist
+noHoist = []
+
+# Configure the workspace link
+link = true
+
+# Configure the workspace prefer workspace
+preferWorkspace = true
+
+# Configure the workspace strict
+strict = true
+
+[debug]
+# Configure the debug port
+port = 9229
+
+# Configure the debug host
+host = "localhost"
+
+# Configure the debug break
+break = false
+
+# Configure the debug inspect
+inspect = true
+
+# Configure the debug inspect brk
+inspectBrk = false
+
+# Configure the debug inspect wait
+inspectWait = false
+
+# Configure the debug source maps
+sourceMaps = true
+
+# Configure the debug async stack traces
+asyncStackTraces = true
+
+# Configure the debug trace
+trace = false
+
+[env]
+# Configure environment variables
+NODE_ENV = "development"
+
+# Configure development environment variables
+development = ["NODE_ENV=development", "DEBUG=*"]
+
+# Configure production environment variables
+production = ["NODE_ENV=production", "DEBUG=false"]
+
+# Configure test environment variables
+test = ["NODE_ENV=test", "DEBUG=false"]
+
+# Configure custom environment variables
+custom = ["BUN_CONFIG_NO_CLEAR_TERMINAL_ON_RELOAD=true"]

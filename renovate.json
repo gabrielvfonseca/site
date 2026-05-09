@@ -1,0 +1,151 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":automergeDigest",
+    ":automergeBranch",
+    "group:monorepos",
+    "group:recommended"
+  ],
+  "timezone": "UTC",
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies", "renovate"],
+  "assignees": ["@gabrielfonseca"],
+  "reviewers": ["@gabrielfonseca"],
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 2,
+  "rangeStrategy": "bump",
+  "rebaseWhen": "conflicted",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security", "renovate"],
+    "schedule": ["at any time"]
+  },
+  "npm": {
+    "rangeStrategy": "bump",
+    "lockFileMaintenance": {
+      "enabled": true
+    }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^package\\.json$"],
+      "matchStrings": [
+        "\"packageManager\":\\s*\"(?<manager>[^@]+)@(?<version>[^\"]+)\""
+      ],
+      "datasourceTemplate": "npm",
+      "depNameTemplate": "{{{manager}}}",
+      "versioningTemplate": "npm"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Group workspace dependencies together",
+      "groupName": "workspace dependencies",
+      "matchFileNames": ["packages/*/package.json"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "groupSlug": "workspace-deps"
+    },
+    {
+      "description": "Group internal packages together",
+      "groupName": "internal packages",
+      "matchDepTypes": ["dependencies"],
+      "matchPackagePrefixes": ["@gabfon/"],
+      "groupSlug": "internal-packages"
+    },
+    {
+      "description": "Automerge minor and patch updates for dev dependencies",
+      "automerge": true,
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Group TypeScript related packages",
+      "groupName": "TypeScript ecosystem",
+      "matchPackagePatterns": ["^@types/", "^typescript", "^ts-"],
+      "groupSlug": "typescript"
+    },
+    {
+      "description": "Group Next.js related packages",
+      "groupName": "Next.js ecosystem",
+      "matchPackagePatterns": ["^next", "^@next"],
+      "groupSlug": "nextjs"
+    },
+    {
+      "description": "Group React related packages",
+      "groupName": "React ecosystem",
+      "matchPackagePatterns": ["^react", "^@react", "^react-"],
+      "groupSlug": "react"
+    },
+    {
+      "description": "Group testing packages",
+      "groupName": "Testing packages",
+      "matchPackagePatterns": [
+        "^vitest",
+        "^@vitest",
+        "^@testing-library",
+        "^playwright",
+        "^cypress"
+      ],
+      "groupSlug": "testing"
+    },
+    {
+      "description": "Group linting and formatting packages",
+      "groupName": "Linting and formatting",
+      "matchPackagePatterns": [
+        "^eslint",
+        "^@eslint",
+        "^prettier",
+        "^biome",
+        "^@biome"
+      ],
+      "groupSlug": "linting"
+    },
+    {
+      "description": "Group build tools",
+      "groupName": "Build tools",
+      "matchPackagePatterns": [
+        "^turbo",
+        "^@vercel",
+        "^webpack",
+        "^rollup",
+        "^vite"
+      ],
+      "groupSlug": "build-tools"
+    },
+    {
+      "description": "Require approval for major updates",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "requiredStatusChecks": null
+    },
+    {
+      "description": "Stable updates only for production dependencies",
+      "matchDepTypes": ["dependencies"],
+      "minimumReleaseAge": "3 days",
+      "stabilityDays": 3
+    },
+    {
+      "description": "Faster updates for dev dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "minimumReleaseAge": "1 day",
+      "stabilityDays": 1
+    }
+  ],
+  "ignoreDeps": ["node"],
+  "constraints": {
+    "node": ">=20.0.0"
+  },
+  "postUpdateOptions": ["npmDedupe", "yarnDedupeHighest"],
+  "logLevel": "info",
+  "platform": "github",
+  "repositoryCache": "enabled",
+  "branchPrefix": "renovate/",
+  "dryRun": false
+}

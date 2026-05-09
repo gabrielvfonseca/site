@@ -1,0 +1,80 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": ["**/.env.*local", "package.json", "tsconfig.json"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "test/**/*.ts",
+        "test/**/*.tsx",
+        "*.config.*"
+      ]
+    },
+    "test:unit": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:e2e": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**", "test-results/**"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "lint:fix": {
+      "cache": false
+    },
+    "check": {
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": []
+    },
+    "analyze": {
+      "dependsOn": ["^analyze"],
+      "outputs": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "translate": {
+      "cache": false
+    },
+    "security": {
+      "cache": false
+    },
+    "security:all": {
+      "cache": false
+    },
+    "security:detailed": {
+      "cache": false
+    },
+    "security:scan": {
+      "cache": false
+    }
+  }
+}

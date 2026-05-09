@@ -1,0 +1,10 @@
+{
+  "buildCommand": "pnpm install && pnpm run build --filter=site",
+  "outputDirectory": "apps/www/.next",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "framework": "nextjs",
+  "crons": [],
+  "env": {
+    "ENABLE_EXPERIMENTAL_COREPACK": "1"
+  }
+}
