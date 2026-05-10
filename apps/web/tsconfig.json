@@ -34,9 +34,9 @@
     "next.config.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".source/**/*.ts",
     "tests/**/*.ts",
     "tests/**/*.tsx",
     ".next/types/**/*.ts"
-  ]
+  ],
+  "exclude": [".source/**/*"]
 }
