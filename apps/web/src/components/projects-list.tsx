@@ -59,7 +59,7 @@ export function ProjectsList({
       )}
     >
       <div
-        className="absolute rounded-lg border border-accent-2 bg-accent transition-all duration-300 ease-out"
+        className="absolute rounded-lg border border-border bg-accent transition-all duration-300 ease-out"
         style={{
           ...activePillStyle,
           opacity: hoveredIndex !== null ? 1 : 0,
