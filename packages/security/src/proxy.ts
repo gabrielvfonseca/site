@@ -9,15 +9,19 @@ export const noseconeOptions = {
   ...defaults,
   // Content Security Policy (CSP) configuration
   // In development, enable unsafe-eval for React's debugging features
-  contentSecurityPolicy: keys().NODE_ENV === 'development' ? {
-    directives: {
-      ...defaults.contentSecurityPolicy?.directives,
-      scriptSrc: [
-        ...(defaults.contentSecurityPolicy?.directives?.scriptSrc || ["'self'"] as const),
-        "'unsafe-eval'" as const, // Required for React development mode
-      ] as const,
-    },
-  } : false,
+  contentSecurityPolicy:
+    keys().NODE_ENV === 'development'
+      ? {
+          directives: {
+            ...defaults.contentSecurityPolicy?.directives,
+            scriptSrc: [
+              ...(defaults.contentSecurityPolicy?.directives?.scriptSrc ||
+                (["'self'"] as const)),
+              "'unsafe-eval'" as const, // Required for React development mode
+            ] as const,
+          },
+        }
+      : false,
 };
 
 /**
