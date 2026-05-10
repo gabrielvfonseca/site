@@ -39,7 +39,7 @@ export default function GlobalError({
   return (
     // global-error must include html and body tags
     <html className={fonts} lang="en">
-      <body>
+      <body className="bg-background text-foreground">
         <DesignSystemProvider>
           <main
             aria-describedby="global-error-description"

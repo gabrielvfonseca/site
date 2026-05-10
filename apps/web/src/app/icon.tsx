@@ -34,8 +34,8 @@ export const contentType: string = 'image/png';
  * The Icon for the site.
  * @returns The Icon for the site.
  */
-export default function Icon(): ImageResponse {
-  return new ImageResponse(
+const Icon = (): ImageResponse =>
+  new ImageResponse(
     // ImageResponse JSX element
     <div
       style={{
@@ -59,4 +59,5 @@ export default function Icon(): ImageResponse {
       ...size,
     }
   );
-}
+
+export default Icon;

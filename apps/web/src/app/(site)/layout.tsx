@@ -17,20 +17,19 @@ interface LayoutProps {
  * @param props - The LayoutProps.
  * @returns The Layout for the site.
  */
-export default function Layout({ children }: LayoutProps): JSX.Element {
-  return (
-    <div className="container mx-auto max-w-lg px-4 py-14 sm:max-w-xl sm:py-28">
-      <div className="min-h-screen">
-        <Header />
-        <main
-          aria-label="Main content"
-          className="mt-14 sm:mt-24"
-          id="main-content"
-        >
-          {children}
-        </main>
-      </div>
-      <Footer />
-    </div>
-  );
-}
+const Layout = ({ children }: LayoutProps): JSX.Element => (
+  <div className="container mx-auto max-w-xl px-4 py-14 sm:px-6 sm:py-28 md:max-w-2xl lg:px-8">
+    <Header />
+    <main
+      aria-label="Main content"
+      className="mt-14 focus:outline-none sm:mt-24"
+      id="main-content"
+      tabIndex={-1}
+    >
+      {children}
+    </main>
+    <Footer />
+  </div>
+);
+
+export default Layout;
