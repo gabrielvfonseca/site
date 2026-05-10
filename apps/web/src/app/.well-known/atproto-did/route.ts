@@ -1,7 +1,5 @@
 import { env } from '../../../config/env';
 
-export const runtime = 'edge';
-
 /**
  * The GET function for the route.
  * @returns The response for the route.

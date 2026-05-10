@@ -3,8 +3,7 @@ import { spotifyClient } from '@gabfon/spotify';
 import { stravaClient } from '@gabfon/strava';
 import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 300; // 5 minutes
+const METERS_TO_KILOMETERS = 1000;
 
 export async function GET() {
   try {
@@ -24,7 +23,7 @@ export async function GET() {
         recentlyPlayed: recentSpotify,
       },
       strava: {
-        weeklyDistance: strava / 1000, // convert meters to km
+        weeklyDistance: strava / METERS_TO_KILOMETERS, // convert meters to km
       },
       github: {
         totalContributions: github?.totalContributions || 0,
