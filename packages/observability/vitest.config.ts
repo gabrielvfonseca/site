@@ -1,6 +1,6 @@
-import { defineConfig } from 'vitest/config';
-import { testingConfig } from '@gabfon/testing';
 import path from 'node:path';
+import { testingConfig } from '@gabfon/testing';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   ...testingConfig,
