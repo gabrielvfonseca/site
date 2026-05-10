@@ -1,8 +1,8 @@
 import { AnalyticsProvider } from '@gabfon/analytics';
-import type { ThemeProviderProps } from 'next-themes';
 import type { JSX } from 'react';
 import { Toaster } from './components/toaster';
 import { TooltipProvider } from './components/tooltip';
+import type { ThemeProviderProps } from './providers/theme';
 import { ThemeProvider } from './providers/theme';
 
 interface DesignSystemProviderProperties extends ThemeProviderProps {

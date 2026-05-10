@@ -3,10 +3,12 @@ import {
   type ThemeProviderProps as NextThemeProviderProps,
 } from 'next-themes';
 
+export interface ThemeProviderProps extends NextThemeProviderProps {}
+
 export const ThemeProvider = ({
   children,
   ...properties
-}: NextThemeProviderProps) => (
+}: ThemeProviderProps) => (
   <NextThemeProvider
     attribute="class"
     defaultTheme="system"

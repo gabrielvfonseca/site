@@ -21,7 +21,6 @@ export function PostHogProvider(
   properties: Omit<PostHogProviderProps, 'client'>
 ) {
   useEffect(() => {
-    
     // Only initialize PostHog if the key is available
     if (NEXT_PUBLIC_POSTHOG_KEY) {
       posthog.init(NEXT_PUBLIC_POSTHOG_KEY, {
