@@ -1,7 +1,7 @@
 {
   "$schema": "https://code.claude.com/attribution-schema.json",
   "version": "1.0.0",
-  
+
   "attribution": {
     "commit": {
       "enabled": true,
@@ -28,7 +28,7 @@
       "categorize": true,
       "categories": {
         "feat": "Features",
-        "fix": "Bug Fixes", 
+        "fix": "Bug Fixes",
         "docs": "Documentation",
         "style": "Style Changes",
         "refactor": "Code Refactoring",
@@ -37,7 +37,7 @@
       }
     }
   },
-  
+
   "hooks": {
     "allowManagedHooksOnly": false,
     "allowedHttpHookUrls": [
@@ -81,7 +81,7 @@
           }
         ]
       },
-      
+
       "pre-push": {
         "enabled": true,
         "commands": [
@@ -99,7 +99,7 @@
           }
         ]
       },
-      
+
       "post-commit": {
         "enabled": true,
         "commands": [
@@ -112,7 +112,7 @@
           }
         ]
       },
-      
+
       "pre-deploy": {
         "enabled": true,
         "commands": [
@@ -136,7 +136,7 @@
           }
         ]
       },
-      
+
       "post-deploy": {
         "enabled": true,
         "commands": [
@@ -156,7 +156,7 @@
           }
         ]
       },
-      
+
       "file-change": {
         "enabled": true,
         "commands": [
@@ -187,7 +187,7 @@
         ]
       }
     },
-    
+
     "webhooks": {
       "github": {
         "enabled": true,
@@ -201,23 +201,16 @@
         ],
         "secret": "${GITHUB_WEBHOOK_SECRET}",
         "actions": {
-          "push": [
-            "trigger-ci",
-            "update-docs",
-            "notify-team"
-          ],
+          "push": ["trigger-ci", "update-docs", "notify-team"],
           "pull_request": [
             "run-pr-checks",
             "add-ai-labels",
             "generate-preview"
           ],
-          "pull_request_review": [
-            "update-pr-status",
-            "merge-if-ready"
-          ]
+          "pull_request_review": ["update-pr-status", "merge-if-ready"]
         }
       },
-      
+
       "vercel": {
         "enabled": true,
         "url": "https://api.vercel.com/v1/webhooks",
@@ -244,14 +237,11 @@
           ]
         }
       },
-      
+
       "sentry": {
         "enabled": true,
         "url": "https://sentry.io/api/hooks",
-        "events": [
-          "error.created",
-          "issue.created"
-        ],
+        "events": ["error.created", "issue.created"],
         "secret": "${SENTRY_WEBHOOK_SECRET}",
         "actions": {
           "error.created": [
@@ -267,7 +257,7 @@
         }
       }
     },
-    
+
     "customHooks": [
       {
         "name": "ai-code-review",
@@ -300,7 +290,7 @@
       }
     ]
   },
-  
+
   "automation": {
     "enabled": true,
     "autoMerge": {
@@ -355,7 +345,7 @@
       ]
     }
   },
-  
+
   "notifications": {
     "enabled": true,
     "channels": {
@@ -409,7 +399,7 @@
       }
     }
   },
-  
+
   "reporting": {
     "enabled": true,
     "reports": {

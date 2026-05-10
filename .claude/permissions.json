@@ -1,11 +1,11 @@
 {
   "$schema": "https://code.claude.com/permissions-schema.json",
   "version": "1.0.0",
-  
+
   "defaultMode": "acceptEdits",
   "bypassPermissions": "disable",
   "disableBypassPermissionsMode": "disable",
-  
+
   "permissions": {
     "allow": [
       "Bash(bun *)",
@@ -63,7 +63,7 @@
       "TodoList",
       "Skill"
     ],
-    
+
     "ask": [
       "Bash(git push *)",
       "Bash(git pull --rebase)",
@@ -108,7 +108,7 @@
       "Bash(bun run test:e2e:prod)",
       "Bash(bun run test:e2e:staging)"
     ],
-    
+
     "deny": [
       "Read(./.env)",
       "Read(./.env.local)",
@@ -196,14 +196,14 @@
       "ReadUrlContent(*)"
     ]
   },
-  
+
   "additionalDirectories": [
     "../docs/",
     "../shared/",
     "../packages/",
     "../tools/"
   ],
-  
+
   "security": {
     "sensitivePatterns": [
       "**/.env*",
@@ -224,7 +224,7 @@
       "**/auth*",
       "**/credential*"
     ],
-    
+
     "allowedDomains": [
       "github.com",
       "api.github.com",
@@ -248,14 +248,14 @@
       "web.dev",
       "code.claude.com"
     ],
-    
+
     "blockedDomains": [
       "malicious-site.com",
       "phishing-site.com",
       "*.malware.com",
       "*.virus.com"
     ],
-    
+
     "commandRestrictions": {
       "allowSudo": false,
       "allowSystemCommands": false,
@@ -266,7 +266,7 @@
       "maxExecutionTime": 300
     }
   },
-  
+
   "contexts": {
     "development": {
       "description": "Development environment permissions",
@@ -279,12 +279,9 @@
         "Bash(bun run lint:fix)",
         "Bash(bun run typecheck)"
       ],
-      "ask": [
-        "Bash(bun run deploy)",
-        "Bash(bun run test:e2e)"
-      ]
+      "ask": ["Bash(bun run deploy)", "Bash(bun run test:e2e)"]
     },
-    
+
     "testing": {
       "description": "Testing environment permissions",
       "allow": [
@@ -296,12 +293,9 @@
         "Bash(bun run storybook)",
         "Bash(bun run build-storybook)"
       ],
-      "ask": [
-        "Bash(bun run test:e2e:prod)",
-        "Bash(bun run test:e2e:staging)"
-      ]
+      "ask": ["Bash(bun run test:e2e:prod)", "Bash(bun run test:e2e:staging)"]
     },
-    
+
     "deployment": {
       "description": "Deployment environment permissions",
       "allow": [
@@ -318,7 +312,7 @@
         "Bash(git push *)"
       ]
     },
-    
+
     "cms": {
       "description": "CMS operations permissions",
       "allow": [
@@ -338,7 +332,7 @@
       ]
     }
   },
-  
+
   "audit": {
     "enabled": true,
     "logLevel": "info",
@@ -353,7 +347,7 @@
       "sensitiveAccess": 1
     }
   },
-  
+
   "compliance": {
     "gdpr": true,
     "soc2": true,
@@ -364,7 +358,7 @@
     "encryptionAtRest": true,
     "encryptionInTransit": true
   },
-  
+
   "monitoring": {
     "realTimeAlerts": true,
     "dailyReports": true,
@@ -377,7 +371,7 @@
       "notificationChannels": ["email", "slack"]
     }
   },
-  
+
   "workflows": {
     "development": {
       "permissions": "development",

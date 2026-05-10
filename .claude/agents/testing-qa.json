@@ -13,12 +13,7 @@
     "performanceTesting",
     "codeCoverage"
   ],
-  "tools": [
-    "fileSystem",
-    "terminal",
-    "browserPreview",
-    "codeAnalysis"
-  ],
+  "tools": ["fileSystem", "terminal", "browserPreview", "codeAnalysis"],
   "permissions": {
     "allow": [
       "Read(src/**/*)",
@@ -32,10 +27,7 @@
       "Bash(bun run test:e2e)",
       "Bash(bun run storybook)"
     ],
-    "ask": [
-      "Bash(bun run test:e2e:prod)",
-      "Write(tests/e2e/**/*)"
-    ]
+    "ask": ["Bash(bun run test:e2e:prod)", "Write(tests/e2e/**/*)"]
   },
   "context": {
     "projectType": "nextjs",
@@ -43,8 +35,5 @@
     "testingFrameworks": ["Vitest", "Testing Library", "Playwright"],
     "coverageThreshold": 80
   },
-  "workflows": [
-    "./workflows/testing.md",
-    "./workflows/code-review.md"
-  ]
+  "workflows": ["./workflows/testing.md", "./workflows/code-review.md"]
 }

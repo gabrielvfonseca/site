@@ -1,7 +1,7 @@
 {
   "$schema": "https://code.claude.com/environment-schema.json",
   "version": "1.0.0",
-  
+
   "environmentVariables": {
     "development": {
       "description": "Development environment configuration",
@@ -109,7 +109,7 @@
         }
       }
     },
-    
+
     "production": {
       "description": "Production environment configuration",
       "variables": {
@@ -208,7 +208,7 @@
         }
       }
     },
-    
+
     "testing": {
       "description": "Testing environment configuration",
       "variables": {
@@ -252,7 +252,7 @@
       }
     }
   },
-  
+
   "validation": {
     "schemas": {
       "url": {
@@ -273,7 +273,7 @@
       }
     }
   },
-  
+
   "security": {
     "encryption": {
       "enabled": true,
@@ -291,7 +291,7 @@
       "dataResidency": "EU"
     }
   },
-  
+
   "workflows": {
     "development": {
       "environment": "development",
@@ -312,7 +312,7 @@
       "requireApproval": true
     }
   },
-  
+
   "integration": {
     "vercel": {
       "syncEnvironmentVariables": true,
@@ -332,7 +332,7 @@
       "autoGenerateTokens": false
     }
   },
-  
+
   "monitoring": {
     "usageTracking": {
       "enabled": true,

@@ -12,12 +12,7 @@
     "accessibilityReview",
     "performanceOptimization"
   ],
-  "tools": [
-    "fileSystem",
-    "terminal",
-    "webSearch",
-    "codeAnalysis"
-  ],
+  "tools": ["fileSystem", "terminal", "webSearch", "codeAnalysis"],
   "permissions": {
     "allow": [
       "Read(src/**/*)",
@@ -28,10 +23,7 @@
       "Bash(bun run dev)",
       "Bash(bun run build)"
     ],
-    "ask": [
-      "Bash(bun run deploy)",
-      "Write(public/**/*)"
-    ]
+    "ask": ["Bash(bun run deploy)", "Write(public/**/*)"]
   },
   "context": {
     "projectType": "nextjs",
@@ -41,8 +33,5 @@
     "components": "shadcn/ui",
     "cms": "Sanity"
   },
-  "workflows": [
-    "./workflows/development.md",
-    "./workflows/testing.md"
-  ]
+  "workflows": ["./workflows/development.md", "./workflows/testing.md"]
 }

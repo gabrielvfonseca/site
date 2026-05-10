@@ -1,7 +1,7 @@
 {
   "$schema": "https://code.claude.com/settings-schema.json",
   "version": "1.0.0",
-  
+
   "permissions": {
     "defaultMode": "acceptEdits",
     "allow": [

@@ -12,12 +12,7 @@
     "securityImplementation",
     "performanceOptimization"
   ],
-  "tools": [
-    "fileSystem",
-    "terminal",
-    "webSearch",
-    "codeAnalysis"
-  ],
+  "tools": ["fileSystem", "terminal", "webSearch", "codeAnalysis"],
   "permissions": {
     "allow": [
       "Read(src/**/*)",
@@ -29,10 +24,7 @@
       "Bash(bun run dev)",
       "Bash(sanity *)"
     ],
-    "ask": [
-      "Write(.env*)",
-      "Bash(sanity deploy)"
-    ]
+    "ask": ["Write(.env*)", "Bash(sanity deploy)"]
   },
   "context": {
     "projectType": "nextjs",
@@ -41,8 +33,5 @@
     "cms": "Sanity",
     "deployment": "Vercel"
   },
-  "workflows": [
-    "./workflows/deployment.md",
-    "./workflows/debugging.md"
-  ]
+  "workflows": ["./workflows/deployment.md", "./workflows/debugging.md"]
 }
