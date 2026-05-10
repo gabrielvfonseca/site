@@ -18,7 +18,9 @@
       "@gabfon/rate-limit/*": ["../../packages/rate-limit/src/*"],
       "@gabfon/security/*": ["../../packages/security/src/*"],
       "@gabfon/next-config/*": ["../../packages/next-config/src/*"],
-      "@gabfon/typescript-config/*": ["../../internals/typescript-config/src/*"],
+      "@gabfon/typescript-config/*": [
+        "../../internals/typescript-config/src/*"
+      ],
       "@gabfon/cache/*": ["../../packages/cache/src/*"],
       "@gabfon/design-system/*": ["../../packages/design-system/src/*"],
       "@gabfon/github/*": ["../../packages/github/src/*"],
