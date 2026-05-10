@@ -4,7 +4,7 @@ export const projectSchema = z.object({
   title: z.string(),
   description: z.string(),
   date: z.string().optional(),
-  link: z.url().optional(),
+  link: z.string().url().optional(),
   slug: z.string(),
 });
 
