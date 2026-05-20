@@ -10,10 +10,10 @@ import { hasProjects } from '@/utils/project';
  * The Page for the site.
  * @returns The Page for the site.
  */
-export default async function Page(): Promise<JSX.Element> {
+export default function Page(): JSX.Element {
   // Check if there are posts and projects
-  const posts: boolean = await hasPublishedPosts();
-  const projects: boolean = await hasProjects();
+  const posts: boolean = hasPublishedPosts();
+  const projects: boolean = hasProjects();
 
   return (
     <div className="flex flex-col gap-12">
@@ -23,7 +23,7 @@ export default async function Page(): Promise<JSX.Element> {
           Engineering student at{' '}
           <Link
             aria-label="NOVA School of Science and Technology (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href="https://www.fct.unl.pt"
             rel="noopener noreferrer"
             target="_blank"
@@ -37,7 +37,7 @@ export default async function Page(): Promise<JSX.Element> {
           I'm currently building an{' '}
           <Link
             aria-label="AI-powered platform (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
@@ -49,7 +49,7 @@ export default async function Page(): Promise<JSX.Element> {
           & CEO of{' '}
           <Link
             aria-label="Frontal (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
@@ -64,7 +64,7 @@ export default async function Page(): Promise<JSX.Element> {
           freelance and{' '}
           <Link
             aria-label="personal projects"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href="/projects"
             rel="noopener noreferrer"
             title="personal projects"
@@ -74,7 +74,7 @@ export default async function Page(): Promise<JSX.Element> {
           , always seeking to solve real-world problems creatively. I regularly{' '}
           <Link
             aria-label="write posts"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href="/posts"
             rel="noopener noreferrer"
             title="write posts"
@@ -84,7 +84,7 @@ export default async function Page(): Promise<JSX.Element> {
           about my experiences and believe in{' '}
           <Link
             aria-label="building in public (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href={CONFIG.social.twitter}
             rel="noopener noreferrer"
             target="_blank"
@@ -100,7 +100,7 @@ export default async function Page(): Promise<JSX.Element> {
           I'm{' '}
           <Link
             aria-label="open to connecting (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href={CONFIG.social.linkedin}
             rel="noopener noreferrer"
             target="_blank"
@@ -113,7 +113,7 @@ export default async function Page(): Promise<JSX.Element> {
           out on{' '}
           <Link
             aria-label="Twitter (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href={CONFIG.social.twitter}
             rel="noopener noreferrer"
             target="_blank"
@@ -124,7 +124,7 @@ export default async function Page(): Promise<JSX.Element> {
           ,{' '}
           <Link
             aria-label="LinkedIn (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href={CONFIG.social.linkedin}
             rel="noopener noreferrer"
             target="_blank"
@@ -135,7 +135,7 @@ export default async function Page(): Promise<JSX.Element> {
           , or{' '}
           <Link
             aria-label="GitHub (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href={CONFIG.social.github}
             rel="noopener noreferrer"
             target="_blank"
@@ -146,7 +146,7 @@ export default async function Page(): Promise<JSX.Element> {
           . If you'd like to schedule a meeting or a quick call, you can do so{' '}
           <Link
             aria-label="Schedule a meeting (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href={CONFIG.schedule}
             rel="noopener noreferrer"
             target="_blank"
@@ -157,7 +157,7 @@ export default async function Page(): Promise<JSX.Element> {
           {' or '}
           <Link
             aria-label="Email me (opens in a new tab)"
-            className="text-link hover:text-link/80"
+            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             href={CONFIG.email}
             rel="noopener noreferrer"
             target="_blank"
@@ -245,9 +245,9 @@ export default async function Page(): Promise<JSX.Element> {
         </section>
       )}
 
-      <section className="mt-8 grid gap-4 border-accent-2 border-t pt-8 sm:grid-cols-2">
+      <section className="mt-8 grid gap-4 border-border border-t pt-8 sm:grid-cols-2">
         <Link
-          className="group flex flex-col gap-2 rounded-xl border border-accent-2 p-4 transition-colors hover:bg-accent"
+          className="group flex flex-col gap-2 rounded-xl border border-border p-4 transition-colors hover:bg-accent"
           href="/now"
         >
           <div className="flex items-center justify-between">
@@ -262,7 +262,7 @@ export default async function Page(): Promise<JSX.Element> {
           </p>
         </Link>
         <Link
-          className="group flex flex-col gap-2 rounded-xl border border-accent-2 border-blue-500/20 bg-blue-500/5 p-4 transition-colors hover:bg-accent"
+          className="group flex flex-col gap-2 rounded-xl border border-blue-500/20 border-border bg-blue-500/5 p-4 transition-colors hover:bg-accent"
           href="/ai"
         >
           <div className="flex items-center justify-between">
