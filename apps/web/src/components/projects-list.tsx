@@ -59,7 +59,7 @@ export function ProjectsList({
       )}
     >
       <div
-        className="absolute rounded-lg border border-border bg-accent transition-all duration-300 ease-out"
+        className="absolute rounded-sm border border-border bg-accent transition-all duration-300 ease-out"
         style={{
           ...activePillStyle,
           opacity: hoveredIndex !== null ? 1 : 0,
@@ -68,7 +68,7 @@ export function ProjectsList({
       <div className="relative flex w-full flex-col flex-col items-start gap-2">
         {items.map((item, index: number) => (
           <Link
-            className="group inline-block w-full rounded-lg px-3 py-3 text-left transition-colors duration-300"
+            className="group inline-block w-full rounded-sm px-3 py-3 text-left transition-colors duration-300"
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
