@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import type { JSX } from 'react';
 import { PostsList } from '@/components/posts-list';
 import { meta } from '@/constants/metadata';
-import { source } from '@/lib/source';
+import { getPosts } from '@/lib/content-index';
 import type { Post } from '@/models/post.model';
 
 /**
@@ -21,13 +21,7 @@ export const metadata: Metadata = createMetadata({
  * @returns The Page for the site.
  */
 export default function Page(): JSX.Element {
-  const allPosts: Post[] = source.getPages('posts').map((page) => ({
-    slug: page.slugs.join('/'),
-    title: page.data.title as string,
-    description: page.data.description as string,
-    date: page.data.date,
-    url: page.url,
-  }));
+  const allPosts: Post[] = getPosts();
 
   const jsonLd: WithContext<Blog> = {
     '@type': 'Blog',
