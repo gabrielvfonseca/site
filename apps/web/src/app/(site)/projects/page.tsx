@@ -1,10 +1,12 @@
+import { JsonLd, type WithContext } from '@gabfon/seo/json-ld';
 import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import type { JSX } from 'react';
 import { ProjectsList } from '@/components/projects-list';
 import { meta } from '@/constants/metadata';
-import { source } from '@/lib/source';
+import { getProjects } from '@/lib/content-index';
 import type { Project } from '@/models/project.model';
+import { generatePersonStructuredData } from '@/utils/structured-data';
 
 /**
  * The metadata for the site.
@@ -20,13 +22,8 @@ export const metadata: Metadata = createMetadata({
  * @returns The Page for the site.
  */
 export default function Page(): JSX.Element {
-  const projects: Project[] = source.getPages('projects').map((page) => ({
-    slug: page.slugs.join('/'),
-    title: page.data.title as string,
-    description: page.data.description as string,
-    date: page.data.date,
-    url: page.url,
-  }));
+  const projectsList: Project[] = getProjects();
+  const personStructuredData = generatePersonStructuredData();
 
   return (
     <div className="flex flex-col gap-4">
@@ -34,8 +31,11 @@ export default function Page(): JSX.Element {
         List of Projects
       </h2>
       <div className="grid grid-cols-1 items-start md:grid-cols-12">
-        <ProjectsList className="-mx-3 col-span-12" items={projects} />
+        <ProjectsList className="-mx-3 col-span-12" items={projectsList} />
       </div>
+      <JsonLd
+        code={personStructuredData as WithContext<Record<string, unknown>>}
+      />
     </div>
   );
 }
