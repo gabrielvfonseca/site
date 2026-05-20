@@ -55,7 +55,7 @@ export const GitHubEventSchema = z.object({
     name: z.string(),
     url: z.string(),
   }),
-  payload: z.record(z.unknown()),
+  payload: z.record(z.string(), z.unknown()),
   created_at: z.string(),
   public: z.boolean(),
 });
@@ -91,7 +91,7 @@ export const GitHubContributionCalendarSchema = z.object({
 export const GitHubApiResponseSchema = z.object({
   data: z.unknown(),
   status: z.number(),
-  headers: z.record(z.string()),
+  headers: z.record(z.string(), z.string()),
 });
 
 /**

@@ -277,11 +277,11 @@ export const StravaAchievementSchema = z.object({
 export const StravaApiResponseSchema = z.object({
   data: z.unknown(),
   status: z.number(),
-  headers: z.record(z.string()),
+  headers: z.record(z.string(), z.string()),
 });
 
 /**
- * Export types
+ * Types for Strava API
  */
 export type StravaAthlete = z.infer<typeof StravaAthleteSchema>;
 export type StravaAthleteStats = z.infer<typeof StravaAthleteStatsSchema>;

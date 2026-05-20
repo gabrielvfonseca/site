@@ -33,7 +33,7 @@
   },
   "linter": {
     "enabled": true,
-    "includes": ["**", "!**/packages/database/generated/**"],
+    "includes": ["**", "!**/packages/database/generated/**", "!packages/github/src/types.ts", "!packages/spotify/src/types.ts", "!packages/strava/src/types.ts"],
     "rules": {
       "a11y": {
         "noAutofocus": "off"

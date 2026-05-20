@@ -43,7 +43,7 @@ export const SpotifyCurrentlyPlayingSchema = z.object({
   item: SpotifyTrackSchema.nullable(),
   currently_playing_type: z.string(),
   actions: z.object({
-    disallows: z.record(z.boolean()),
+    disallows: z.record(z.string(), z.boolean()),
   }),
 });
 
@@ -139,7 +139,7 @@ export const SpotifyAudioFeaturesSchema = z.object({
 export const SpotifyApiResponseSchema = z.object({
   data: z.unknown(),
   status: z.number(),
-  headers: z.record(z.string()),
+  headers: z.record(z.string(), z.string()),
 });
 
 /**
