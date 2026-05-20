@@ -1,9 +1,7 @@
 'use client';
 
 import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import type { ReactNode } from 'react';
-import { env } from '@/config/env';
+import type { JSX, ReactNode } from 'react';
 import { queryClient } from '@/lib/query-client';
 
 /**
@@ -21,13 +19,8 @@ interface QueryProviderProps {
  * @param props - The QueryProviderProps.
  * @returns The QueryProvider for the QueryProvider.
  */
-export function QueryProvider({ children }: QueryProviderProps) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      {env.NODE_ENV === 'development' && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
-    </QueryClientProvider>
-  );
-}
+const QueryProvider = ({ children }: QueryProviderProps): JSX.Element => (
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+);
+
+export { QueryProvider };
