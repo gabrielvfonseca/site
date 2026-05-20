@@ -1,4 +1,4 @@
-import { JsonLd, type WithContext } from '@gabfon/seo/json-ld';
+import { JsonLd, type Thing, type WithContext } from '@gabfon/seo/json-ld';
 import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import type { JSX } from 'react';
@@ -33,9 +33,7 @@ export default function Page(): JSX.Element {
       <div className="grid grid-cols-1 items-start md:grid-cols-12">
         <ProjectsList className="-mx-3 col-span-12" items={projectsList} />
       </div>
-      <JsonLd
-        code={personStructuredData as WithContext<Record<string, unknown>>}
-      />
+      <JsonLd code={personStructuredData as WithContext<Thing>} />
     </div>
   );
 }
