@@ -5,7 +5,7 @@ export const projectSchema = z.object({
   description: z.string(),
   date: z.string().optional(),
   link: z.string().url().optional(),
-  slug: z.string(),
+  slug: z.string().optional(),
 });
 
 export type Project = z.infer<typeof projectSchema>;
