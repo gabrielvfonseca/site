@@ -5,7 +5,7 @@ export const postSchema = z.object({
   description: z.string(),
   date: z.string().optional(),
   author: z.string().optional(),
-  slug: z.string(),
+  slug: z.string().optional(),
 });
 
 export type Post = z.infer<typeof postSchema>;
