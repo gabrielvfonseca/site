@@ -6,12 +6,12 @@ import { Label } from '@gabfon/design-system/components/label';
 import { Textarea } from '@gabfon/design-system/components/textarea';
 import { toast } from '@gabfon/design-system/components/toaster';
 import { useTransition } from 'react';
-import { sendContactEmail } from '@/actions/contact.actions';
+import { sendContactEmail } from '@/app/actions/contact/actions';
 
 export function ContactForm() {
   const [isPending, startTransition] = useTransition();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = {
@@ -38,6 +38,14 @@ export function ContactForm() {
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        className="sr-only"
+        id="form-status"
+      >
+        {isPending ? 'Sending message...' : ''}
+      </div>
       <div className="flex flex-col gap-2">
         <Label htmlFor="name">Name</Label>
         <Input
