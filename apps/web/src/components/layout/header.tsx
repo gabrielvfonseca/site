@@ -9,10 +9,10 @@ import { CONFIG } from '@/constants/config';
 export function Header(): JSX.Element {
   return (
     <header className="flex w-full items-center justify-between tracking-tight">
-      <div className="flex flex-col items-start">
+      <nav aria-label="Main navigation" className="flex flex-col items-start">
         <Link
-          aria-label={CONFIG.name}
-          className="mb-px inline-block font-medium text-foreground no-underline"
+          aria-label={`${CONFIG.name} - Home`}
+          className="mb-px inline-block rounded font-medium text-foreground no-underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           href="/"
           title={CONFIG.name}
         >
@@ -21,7 +21,7 @@ export function Header(): JSX.Element {
         <p className="font-medium text-muted-foreground/75 leading-none">
           {CONFIG.title}
         </p>
-      </div>
+      </nav>
     </header>
   );
 }
