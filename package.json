@@ -30,6 +30,7 @@
     "next@>=15.0.0-canary.0 <15.4.7": ">=15.4.7"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo build",
     "dev": "turbo dev",
     "test": "turbo test -- --run",
@@ -86,6 +87,18 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "ultracite lint",
+      "ultracite format"
+    ],
+    "*.json": [
+      "ultracite format"
+    ],
+    "*.{yaml,yml}": [
+      "ultracite format"
+    ],
+    "*.md": [
+      "ultracite format"
+    ],
+    "*.{css,scss}": [
       "ultracite format"
     ]
   },
