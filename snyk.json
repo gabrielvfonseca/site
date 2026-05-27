@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json.schemastore.org/snyk.json",
+  "version": "1.0.0",
+  "language": "javascript",
+  "packageManager": "pnpm",
+  "monitor": {
+    "devDependencies": true,
+    "peerDependencies": true,
+    "optionalDependencies": true,
+    "bundledDependencies": true
+  },
+  "test": {
+    "failOn": "high",
+    "devDependencies": true,
+    "peerDependencies": true
+  },
+  "patch": {
+    "autoPatch": false,
+    "minSeverity": "medium"
+  },
+  "code": {
+    "enabled": true,
+    "failOn": "high",
+    "includeTests": true,
+    "includeConfig": true
+  },
+  "severity": {
+    "low": {
+      "enabled": true,
+      "failOn": false
+    },
+    "medium": {
+      "enabled": true,
+      "failOn": true
+    },
+    "high": {
+      "enabled": true,
+      "failOn": true
+    },
+    "critical": {
+      "enabled": true,
+      "failOn": true
+    }
+  },
+  "exclude": {
+    "paths": [
+      "node_modules/**",
+      ".next/**",
+      "dist/**",
+      "build/**",
+      ".turbo/**",
+      "coverage/**",
+      "*.min.js",
+      "*.bundle.js"
+    ],
+    "files": [
+      "*.test.js",
+      "*.spec.js",
+      "*.test.ts",
+      "*.spec.ts",
+      "*.test.tsx",
+      "*.spec.tsx"
+    ]
+  },
+  "ignore": {
+    "vulnerabilities": [],
+    "paths": []
+  },
+  "patches": {}
+}

@@ -1,0 +1,36 @@
+{
+  "format": "keepachangelog",
+  "includeAuthors": false,
+  "includeCommitHashes": true,
+  "groupByScope": false,
+  "sortOrder": "date",
+  "templates": {
+    "package": "# {packageName} v{version}\n({date})\n\n{content}",
+    "global": "# v{version}\n({date})\n\n{content}"
+  },
+  "sections": {
+    "feat": "✨ Features",
+    "fix": "🐛 Bug Fixes",
+    "docs": "📚 Documentation",
+    "style": "💄 Styles",
+    "refactor": "♻️ Code Refactoring",
+    "perf": "⚡ Performance Improvements",
+    "test": "🧪 Tests",
+    "build": "🔨 Build System",
+    "ci": "👷 Continuous Integration",
+    "chore": "🔧 Chores",
+    "revert": "⏪ Reverts"
+  },
+  "breakingChangeLabel": "⚠️ Breaking Changes",
+  "ignorePatterns": [
+    "chore: update dependencies",
+    "chore: bump version",
+    "chore: release"
+  ],
+  "packagePaths": {
+    "packages": "packages/*",
+    "apps": "apps/*"
+  },
+  "excludePackages": [],
+  "includeRootChanges": true
+}
