@@ -3,6 +3,32 @@
 /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @source "../**/*.{ts,tsx}";
 
+/* Define base CSS custom properties for light mode */
+@layer base {
+  :root {
+    --foreground: 0 0 0;
+    --muted-foreground: 100 116 139;
+    --background-200: 255 255 255;
+    --background-100: 255 255 255;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground: 255 255 255;
+      --muted-foreground: 148 163 184;
+      --background-200: 15 23 42;
+      --background-100: 30 41 59;
+    }
+  }
+
+  .dark {
+    --foreground: 255 255 255;
+    --muted-foreground: 148 163 184;
+    --background-200: 15 23 42;
+    --background-100: 30 41 59;
+  }
+}
+
 /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @custom-variant dark (&:is(.dark *));
 
@@ -11,8 +37,10 @@
   --font-sans: var(--font-inter);
   --font-mono: var(--font-ibm-plex-mono);
 
-  --color-background: var(--background-200);
-  --color-background-100: var(--background-100);
+  --color-foreground: rgb(var(--foreground) / 1);
+  --color-muted-foreground: rgb(var(--muted-foreground) / 1);
+  --color-background: rgb(var(--background-200) / 1);
+  --color-background-100: rgb(var(--background-100) / 1);
 
   --color-high-contrast-background: var(--high-contrast-background);
   --color-high-contrast-background-hover: var(--high-contrast-background-hover);
