@@ -1,18 +1,13 @@
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 import { parseError } from '@gabfon/observability';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { readFile } from 'fs/promises';
 import { type NextRequest, NextResponse } from 'next/server';
-import path from 'path';
 import { z } from 'zod';
 import { checkRateLimit } from '@/lib/rate-limit';
 
-// Validate API key on initialization
-const apiKey = process.env.GOOGLE_API_KEY;
-if (!apiKey) {
-  throw new Error('GOOGLE_API_KEY environment variable is required');
-}
-
-const genAi = new GoogleGenerativeAI(apiKey);
+const MAX_MESSAGE_LENGTH = 10_000;
+const MAX_HISTORY_LENGTH = 50;
 
 // Validation schema for chat request
 const ChatMessageSchema = z.object({
@@ -20,18 +15,27 @@ const ChatMessageSchema = z.object({
   content: z
     .string()
     .min(1, 'Message cannot be empty')
-    .max(10_000, 'Message exceeds 10,000 character limit'),
+    .max(MAX_MESSAGE_LENGTH, 'Message exceeds 10,000 character limit'),
 });
 
 const ChatRequestSchema = z.object({
   messages: z
     .array(ChatMessageSchema)
     .min(1, 'At least one message is required')
-    .max(50, 'Message history exceeds 50 messages'),
+    .max(MAX_HISTORY_LENGTH, 'Message history exceeds 50 messages'),
 });
 
 export async function POST(req: NextRequest) {
   try {
+    // Validate API key at runtime
+    const apiKey = process.env.GOOGLE_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'Chat service is not configured. GOOGLE_API_KEY is missing.' },
+        { status: 503 }
+      );
+    }
+
     // Check rate limit
     const rateLimitCheck = await checkRateLimit(req, 'chat');
     if (!rateLimitCheck.success && rateLimitCheck.response) {
@@ -57,6 +61,7 @@ export async function POST(req: NextRequest) {
     const dataPath = path.join(process.cwd(), 'src/app/api/chat/data.txt');
     const data = await readFile(dataPath, 'utf-8');
 
+    const genAi = new GoogleGenerativeAI(apiKey);
     const model = genAi.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const chat = model.startChat({
@@ -66,7 +71,13 @@ export async function POST(req: NextRequest) {
       })),
     });
 
-    const userMessage = messages[messages.length - 1].content;
+    const userMessage = messages.at(-1)?.content;
+    if (!userMessage) {
+      return NextResponse.json(
+        { error: 'User message is required' },
+        { status: 400 }
+      );
+    }
 
     const result = await chat.sendMessageStream(
       `You are a helpful AI assistant that can answer questions based on the provided context.
