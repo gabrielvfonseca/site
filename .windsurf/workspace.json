@@ -1,0 +1,135 @@
+{
+  "name": "gabfon-site",
+  "description": "Gabriel Fonseca's personal site monorepo",
+  "version": "0.1.0",
+  "author": "Gabriel Fonseca <hey@gabfon.com>",
+  "repository": "https://github.com/gabrielvfonseca/site",
+  "packageManager": "bun@1.2.14",
+  "workspace": {
+    "apps": [
+      {
+        "name": "www",
+        "path": "apps/www",
+        "description": "Main website application",
+        "type": "next-app",
+        "port": 3000
+      },
+      {
+        "name": "studio",
+        "path": "apps/studio",
+        "description": "Studio/admin application",
+        "type": "next-app",
+        "port": 3001
+      }
+    ],
+    "packages": [
+      {
+        "name": "ai",
+        "path": "packages/ai",
+        "description": "AI integration package with WebLLM support"
+      },
+      {
+        "name": "analytics",
+        "path": "packages/analytics",
+        "description": "Analytics and event tracking package"
+      },
+      {
+        "name": "cache",
+        "path": "packages/cache",
+        "description": "Multi-backend caching solution"
+      },
+      {
+        "name": "database",
+        "path": "packages/database",
+        "description": "Database abstraction layer with multiple providers"
+      },
+      {
+        "name": "design-system",
+        "path": "packages/design-system",
+        "description": "UI component library and design tokens"
+      },
+      {
+        "name": "email",
+        "path": "packages/email",
+        "description": "Email sending and template management"
+      },
+      {
+        "name": "internationalization",
+        "path": "packages/internationalization",
+        "description": "i18n and localization support"
+      },
+      {
+        "name": "mdx",
+        "path": "packages/mdx",
+        "description": "MDX processing and compilation"
+      },
+      {
+        "name": "observability",
+        "path": "packages/observability",
+        "description": "Logging and monitoring infrastructure"
+      },
+      {
+        "name": "rate-limit",
+        "path": "packages/rate-limit",
+        "description": "Rate limiting utilities and middleware"
+      },
+      {
+        "name": "security",
+        "path": "packages/security",
+        "description": "Security utilities and authentication"
+      },
+      {
+        "name": "seo",
+        "path": "packages/seo",
+        "description": "SEO optimization and meta tag management"
+      },
+      {
+        "name": "testing",
+        "path": "packages/testing",
+        "description": "Testing framework and utilities"
+      },
+      {
+        "name": "typescript-config",
+        "path": "internals/typescript-config",
+        "description": "Shared TypeScript configuration"
+      },
+      {
+        "name": "ui",
+        "path": "packages/ui",
+        "description": "Core UI components and primitives"
+      }
+    ]
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test -- --run",
+    "test:watch": "turbo test:watch",
+    "test:coverage": "turbo test:coverage",
+    "lint": "ultracite check",
+    "format": "ultracite fix",
+    "typecheck": "turbo typecheck",
+    "clean": "git clean -xdf node_modules"
+  },
+  "technologies": [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Turbo",
+    "Bun",
+    "Tailwind CSS",
+    "Fumadocs",
+    "Vitest",
+    "Playwright"
+  ],
+  "features": [
+    "Monorepo architecture",
+    "Component library",
+    "MDX content management",
+    "Internationalization",
+    "Analytics integration",
+    "Security utilities",
+    "Testing infrastructure",
+    "SEO optimization"
+  ]
+}

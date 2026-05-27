@@ -1,0 +1,353 @@
+{
+  "$schema": "https://code.claude.com/environment-schema.json",
+  "version": "1.0.0",
+
+  "environmentVariables": {
+    "development": {
+      "description": "Development environment configuration",
+      "variables": {
+        "NODE_ENV": {
+          "value": "development",
+          "description": "Node.js environment",
+          "required": true,
+          "type": "string"
+        },
+        "NEXT_PUBLIC_SITE_URL": {
+          "value": "http://localhost:3000",
+          "description": "Public site URL for development",
+          "required": true,
+          "type": "url"
+        },
+        "NEXT_PUBLIC_SANITY_PROJECT_ID": {
+          "value": "${SANITY_PROJECT_ID}",
+          "description": "Sanity CMS project ID",
+          "required": true,
+          "type": "string",
+          "source": ".env"
+        },
+        "NEXT_PUBLIC_SANITY_DATASET": {
+          "value": "development",
+          "description": "Sanity dataset name",
+          "required": true,
+          "type": "string"
+        },
+        "SANITY_API_READ_TOKEN": {
+          "value": "${SANITY_API_READ_TOKEN}",
+          "description": "Sanity API read token",
+          "required": true,
+          "type": "string",
+          "source": ".env",
+          "sensitive": true
+        },
+        "SANITY_API_WRITE_TOKEN": {
+          "value": "${SANITY_API_WRITE_TOKEN}",
+          "description": "Sanity API write token",
+          "required": false,
+          "type": "string",
+          "source": ".env",
+          "sensitive": true
+        },
+        "SENTRY_DSN": {
+          "value": "${SENTRY_DSN}",
+          "description": "Sentry error tracking DSN",
+          "required": false,
+          "type": "string",
+          "source": ".env",
+          "sensitive": true
+        },
+        "SENTRY_AUTH_TOKEN": {
+          "value": "${SENTRY_AUTH_TOKEN}",
+          "description": "Sentry authentication token",
+          "required": false,
+          "type": "string",
+          "source": ".env",
+          "sensitive": true
+        },
+        "VERCEL_ANALYTICS_ID": {
+          "value": "${VERCEL_ANALYTICS_ID}",
+          "description": "Vercel analytics ID",
+          "required": false,
+          "type": "string",
+          "source": ".env"
+        },
+        "NEXT_PUBLIC_GA_ID": {
+          "value": "${NEXT_PUBLIC_GA_ID}",
+          "description": "Google Analytics ID",
+          "required": false,
+          "type": "string",
+          "source": ".env"
+        },
+        "CLAUDE_API_KEY": {
+          "value": "${CLAUDE_API_KEY}",
+          "description": "Claude API key for development tools",
+          "required": false,
+          "type": "string",
+          "source": ".env",
+          "sensitive": true
+        },
+        "GITHUB_TOKEN": {
+          "value": "${GITHUB_TOKEN}",
+          "description": "GitHub personal access token",
+          "required": false,
+          "type": "string",
+          "source": ".env",
+          "sensitive": true
+        },
+        "VERCEL_TOKEN": {
+          "value": "${VERCEL_TOKEN}",
+          "description": "Vercel deployment token",
+          "required": false,
+          "type": "string",
+          "source": ".env",
+          "sensitive": true
+        },
+        "NEXT_PUBLIC_STORYBOOK_URL": {
+          "value": "http://localhost:6006",
+          "description": "Storybook development URL",
+          "required": false,
+          "type": "url"
+        }
+      }
+    },
+
+    "production": {
+      "description": "Production environment configuration",
+      "variables": {
+        "NODE_ENV": {
+          "value": "production",
+          "description": "Node.js environment",
+          "required": true,
+          "type": "string"
+        },
+        "NEXT_PUBLIC_SITE_URL": {
+          "value": "${VERCEL_URL}",
+          "description": "Public site URL",
+          "required": true,
+          "type": "url",
+          "source": "vercel"
+        },
+        "NEXT_PUBLIC_SANITY_PROJECT_ID": {
+          "value": "${SANITY_PROJECT_ID}",
+          "description": "Sanity CMS project ID",
+          "required": true,
+          "type": "string",
+          "source": "vercel"
+        },
+        "NEXT_PUBLIC_SANITY_DATASET": {
+          "value": "production",
+          "description": "Sanity dataset name",
+          "required": true,
+          "type": "string"
+        },
+        "SANITY_API_READ_TOKEN": {
+          "value": "${SANITY_API_READ_TOKEN}",
+          "description": "Sanity API read token",
+          "required": true,
+          "type": "string",
+          "source": "vercel",
+          "sensitive": true
+        },
+        "SANITY_API_WRITE_TOKEN": {
+          "value": "${SANITY_API_WRITE_TOKEN}",
+          "description": "Sanity API write token",
+          "required": false,
+          "type": "string",
+          "source": "vercel",
+          "sensitive": true
+        },
+        "SENTRY_DSN": {
+          "value": "${SENTRY_DSN}",
+          "description": "Sentry error tracking DSN",
+          "required": true,
+          "type": "string",
+          "source": "vercel",
+          "sensitive": true
+        },
+        "SENTRY_AUTH_TOKEN": {
+          "value": "${SENTRY_AUTH_TOKEN}",
+          "description": "Sentry authentication token",
+          "required": true,
+          "type": "string",
+          "source": "vercel",
+          "sensitive": true
+        },
+        "VERCEL_ANALYTICS_ID": {
+          "value": "${VERCEL_ANALYTICS_ID}",
+          "description": "Vercel analytics ID",
+          "required": true,
+          "type": "string",
+          "source": "vercel"
+        },
+        "NEXT_PUBLIC_GA_ID": {
+          "value": "${NEXT_PUBLIC_GA_ID}",
+          "description": "Google Analytics ID",
+          "required": false,
+          "type": "string",
+          "source": "vercel"
+        },
+        "VERCEL_PROJECT_ID": {
+          "value": "${VERCEL_PROJECT_ID}",
+          "description": "Vercel project ID",
+          "required": true,
+          "type": "string",
+          "source": "vercel"
+        },
+        "VERCEL_TEAM_ID": {
+          "value": "${VERCEL_TEAM_ID}",
+          "description": "Vercel team ID",
+          "required": false,
+          "type": "string",
+          "source": "vercel"
+        },
+        "VERCEL_ENV": {
+          "value": "${VERCEL_ENV}",
+          "description": "Vercel environment",
+          "required": true,
+          "type": "string",
+          "source": "vercel"
+        }
+      }
+    },
+
+    "testing": {
+      "description": "Testing environment configuration",
+      "variables": {
+        "NODE_ENV": {
+          "value": "test",
+          "description": "Node.js environment",
+          "required": true,
+          "type": "string"
+        },
+        "NEXT_PUBLIC_SITE_URL": {
+          "value": "http://localhost:3000",
+          "description": "Test site URL",
+          "required": true,
+          "type": "url"
+        },
+        "NEXT_PUBLIC_SANITY_PROJECT_ID": {
+          "value": "test-project",
+          "description": "Test Sanity project ID",
+          "required": true,
+          "type": "string"
+        },
+        "NEXT_PUBLIC_SANITY_DATASET": {
+          "value": "test",
+          "description": "Test Sanity dataset",
+          "required": true,
+          "type": "string"
+        },
+        "PLAYWRIGHT_TEST_BASE_URL": {
+          "value": "http://localhost:3000",
+          "description": "Playwright test base URL",
+          "required": true,
+          "type": "url"
+        },
+        "TEST_DATABASE_URL": {
+          "value": "postgresql://test:test@localhost:5432/test",
+          "description": "Test database URL",
+          "required": false,
+          "type": "url",
+          "sensitive": true
+        }
+      }
+    }
+  },
+
+  "validation": {
+    "schemas": {
+      "url": {
+        "pattern": "^https?://.+",
+        "message": "Must be a valid URL starting with http:// or https://"
+      },
+      "email": {
+        "pattern": "^[^@]+@[^@]+\\.[^@]+$",
+        "message": "Must be a valid email address"
+      },
+      "projectId": {
+        "pattern": "^[a-z0-9-]+$",
+        "message": "Must contain only lowercase letters, numbers, and hyphens"
+      },
+      "token": {
+        "pattern": "^[a-zA-Z0-9_-]+$",
+        "message": "Must contain only alphanumeric characters, underscores, and hyphens"
+      }
+    }
+  },
+
+  "security": {
+    "encryption": {
+      "enabled": true,
+      "algorithm": "AES-256-GCM",
+      "keySource": "system"
+    },
+    "accessControl": {
+      "allowedRoles": ["developer", "admin", "ci"],
+      "auditLogging": true,
+      "rotationPeriod": 90
+    },
+    "compliance": {
+      "gdpr": true,
+      "soc2": true,
+      "dataResidency": "EU"
+    }
+  },
+
+  "workflows": {
+    "development": {
+      "environment": "development",
+      "autoLoad": true,
+      "validation": true,
+      "watchChanges": true
+    },
+    "testing": {
+      "environment": "testing",
+      "autoLoad": true,
+      "validation": true,
+      "isolate": true
+    },
+    "deployment": {
+      "environment": "production",
+      "autoLoad": false,
+      "validation": true,
+      "requireApproval": true
+    }
+  },
+
+  "integration": {
+    "vercel": {
+      "syncEnvironmentVariables": true,
+      "excludePatterns": ["*_TOKEN", "*_SECRET", "*_KEY"],
+      "includePatterns": ["NEXT_PUBLIC_*", "NODE_ENV"]
+    },
+    "github": {
+      "syncSecrets": true,
+      "environmentMapping": {
+        "development": "dev",
+        "production": "prod",
+        "testing": "test"
+      }
+    },
+    "sanity": {
+      "syncApiTokens": true,
+      "autoGenerateTokens": false
+    }
+  },
+
+  "monitoring": {
+    "usageTracking": {
+      "enabled": true,
+      "trackVariableAccess": true,
+      "trackValidationErrors": true
+    },
+    "alerts": {
+      "missingRequiredVariables": true,
+      "validationFailures": true,
+      "securityViolations": true
+    },
+    "reporting": {
+      "generateUsageReport": true,
+      "schedule": "weekly",
+      "recipients": ["admin@frontallabs.com"]
+    }
+  }
+}

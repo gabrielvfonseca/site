@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Frontal Labs Website",
+    "type": "nextjs",
+    "framework": "Next.js 16",
+    "language": "TypeScript",
+    "packageManager": "bun",
+    "description": "Next.js 16 website with TypeScript, Tailwind CSS, shadcn/ui, and Sanity CMS"
+  },
+  "claude": {
+    "model": "claude-3.5-sonnet",
+    "temperature": 0.1,
+    "maxTokens": 8192,
+    "topP": 0.95,
+    "frequencyPenalty": 0.0,
+    "presencePenalty": 0.0
+  },
+  "capabilities": {
+    "codeGeneration": true,
+    "codeReview": true,
+    "debugging": true,
+    "documentation": true,
+    "refactoring": true,
+    "testing": true,
+    "optimization": true
+  },
+  "preferences": {
+    "codeStyle": {
+      "indentation": "spaces",
+      "indentSize": 2,
+      "semicolons": true,
+      "quotes": "double",
+      "trailingCommas": "es5"
+    },
+    "imports": {
+      "sortImports": true,
+      "absoluteImports": true,
+      "importAlias": "@",
+      "organizeImports": true
+    },
+    "typescript": {
+      "strictMode": true,
+      "explicitTypes": true,
+      "noImplicitAny": true,
+      "noImplicitReturns": true
+    }
+  },
+  "tools": {
+    "enabled": [
+      "fileSystem",
+      "terminal",
+      "webSearch",
+      "codeAnalysis",
+      "testing",
+      "documentation"
+    ],
+    "fileSystem": {
+      "readFile": true,
+      "writeFile": true,
+      "listDirectory": true,
+      "searchFiles": true
+    },
+    "terminal": {
+      "executeCommands": true,
+      "cwd": true,
+      "background": true
+    }
+  },
+  "integrations": {
+    "nextjs": {
+      "appRouter": true,
+      "serverComponents": true,
+      "clientComponents": true,
+      "apiRoutes": true,
+      "middleware": true
+    },
+    "tailwind": {
+      "enabled": true,
+      "classCompletion": true,
+      "responsiveDesign": true,
+      "darkMode": true
+    },
+    "shadcn": {
+      "enabled": true,
+      "components": true,
+      "uiLibrary": true,
+      "customization": true
+    },
+    "sanity": {
+      "enabled": true,
+      "cms": true,
+      "schemas": true,
+      "groq": true,
+      "client": true
+    },
+    "testing": {
+      "vitest": true,
+      "testingLibrary": true,
+      "playwright": true,
+      "coverage": true
+    },
+    "deployment": {
+      "vercel": true,
+      "sentry": true,
+      "analytics": true
+    }
+  },
+  "rules": {
+    "codeQuality": {
+      "eslint": true,
+      "prettier": true,
+      "typeCheck": true,
+      "lintOnSave": true
+    },
+    "security": {
+      "noSecrets": true,
+      "inputValidation": true,
+      "csrfProtection": true,
+      "environmentVariables": true
+    },
+    "performance": {
+      "imageOptimization": true,
+      "codeSplitting": true,
+      "bundleAnalysis": true,
+      "caching": true
+    },
+    "accessibility": {
+      "wcagCompliance": "AA",
+      "semanticHtml": true,
+      "ariaLabels": true,
+      "keyboardNavigation": true,
+      "screenReaderSupport": true
+    }
+  },
+  "workflows": {
+    "development": "./workflows/development.md",
+    "testing": "./workflows/testing.md",
+    "deployment": "./workflows/deployment.md",
+    "debugging": "./workflows/debugging.md",
+    "codeReview": "./workflows/code-review.md"
+  },
+  "documentation": {
+    "autoGenerate": true,
+    "includeExamples": true,
+    "typescriptDocs": true,
+    "storybook": true,
+    "readmeUpdates": true
+  }
+}

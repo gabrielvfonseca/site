@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+# This hook is used to help format commit messages
+# You can add custom logic here if needed

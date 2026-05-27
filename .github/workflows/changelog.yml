@@ -1,0 +1,117 @@
+name: Auto Changelog
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: write
+  actions: read
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'Time period to generate changelog for (e.g., "1 week ago", "2024-01-01")'
+        required: false
+        default: '1 week ago'
+        type: string
+      force:
+        description: 'Force generation even if no changes detected'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+          node-version: '20'
+          
+
+      - name: Setup pnpm
+        run: npm install -g pnpm@10.8.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Generate changelog
+        run: |
+          pnpm tsx scripts/auto-changelog.ts \
+            --since="${{ github.event.inputs.since || '1 week ago' }}" \
+            ${{ github.event.inputs.force == 'true' && '--force' || '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected"
+            git diff --name-only
+          fi
+
+      - name: Configure Git
+        if: steps.changes.outputs.has-changes == 'true'
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Create and push to update-changelogs branch
+        if: steps.changes.outputs.has-changes == 'true'
+        run: |
+          # Create or switch to update-changelogs branch
+          git checkout -B update-changelogs
+          
+          # Add all changes
+          git add .
+          
+          # Commit changes
+          git commit -m "chore: update changelogs [skip ci]"
+          
+          # Push to the branch using PAT
+          git push --force-with-lease origin update-changelogs:refs/heads/update-changelogs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.has-changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+          token: ${{ secrets.GH_PAT }}
+          branch: update-changelogs
+          base: main
+          title: "chore: update changelogs"
+          body: |
+            This PR automatically updates changelogs based on recent commits.
+            
+            **Generated on:** ${{ github.run_number }}
+            **Since:** ${{ github.event.inputs.since || '1 week ago' }}
+            **Force:** ${{ github.event.inputs.force || 'false' }}
+            
+            ## Changes
+            - Updated changelog files for affected packages
+            - Generated global changelog
+            
+            ## Review
+            Please review the changes and merge if they look correct.
+          delete-branch: true
+          commit-message: "chore: update changelogs [skip ci]"

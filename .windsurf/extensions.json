@@ -1,0 +1,4 @@
+{
+  "recommendations": [],
+  "unwantedRecommendations": ["ms-vscode.vscode-typescript", "hookyqr.beautify"]
+}

@@ -1,0 +1,65 @@
+---
+description: Testing strategies and code quality rules
+globs:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/tests/**/*"
+  - "**/__tests__/**/*"
+alwaysApply: true
+---
+
+# Testing and Quality Rules
+
+## Testing Framework
+- Use Vitest for unit and integration tests
+- Use React Testing Library for component tests
+- Use `@gabfon/testing` package for shared utilities
+- Run tests with `turbo test` command
+
+## Test Organization
+- Place tests in `tests/` directory or co-located with `*.test.ts`
+- Group related tests in describe blocks
+- Use descriptive test names that explain behavior
+- Follow AAA pattern: Arrange, Act, Assert
+
+## Component Testing
+- Test component behavior, not implementation details
+- Test user interactions and accessibility
+- Mock external dependencies appropriately
+- Test error states and loading states
+
+## Unit Testing
+- Test pure functions and utilities
+- Test edge cases and error conditions
+- Use proper test data and fixtures
+- Maintain high test coverage
+
+## Integration Testing
+- Test data flow between components
+- Test API integrations and data fetching
+- Test form submissions and user workflows
+- Test error handling and recovery
+
+## Quality Gates
+- All tests must pass before merging
+- Maintain minimum test coverage thresholds
+- Use linting and formatting checks
+- Run type checking with `tsc --noEmit`
+
+## Performance Testing
+- Test component rendering performance
+- Test bundle size and loading times
+- Use React DevTools Profiler
+- Monitor Core Web Vitals
+
+## Accessibility Testing
+- Test keyboard navigation
+- Test screen reader compatibility
+- Validate ARIA attributes
+- Use automated accessibility tools
+
+## Error Testing
+- Test error boundaries and fallbacks
+- Test network error handling
+- Test validation error states
+- Test graceful degradation

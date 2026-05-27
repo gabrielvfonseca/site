@@ -1,0 +1,82 @@
+{
+  "editor": {
+    "formatOnSave": true,
+    "codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "tabSize": 2,
+    "insertSpaces": true,
+    "detectIndentation": false,
+    "rulers": [80, 120],
+    "wordWrap": "bounded",
+    "wordWrapColumn": 120
+  },
+  "typescript": {
+    "preferences": {
+      "includeInlayParameterNameHints": "all",
+      "includeInlayParameterNameHintsWhenArgumentMatchesName": false,
+      "includeInlayFunctionParameterTypeHints": true,
+      "includeInlayVariableTypeHints": true,
+      "includeInlayPropertyDeclarationTypeHints": true,
+      "includeInlayFunctionLikeReturnTypeHints": true,
+      "includeInlayEnumMemberValueHints": true
+    },
+    "suggest.autoImports": true,
+    "updateImportsOnFileMove.enabled": "always",
+    "preferGoToSourceDefinition": true
+  },
+  "files": {
+    "exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.next": true,
+      "**/.turbo": true,
+      "**/coverage": true,
+      "**/.cache": true,
+      "**/.DS_Store": true
+    },
+    "associations": {
+      "*.mdx": "markdown"
+    }
+  },
+  "search": {
+    "exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.next": true,
+      "**/.turbo": true,
+      "**/coverage": true,
+      "**/.cache": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "bradlc.vscode-tailwindcss",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "ms-vscode.vscode-typescript-next",
+      "formulahendry.auto-rename-tag",
+      "christian-kohler.path-intellisense",
+      "ms-vscode.vscode-json",
+      "yzhang.markdown-all-in-one",
+      "unifiedjs.vscode-mdx",
+      "ms-playwright.playwright",
+      "vitest.explorer"
+    ]
+  },
+  "terminal": {
+    "integrated.defaultProfile.osx": "zsh",
+    "integrated.shell.osx": "/bin/zsh"
+  },
+  "git": {
+    "autofetch": true,
+    "enableSmartCommit": true,
+    "confirmSync": false
+  },
+  "workbench": {
+    "colorTheme": "Default Dark+",
+    "iconTheme": "material-icon-theme",
+    "editor.enablePreview": false
+  }
+}

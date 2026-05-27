@@ -1,0 +1,28 @@
+# Windsurf Configuration
+# This file ensures Windsurf settings are version controlled
+# but ignores user-specific workspace data
+
+# User-specific settings (should not be committed)
+settings.json.user
+launch.json.user
+tasks.json.user
+
+# Workspace storage (should not be committed)
+.code-workspace
+.vscode/
+.coder/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

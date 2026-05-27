@@ -1,0 +1,397 @@
+{
+  "$schema": "https://code.claude.com/permissions-schema.json",
+  "version": "1.0.0",
+
+  "defaultMode": "acceptEdits",
+  "bypassPermissions": "disable",
+  "disableBypassPermissionsMode": "disable",
+
+  "permissions": {
+    "allow": [
+      "Bash(bun *)",
+      "Bash(npm *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(git checkout *)",
+      "Bash(git restore *)",
+      "Bash(node *)",
+      "Bash(sanity *)",
+      "Bash(playwright *)",
+      "Bash(vitest *)",
+      "Bash(storybook *)",
+      "Read(**/*)",
+      "Write(src/**/*)",
+      "Write(tests/**/*)",
+      "Write(docs/**/*)",
+      "Write(.storybook/**/*)",
+      "Edit(**/*.ts)",
+      "Edit(**/*.tsx)",
+      "Edit(**/*.js)",
+      "Edit(**/*.jsx)",
+      "Edit(**/*.json)",
+      "Edit(**/*.md)",
+      "Edit(**/*.css)",
+      "Edit(**/*.scss)",
+      "MultiEdit(**/*)",
+      "ListDir(**/*)",
+      "FindByName(**/*)",
+      "GrepSearch(**/*)",
+      "BrowserPreview(http://localhost:*)",
+      "BrowserPreview(http://127.0.0.1:*)",
+      "ReadUrlContent(https://*.vercel.app/**)",
+      "ReadUrlContent(https://*.github.com/**)",
+      "ReadUrlContent(https://code.claude.com/**)",
+      "ReadUrlContent(https://docs.sanity.io/**)",
+      "ReadUrlContent(https://nextjs.org/docs/**)",
+      "ReadUrlContent(https://tailwindcss.com/docs/**)",
+      "ReadUrlContent(https://ui.shadcn.com/**)",
+      "ReadUrlContent(https://playwright.dev/**)",
+      "ReadUrlContent(https://vitest.dev/**)",
+      "ReadUrlContent(https://storybook.js.org/**)",
+      "ReadUrlContent(https://react.dev/**)",
+      "ReadUrlContent(https://www.typescriptlang.org/docs/**)",
+      "ReadUrlContent(https://nodejs.org/docs/**)",
+      "ReadUrlContent(https://developer.mozilla.org/**)",
+      "ReadUrlContent(https://web.dev/**)",
+      "CreateMemory",
+      "UpdateMemory",
+      "DeleteMemory",
+      "TodoList",
+      "Skill"
+    ],
+
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git pull --rebase)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset *)",
+      "Bash(git clean *)",
+      "Bash(git stash *)",
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(curl -X POST *)",
+      "Bash(curl --data *)",
+      "Bash(curl -H * *)",
+      "Bash(chmod +x *)",
+      "Bash(mv *)",
+      "Bash(cp *)",
+      "Bash(ln -s *)",
+      "ReadUrlContent(*)",
+      "WebFetch(*)",
+      "Write(.env*)",
+      "Write(./secrets/**)",
+      "Write(**/.env*)",
+      "Write(**/private/**)",
+      "Write(**/config/**)",
+      "Write(**/.vscode/**)",
+      "Write(**/.github/**)",
+      "Write(public/**/*)",
+      "Write(root/**/*)",
+      "Write(*.lock)",
+      "Write(*.log)",
+      "Write(DS_Store)",
+      "Write(.DS_Store)",
+      "Bash(bun install)",
+      "Bash(npm install)",
+      "Bash(yarn install)",
+      "Bash(pnpm install)",
+      "Bash(sanity deploy)",
+      "Bash(vercel *)",
+      "Bash(bun run build)",
+      "Bash(bun run deploy)",
+      "Bash(bun run start)",
+      "Bash(bun run test:e2e:prod)",
+      "Bash(bun run test:e2e:staging)"
+    ],
+
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.local)",
+      "Read(./.env.production)",
+      "Read(./secrets/**)",
+      "Read(**/.env*)",
+      "Read(**/private/**)",
+      "Read(**/secrets/**)",
+      "Read(**/.ssh/**)",
+      "Read(**/.aws/**)",
+      "Read(**/.config/**)",
+      "Read(**/key.json)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.crt)",
+      "Read(**/*.pfx)",
+      "Write(**/.env*)",
+      "Write(./secrets/**)",
+      "Write(**/private/**)",
+      "Write(**/secrets/**)",
+      "Write(**/.ssh/**)",
+      "Write(**/.aws/**)",
+      "Write(**/.config/**)",
+      "Write(**/key.json)",
+      "Write(**/*.pem)",
+      "Write(**/*.key)",
+      "Write(**/*.p12)",
+      "Write(**/*.crt)",
+      "Write(**/*.pfx)",
+      "Bash(curl -X DELETE *)",
+      "Bash(curl -X PUT *)",
+      "Bash(curl -X PATCH *)",
+      "Bash(curl --upload-file *)",
+      "Bash(curl -F *)",
+      "Bash(curl --form *)",
+      "Bash(wget *)",
+      "Bash(ftp *)",
+      "Bash(sftp *)",
+      "Bash(scp *)",
+      "Bash(rsync *)",
+      "Bash(chown *)",
+      "Bash(chgrp *)",
+      "Bash(chmod -R *)",
+      "Bash(mkdir -p /*)",
+      "Bash(touch /*)",
+      "Bash(dd *)",
+      "Bash(mkfs *)",
+      "Bash(fdisk *)",
+      "Bash(format *)",
+      "Bash(rm /*)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~/*)",
+      "Bash(rm -rf /*)",
+      "Bash(sudo rm *)",
+      "Bash(sudo rm -rf *)",
+      "Bash(poweroff)",
+      "Bash(reboot)",
+      "Bash(shutdown)",
+      "Bash(halt)",
+      "Bash(systemctl *)",
+      "Bash(service *)",
+      "Bash(init *)",
+      "Bash(systemd *)",
+      "Bash(crontab *)",
+      "Bash(at *)",
+      "Bash(batch *)",
+      "Bash(nohup *)",
+      "Bash(screen *)",
+      "Bash(tmux *)",
+      "Bash(docker *)",
+      "Bash(podman *)",
+      "Bash(kubectl *)",
+      "Bash(helm *)",
+      "Bash(terraform *)",
+      "Bash(ansible *)",
+      "Bash(puppet *)",
+      "Bash(chef *)",
+      "Bash(vagrant *)",
+      "Bash(packer *)",
+      "Bash(consul *)",
+      "Bash(vault *)",
+      "Bash(nomad *)",
+      "WebFetch(*)",
+      "ReadUrlContent(*)"
+    ]
+  },
+
+  "additionalDirectories": [
+    "../docs/",
+    "../shared/",
+    "../packages/",
+    "../tools/"
+  ],
+
+  "security": {
+    "sensitivePatterns": [
+      "**/.env*",
+      "**/secrets/**",
+      "**/private/**",
+      "**/.ssh/**",
+      "**/.aws/**",
+      "**/.config/**",
+      "**/key.json",
+      "**/*.pem",
+      "**/*.key",
+      "**/*.p12",
+      "**/*.crt",
+      "**/*.pfx",
+      "**/password*",
+      "**/secret*",
+      "**/token*",
+      "**/auth*",
+      "**/credential*"
+    ],
+
+    "allowedDomains": [
+      "github.com",
+      "api.github.com",
+      "vercel.com",
+      "api.vercel.com",
+      "sentry.io",
+      "o547570.ingest.sentry.io",
+      "api.sanity.io",
+      "cdn.sanity.io",
+      "docs.sanity.io",
+      "nextjs.org",
+      "tailwindcss.com",
+      "ui.shadcn.com",
+      "playwright.dev",
+      "vitest.dev",
+      "storybook.js.org",
+      "react.dev",
+      "www.typescriptlang.org",
+      "nodejs.org",
+      "developer.mozilla.org",
+      "web.dev",
+      "code.claude.com"
+    ],
+
+    "blockedDomains": [
+      "malicious-site.com",
+      "phishing-site.com",
+      "*.malware.com",
+      "*.virus.com"
+    ],
+
+    "commandRestrictions": {
+      "allowSudo": false,
+      "allowSystemCommands": false,
+      "allowNetworkCommands": false,
+      "allowFilesystemCommands": true,
+      "allowDevelopmentCommands": true,
+      "maxCommandLength": 1000,
+      "maxExecutionTime": 300
+    }
+  },
+
+  "contexts": {
+    "development": {
+      "description": "Development environment permissions",
+      "allow": [
+        "Bash(bun run dev)",
+        "Bash(bun run build)",
+        "Bash(bun run test)",
+        "Bash(bun run test:watch)",
+        "Bash(bun run storybook)",
+        "Bash(bun run lint:fix)",
+        "Bash(bun run typecheck)"
+      ],
+      "ask": ["Bash(bun run deploy)", "Bash(bun run test:e2e)"]
+    },
+
+    "testing": {
+      "description": "Testing environment permissions",
+      "allow": [
+        "Bash(bun run test)",
+        "Bash(bun run test:coverage)",
+        "Bash(bun run test:watch)",
+        "Bash(bun run test:e2e)",
+        "Bash(bun run test:e2e:debug)",
+        "Bash(bun run storybook)",
+        "Bash(bun run build-storybook)"
+      ],
+      "ask": ["Bash(bun run test:e2e:prod)", "Bash(bun run test:e2e:staging)"]
+    },
+
+    "deployment": {
+      "description": "Deployment environment permissions",
+      "allow": [
+        "Bash(bun run build)",
+        "Bash(bun run export)",
+        "Bash(bun run typecheck)",
+        "Bash(bun run lint)",
+        "Bash(bun run test)"
+      ],
+      "ask": [
+        "Bash(bun run deploy)",
+        "Bash(vercel *)",
+        "Bash(sanity deploy)",
+        "Bash(git push *)"
+      ]
+    },
+
+    "cms": {
+      "description": "CMS operations permissions",
+      "allow": [
+        "Bash(sanity dev)",
+        "Bash(sanity build)",
+        "Bash(sanity docs)",
+        "Read(sanity/**/*)",
+        "Write(sanity/schemas/**/*)",
+        "Write(sanity/lib/**/*)",
+        "Edit(sanity/**/*.ts)",
+        "Edit(sanity/**/*.js)"
+      ],
+      "ask": [
+        "Bash(sanity deploy)",
+        "Bash(sanity management *)",
+        "Bash(sanity dataset *)"
+      ]
+    }
+  },
+
+  "audit": {
+    "enabled": true,
+    "logLevel": "info",
+    "logCommands": true,
+    "logFileAccess": true,
+    "logNetworkRequests": true,
+    "logPermissionChanges": true,
+    "retentionDays": 90,
+    "alertThreshold": {
+      "failedCommands": 10,
+      "deniedPermissions": 5,
+      "sensitiveAccess": 1
+    }
+  },
+
+  "compliance": {
+    "gdpr": true,
+    "soc2": true,
+    "hipaa": false,
+    "pci": false,
+    "dataResidency": "EU",
+    "auditTrail": true,
+    "encryptionAtRest": true,
+    "encryptionInTransit": true
+  },
+
+  "monitoring": {
+    "realTimeAlerts": true,
+    "dailyReports": true,
+    "weeklyAudits": true,
+    "monthlyReviews": true,
+    "incidentResponse": {
+      "enabled": true,
+      "escalationLevel": 2,
+      "responseTime": "15m",
+      "notificationChannels": ["email", "slack"]
+    }
+  },
+
+  "workflows": {
+    "development": {
+      "permissions": "development",
+      "autoApprove": true,
+      "requireConfirmation": false
+    },
+    "testing": {
+      "permissions": "testing",
+      "autoApprove": true,
+      "requireConfirmation": false
+    },
+    "deployment": {
+      "permissions": "deployment",
+      "autoApprove": false,
+      "requireConfirmation": true
+    },
+    "cms": {
+      "permissions": "cms",
+      "autoApprove": false,
+      "requireConfirmation": true
+    }
+  }
+}
