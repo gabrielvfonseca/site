@@ -1,0 +1,41 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "includePaths": [
+    "apps/web/src",
+    "apps/web/docs",
+    "packages",
+    "docs",
+    "scripts"
+  ],
+  "branch": "main",
+  "versions": [
+    {
+      "label": "current",
+      "branch": "main"
+    }
+  ],
+  "include": {
+    "globs": [
+      "*.md",
+      "apps/web/**/*.{ts,tsx,js}",
+      "packages/**/*.{ts,tsx,js}",
+      "docs/**/*.md"
+    ]
+  },
+  "exclude": {
+    "globs": [
+      "*.test.ts",
+      "*.test.tsx",
+      "**/.next",
+      "**/node_modules",
+      "**/dist",
+      "**/build"
+    ]
+  },
+  "metadata": {
+    "name": "Frontal Labs Site",
+    "description": "Modern portfolio and blog built with Next.js 16, TypeScript, and Tailwind CSS v4",
+    "repository": "https://github.com/gabrielvfonseca/site",
+    "documentationUrl": "https://www.gabfon.com"
+  }
+}
