@@ -1,0 +1,80 @@
+import path from 'node:path';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./tests/setup.ts'],
+    globals: true,
+    exclude: ['tests/e2e/**', '**/node_modules/**', '**/.next/**'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'text-summary'],
+      all: true,
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.d.ts',
+        'src/**/*.stories.tsx',
+        'src/app/**/*.layout.tsx',
+        'src/app/**/*.page.tsx',
+      ],
+      lines: 80,
+      functions: 80,
+      branches: 75,
+      statements: 80,
+      watermarks: {
+        lines: [70, 90],
+        functions: [70, 90],
+        branches: [65, 85],
+        statements: [70, 90],
+      },
+    },
+    environmentOptions: {
+      jsdom: {
+        resources: 'usable',
+      },
+    },
+    // Ensure React 19 compatibility
+    testTimeout: 10_000,
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@gabfon/analytics': path.resolve(
+        __dirname,
+        '../../packages/analytics/src'
+      ),
+      '@gabfon/cache': path.resolve(__dirname, '../../packages/cache/src'),
+
+      '@gabfon/design-system': path.resolve(
+        __dirname,
+        '../../packages/design-system/src'
+      ),
+
+      '@gabfon/next-config': path.resolve(
+        __dirname,
+        '../../packages/next-config/src'
+      ),
+      '@gabfon/observability': path.resolve(
+        __dirname,
+        '../../packages/observability/src'
+      ),
+      '@gabfon/rate-limit': path.resolve(
+        __dirname,
+        '../../packages/rate-limit/src'
+      ),
+      '@gabfon/security': path.resolve(
+        __dirname,
+        '../../packages/security/src'
+      ),
+      '@gabfon/seo': path.resolve(__dirname, '../../packages/seo/src'),
+      '@gabfon/testing': path.resolve(__dirname, '../../packages/testing'),
+      '@gabfon/typescript-config': path.resolve(
+        __dirname,
+        '../../packages/typescript-config'
+      ),
+    },
+  },
+});

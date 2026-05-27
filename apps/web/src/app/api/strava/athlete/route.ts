@@ -1,0 +1,24 @@
+import { stravaClient } from '@gabfon/strava';
+import { type NextRequest, NextResponse } from 'next/server';
+
+/**
+ * GET /api/strava/athlete
+ * Returns authenticated Strava athlete information
+ */
+export async function GET(_request: NextRequest) {
+  try {
+    const athlete = await stravaClient.getAthlete();
+
+    return NextResponse.json(athlete, {
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, max-age=3600', // 1 hour
+      },
+    });
+  } catch (_error) {
+    return NextResponse.json(
+      { error: 'Failed to fetch Strava athlete information' },
+      { status: 500 }
+    );
+  }
+}

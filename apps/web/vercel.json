@@ -1,0 +1,29 @@
+{
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "env": [
+    {
+      "key": "SKIP_ENV_VALIDATION",
+      "value": "false"
+    }
+  ],
+  "envPrefix": "NEXT_PUBLIC_",
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "regions": ["sfo1"],
+  "functions": {
+    "src/app/**/*.{js,ts}": {
+      "maxDuration": 60
+    },
+    "src/app/api/**/*.{js,ts}": {
+      "maxDuration": 60
+    }
+  },
+  "crons": []
+}

@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@import "@gabfon/design-system/styles/globals.css";
+
+/* WCAG 2.1 AA Compliance: Prefers Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
