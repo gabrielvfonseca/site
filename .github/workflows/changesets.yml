@@ -11,7 +11,7 @@ on:
 
 jobs:
   version:
-    if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
+    if: ${{ github.event_name == 'push' && (!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')) }}
     runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.changesets.outputs.published }}
