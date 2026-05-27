@@ -1,0 +1,47 @@
+{
+  "env": {
+    "NEXT_PUBLIC_SENTRY_DSN": {
+      "value": "https://examplePublicKey@o0.ingest.sentry.io/0",
+      "comment": "Public Sentry DSN for error tracking"
+    },
+    "UPSTASH_REDIS_REST_URL": {
+      "value": "https://example.upstash.io",
+      "comment": "Upstash Redis URL for caching"
+    },
+    "UPSTASH_REDIS_REST_TOKEN": {
+      "value": "example_token",
+      "comment": "Upstash Redis authentication token",
+      "sensitive": true
+    },
+    "GITHUB_TOKEN": {
+      "value": "github_pat_example",
+      "comment": "GitHub API token for contributions/stats",
+      "sensitive": true
+    },
+    "SPOTIFY_CLIENT_ID": {
+      "value": "example_id",
+      "comment": "Spotify API client ID",
+      "sensitive": true
+    },
+    "SPOTIFY_CLIENT_SECRET": {
+      "value": "example_secret",
+      "comment": "Spotify API client secret",
+      "sensitive": true
+    },
+    "STRAVA_CLIENT_ID": {
+      "value": "example_id",
+      "comment": "Strava API client ID",
+      "sensitive": true
+    },
+    "STRAVA_CLIENT_SECRET": {
+      "value": "example_secret",
+      "comment": "Strava API client secret",
+      "sensitive": true
+    },
+    "RESEND_API_KEY": {
+      "value": "re_example",
+      "comment": "Resend email service API key",
+      "sensitive": true
+    }
+  }
+}
