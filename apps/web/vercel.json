@@ -10,7 +10,6 @@
       "value": "false"
     }
   ],
-  "envPrefix": "NEXT_PUBLIC_",
   "git": {
     "deploymentEnabled": {
       "main": true
