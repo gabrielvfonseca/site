@@ -190,7 +190,7 @@ jobs:
 
       - name: Create Pull Request with fixes
         if: steps.check-changes.outputs.has_changes == 'true' && github.event_name == 'push'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'style: fix linting issues automatically'
