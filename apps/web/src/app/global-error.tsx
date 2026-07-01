@@ -1,8 +1,5 @@
 'use client'; // Error boundaries must be client components
 
-import { DesignSystemProvider } from '@gabfon/design-system';
-import { Button } from '@gabfon/design-system/components/button';
-import { fonts } from '@gabfon/design-system/lib/fonts';
 import { parseError } from '@gabfon/observability';
 import Link from 'next/link';
 import { type JSX, useEffect } from 'react';
@@ -38,36 +35,31 @@ export default function GlobalError({
 
   return (
     // global-error must include html and body tags
-    <html className={fonts} lang="en">
+    <html lang="en">
       <body className="bg-background text-foreground">
-        <DesignSystemProvider>
-          <main
-            aria-describedby="global-error-description"
-            aria-labelledby="global-error-title"
-            className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4"
+        <main
+          aria-describedby="global-error-description"
+          aria-labelledby="global-error-title"
+          className="mx-auto flex h-full min-h-screen max-w-md flex-col items-center justify-center gap-4 p-4"
+        >
+          <h1
+            autoFocus
+            className="font-medium text-foreground text-lg"
+            id="global-error-title"
           >
-            <h1
-              autoFocus
-              className="font-medium text-foreground text-lg"
-              id="global-error-title"
-            >
-              Internal Server Error
-            </h1>
-            <p className="text-center text-md" id="global-error-description">
-              The server encountered an error.
-            </p>
-            <Button
-              aria-label="Try to reload the page"
-              onClick={() => reset()}
-              shape="full"
-              variant="default"
-            >
-              <Link aria-hidden="true" href="/">
-                Try again
-              </Link>
-            </Button>
-          </main>
-        </DesignSystemProvider>
+            Internal Server Error
+          </h1>
+          <p className="text-center text-md" id="global-error-description">
+            The server encountered an error.
+          </p>
+          <Link
+            className="rounded-lg bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
+            href="/"
+            onClick={() => reset()}
+          >
+            Try again
+          </Link>
+        </main>
       </body>
     </html>
   );
