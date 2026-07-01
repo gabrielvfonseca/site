@@ -1,3 +1,25 @@
 #!/usr/bin/env sh
 
+set -e
+
+echo "🔍 Running pre-commit validation..."
+
+# 1. Prevent other package manager lockfiles from being staged
+if git diff --name-only --cached --diff-filter=d | grep -E "package-lock\.json|yarn\.lock|bun\.lock" > /dev/null; then
+  echo "❌ Error: Forbidden lockfiles detected in commit staging."
+  echo "   This project enforces a single package manager (pnpm)."
+  echo "   Please remove yarn.lock, package-lock.json, or bun.lock before committing."
+  exit 1
+fi
+
+# 2. Local Secret Scanning (Gitleaks)
+if command -v gitleaks >/dev/null 2>&1 && gitleaks version >/dev/null 2>&1; then
+  echo "🔐 Running Gitleaks secret scan on staged files..."
+  gitleaks protect --verbose --redact --staged
+else
+  echo "⚠️  Gitleaks is not installed locally. Skipping pre-commit secret scan."
+  echo "   To install: brew install gitleaks (on Mac) or see https://github.com/gitleaks/gitleaks"
+fi
+
+# 3. Run lint-staged
 pnpm lint-staged
