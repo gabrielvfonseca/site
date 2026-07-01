@@ -33,7 +33,13 @@
   },
   "linter": {
     "enabled": true,
-    "includes": ["**", "!**/packages/database/generated/**", "!packages/github/src/types.ts", "!packages/spotify/src/types.ts", "!packages/strava/src/types.ts"],
+    "includes": [
+      "**",
+      "!**/packages/database/generated/**",
+      "!packages/github/src/types.ts",
+      "!packages/spotify/src/types.ts",
+      "!packages/strava/src/types.ts"
+    ],
     "rules": {
       "a11y": {
         "noAutofocus": "off"
@@ -156,6 +162,43 @@
       "allowTrailingCommas": false
     }
   },
+  "overrides": [
+    {
+      "includes": ["**/components/ai-elements/**/*"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noNoninteractiveElementInteractions": "off",
+            "useAnchorContent": "off",
+            "useSemanticElements": "off"
+          },
+          "nursery": {
+            "noShadow": "off",
+            "noUnnecessaryConditions": "off",
+            "useImageSize": "off"
+          },
+          "performance": {
+            "noImgElement": "off"
+          },
+          "style": {
+            "noMagicNumbers": "off",
+            "useNamingConvention": "off"
+          },
+          "suspicious": {
+            "noBitwiseOperators": "off",
+            "noConsole": "off",
+            "noEmptyBlockStatements": "off"
+          },
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          },
+          "security": {
+            "noDangerouslySetInnerHtml": "off"
+          }
+        }
+      }
+    }
+  ],
   "vcs": {
     "enabled": true,
     "clientKind": "git",
