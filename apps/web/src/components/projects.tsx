@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import { source } from '@/lib/source';
-import type { Project } from '@/models/project.model';
+import type { Project } from '@/models/project';
 import { ProjectsList } from './projects-list';
 
 /**

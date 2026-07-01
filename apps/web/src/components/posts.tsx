@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import { source } from '@/lib/source';
-import type { Post } from '@/models/post.model';
+import type { Post } from '@/models/post';
 import { PostsList } from './posts-list';
 
 /**

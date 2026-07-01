@@ -10,7 +10,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { Project } from '@/models/project.model';
+import type { Project } from '@/models/project';
 
 /**
  * The ProjectsHoverListProps for the site.

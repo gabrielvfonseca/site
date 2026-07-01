@@ -5,7 +5,7 @@ import type { JSX } from 'react';
 import { ProjectsList } from '@/components/projects-list';
 import { meta } from '@/constants/metadata';
 import { getProjects } from '@/lib/content-index';
-import type { Project } from '@/models/project.model';
+import type { Project } from '@/models/project';
 import { generatePersonStructuredData } from '@/utils/structured-data';
 
 /**

@@ -1,6 +1,6 @@
 import { defineCollections, defineConfig } from 'fumadocs-mdx/config';
-import { postSchema } from '@/models/post.model';
-import { projectSchema } from '@/models/project.model';
+import { postSchema } from '@/models/post';
+import { projectSchema } from '@/models/project';
 
 export const posts = defineCollections({
   type: 'doc',

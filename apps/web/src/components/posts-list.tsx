@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { Post } from '@/models/post.model';
+import type { Post } from '@/models/post';
 
 /**
  * The PostsListProps for the site.

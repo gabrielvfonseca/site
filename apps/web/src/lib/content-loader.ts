@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { Post } from '@/models/post.model';
-import type { Project } from '@/models/project.model';
+import type { Post } from '@/models/post';
+import type { Project } from '@/models/project';
 
 const FRONTMATTER_REGEX = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
 

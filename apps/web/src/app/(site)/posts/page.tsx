@@ -5,7 +5,7 @@ import type { JSX } from 'react';
 import { PostsList } from '@/components/posts-list';
 import { meta } from '@/constants/metadata';
 import { getPosts } from '@/lib/content-index';
-import type { Post } from '@/models/post.model';
+import type { Post } from '@/models/post';
 
 /**
  * The metadata for the site.
