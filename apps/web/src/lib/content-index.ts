@@ -1,44 +1,34 @@
-import type { Post } from '@/models/post.model';
-import type { Project } from '@/models/project.model';
+import type { Post } from '@/models/post';
+import type { Project } from '@/models/project';
+import {
+  posts as sourcePosts,
+  projects as sourceProjects,
+} from '../../.source';
 
-// Static content index - manually maintained for now
-// This could be automated with a build script later
-export const posts: Post[] = [
-  {
-    slug: 'hello-world',
-    title: 'Hello World',
-    description: 'My first post',
-    date: '2026-03-25',
-  },
-  {
-    slug: 'welcome',
-    title: 'Welcome to my new blog',
-    description: 'This is my first post using Fumadocs.',
-    date: '2024-03-25',
-  },
-];
+interface SourceDoc {
+  info: { path: string };
+  data: Record<string, unknown>;
+}
 
-export const projects: Project[] = [
-  {
-    slug: 'awesome-project',
-    title: 'My Awesome Project',
-    description: 'A description of my awesome project.',
-    date: '2024-03-25',
-  },
-  {
-    slug: 'my-site',
-    title: 'My Site',
-    description: 'My first project',
-    date: '2026-03-25',
-  },
-];
+function sortByDate<T extends { date?: string }>(items: T[]): T[] {
+  return items.sort(
+    (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+  );
+}
 
 /**
  * Get all posts sorted by date (newest first)
  */
 export function getPosts(): Post[] {
-  return posts.sort(
-    (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+  return sortByDate(
+    (sourcePosts as SourceDoc[])
+      .filter((post) => post.info?.path)
+      .map((post) => ({
+        slug: post.info.path.replace('.mdx', ''),
+        title: String(post.data.title ?? ''),
+        description: String(post.data.description ?? ''),
+        date: String(post.data.date ?? ''),
+      }))
   );
 }
 
@@ -46,7 +36,15 @@ export function getPosts(): Post[] {
  * Get all projects sorted by date (newest first)
  */
 export function getProjects(): Project[] {
-  return projects.sort(
-    (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+  return sortByDate(
+    (sourceProjects as SourceDoc[])
+      .filter((project) => project.info?.path)
+      .map((project) => ({
+        slug: project.info.path.replace('.mdx', ''),
+        title: String(project.data.title ?? ''),
+        description: String(project.data.description ?? ''),
+        date: String(project.data.date ?? ''),
+        link: String(project.data.link ?? ''),
+      }))
   );
 }
