@@ -59,36 +59,56 @@ export function ProjectsList({
       )}
     >
       <div
-        className="absolute rounded-sm border border-border bg-accent transition-all duration-300 ease-out"
+        className="absolute rounded-md border border-border bg-accent transition-all duration-300 ease-out motion-reduce:transition-none"
         style={{
           ...activePillStyle,
           opacity: hoveredIndex !== null ? 1 : 0,
         }}
       />
-      <div className="relative flex w-full flex-col flex-col items-start gap-2">
-        {items.map((item, index: number) => (
-          <Link
-            className="group inline-block w-full rounded-sm px-3 py-3 text-left transition-colors duration-300"
-            key={index}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            ref={(element: HTMLAnchorElement | null) => {
-              if (element) {
-                featureRefs.current[index] = element;
-              }
-            }}
-            target="_blank"
-            {...{ ...props, href: item.slug }}
-          >
-            <div className="flex items-center gap-1">
-              <div className="font-medium text-sm leading-5">{item.title}</div>
-              <ArrowUpRightIcon className="size-3 text-muted-foreground transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-            </div>
-            <div className="text-muted-foreground text-sm leading-5">
-              {item.description}
-            </div>
-          </Link>
-        ))}
+      <div className="relative flex w-full flex-col items-start gap-2">
+        {items.length === 0 ? (
+          <p className="px-3 py-3 text-muted-foreground text-sm leading-5">
+            No projects to show yet — check back soon.
+          </p>
+        ) : (
+          items.map((item, index: number) => {
+            const external = Boolean(item.link);
+            const href = external
+              ? (item.link as string)
+              : `/projects/${item.slug}`;
+
+            return (
+              <Link
+                className="group inline-block w-full rounded-md px-3 py-3 text-left transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                key={index}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                ref={(element: HTMLAnchorElement | null) => {
+                  if (element) {
+                    featureRefs.current[index] = element;
+                  }
+                }}
+                {...(external
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                {...props}
+                href={href}
+              >
+                <div className="flex items-center gap-1">
+                  <div className="font-medium text-sm leading-5">
+                    {item.title}
+                  </div>
+                  {external && (
+                    <ArrowUpRightIcon className="size-3 text-muted-foreground transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                  )}
+                </div>
+                <div className="text-muted-foreground text-sm leading-5">
+                  {item.description}
+                </div>
+              </Link>
+            );
+          })
+        )}
       </div>
     </div>
   );

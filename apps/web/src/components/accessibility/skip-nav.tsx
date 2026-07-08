@@ -12,7 +12,7 @@ export function SkipNav() {
     event.preventDefault();
 
     // Find the main content element when skip is triggered
-    const mainElement = document.getElementById('main');
+    const mainElement = document.getElementById('main-content');
     if (mainElement) {
       mainElement.focus();
       mainElement.scrollIntoView({ behavior: 'smooth' });

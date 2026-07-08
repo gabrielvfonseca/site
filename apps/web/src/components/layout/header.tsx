@@ -12,7 +12,7 @@ export function Header(): JSX.Element {
       <nav aria-label="Main navigation" className="flex flex-col items-start">
         <Link
           aria-label={`${CONFIG.name} - Home`}
-          className="mb-px inline-block rounded font-medium text-foreground no-underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          className="mb-px inline-block rounded font-medium text-foreground no-underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
           href="/"
           title={CONFIG.name}
         >
