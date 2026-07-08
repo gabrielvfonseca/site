@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { JSX } from 'react';
+import { ContributionGraph } from '@/components/contribution-graph';
 import { Posts } from '@/components/posts';
 import { Projects } from '@/components/projects';
 import { CONFIG } from '@/constants/config';
@@ -23,7 +24,7 @@ export default function Page(): JSX.Element {
           Engineering student at{' '}
           <Link
             aria-label="NOVA School of Science and Technology (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href="https://www.fct.unl.pt"
             rel="noopener noreferrer"
             target="_blank"
@@ -37,7 +38,7 @@ export default function Page(): JSX.Element {
           I'm currently building an{' '}
           <Link
             aria-label="AI-powered platform (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
@@ -49,7 +50,7 @@ export default function Page(): JSX.Element {
           & CEO of{' '}
           <Link
             aria-label="Frontal (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
@@ -64,9 +65,8 @@ export default function Page(): JSX.Element {
           freelance and{' '}
           <Link
             aria-label="personal projects"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            href="/projects"
-            rel="noopener noreferrer"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            href="#projects"
             title="personal projects"
           >
             personal projects
@@ -74,9 +74,8 @@ export default function Page(): JSX.Element {
           , always seeking to solve real-world problems creatively. I regularly{' '}
           <Link
             aria-label="write posts"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            href="/posts"
-            rel="noopener noreferrer"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            href="#posts"
             title="write posts"
           >
             write posts
@@ -84,7 +83,7 @@ export default function Page(): JSX.Element {
           about my experiences and believe in{' '}
           <Link
             aria-label="building in public (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href={CONFIG.social.twitter}
             rel="noopener noreferrer"
             target="_blank"
@@ -100,7 +99,7 @@ export default function Page(): JSX.Element {
           I'm{' '}
           <Link
             aria-label="open to connecting (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href={CONFIG.social.linkedin}
             rel="noopener noreferrer"
             target="_blank"
@@ -113,7 +112,7 @@ export default function Page(): JSX.Element {
           out on{' '}
           <Link
             aria-label="Twitter (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href={CONFIG.social.twitter}
             rel="noopener noreferrer"
             target="_blank"
@@ -124,7 +123,7 @@ export default function Page(): JSX.Element {
           ,{' '}
           <Link
             aria-label="LinkedIn (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href={CONFIG.social.linkedin}
             rel="noopener noreferrer"
             target="_blank"
@@ -135,7 +134,7 @@ export default function Page(): JSX.Element {
           , or{' '}
           <Link
             aria-label="GitHub (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href={CONFIG.social.github}
             rel="noopener noreferrer"
             target="_blank"
@@ -146,7 +145,7 @@ export default function Page(): JSX.Element {
           . If you'd like to schedule a meeting or a quick call, you can do so{' '}
           <Link
             aria-label="Schedule a meeting (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href={CONFIG.schedule}
             rel="noopener noreferrer"
             target="_blank"
@@ -157,7 +156,7 @@ export default function Page(): JSX.Element {
           {' or '}
           <Link
             aria-label="Email me (opens in a new tab)"
-            className="rounded text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             href={CONFIG.email}
             rel="noopener noreferrer"
             target="_blank"
@@ -167,59 +166,28 @@ export default function Page(): JSX.Element {
           </Link>
           .
         </p>
+      </section>
 
-        <div className="flex flex-wrap gap-x-4 gap-y-2 pt-4 font-medium text-muted-foreground text-xs uppercase tracking-wider">
-          <Link
-            className="transition-colors hover:text-foreground"
-            href="/projects"
-          >
-            See my projects
-          </Link>
-          <span className="opacity-25">/</span>
-          <Link
-            className="transition-colors hover:text-foreground"
-            href="/posts"
-          >
-            Read my posts
-          </Link>
-          <span className="opacity-25">/</span>
-          <Link className="transition-colors hover:text-foreground" href="/use">
-            What I use daily
-          </Link>
-          <span className="opacity-25">/</span>
-          <Link className="transition-colors hover:text-foreground" href="/now">
-            My live stats
-          </Link>
-          <span className="opacity-25">/</span>
-          <Link
-            className="text-blue-500 transition-colors hover:text-foreground"
-            href="/ai"
-          >
-            Talk to my local AI
-          </Link>
-        </div>
+      <section
+        aria-labelledby="homepage-activity-heading"
+        className="flex scroll-mt-8 flex-col gap-4"
+        id="activity"
+      >
+        <h2 className="font-semibold text-lg" id="homepage-activity-heading">
+          Activity
+        </h2>
+        <ContributionGraph />
       </section>
 
       {projects && (
         <section
           aria-labelledby="homepage-projects-heading"
-          className="flex flex-col gap-4"
+          className="flex scroll-mt-8 flex-col gap-4"
+          id="projects"
         >
-          <div className="flex items-center justify-between">
-            <h2
-              className="font-semibold text-lg"
-              id="homepage-projects-heading"
-            >
-              Projects
-            </h2>
-            <Link
-              aria-label="View more projects"
-              className="text-muted-foreground/75 text-xs transition-color duration-300 hover:text-muted-foreground"
-              href="/projects"
-            >
-              View more
-            </Link>
-          </div>
+          <h2 className="font-semibold text-lg" id="homepage-projects-heading">
+            Projects
+          </h2>
           <Projects />
         </section>
       )}
@@ -227,58 +195,15 @@ export default function Page(): JSX.Element {
       {posts && (
         <section
           aria-labelledby="homepage-posts-heading"
-          className="flex flex-col gap-4"
+          className="flex scroll-mt-8 flex-col gap-4"
+          id="posts"
         >
-          <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-lg" id="homepage-posts-heading">
-              Posts
-            </h2>
-            <Link
-              aria-label="View more posts"
-              className="text-muted-foreground/75 text-xs transition-color duration-300 hover:text-muted-foreground"
-              href="/posts"
-            >
-              View more
-            </Link>
-          </div>
+          <h2 className="font-semibold text-lg" id="homepage-posts-heading">
+            Posts
+          </h2>
           <Posts />
         </section>
       )}
-
-      <section className="mt-8 grid gap-4 border-border border-t pt-8 sm:grid-cols-2">
-        <Link
-          className="group flex flex-col gap-2 rounded-xl border border-border p-4 transition-colors hover:bg-accent"
-          href="/now"
-        >
-          <div className="flex items-center justify-between">
-            <span className="font-semibold text-sm">Currently</span>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider transition-colors group-hover:text-foreground">
-              Digital Twin →
-            </span>
-          </div>
-          <p className="text-muted-foreground text-xs leading-relaxed">
-            Live stats on my weekly running mileage, what I'm scrobbling on
-            Spotify, and recent GitHub activity.
-          </p>
-        </Link>
-        <Link
-          className="group flex flex-col gap-2 rounded-xl border border-blue-500/20 border-border bg-blue-500/5 p-4 transition-colors hover:bg-accent"
-          href="/ai"
-        >
-          <div className="flex items-center justify-between">
-            <span className="font-semibold text-blue-500 text-sm">
-              Local AI Coach
-            </span>
-            <span className="text-[10px] text-blue-500 uppercase tracking-wider transition-colors group-hover:text-blue-400">
-              WebGPU →
-            </span>
-          </div>
-          <p className="text-muted-foreground text-xs leading-relaxed">
-            Talk to an AI that runs entirely on your GPU. No data ever leaves
-            your browser.
-          </p>
-        </Link>
-      </section>
     </div>
   );
 }
