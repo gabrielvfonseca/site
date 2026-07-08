@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @source "../../node_modules/streamdown/dist/*.js";
 
 /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
@@ -160,7 +161,7 @@
   }
 
   body {
-    @apply bg-background font-sans font-medium text-foreground;
+    @apply bg-background font-sans font-normal text-foreground;
   }
 
   /* Enhanced smooth scrolling with customizable threshold */
@@ -266,7 +267,7 @@
   --tw-prose-body: var(--color-foreground);
   --tw-prose-headings: var(--color-foreground);
   --tw-prose-lead: var(--color-muted-foreground);
-  --tw-prose-links: var(--color-primary);
+  --tw-prose-links: var(--color-brand);
   --tw-prose-bold: var(--color-foreground);
   --tw-prose-counters: var(--color-foreground);
   --tw-prose-bullets: var(--color-muted-foreground);
@@ -282,7 +283,7 @@
   --tw-prose-invert-body: var(--color-foreground);
   --tw-prose-invert-headings: var(--color-foreground);
   --tw-prose-invert-lead: var(--color-muted-foreground);
-  --tw-prose-invert-links: var(--color-primary);
+  --tw-prose-invert-links: var(--color-brand);
   --tw-prose-invert-bold: var(--color-foreground);
   --tw-prose-invert-counters: var(--color-foreground);
   --tw-prose-invert-bullets: var(--color-foreground);
@@ -295,4 +296,27 @@
   --tw-prose-invert-pre-bg: var(--color-background);
   --tw-prose-invert-th-borders: var(--color-border);
   --tw-prose-invert-td-borders: var(--color-border);
+}
+
+/*
+ * Soften typographic weight site-wide. Nothing renders heavier than semibold:
+ * the `bold` / `extrabold` / `black` weight tokens are capped at 600 so any
+ * `font-bold`-style utility (including those inside third-party components)
+ * lands on semibold instead.
+ */
+/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
+@theme {
+  --font-weight-semibold: 600;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 600;
+  --font-weight-black: 600;
+}
+
+/* Keep long-form MDX/prose content light: medium headings, medium emphasis. */
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 500;
+}
+
+.prose :is(strong, b) {
+  font-weight: 500;
 }
