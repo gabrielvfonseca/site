@@ -12,13 +12,13 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 - **Content**: Personal introduction, current projects, and contact information
 - **Last Updated**: ${new Date().toISOString().split('T')[0]}
 
-### [Projects](/projects)
-- **Description**: Complete list of personal and professional projects
+### [Projects](/#projects)
+- **Description**: Personal and professional projects, listed on the home page
 - **Content**: Project descriptions, technologies used, and live demos
 - **Sections**: Web Development, Open Source, AI/ML Projects
 
-### [Posts](/posts)
-- **Description**: Blog posts and technical articles
+### [Posts](/#posts)
+- **Description**: Blog posts and technical articles, listed on the home page
 - **Content**: Tutorials, best practices, and development insights
 - **Topics**: Web Development, AI/ML, Performance Optimization
 
@@ -30,11 +30,6 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 - **Description**: Detailed professional background and expertise
 - **Content**: Work experience, education, and technical skills
 - **Focus Areas**: Software Engineering, AI/ML, Product Development
-
-### [Uses](/use)
-- **Description**: Tools, software, and hardware I use daily
-- **Content**: Development environment, productivity tools, and workflows
-- **Categories**: Development Tools, AI Tools, Design Software
 
 ### [Contact](/contact)
 - **Description**: Contact form and professional inquiry information
@@ -230,11 +225,9 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 gabfon.com/
 ├── / (Home)
 ├── /about
-├── /projects
-├── /posts
-├── /use
+├── /posts/[slug]
+├── /projects/[slug]
 ├── /contact
-├── /now
 ├── /api/
 │   ├── /github
 │   ├── /spotify

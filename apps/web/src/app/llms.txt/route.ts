@@ -15,18 +15,6 @@ ${CONFIG.location}-based software developer, founder of Frontal Labs, and Comput
 - **Languages**: TypeScript, JavaScript, Go, Rust.
 - **Specialties**: Edge-AI, LLMs, Micro-animations, Product Development.
 
-## Current Activities (/now)
-- Studying Computer Engineering.
-- Building Frontal Labs.
-- Running (Strava).
-- Listening to music (Spotify/Last.fm).
-
-## Tools I Use (/use)
-- **Editors**: VS Code, Cursor.
-- **Browsers**: Arc.
-- **OS Tools**: Raycast.
-- **AI**: WebLLM, WebGPU.
-
 ## Contact
 - **Email**: ${CONFIG.email.replace('mailto:', '')}
 - **Twitter**: ${CONFIG.social.twitter}

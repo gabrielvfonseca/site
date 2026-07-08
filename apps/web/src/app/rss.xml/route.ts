@@ -21,7 +21,6 @@ const THIRTY_DAYS_IN_MS = 2_592_000_000;
 const FORTY_FIVE_DAYS_IN_MS = 3_888_000_000;
 const SIXTY_DAYS_IN_MS = 5_184_000_000;
 const SEVENTY_FIVE_DAYS_IN_MS = 6_480_000_000;
-const NINETY_DAYS_IN_MS = 7_776_000_000;
 
 export function GET() {
   const now = new Date();
@@ -131,20 +130,7 @@ export function GET() {
       <category>Best Practices</category>
       <category>Software Engineering</category>
     </item>
-    
-    <!-- Current Activities Update -->
-    <item>
-      <title>Current Activities &amp; Tools (/now and /use)</title>
-      <description>Updated list of current projects, tools, and workflows. Currently building Frontal Labs, studying Computer Engineering, and exploring edge-AI technologies.</description>
-      <link>${siteUrl}/now</link>
-      <guid isPermaLink="true">${siteUrl}/now</guid>
-      <pubDate>${formatDate(new Date(now.getTime() - NINETY_DAYS_IN_MS))}</pubDate>
-      <dc:creator>${escapeXml(CONFIG.name)}</dc:creator>
-      <category>Personal</category>
-      <category>Tools</category>
-      <category>Workflow</category>
-    </item>
-    
+
   </channel>
 </rss>`;
 

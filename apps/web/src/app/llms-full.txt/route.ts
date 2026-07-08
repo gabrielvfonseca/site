@@ -49,41 +49,6 @@ Active contributor to various open source projects with a focus on developer too
 - **Product Development**: Full-stack development from concept to deployment
 - **Performance Optimization**: Web performance and Core Web Vitals
 
-## Current Activities (/now)
-
-### Academic
-- **Studying**: Computer Engineering at NOVA FCT
-- **Focus**: Software Engineering, AI/ML, Distributed Systems
-- **Expected Graduation**: 2025
-
-### Professional
-- **Building**: Frontal Labs - AI-powered business platform
-- **Consulting**: Freelance development and technical advisory
-- **Open Source**: Maintaining several active projects
-
-### Personal
-- **Running**: Regular training and events (Strava)
-- **Music**: Continuous discovery and sharing (Spotify/Last.fm)
-- **Learning**: Exploring new technologies and frameworks
-
-## Tools & Workflow (/use)
-
-### Development Environment
-- **Editors**: VS Code, Cursor
-- **Browsers**: Arc Browser
-- **OS Tools**: Raycast for productivity automation
-- **Version Control**: Git, GitHub
-
-### AI & Automation
-- **AI Tools**: WebLLM, WebGPU for client-side AI
-- **Automation**: Custom scripts and workflow optimization
-- **Testing**: Vitest, Playwright for comprehensive testing
-
-### Design & Productivity
-- **Design**: Figma, Tailwind CSS
-- **Productivity**: Notion, Linear, Slack
-- **Communication**: Email, Twitter, LinkedIn
-
 ## Connect & Collaborate
 
 ### Professional Networks
