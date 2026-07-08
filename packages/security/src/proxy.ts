@@ -18,6 +18,16 @@ export const noseconeOptions = {
               ...(defaults.contentSecurityPolicy?.directives?.scriptSrc ||
                 (["'self'"] as const)),
               "'unsafe-eval'" as const, // Required for React development mode
+              'https://va.vercel-scripts.com' as const, // Vercel Analytics script
+              // Hash of the next-themes anti-flash inline script (no nonce is
+              // applied to third-party inline scripts under the nonce-based CSP).
+              // Production uses 'unsafe-inline' so this only matters in dev.
+              "'sha256-E8EPi3ovz+EfxEviTr9UjHKYh5PnfxNoZOnJbyuXKOo='" as const,
+            ] as const,
+            connectSrc: [
+              ...(defaults.contentSecurityPolicy?.directives?.connectSrc ||
+                (["'self'"] as const)),
+              'https://va.vercel-scripts.com' as const, // Vercel Analytics beacon
             ] as const,
           },
         }
