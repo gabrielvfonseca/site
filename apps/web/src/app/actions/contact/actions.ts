@@ -1,19 +1,44 @@
 'use server';
 
-import { resend } from '@gabfon/email';
 import { parseError } from '@gabfon/observability';
-import type { ContactFormData } from '@/schemas/contact.schema';
 import { contactSchema } from '@/schemas/contact.schema';
 
-export async function sendContactEmail(data: ContactFormData) {
-  const result = contactSchema.safeParse(data);
+export type ContactState = {
+  status: 'idle' | 'success' | 'error';
+  message?: string;
+  errors?: Partial<Record<'name' | 'email' | 'message', string[]>>;
+};
 
-  if (!result.success) {
-    return { error: result.error.flatten().fieldErrors };
+/**
+ * Server action for the contact form, shaped for `useActionState`
+ * (progressive-enhancement friendly: works without client JS).
+ * @param _prevState - The previous form state (unused).
+ * @param formData - The submitted form data.
+ * @returns The next form state.
+ */
+export async function sendContactEmail(
+  _prevState: ContactState,
+  formData: FormData
+): Promise<ContactState> {
+  const parsed = contactSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    message: formData.get('message'),
+  });
+
+  if (!parsed.success) {
+    return {
+      status: 'error',
+      message: 'Please fix the highlighted fields.',
+      errors: parsed.error.flatten().fieldErrors,
+    };
   }
 
   try {
-    const { name, email, message } = result.data;
+    // Imported lazily so the mail client is only constructed when a valid
+    // submission is actually sent (keeps validation working without creds).
+    const { resend } = await import('@gabfon/email');
+    const { name, email, message } = parsed.data;
 
     await resend.emails.send({
       from: 'Contact Form <contact@gabfon.com>',
@@ -23,9 +48,16 @@ export async function sendContactEmail(data: ContactFormData) {
       replyTo: email,
     });
 
-    return { success: true };
+    return {
+      status: 'success',
+      message: "Thanks for reaching out — I'll get back to you soon.",
+    };
   } catch (error) {
     parseError(error);
-    return { error: 'Failed to send email. Please try again later.' };
+    return {
+      status: 'error',
+      message:
+        'Something went wrong sending your message. Please try again later.',
+    };
   }
 }

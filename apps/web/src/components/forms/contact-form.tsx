@@ -5,73 +5,88 @@ import { Input } from '@gabfon/design-system/components/input';
 import { Label } from '@gabfon/design-system/components/label';
 import { Textarea } from '@gabfon/design-system/components/textarea';
 import { toast } from '@gabfon/design-system/components/toaster';
-import { useTransition } from 'react';
-import { sendContactEmail } from '@/app/actions/contact/actions';
+import { type JSX, useActionState, useEffect, useRef } from 'react';
+import {
+  type ContactState,
+  sendContactEmail,
+} from '@/app/actions/contact/actions';
 
-export function ContactForm() {
-  const [isPending, startTransition] = useTransition();
+const INITIAL_STATE: ContactState = { status: 'idle' };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const data = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      message: formData.get('message') as string,
-    };
+function FieldError({
+  id,
+  error,
+}: {
+  id: string;
+  error?: string[];
+}): JSX.Element | null {
+  if (!error?.length) {
+    return null;
+  }
+  return (
+    <p className="text-destructive text-xs" id={id} role="alert">
+      {error[0]}
+    </p>
+  );
+}
 
-    startTransition(async () => {
-      const result = await sendContactEmail(data);
+export function ContactForm(): JSX.Element {
+  const [state, formAction, isPending] = useActionState(
+    sendContactEmail,
+    INITIAL_STATE
+  );
+  const formRef = useRef<HTMLFormElement>(null);
 
-      if (result.success) {
-        toast.success("Thank you for reaching out. I'll get back to you soon.");
-        (event.target as HTMLFormElement).reset();
-      } else if (result.error) {
-        const errorMessage =
-          typeof result.error === 'string'
-            ? result.error
-            : 'Please check the form for errors.';
-        toast.error(errorMessage);
-      }
-    });
-  };
+  useEffect(() => {
+    if (state.status === 'success') {
+      formRef.current?.reset();
+      toast.success(state.message);
+    } else if (state.status === 'error' && !state.errors) {
+      toast.error(state.message);
+    }
+  }, [state]);
+
+  const invalid = (field: keyof NonNullable<ContactState['errors']>) =>
+    Boolean(state.errors?.[field]);
 
   return (
-    <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-      <div
-        aria-atomic="true"
-        aria-live="polite"
-        className="sr-only"
-        id="form-status"
-      >
-        {isPending ? 'Sending message...' : ''}
-      </div>
+    <form action={formAction} className="flex flex-col gap-5" ref={formRef}>
       <div className="flex flex-col gap-2">
         <Label htmlFor="name">Name</Label>
         <Input
+          aria-describedby={invalid('name') ? 'name-error' : undefined}
+          aria-invalid={invalid('name')}
+          autoComplete="name"
           disabled={isPending}
           id="name"
           name="name"
-          placeholder="John Doe"
+          placeholder="Your name"
           required
         />
+        <FieldError error={state.errors?.name} id="name-error" />
       </div>
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="email">Email</Label>
         <Input
+          aria-describedby={invalid('email') ? 'email-error' : undefined}
+          aria-invalid={invalid('email')}
+          autoComplete="email"
           disabled={isPending}
           id="email"
           name="email"
-          placeholder="john@example.com"
+          placeholder="you@example.com"
           required
           type="email"
         />
+        <FieldError error={state.errors?.email} id="email-error" />
       </div>
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="message">Message</Label>
         <Textarea
+          aria-describedby={invalid('message') ? 'message-error' : undefined}
+          aria-invalid={invalid('message')}
           disabled={isPending}
           id="message"
           name="message"
@@ -79,11 +94,24 @@ export function ContactForm() {
           required
           rows={6}
         />
+        <FieldError error={state.errors?.message} id="message-error" />
       </div>
 
-      <Button className="w-full sm:w-max" disabled={isPending} type="submit">
-        {isPending ? 'Sending...' : 'Send Message'}
-      </Button>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <Button className="w-full sm:w-auto" disabled={isPending} type="submit">
+          {isPending ? 'Sending…' : 'Send message'}
+        </Button>
+        {state.status === 'success' && (
+          <output className="text-muted-foreground text-sm">
+            {state.message}
+          </output>
+        )}
+        {state.status === 'error' && !state.errors && (
+          <p className="text-destructive text-sm" role="alert">
+            {state.message}
+          </p>
+        )}
+      </div>
     </form>
   );
 }
