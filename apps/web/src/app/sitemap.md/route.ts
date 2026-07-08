@@ -5,7 +5,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🏠 Main Pages
+##  Main Pages
 
 ### [Home](/)
 - **Description**: Main landing page with portfolio overview
@@ -24,7 +24,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 📄 Information Pages
+##  Information Pages
 
 ### [About](/about)
 - **Description**: Detailed professional background and expertise
@@ -38,7 +38,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🤖 AI & Content Endpoints
+##  AI & Content Endpoints
 
 ### [llms.txt](/llms.txt)
 - **Format**: Plain Text
@@ -60,7 +60,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 📡 Technical Endpoints
+##  Technical Endpoints
 
 ### [RSS Feed](/rss.xml)
 - **Format**: XML (RSS 2.0)
@@ -82,7 +82,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🔧 API Endpoints
+##  API Endpoints
 
 ### [GitHub API](/api/github)
 - **Purpose**: GitHub integration for project and activity data
@@ -101,7 +101,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 📊 Analytics & Monitoring
+##  Analytics & Monitoring
 
 ### [Analytics](/api/analytics)
 - **Purpose**: Website performance and user analytics
@@ -115,7 +115,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🔒 Security & Rate Limiting
+##  Security & Rate Limiting
 
 ### [Security Headers](/api/security)
 - **Purpose**: Security middleware and protection
@@ -129,7 +129,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🎨 Design System
+##  Design System
 
 ### [Components](/design-system)
 - **Purpose**: Reusable UI components and design patterns
@@ -143,7 +143,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 📱 Progressive Web App
+##  Progressive Web App
 
 ### [Manifest](/manifest)
 - **Format**: Web App Manifest
@@ -156,7 +156,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🔍 SEO & Meta
+##  SEO & Meta
 
 ### [Robots.txt](/robots.txt)
 - **Purpose**: Search engine crawling instructions
@@ -166,11 +166,11 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 ### [Open Graph](/og)
 - **Purpose**: Social media sharing metadata
 - **Content**: Title, description, images for social platforms
-- **Platforms**: Twitter, Facebook, LinkedIn
+- **Platforms**: X, Facebook, LinkedIn
 
 ---
 
-## 📈 Performance
+##  Performance
 
 ### [Core Web Vitals](/api/performance)
 - **Purpose**: Performance monitoring and optimization
@@ -184,7 +184,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🌐 External Links
+##  External Links
 
 ### [Frontal Labs](https://frontal.dev)
 - **Description**: AI-powered business platform
@@ -203,7 +203,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 📝 Content Structure
+##  Content Structure
 
 ### Blog Categories
 - **Web Development**: Frontend, backend, full-stack tutorials
@@ -220,7 +220,7 @@ This sitemap provides a comprehensive overview of all pages and sections availab
 
 ---
 
-## 🔗 Navigation Hierarchy
+##  Navigation Hierarchy
 
 gabfon.com/
 ├── / (Home)

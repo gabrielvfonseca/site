@@ -7,17 +7,17 @@ export function GET() {
 
 ---
 
-## 👤 About Me
+##  About Me
 
 Lisbon-based software developer, founder of [Frontal Labs](https://frontal.dev), and Computer Engineering student at [NOVA FCT](https://www.fct.unl.pt). Passionate about building innovative solutions, edge-AI, and creating meaningful digital experiences.
 
-- 📍 **Location**: ${CONFIG.location}
-- 📧 **Email**: [${CONFIG.email.replace('mailto:', '')}](${CONFIG.email})
-- 🎓 **Education**: Computer Engineering at NOVA FCT
+-  **Location**: ${CONFIG.location}
+-  **Email**: [${CONFIG.email.replace('mailto:', '')}](${CONFIG.email})
+-  **Education**: Computer Engineering at NOVA FCT
 
 ---
 
-## 🚀 Key Projects
+##  Key Projects
 
 ### [Frontal Labs](https://frontal.dev) - Founder & Lead Developer
 AI-powered platform designed to streamline business operations and enhance decision-making processes through intelligent automation and data-driven insights.
@@ -39,7 +39,7 @@ Active contributor to various open source projects with a focus on developer too
 
 ---
 
-## 🛠️ Technical Expertise
+##  Technical Expertise
 
 ### Core Technologies
 - **Frontend**: React, Next.js, TypeScript, Tailwind CSS
@@ -57,22 +57,22 @@ Active contributor to various open source projects with a focus on developer too
 
 ---
 
-## 🤝 Connect & Collaborate
+##  Connect & Collaborate
 
 ### Professional Networks
-- **Twitter**: [${CONFIG.social.twitter}](${CONFIG.social.twitter})
+- **X**: [${CONFIG.social.x}](${CONFIG.social.x})
 - **LinkedIn**: [${CONFIG.social.linkedin}](${CONFIG.social.linkedin})
 - **GitHub**: [${CONFIG.social.github}](${CONFIG.social.github})
 - **Email**: [${CONFIG.email.replace('mailto:', '')}](${CONFIG.email})
 
 ### Collaboration
-🤝 **Open to**: Technical consulting, freelance projects, speaking opportunities  
-📅 **Schedule**: [${CONFIG.schedule}](${CONFIG.schedule})  
-💡 **Interests**: AI/ML projects, web development, startup advisory
+ **Open to**: Technical consulting, freelance projects, speaking opportunities  
+ **Schedule**: [${CONFIG.schedule}](${CONFIG.schedule})  
+ **Interests**: AI/ML projects, web development, startup advisory
 
 ---
 
-## 🎯 Site Philosophy & Approach
+##  Site Philosophy & Approach
 
 ### Technical Philosophy
 A minimal, fast, and 100% static portfolio website designed with modern web standards. No backend required—uses client-side fetches and browser-based AI (WebLLM) for dynamic functionality.
@@ -92,35 +92,35 @@ A minimal, fast, and 100% static portfolio website designed with modern web stan
 
 ---
 
-## 🏆 Recent Achievements
+##  Recent Achievements
 
 ### Technical
-✅ Launched multiple production applications with modern tech stack  
-✅ Contributed to open source projects with 1000+ downloads  
-✅ Implemented edge-AI solutions using WebLLM and WebGPU  
-✅ Optimized web performance achieving Core Web Vitals scores
+ Launched multiple production applications with modern tech stack  
+ Contributed to open source projects with 1000+ downloads  
+ Implemented edge-AI solutions using WebLLM and WebGPU  
+ Optimized web performance achieving Core Web Vitals scores
 
 ### Community
-✅ Active contributor to developer community through open source  
-✅ Speaker at local tech meetups and conferences  
-✅ Mentor for junior developers through various platforms  
-✅ Writer of technical articles and tutorials
+ Active contributor to developer community through open source  
+ Speaker at local tech meetups and conferences  
+ Mentor for junior developers through various platforms  
+ Writer of technical articles and tutorials
 
 ---
 
-## 🎯 Future Goals
+##  Future Goals
 
 ### Short Term (2024)
-- 🎓 Complete Computer Engineering degree
-- 📈 Scale Frontal Labs to serve more businesses
-- 🌟 Expand open source contributions
-- 🛠️ Launch additional developer tools
+-  Complete Computer Engineering degree
+-  Scale Frontal Labs to serve more businesses
+-  Expand open source contributions
+-  Launch additional developer tools
 
 ### Long Term (2025+)
-- 🏢 Build a successful tech company
-- 🌍 Contribute to major open source projects
-- 🎤 Speak at international conferences
-- 👥 Mentor the next generation of developers
+-  Build a successful tech company
+-  Contribute to major open source projects
+-  Speak at international conferences
+-  Mentor the next generation of developers
 
 ---
 

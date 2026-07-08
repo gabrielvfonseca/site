@@ -24,7 +24,7 @@ export const env = createEnv({
     FLAGS_SECRET: z.string().optional(),
   },
   client: {
-    NEXT_PUBLIC_TWITTER_URL: z
+    NEXT_PUBLIC_X_URL: z
       .string()
       .url()
       .optional()
@@ -56,7 +56,7 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     ANALYZE: process.env.ANALYZE,
     FLAGS_SECRET: process.env.FLAGS_SECRET,
-    NEXT_PUBLIC_TWITTER_URL: process.env.NEXT_PUBLIC_TWITTER_URL,
+    NEXT_PUBLIC_X_URL: process.env.NEXT_PUBLIC_X_URL,
     NEXT_PUBLIC_LINKEDIN_URL: process.env.NEXT_PUBLIC_LINKEDIN_URL,
     NEXT_PUBLIC_GITHUB_URL: process.env.NEXT_PUBLIC_GITHUB_URL,
     NEXT_PUBLIC_SCHEDULE_URL: process.env.NEXT_PUBLIC_SCHEDULE_URL,

@@ -58,7 +58,7 @@ class SecurityScanner {
     }
 
     try {
-      this.log(`Scanning ${name}: ${packagePath}`, '📦');
+      this.log(`Scanning ${name}: ${packagePath}`, '');
 
       const command = `npx snyk test --severity-threshold=${this.options.severityThreshold} --file="${packageJsonPath}"`;
       const { stdout } = await execAsync(command);
@@ -67,7 +67,7 @@ class SecurityScanner {
         console.log(stdout);
       }
 
-      this.log(`${name} scan completed`, '✅');
+      this.log(`${name} scan completed`, '');
 
       return {
         path: packagePath,
@@ -78,7 +78,7 @@ class SecurityScanner {
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
-      this.log(`Security issues found in ${name}`, '⚠️');
+      this.log(`Security issues found in ${name}`, '');
 
       if (this.options.verbose) {
         console.error(errorMessage);
@@ -107,7 +107,7 @@ class SecurityScanner {
   }
 
   private async scanAllProjects(): Promise<ScanResult[]> {
-    this.log('Running Snyk with --all-projects flag...', '🔍');
+    this.log('Running Snyk with --all-projects flag...', '');
 
     try {
       const command = `npx snyk test --severity-threshold=${this.options.severityThreshold} --all-projects`;
@@ -117,7 +117,7 @@ class SecurityScanner {
         console.log(stdout);
       }
 
-      this.log('All projects scan completed', '✅');
+      this.log('All projects scan completed', '');
 
       return [
         {
@@ -130,7 +130,7 @@ class SecurityScanner {
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
-      this.log('Security issues found in one or more projects', '⚠️');
+      this.log('Security issues found in one or more projects', '');
 
       if (this.options.verbose) {
         console.error(errorMessage);
@@ -151,12 +151,12 @@ class SecurityScanner {
     const results: ScanResult[] = [];
 
     // Scan root package.json
-    this.log('Scanning root package...', '🏠');
+    this.log('Scanning root package...', '');
     const rootResult = await this.runSnyk('.', 'root');
     results.push(rootResult);
 
     // Scan all packages
-    this.log('Scanning packages...', '📚');
+    this.log('Scanning packages...', '');
     const packageDirs = this.getDirectories('packages');
     for (const packageDir of packageDirs) {
       const packageName = packageDir.split('/').pop() || 'unknown';
@@ -165,7 +165,7 @@ class SecurityScanner {
     }
 
     // Scan all apps
-    this.log('Scanning apps...', '🚀');
+    this.log('Scanning apps...', '');
     const appDirs = this.getDirectories('apps');
     for (const appDir of appDirs) {
       const appName = appDir.split('/').pop() || 'unknown';
@@ -177,7 +177,7 @@ class SecurityScanner {
   }
 
   async scan(): Promise<ScanResult[]> {
-    this.log('Starting security scan...', '🔍');
+    this.log('Starting security scan...', '');
 
     const results = this.options.allProjects
       ? await this.scanAllProjects()
@@ -189,7 +189,7 @@ class SecurityScanner {
 
     this.log(
       `Security scan completed! ${successful} successful, ${failed} failed`,
-      '🎉'
+      ''
     );
 
     if (failed > 0 && this.options.failOnError) {

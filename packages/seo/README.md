@@ -11,7 +11,7 @@ This package provides comprehensive SEO utilities for Next.js applications, incl
 - **Metadata Management**: Dynamic metadata generation for pages
 - **Structured Data**: JSON-LD schema markup for rich snippets
 - **Viewport Configuration**: Responsive viewport settings
-- **Social Media**: Open Graph and Twitter Card support
+- **Social Media**: Open Graph and X Card support
 - **Type Safety**: Full TypeScript support with proper typing
 - **Next.js Integration**: Optimized for Next.js App Router
 
@@ -51,9 +51,9 @@ export const metadata = createMetadata({
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Twitter Title',
-    description: 'Twitter Description',
-    images: ['/twitter-image.jpg'],
+    title: 'X Title',
+    description: 'X Description',
+    images: ['/x-image.jpg'],
   },
 });
 ```
@@ -122,12 +122,12 @@ export const viewport = createViewport({
 - **URL**: Canonical URL
 - **Site Name**: Site name
 
-### Twitter Cards
-- **Card Type**: Summary or large image
-- **Title**: Twitter title
-- **Description**: Twitter description
-- **Images**: Twitter images
-- **Creator**: Twitter creator
+### X Cards
+
+- **Title**: X title
+- **Description**: X description
+- **Images**: X images
+- **Creator**: X creator
 
 ### Additional Features
 - **Alternate Languages**: Hreflang tags
@@ -229,7 +229,7 @@ pnpm clean
 1. **Unique Titles**: Ensure each page has a unique, descriptive title
 2. **Meta Descriptions**: Write compelling meta descriptions under 160 characters
 3. **Structured Data**: Use appropriate schema markup for your content
-4. **Image Optimization**: Optimize Open Graph and Twitter images
+4. **Image Optimization**: Optimize Open Graph and X images
 5. **Canonical URLs**: Set canonical URLs to prevent duplicate content issues
 6. **Mobile Optimization**: Ensure viewport configuration is mobile-friendly
 
@@ -239,4 +239,4 @@ Use Google's Rich Results Test and Facebook's Sharing Debugger to validate your 
 
 - [Google Rich Results Test](https://search.google.com/test/rich-results)
 - [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
-- [Twitter Card Validator](https://cards-dev.twitter.com/validator)
+- [X Card Validator](https://cards-dev.twitter.com/validator)

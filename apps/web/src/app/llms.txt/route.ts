@@ -17,7 +17,7 @@ ${CONFIG.location}-based software developer, founder of Frontal Labs, and Comput
 
 ## Contact
 - **Email**: ${CONFIG.email.replace('mailto:', '')}
-- **Twitter**: ${CONFIG.social.twitter}
+- **X**: ${CONFIG.social.x}
 - **GitHub**: ${CONFIG.social.github}
 - **LinkedIn**: ${CONFIG.social.linkedin}
 

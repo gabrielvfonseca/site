@@ -141,10 +141,10 @@ jobs:
           
           if [ $BIOME_EXIT_CODE -eq 0 ]; then
             echo "biome_status=success" >> $GITHUB_OUTPUT
-            echo "✅ Biome lint check passed"
+            echo " Biome lint check passed"
           else
             echo "biome_status=failure" >> $GITHUB_OUTPUT
-            echo "❌ Biome lint check failed"
+            echo " Biome lint check failed"
           fi
 
       - name: Run TypeScript Type Check
@@ -155,10 +155,10 @@ jobs:
           # Run type check across all packages
           if pnpm turbo typecheck; then
             echo "typescript_status=success" >> $GITHUB_OUTPUT
-            echo "✅ TypeScript type check passed"
+            echo " TypeScript type check passed"
           else
             echo "typescript_status=failure" >> $GITHUB_OUTPUT
-            echo "❌ TypeScript type check failed"
+            echo " TypeScript type check failed"
           fi
 
       - name: Run Tests
@@ -169,10 +169,10 @@ jobs:
           # Run tests across all packages
           if pnpm turbo test --no-watch; then
             echo "test_status=success" >> $GITHUB_OUTPUT
-            echo "✅ Tests passed"
+            echo " Tests passed"
           else
             echo "test_status=failure" >> $GITHUB_OUTPUT
-            echo "❌ Tests failed"
+            echo " Tests failed"
           fi
 
       - name: Check for uncommitted changes
@@ -185,7 +185,7 @@ jobs:
             git diff --name-only
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "✅ No changes made by auto-fix"
+            echo " No changes made by auto-fix"
           fi
 
       - name: Create Pull Request with fixes
@@ -229,25 +229,25 @@ jobs:
             // Determine overall status
             const allPassed = biomeStatus === 'success' && typescriptStatus === 'success' && testStatus === 'success';
             
-            let statusEmoji = allPassed ? '✅' : '❌';
+            let statusEmoji = allPassed ? '' : '';
             let statusText = allPassed ? 'All checks passed!' : 'Some checks failed';
             
-            const commentBody = `## 🔍 Lint Check Results ${statusEmoji}
+            const commentBody = `##  Lint Check Results ${statusEmoji}
             
             **Overall Status:** ${statusText}
             
             | Check | Status | Details |
             |-------|--------|---------|
-            | Biome Lint | ${biomeStatus === 'success' ? '✅ Passed' : '❌ Failed'} | Code style, formatting, and best practices |
-            | TypeScript | ${typescriptStatus === 'success' ? '✅ Passed' : '❌ Failed'} | Type checking and definitions |
-            | Tests | ${testStatus === 'success' ? '✅ Passed' : '❌ Failed'} | Unit and integration tests |
+            | Biome Lint | ${biomeStatus === 'success' ? ' Passed' : ' Failed'} | Code style, formatting, and best practices |
+            | TypeScript | ${typescriptStatus === 'success' ? ' Passed' : ' Failed'} | Type checking and definitions |
+            | Tests | ${testStatus === 'success' ? ' Passed' : ' Failed'} | Unit and integration tests |
             
             **Configuration:**
             - **Auto-fix:** ${fixIssues === 'true' ? 'Enabled' : 'Disabled'}
             - **Check scope:** ${checkAll === 'true' ? 'All files' : 'Changed files only'}
             - **Severity threshold:** ${severityThreshold}
             
-            ${!allPassed ? '⚠️ **Please review the failed checks and fix any issues before merging.**' : '🎉 **All checks passed! This PR is ready for review.**'}`;
+            ${!allPassed ? ' **Please review the failed checks and fix any issues before merging.**' : ' **All checks passed! This PR is ready for review.**'}`;
             
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -280,14 +280,14 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           
           if [ "${{ steps.biome-lint.outputs.biome_status }}" = "failure" ] || [ "${{ steps.typescript-check.outputs.typescript_status }}" = "failure" ] || [ "${{ steps.test-check.outputs.test_status }}" = "failure" ]; then
-            echo "❌ **Some checks failed!** Please review the results and fix any issues." >> $GITHUB_STEP_SUMMARY
+            echo " **Some checks failed!** Please review the results and fix any issues." >> $GITHUB_STEP_SUMMARY
           else
-            echo "✅ **All checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
+            echo " **All checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
           fi
           
           if [ "${{ steps.check-changes.outputs.has_changes }}" = "true" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "📝 **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
+            echo " **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
           fi
 
   lint-summary:
@@ -298,7 +298,7 @@ jobs:
     steps:
       - name: Lint Summary
         run: |
-          echo "## 🔍 Lint Check Summary" >> $GITHUB_STEP_SUMMARY
+          echo "##  Lint Check Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Workflow:** Lint Check" >> $GITHUB_STEP_SUMMARY
           echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
@@ -307,11 +307,11 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           
           if [ "${{ needs.lint-check.result }}" = "success" ]; then
-            echo "✅ **All lint checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
+            echo " **All lint checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "The codebase meets all quality standards and is ready for review." >> $GITHUB_STEP_SUMMARY
           else
-            echo "❌ **Some lint checks failed!**" >> $GITHUB_STEP_SUMMARY
+            echo " **Some lint checks failed!**" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "Please review the failed checks and address any issues before merging." >> $GITHUB_STEP_SUMMARY
           fi

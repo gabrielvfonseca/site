@@ -52,7 +52,7 @@ const installDependencies = async (packageManager: string) => {
 const initializeGit = async () => {
   await exec('git init', execSyncOpts);
   await exec('git add .', execSyncOpts);
-  await exec('git commit -m "✨ Initial commit"', execSyncOpts);
+  await exec('git commit -m " Initial commit"', execSyncOpts);
 };
 
 const setupEnvironmentVariables = async () => {

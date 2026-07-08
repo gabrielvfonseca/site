@@ -13,7 +13,7 @@ const author: Metadata['authors'] = {
   url: 'https://gabfon.com/',
 };
 const publisher = 'Gabriel Fonseca';
-const twitterHandle = '@gabfon_';
+const xHandle = '@gabfon_';
 
 export const createMetadata = ({
   title,
@@ -45,7 +45,7 @@ export const createMetadata = ({
     publisher,
     twitter: {
       card: 'summary_large_image',
-      creator: twitterHandle,
+      creator: xHandle,
     },
   };
 

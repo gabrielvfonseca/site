@@ -84,7 +84,7 @@ export default function Page(): JSX.Element {
           <Link
             aria-label="building in public (opens in a new tab)"
             className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            href={CONFIG.social.twitter}
+            href={CONFIG.social.x}
             rel="noopener noreferrer"
             target="_blank"
             title="building in public"
@@ -111,14 +111,14 @@ export default function Page(): JSX.Element {
           in AI, productivity, and organizational clarity. Feel free to reach
           out on{' '}
           <Link
-            aria-label="Twitter (opens in a new tab)"
+            aria-label="X (opens in a new tab)"
             className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            href={CONFIG.social.twitter}
+            href={CONFIG.social.x}
             rel="noopener noreferrer"
             target="_blank"
-            title="Twitter"
+            title="X"
           >
-            Twitter
+            X
           </Link>
           ,{' '}
           <Link

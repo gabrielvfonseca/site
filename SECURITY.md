@@ -43,9 +43,9 @@ We may adjust this timeline based on security and complexity.
 
 | Version | Status | Supported Until |
 |---------|--------|-----------------|
-| Latest | ✅ Supported | Ongoing |
-| Previous Major | ✅ Supported | 12 months |
-| Older versions | ❌ Unsupported | Not supported |
+| Latest |  Supported | Ongoing |
+| Previous Major |  Supported | 12 months |
+| Older versions |  Unsupported | Not supported |
 
 Only the latest and previous major versions receive security patches.
 

@@ -52,7 +52,7 @@ Active contributor to various open source projects with a focus on developer too
 ## Connect & Collaborate
 
 ### Professional Networks
-- **Twitter**: ${CONFIG.social.twitter}
+- **X**: ${CONFIG.social.x}
 - **LinkedIn**: ${CONFIG.social.linkedin}
 - **GitHub**: ${CONFIG.social.github}
 - **Email**: ${CONFIG.email}

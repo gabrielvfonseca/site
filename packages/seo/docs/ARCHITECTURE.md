@@ -214,7 +214,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 - **Title Tags**: Optimized length and keyword placement
 - **Meta Descriptions**: Compelling descriptions within character limits
 - **Open Graph**: Rich social media sharing
-- **Twitter Cards**: Enhanced Twitter sharing
+- **X Cards**: Enhanced X sharing
 
 ### 2. Structured Data
 
@@ -261,7 +261,7 @@ The SEO package is designed to work without environment variables:
 ### 1. Metadata Testing
 - Test metadata generation accuracy
 - Verify Open Graph tags
-- Test Twitter Card rendering
+- Test X Card rendering
 
 ### 2. Structured Data Testing
 - Validate JSON-LD syntax

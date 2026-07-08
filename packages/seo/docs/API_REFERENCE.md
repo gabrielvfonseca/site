@@ -391,7 +391,7 @@ export default function AboutPage() {
       availableLanguage: ['English'],
     },
     sameAs: [
-      'https://twitter.com/gabfon_',
+      'https://x.com/gabfon_',
       'https://github.com/gabfon',
       'https://linkedin.com/in/gabfon',
     ],

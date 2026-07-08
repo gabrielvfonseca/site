@@ -1,27 +1,27 @@
 #!/usr/bin/env sh
 set -e
 
-echo "🔍 Running pre-push validation..."
+echo " Running pre-push validation..."
 
 # 1. Check for unresolved merge conflicts
 echo "   Checking for merge conflicts..."
 if git diff --name-only --diff-filter=U | grep -q .; then
-  echo "❌ Merge conflicts detected. Resolve and commit changes before pushing."
+  echo " Merge conflicts detected. Resolve and commit changes before pushing."
   exit 1
 fi
 
 # 2. Run type checking
 echo "   Running type checking..."
 if ! pnpm typecheck; then
-  echo "❌ TypeScript compilation errors detected. Push aborted."
+  echo " TypeScript compilation errors detected. Push aborted."
   exit 1
 fi
 
 # 3. Run tests
 echo "   Running unit tests..."
 if ! pnpm test; then
-  echo "❌ Tests failed. Push aborted."
+  echo " Tests failed. Push aborted."
   exit 1
 fi
 
-echo "✅ Pre-push validation passed!"
+echo " Pre-push validation passed!"

@@ -40,11 +40,7 @@ export function generatePersonStructuredData() {
     jobTitle: 'Software Developer',
     description: CONFIG.description,
     url: 'https://gabfon.com/',
-    sameAs: [
-      CONFIG.social.github,
-      CONFIG.social.linkedin,
-      CONFIG.social.twitter,
-    ],
+    sameAs: [CONFIG.social.github, CONFIG.social.linkedin, CONFIG.social.x],
     worksFor: {
       '@type': 'Organization',
       name: 'Frontal',
@@ -67,11 +63,7 @@ export function generateContactPageStructuredData() {
       '@type': 'Person',
       name: CONFIG.name,
       email: CONFIG.email.replace('mailto:', ''),
-      sameAs: [
-        CONFIG.social.github,
-        CONFIG.social.linkedin,
-        CONFIG.social.twitter,
-      ],
+      sameAs: [CONFIG.social.github, CONFIG.social.linkedin, CONFIG.social.x],
     },
   };
 }

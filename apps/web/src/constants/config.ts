@@ -8,7 +8,7 @@ export const CONFIG = {
   location: 'Lisbon, Portugal',
   email: `mailto:${env.NEXT_PUBLIC_EMAIL}`,
   social: {
-    twitter: env.NEXT_PUBLIC_TWITTER_URL,
+    x: env.NEXT_PUBLIC_X_URL,
     linkedin: env.NEXT_PUBLIC_LINKEDIN_URL,
     github: env.NEXT_PUBLIC_GITHUB_URL,
   },

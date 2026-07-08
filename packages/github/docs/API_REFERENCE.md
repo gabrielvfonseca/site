@@ -367,7 +367,7 @@ function UserRepos({ username }: { username: string }) {
         {repos?.map(repo => (
           <li key={repo.id}>
             <a href={repo.html_url}>{repo.name}</a>
-            <span>⭐ {repo.stargazers_count}</span>
+            <span> {repo.stargazers_count}</span>
           </li>
         ))}
       </ul>
@@ -406,7 +406,7 @@ function RepoInfo({ owner, repo }: { owner: string; repo: string }) {
       <h1>{repoData?.name}</h1>
       <p>{repoData?.description}</p>
       <p>Language: {repoData?.language}</p>
-      <p>⭐ {repoData?.stargazers_count}</p>
+      <p> {repoData?.stargazers_count}</p>
     </div>
   );
 }

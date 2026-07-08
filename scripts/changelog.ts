@@ -265,7 +265,7 @@ const generatePackageChangelog = (
     .filter((entry) => entry.breaking);
 
   if (breakingChanges.length > 0) {
-    changelogSections.push('### ⚠️ Breaking Changes');
+    changelogSections.push('###  Breaking Changes');
     for (const entry of breakingChanges) {
       changelogSections.push(formatChangelogEntry(entry));
     }
@@ -336,7 +336,7 @@ const generateGlobalChangelog = (
     .filter((entry) => entry.breaking);
 
   if (breakingChanges.length > 0) {
-    changelogSections.push('### ⚠️ Breaking Changes');
+    changelogSections.push('###  Breaking Changes');
     for (const entry of breakingChanges) {
       changelogSections.push(formatChangelogEntry(entry));
     }

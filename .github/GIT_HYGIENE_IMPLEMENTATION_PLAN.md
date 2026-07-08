@@ -293,9 +293,9 @@ We may adjust this timeline based on severity and complexity.
 
 | Version | Status | Supported Until |
 |---------|--------|-----------------|
-| Latest | ✅ Supported | Ongoing |
-| Previous Major | ✅ Supported | 12 months |
-| Older versions | ❌ Unsupported | Not supported |
+| Latest |  Supported | Ongoing |
+| Previous Major |  Supported | 12 months |
+| Older versions |  Unsupported | Not supported |
 
 Only the latest and previous major versions receive security patches.
 
@@ -386,9 +386,9 @@ We may adjust this timeline based on severity and complexity.
 
 | Version | Status | Supported Until |
 |---------|--------|-----------------|
-| Latest | ✅ Supported | Ongoing |
-| Previous Major | ✅ Supported | 12 months |
-| Older versions | ❌ Unsupported | Not supported |
+| Latest |  Supported | Ongoing |
+| Previous Major |  Supported | 12 months |
+| Older versions |  Unsupported | Not supported |
 
 Only the latest and previous major versions receive security patches.
 
@@ -499,19 +499,19 @@ cat > .husky/pre-push << 'EOF'
 #!/usr/bin/env sh
 set -e
 
-echo "🔍 Pre-push validation starting..."
+echo " Pre-push validation starting..."
 
 # 1. Check for unresolved merge conflicts
 echo "   Checking for merge conflicts..."
 if git diff --name-only --diff-filter=U | grep -q .; then
-  echo "❌ Merge conflicts detected. Resolve and commit changes."
+  echo " Merge conflicts detected. Resolve and commit changes."
   exit 1
 fi
 
 # 2. Run type checking
 echo "   Running TypeScript checks..."
 if ! pnpm typecheck; then
-  echo "❌ TypeScript compilation errors detected"
+  echo " TypeScript compilation errors detected"
   exit 1
 fi
 
@@ -519,13 +519,13 @@ fi
 if [ -f "package.json" ] && grep -q '"test"' package.json; then
   echo "   Running tests..."
   if ! pnpm test 2>/dev/null; then
-    echo "⚠️  Tests failed. Push aborted."
+    echo "  Tests failed. Push aborted."
     echo "   Fix test failures and try again."
     exit 1
   fi
 fi
 
-echo "✅ Pre-push validation passed!"
+echo " Pre-push validation passed!"
 EOF
 
 chmod +x .husky/pre-push
@@ -566,14 +566,14 @@ This project follows a modified GitFlow branching model with strong enforcement 
 - **Merge strategy**: Squash + rebase (1 commit per feature)
 - **Lifetime**: Permanent
 - **Protection Rules**:
-  - ✅ Require pull request reviews (≥2 approvals)
-  - ✅ Require status checks pass (lint, test, build)
-  - ✅ Require branches up-to-date before merge
-  - ✅ Require CODEOWNERS review
-  - ✅ Dismiss stale PR approvals
-  - ✅ Require commit signatures (recommended)
-  - ❌ Allow force pushes
-  - ❌ Allow deletions
+  -  Require pull request reviews (≥2 approvals)
+  -  Require status checks pass (lint, test, build)
+  -  Require branches up-to-date before merge
+  -  Require CODEOWNERS review
+  -  Dismiss stale PR approvals
+  -  Require commit signatures (recommended)
+  -  Allow force pushes
+  -  Allow deletions
 
 ### `develop` (Integration)
 - **Purpose**: Integration branch for features, staging area
@@ -581,11 +581,11 @@ This project follows a modified GitFlow branching model with strong enforcement 
 - **Merge strategy**: Squash or rebase
 - **Lifetime**: Permanent
 - **Protection Rules**:
-  - ✅ Require pull request reviews (≥1 approval)
-  - ✅ Require status checks pass
-  - ✅ Require branches up-to-date
-  - ❌ Allow force pushes
-  - ❌ Allow deletions
+  -  Require pull request reviews (≥1 approval)
+  -  Require status checks pass
+  -  Require branches up-to-date
+  -  Allow force pushes
+  -  Allow deletions
 
 ### Feature Branches
 - **Naming**: `feature/TICKET-XXX-short-description`
@@ -694,10 +694,10 @@ git push origin feature/TICKET-123-my-feature
 ### Merging a Feature
 
 1. **Ensure PR requirements are met**:
-   - ✅ 2 approvals (from `main` branch rules)
-   - ✅ CI passing (lint, test, build)
-   - ✅ Branch is up-to-date with develop
-   - ✅ No merge conflicts
+   -  2 approvals (from `main` branch rules)
+   -  CI passing (lint, test, build)
+   -  Branch is up-to-date with develop
+   -  No merge conflicts
 
 2. **Merge with GitHub UI**:
    - Select "Squash and merge"
@@ -756,9 +756,9 @@ git config fetch.prune true
 ## Local Pre-commit Checks
 
 Husky automatically runs these before commit:
-- ✅ commitlint validates message format
-- ✅ Biome lints and formats code
-- ✅ Secrets scanning (if Gitleaks installed)
+-  commitlint validates message format
+-  Biome lints and formats code
+-  Secrets scanning (if Gitleaks installed)
 
 No manual action needed; hooks run automatically.
 
@@ -766,11 +766,11 @@ No manual action needed; hooks run automatically.
 
 | Branch | Protection Level | Review Required | CI Required | Force Push |
 |--------|------------------|-----------------|-------------|-----------|
-| main | **Maximum** | 2 approvals | Yes | ❌ No |
-| develop | **High** | 1 approval | Yes | ❌ No |
-| feature/* | None | None | No | ✅ Yes |
-| fix/* | None | None | No | ✅ Yes |
-| hotfix/* | None | None | No | ✅ Yes |
+| main | **Maximum** | 2 approvals | Yes |  No |
+| develop | **High** | 1 approval | Yes |  No |
+| feature/* | None | None | No |  Yes |
+| fix/* | None | None | No |  Yes |
+| hotfix/* | None | None | No |  Yes |
 
 ## Troubleshooting
 
@@ -1007,37 +1007,37 @@ Navigate to: `Settings → Branches → Add rule`
 ```
 Branch name pattern: main
 
-✅ Require a pull request before merging
-   ✅ Require approvals: 2
-   ✅ Dismiss stale pull request approvals when new commits are pushed
-   ✅ Require review from Code Owners
+ Require a pull request before merging
+    Require approvals: 2
+    Dismiss stale pull request approvals when new commits are pushed
+    Require review from Code Owners
 
-✅ Require status checks to pass before merging
-   ✅ Require branches to be up to date before merging
-   ✅ Require the following status checks:
+ Require status checks to pass before merging
+    Require branches to be up to date before merging
+    Require the following status checks:
      - build
      - lint-and-typecheck
      - test
 
-✅ Require signed commits
+ Require signed commits
 
-❌ Allow force pushes
-❌ Allow deletions
+ Allow force pushes
+ Allow deletions
 ```
 
 **For `develop` branch**:
 ```
 Branch name pattern: develop
 
-✅ Require a pull request before merging
-   ✅ Require approvals: 1
-   ✅ Dismiss stale PR approvals
+ Require a pull request before merging
+    Require approvals: 1
+    Dismiss stale PR approvals
 
-✅ Require status checks to pass
-   ✅ Require branches to be up to date
+ Require status checks to pass
+    Require branches to be up to date
 
-❌ Allow force pushes
-❌ Allow deletions
+ Allow force pushes
+ Allow deletions
 ```
 
 ---
@@ -1124,9 +1124,9 @@ git push origin feature/TICKET-123-my-feature
 ## Pre-commit Hooks
 
 The following run automatically before commit:
-- ✅ commitlint - validates commit message format
-- ✅ Biome linter - catches code style issues
-- ✅ Secret scanning - prevents committing credentials
+-  commitlint - validates commit message format
+-  Biome linter - catches code style issues
+-  Secret scanning - prevents committing credentials
 
 If a check fails, fix the issue and try committing again.
 
@@ -1240,12 +1240,12 @@ pnpm build
 
 Before submitting a PR:
 
-1. ✅ All tests pass: `pnpm test`
-2. ✅ No TypeScript errors: `pnpm typecheck`
-3. ✅ Code is formatted: `pnpm format`
-4. ✅ Lint passes: `pnpm lint`
-5. ✅ Commit messages follow format
-6. ✅ Update documentation
+1.  All tests pass: `pnpm test`
+2.  No TypeScript errors: `pnpm typecheck`
+3.  Code is formatted: `pnpm format`
+4.  Lint passes: `pnpm lint`
+5.  Commit messages follow format
+6.  Update documentation
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for more details.
 
@@ -1309,20 +1309,20 @@ After implementing each phase, verify:
 
 ```bash
 # Phase 1 Verification
-test -f .gitattributes && echo "✅ .gitattributes" || echo "❌ Missing"
-test -f .editorconfig && echo "✅ .editorconfig" || echo "❌ Missing"
-test -f SECURITY.md && echo "✅ SECURITY.md" || echo "❌ Missing"
-grep -q "export default" commitlint.config.js && echo "✅ Commitlint fixed" || echo "❌ Check needed"
-test -x .husky/pre-push && echo "✅ Pre-push hook" || echo "❌ Check needed"
+test -f .gitattributes && echo " .gitattributes" || echo " Missing"
+test -f .editorconfig && echo " .editorconfig" || echo " Missing"
+test -f SECURITY.md && echo " SECURITY.md" || echo " Missing"
+grep -q "export default" commitlint.config.js && echo " Commitlint fixed" || echo " Check needed"
+test -x .husky/pre-push && echo " Pre-push hook" || echo " Check needed"
 
 # Phase 2 Verification
-test -f .github/BRANCH_POLICY.md && echo "✅ Branch policy" || echo "❌ Missing"
-test -f .github/pull_request_template.md && echo "✅ PR template" || echo "❌ Missing"
-grep -q "yaml" package.json && echo "✅ Lint-staged extended" || echo "❌ Check needed"
+test -f .github/BRANCH_POLICY.md && echo " Branch policy" || echo " Missing"
+test -f .github/pull_request_template.md && echo " PR template" || echo " Missing"
+grep -q "yaml" package.json && echo " Lint-staged extended" || echo " Check needed"
 
 # Test Git hooks
 git add -A
-git commit -m "test: verify git hooks" --no-verify || echo "⚠️  Hooks triggered"
+git commit -m "test: verify git hooks" --no-verify || echo "  Hooks triggered"
 
 # Show status
 git log --oneline -5

@@ -15,13 +15,13 @@ This repository has a **solid foundation** with Husky hooks, commitlint, and CI/
 
 ## 1. GIT CONFIGURATION & STANDARDS
 
-### ✅ PASSING
+###  PASSING
 - **Husky Integration**: Properly configured at `.husky/_`
 - **Hook Path**: `core.hooksPath` correctly set to `.husky/_`
 - **Package Manager**: Single package manager enforced (pnpm@9.12.3)
 - **Conventional Commits**: commitlint enforcing strict format
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 #### 1.1 Missing `.gitattributes`
 **Gap**: No normalization rules for line endings and file handling.
@@ -142,12 +142,12 @@ git config commit.gpgsign true  # If enforcing signed commits
 
 ## 2. BRANCHING MODEL & STRATEGY
 
-### ✅ PASSING
+###  PASSING
 - **Main branch exists**: Primary production branch
 - **Branch protection rules**: Can be configured at GitHub level
 - **CI triggers on main/develop**: Workflows trigger correctly
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 #### 2.1 No Formal Branching Policy
 **Gap**: Branching model not documented, no enforce pattern for feature/fix/hotfix branches.
@@ -214,12 +214,12 @@ git config commit.gpgsign true  # If enforcing signed commits
 
 ## 3. CONVENTIONAL COMMITS ENFORCEMENT
 
-### ✅ PASSING
+###  PASSING
 - **commitlint configured**: `.commitlint.config.js` in place
 - **Commit types defined**: feat, fix, docs, chore, refactor, test, style, revert, ci, perf, build
 - **Pre-commit hook enforces**: `commit-msg` hook validates format
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 #### 3.1 Duplicate commit types in config
 **Gap**: `chore`, `refactor`, `test`, `style`, `revert`, `ci`, `perf`, `build` appear twice in type-enum
@@ -255,13 +255,13 @@ EOF
 
 ## 4. LOCAL AUTOMATION (HUSKY + LINT-STAGED)
 
-### ✅ PASSING
+###  PASSING
 - **Husky installed**: v9.1.7
 - **lint-staged installed**: v16.1.6
 - **Pre-commit hook**: Runs `pnpm lint-staged`
 - **Commit-msg hook**: Validates with commitlint
 
-### ❌ CRITICAL GAP: Empty Pre-push Hook
+###  CRITICAL GAP: Empty Pre-push Hook
 
 **Gap**: `.husky/pre-push` exists but is empty (only shebang):
 ```bash
@@ -278,44 +278,44 @@ cat > .husky/pre-push << 'EOF'
 
 set -e
 
-echo "🔍 Pre-push validation..."
+echo " Pre-push validation..."
 
 # 1. Check for unresolved merge conflicts
 if git diff --name-only --diff-filter=U | grep -q .; then
-  echo "❌ Merge conflicts detected. Resolve and stage changes."
+  echo " Merge conflicts detected. Resolve and stage changes."
   exit 1
 fi
 
 # 2. Prevent secrets from being pushed
 if ! command -v gitleaks &> /dev/null; then
-  echo "⚠️  gitleaks not installed. Skipping secret scan."
+  echo "  gitleaks not installed. Skipping secret scan."
   echo "   Install: https://github.com/gitleaks/gitleaks"
 else
-  echo "🔐 Scanning for secrets..."
+  echo " Scanning for secrets..."
   gitleaks detect --source github --verbose --redact
 fi
 
 # 3. Run type checking
-echo "📝 Type checking..."
+echo " Type checking..."
 if ! pnpm typecheck; then
-  echo "❌ TypeScript errors detected"
+  echo " TypeScript errors detected"
   exit 1
 fi
 
 # 4. Run tests for changed files
-echo "🧪 Running tests..."
+echo " Running tests..."
 if ! pnpm test; then
-  echo "❌ Tests failed"
+  echo " Tests failed"
   exit 1
 fi
 
-echo "✅ Pre-push checks passed!"
+echo " Pre-push checks passed!"
 EOF
 
 chmod +x .husky/pre-push
 ```
 
-### ⚠️ Lint-staged configuration incomplete
+###  Lint-staged configuration incomplete
 
 **Gap**: Only TypeScript/JavaScript files covered. Missing other file types.
 
@@ -341,14 +341,14 @@ chmod +x .husky/pre-push
 
 ## 5. REPOSITORY STRUCTURE & DOCUMENTATION
 
-### ✅ PASSING
+###  PASSING
 - **README.md**: Present with setup instructions
 - **CONTRIBUTING.md**: Present with developer guidelines
 - **CODEOWNERS**: Configured with default maintainer
 - **.gitignore**: Comprehensive coverage
 - **LICENSE.md**: MIT license in place
 
-### ❌ CRITICAL GAP: Missing SECURITY.md
+###  CRITICAL GAP: Missing SECURITY.md
 
 **Gap**: No security policy for reporting vulnerabilities.
 
@@ -395,7 +395,7 @@ We will:
 - **Older versions**: No support
 ```
 
-### ⚠️ Missing pull request templates
+###  Missing pull request templates
 
 **Gap**: No PR template to guide reviewers and authors.
 
@@ -428,14 +428,14 @@ Closes #123
 
 ## 6. CI/CD PIPELINE
 
-### ✅ PASSING
+###  PASSING
 - **Lint workflow**: `.github/workflows/lint.yml` configured
 - **CI workflow**: `.github/workflows/ci.yml` with lint, test, build
 - **Security scanning**: `.github/workflows/security.yml` with Snyk
 - **Release workflow**: `.github/workflows/release.yml` in place
 - **Changelog generation**: `.github/workflows/changelog.yml`
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 #### 6.1 Missing artifact cleanup
 **Gap**: CI uploads build artifacts but doesn't define retention properly.
@@ -461,13 +461,13 @@ retention-days: 7
 
 ## 7. SECURITY CONTROLS
 
-### ✅ PASSING
+###  PASSING
 - **Snyk integration**: Security scanning in CI pipeline
 - **Renovate**: Dependency updates with vulnerability alerts
 - **Dependabot**: GitHub Actions updates
 - **Secret scanning**: `pnpm run security:all` available
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 #### 7.1 Missing Gitleaks integration
 **Gap**: No secret scanning for committed secrets.
@@ -510,20 +510,20 @@ jobs:
 
 ## 8. BRANCH PROTECTION RULES
 
-### ⚠️ NOT CONFIGURED IN CODE (GitHub Settings)
+###  NOT CONFIGURED IN CODE (GitHub Settings)
 
 **Gaps**: Branch protection rules should be enforced at GitHub level. Current status unknown.
 
 **Required Settings for `main` branch**:
-- ✅ Require pull request reviews before merging (≥2 approvals)
-- ✅ Require status checks to pass (lint, test, build, security)
-- ✅ Require branches to be up to date before merging
-- ✅ Require code owners review
-- ✅ Dismiss stale PR approvals when new commits pushed
-- ✅ Require commit signatures
-- ❌ Require conversation resolution (optional but recommended)
-- ❌ Allow force pushes: **DISABLED**
-- ❌ Allow deletions: **DISABLED**
+-  Require pull request reviews before merging (≥2 approvals)
+-  Require status checks to pass (lint, test, build, security)
+-  Require branches to be up to date before merging
+-  Require code owners review
+-  Dismiss stale PR approvals when new commits pushed
+-  Require commit signatures
+-  Require conversation resolution (optional but recommended)
+-  Allow force pushes: **DISABLED**
+-  Allow deletions: **DISABLED**
 
 **Manual Setup Required at**: `Settings → Branches → Branch protection rules → Add rule`
 
@@ -531,14 +531,14 @@ jobs:
 
 ## 9. DEPENDENCY MANAGEMENT
 
-### ✅ PASSING
+###  PASSING
 - **Single package manager**: pnpm@9.12.3 enforced
 - **Lockfile**: `pnpm-lock.yaml` checked in
 - **Renovate configured**: Smart dependency updates
 - **Workspace structure**: Multi-app/packages monorepo
 - **Security overrides**: Known vulnerability patches applied
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 #### 9.1 No packageManager validation
 **Gap**: No pre-install hook to prevent npm/yarn usage.
@@ -547,7 +547,7 @@ jobs:
 ```bash
 # Add to .husky/pre-commit
 if ! npm ls -g pnpm | grep -q $(cat .npmrc | grep 'package-manager' | cut -d'=' -f2); then
-  echo "❌ Please use pnpm for this project"
+  echo " Please use pnpm for this project"
   echo "   Install: npm install -g pnpm"
   exit 1
 fi
@@ -557,13 +557,13 @@ fi
 
 ## 10. RELEASE DISCIPLINE
 
-### ✅ PASSING
+###  PASSING
 - **Semantic versioning**: Changeset-based releases
 - **Automated changelog**: Changelog.yml workflow
 - **Release notes**: Generated from commits
 - **Git tags**: Automatic tagging on release
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 #### 10.1 No auto-versioning validation
 **Gap**: No check that version bump is semantic.
@@ -577,17 +577,17 @@ fi
 
 ## 11. DOCUMENTATION COMPLETENESS
 
-### ⚠️ NEEDS ATTENTION
+###  NEEDS ATTENTION
 
 Missing comprehensive Git standards documentation.
 
 **Required Documents**:
-- ✅ CONTRIBUTING.md - Present but could be enhanced
-- ✅ README.md - Present
-- ❌ SECURITY.md - **MISSING** (Critical)
-- ❌ .github/BRANCH_POLICY.md - **MISSING**
-- ❌ .github/DEVELOPMENT.md - **MISSING**
-- ❌ .github/RELEASE.md - **MISSING**
+-  CONTRIBUTING.md - Present but could be enhanced
+-  README.md - Present
+-  SECURITY.md - **MISSING** (Critical)
+-  .github/BRANCH_POLICY.md - **MISSING**
+-  .github/DEVELOPMENT.md - **MISSING**
+-  .github/RELEASE.md - **MISSING**
 
 ---
 
@@ -627,15 +627,15 @@ Missing comprehensive Git standards documentation.
 
 | Category | Status | Score |
 |----------|--------|-------|
-| Git Config | ⚠️ Partial | 60% |
-| Branching Model | ✅ Excellent | 90% |
-| Conventional Commits | ✅ Excellent | 85% |
-| Husky/Pre-commit | ⚠️ Partial | 70% |
-| CI/CD Pipeline | ✅ Excellent | 85% |
-| Security Controls | ⚠️ Partial | 65% |
-| Branch Protection | ⚠️ Unknown | 50% |
-| Documentation | ⚠️ Partial | 60% |
-| **OVERALL** | **⚠️ Partial** | **72%** |
+| Git Config |  Partial | 60% |
+| Branching Model |  Excellent | 90% |
+| Conventional Commits |  Excellent | 85% |
+| Husky/Pre-commit |  Partial | 70% |
+| CI/CD Pipeline |  Excellent | 85% |
+| Security Controls |  Partial | 65% |
+| Branch Protection |  Unknown | 50% |
+| Documentation |  Partial | 60% |
+| **OVERALL** | ** Partial** | **72%** |
 
 ---
 

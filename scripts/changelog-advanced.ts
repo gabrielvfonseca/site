@@ -56,17 +56,17 @@ type ChangelogConfig = {
 };
 
 const COMMIT_TYPES = {
-  feat: { emoji: '✨', title: 'Features' },
-  fix: { emoji: '🐛', title: 'Bug Fixes' },
-  docs: { emoji: '📚', title: 'Documentation' },
-  style: { emoji: '💄', title: 'Styles' },
-  refactor: { emoji: '♻️', title: 'Code Refactoring' },
-  perf: { emoji: '⚡', title: 'Performance Improvements' },
-  test: { emoji: '🧪', title: 'Tests' },
-  build: { emoji: '🔨', title: 'Build System' },
-  ci: { emoji: '👷', title: 'Continuous Integration' },
-  chore: { emoji: '🔧', title: 'Chores' },
-  revert: { emoji: '⏪', title: 'Reverts' },
+  feat: { emoji: '', title: 'Features' },
+  fix: { emoji: '', title: 'Bug Fixes' },
+  docs: { emoji: '', title: 'Documentation' },
+  style: { emoji: '', title: 'Styles' },
+  refactor: { emoji: '', title: 'Code Refactoring' },
+  perf: { emoji: '', title: 'Performance Improvements' },
+  test: { emoji: '', title: 'Tests' },
+  build: { emoji: '', title: 'Build System' },
+  ci: { emoji: '', title: 'Continuous Integration' },
+  chore: { emoji: '', title: 'Chores' },
+  revert: { emoji: '', title: 'Reverts' },
 } as const;
 
 const BREAKING_CHANGE_PATTERN = /^BREAKING CHANGE:/m;
@@ -290,7 +290,7 @@ const generatePackageChangelog = (
     .filter((entry) => entry.breaking);
 
   if (breakingChanges.length > 0) {
-    changelogSections.push('### ⚠️ Breaking Changes');
+    changelogSections.push('###  Breaking Changes');
     for (const entry of breakingChanges) {
       changelogSections.push(formatChangelogEntry(entry, config));
     }
@@ -365,7 +365,7 @@ const generateGlobalChangelog = (
     .filter((entry) => entry.breaking);
 
   if (breakingChanges.length > 0) {
-    changelogSections.push('### ⚠️ Breaking Changes');
+    changelogSections.push('###  Breaking Changes');
     for (const entry of breakingChanges) {
       changelogSections.push(formatChangelogEntry(entry, config));
     }

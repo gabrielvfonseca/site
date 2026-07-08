@@ -212,7 +212,7 @@ Arcjet provides comprehensive bot detection:
 - **GOOGLE**: Googlebot
 - **BING**: Bingbot
 - **FACEBOOK**: Facebook crawler
-- **TWITTER**: Twitter crawler
+- **TWITTER**: X crawler
 - **LINKEDIN**: LinkedIn crawler
 
 ### Shield Protection
