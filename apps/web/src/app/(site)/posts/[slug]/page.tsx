@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { JSX } from 'react';
 import { CONFIG } from '@/constants/config';
-import { getPosts } from '@/lib/content-index';
+import { getPostEntry, getPosts } from '@/lib/content-index';
+import { formatDisplayDate } from '@/lib/format-date';
 
 /**
  * The PostPageProps for the site.
@@ -64,27 +65,31 @@ export default async function PostPage({
   params,
 }: PostPageProps): Promise<JSX.Element> {
   const { slug } = await params;
-  const posts = getPosts();
-  const post = posts.find((p) => p.slug === slug);
+  const post = getPosts().find((p) => p.slug === slug);
+  const entry = getPostEntry(slug);
 
-  if (!post) {
+  if (!post || !entry) {
     notFound();
   }
 
-  // For now, we'll show a simple page with post metadata
-  // In a real implementation, you'd load the actual MDX content here
+  const MdxContent = entry.body;
+
   return (
-    <article className="max-w-none">
-      <div className="prose prose-slate dark:prose-invert max-w-none">
-        <h1>{post.title}</h1>
+    <article className="flex flex-col gap-8">
+      <header className="flex flex-col gap-2">
+        <h1 className="font-semibold text-2xl tracking-tight">{post.title}</h1>
         <p className="text-muted-foreground">{post.description}</p>
-        <time dateTime={post.date}>{post.date}</time>
-        <div className="mt-8">
-          <p>
-            Post content will be loaded here. This is a placeholder for the
-            actual MDX content.
-          </p>
-        </div>
+        {post.date ? (
+          <time
+            className="text-muted-foreground/75 text-xs uppercase tracking-wider"
+            dateTime={post.date}
+          >
+            {formatDisplayDate(post.date)}
+          </time>
+        ) : null}
+      </header>
+      <div className="prose max-w-none">
+        <MdxContent />
       </div>
     </article>
   );

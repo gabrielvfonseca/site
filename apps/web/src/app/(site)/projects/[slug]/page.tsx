@@ -1,9 +1,11 @@
 import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { JSX } from 'react';
 import { CONFIG } from '@/constants/config';
-import { getProjects } from '@/lib/content-index';
+import { getProjectEntry, getProjects } from '@/lib/content-index';
+import { formatDisplayDate } from '@/lib/format-date';
 
 /**
  * The ProjectPageProps for the site.
@@ -64,27 +66,42 @@ export default async function ProjectPage({
   params,
 }: ProjectPageProps): Promise<JSX.Element> {
   const { slug } = await params;
-  const projects = getProjects();
-  const project = projects.find((p) => p.slug === slug);
+  const project = getProjects().find((p) => p.slug === slug);
+  const entry = getProjectEntry(slug);
 
-  if (!project) {
+  if (!project || !entry) {
     notFound();
   }
 
-  // For now, we'll show a simple page with project metadata
-  // In a real implementation, you'd load the actual MDX content here
+  const MdxContent = entry.body;
+
   return (
-    <article className="max-w-none">
-      <div className="prose prose-slate dark:prose-invert max-w-none">
-        <h1>{project.title}</h1>
+    <article className="flex flex-col gap-8">
+      <header className="flex flex-col gap-2">
+        <h1 className="font-semibold text-2xl tracking-tight">
+          {project.title}
+        </h1>
         <p className="text-muted-foreground">{project.description}</p>
-        <time dateTime={project.date}>{project.date}</time>
-        <div className="mt-8">
-          <p>
-            Project content will be loaded here. This is a placeholder for the
-            actual MDX content.
-          </p>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground/75 text-xs uppercase tracking-wider">
+          {project.date ? (
+            <time dateTime={project.date}>
+              {formatDisplayDate(project.date)}
+            </time>
+          ) : null}
+          {project.link ? (
+            <Link
+              className="rounded transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              href={project.link}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Visit project ↗
+            </Link>
+          ) : null}
         </div>
+      </header>
+      <div className="prose max-w-none">
+        <MdxContent />
       </div>
     </article>
   );
