@@ -54,19 +54,13 @@
     "command": "~/.claude/file-suggestion.sh"
   },
 
-  "hooks": {
-    "allowManagedHooksOnly": false,
-    "allowedHttpHookUrls": [
-      "https://hooks.example.com/*",
-      "http://localhost:*"
-    ],
-    "httpHookAllowedEnvVars": [
-      "MY_TOKEN",
-      "HOOK_SECRET",
-      "VERCEL_TOKEN",
-      "GITHUB_TOKEN"
-    ]
-  },
+  "allowedHttpHookUrls": ["https://hooks.example.com/*", "http://localhost:*"],
+  "httpHookAllowedEnvVars": [
+    "MY_TOKEN",
+    "HOOK_SECRET",
+    "VERCEL_TOKEN",
+    "GITHUB_TOKEN"
+  ],
 
   "mcp": {
     "enableAllProjectMcpServers": true,
