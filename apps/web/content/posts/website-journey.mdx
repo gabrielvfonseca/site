@@ -1,27 +1,34 @@
 ---
-title: "Building My Personal Website"
-description: "How I built this website in less than two days and my plans for the future"
-date: 2026-05-20
+title: "How I Built This Site"
+description: "The architecture behind gabfon.com — a monorepo, custom packages, an AI that answers as me, and live data."
+date: 2026-07-02
 ---
 
-I built this website in less than two days with a clear goal in mind: to create a personal space on the internet where I can share my thoughts, showcase my work, and connect with like-minded individuals.
+This site is small on the surface and deliberately over-engineered underneath. It's a personal site, but I treat it like a product — partly because I enjoy it, partly because it's where I try ideas before they reach [Frontal](https://frontal.dev). Here's how it's built.
 
-Here's a closer look at how I brought this vision to life and my plans for the future:
+## A monorepo for one person
 
-## Future Plans
+It runs as a Bun monorepo: a Next.js 16 app in `apps/web`, plus a few packages I own end to end. That's overkill for a personal site, and that's the point. Splitting concerns into packages forces clean boundaries and makes each piece easy to reason about on its own.
 
-Looking ahead, I'm excited to expand and enhance this platform with the following initiatives:
+The two I care about most:
 
-- **Interactive Features**: Adding user comments, real-time updates, and personalized experiences to make the site more dynamic and engaging.
-- **Enhanced Content**: Publishing detailed articles, tutorials, and projects that dive into my areas of interest, including tech, design, and innovation.
-- **Community Engagement**: Fostering a vibrant community where like-minded individuals can share ideas, discuss topics, and collaborate on projects.
+- **`packages/seo`** — my own SEO layer: metadata, structured data, sitemaps, and the `llms.txt` / `llms-full.txt` routes so language models can read the site in a format built for them.
+- **`packages/security`** — headers, a content security policy, and the hardening I'd want on anything public-facing.
 
-This website is a reflection of my passion for technology and creativity. I'm committed to continuously improving it to:
+The stack is TypeScript in strict mode, Tailwind with shadcn/ui, Sentry for errors, and Vercel for hosting.
 
-- Provide valuable content
-- Engage with a growing community
-- Share my journey as a tech enthusiast and developer
+## Content as files
 
-The codebase for this website is open-source and available on GitHub.
+Posts and projects — including this one — are MDX files with typed frontmatter, validated with Zod at build time. No CMS, no database. Writing is just editing a file and committing it, which is exactly the friction level I want.
 
-Thank you for stopping by! Stay tuned—there's much more to come!
+## An AI that answers as me
+
+There's a chat on the site trained on a profile of who I am and what I'm working on. Ask it something and it answers in my voice. It's a small feature, but it's the most honest expression of what this site is for: a place that represents me even when I'm not there.
+
+## Live, not static
+
+The site pulls real data — what I'm listening to on Spotify, recent training from Strava, activity from GitHub. I'd rather show what's actually true right now than a frozen "about me." It makes the site feel alive, and it keeps me honest.
+
+## The point
+
+I build in public, and this site is part of that. It's open-source, it's a sandbox, and it's never really finished. That's the fun of it.

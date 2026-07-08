@@ -1,0 +1,26 @@
+---
+title: Gala
+description: A modern, experimental programming language - deliberately simple, designed to test ideas about how languages should feel.
+date: 2026-04-30
+---
+
+Gala is an experimental programming language. It's not trying to replace anything - it's a place to hold strong opinions about language design and see if they survive contact with real code.
+
+The premise is simple: most languages carry decades of decisions made for compatibility, not quality. Gala starts from scratch, keeping only what earns its place. That means saying no to a lot - features that are conventional but expensive, syntax that's familiar but ambiguous, abstractions that feel powerful but compose poorly.
+
+## Design tenets
+
+- **Minimal surface area**: Fewer concepts, each one general enough to compose. If two features overlap in capability, one of them goes.
+- **Readability over writability**: Code is read far more often than it's written. Syntax should make the structure of a program visible at a glance, not efficient to type.
+- **Predictable semantics**: No hidden control flow, no implicit conversions, no magic you can't see in the local scope. What you read is what it does.
+- **First-class errors**: Error handling isn't an afterthought bolted onto a language designed without it. Gala treats failure as a fundamental part of computation, not an exceptional case.
+
+## What it tests
+
+Gala exists to answer questions you can only answer by building: What does a type system look like when you optimize for ergonomics instead of academic elegance? How small can a language be before composability breaks? What happens when you treat tooling - formatter, linter, language server - as part of the language design from day one instead of an ecosystem afterthought?
+
+Every design decision in Gala is an experiment. The code is the lab.
+
+## Status
+
+Gala is in active development - a working compiler, a growing set of experiments, and a lot of open questions. It's less a product than a research project, and it's built in exactly that spirit: curious, demanding, and willing to be wrong.

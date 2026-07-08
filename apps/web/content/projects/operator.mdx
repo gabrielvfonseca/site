@@ -1,0 +1,26 @@
+---
+title: Operator
+description: A comprehensive agentic AI assistant that doesn't just answer - it plans, acts, and completes multi-step objectives end to end.
+date: 2026-06-20
+link: https://github.com/gabrielvfonseca/operator
+---
+
+Operator is an agentic AI assistant built around a different assumption than most: that the real value isn't in the reply, it's in the execution. Most assistants treat conversation as the unit of work - they answer a question and stop. Operator treats end-to-end task completion as the unit of work instead.
+
+Given an objective, Operator decomposes it into sub-tasks, executes them across tools and data sources, adapts when things go wrong, and reports back with results - not a plan to get results. It's an experiment in how far a single agentic system can go when it's designed from the ground up to act, not just to converse.
+
+## Capabilities
+
+- **Multi-step planning**: Breaks ambiguous objectives into concrete execution plans, with dependency ordering and parallel branches where possible.
+- **Tool use**: Interfaces with filesystems, APIs, databases, browsers, and shell environments - any tool that can be described can be invoked.
+- **Context management**: Maintains working memory across steps, tracking what's been done, what's pending, and what assumptions have changed.
+- **Error recovery**: When a step fails, Operator doesn't just report the failure - it re-evaluates the plan, tries alternatives, and escalates only when options are exhausted.
+- **Observability**: Every action is logged, every decision is traceable, and every result is attributable to the chain of steps that produced it.
+
+## The architecture
+
+Operator uses a structured reasoning loop: perceive the current state, evaluate progress against the objective, decide on the next action, execute it, observe the result, and repeat. The loop is bounded by budget - time, tool calls, or token limits - so it always terminates with a meaningful result or a clear explanation of why it couldn't complete.
+
+## Ambition
+
+This is an ambitious project, and I'm building it in that spirit. The goal isn't a better chatbot. It's a system that can take a real objective - "migrate this database schema" or "audit this codebase for security issues" - and come back when it's done.
