@@ -25,6 +25,8 @@
       "!**/manifest.ts",
       "!**/dist",
       "!**/build",
+      "!.agents",
+      "!skills",
       "!**/public",
       "!**/public",
       "!**/packages/database/generated",
@@ -35,6 +37,8 @@
     "enabled": true,
     "includes": [
       "**",
+      "!.agents/**",
+      "!skills/**",
       "!**/packages/database/generated/**",
       "!packages/github/src/types.ts",
       "!packages/spotify/src/types.ts",
