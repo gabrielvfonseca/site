@@ -39,8 +39,9 @@ const Icon = (): ImageResponse =>
     // ImageResponse JSX element
     <div
       style={{
-        fontSize: 24,
-        background: 'white',
+        fontSize: 22,
+        fontWeight: 600,
+        background: 'black',
         width: '100%',
         height: '100%',
         display: 'flex',
@@ -50,7 +51,7 @@ const Icon = (): ImageResponse =>
         color: 'white',
       }}
     >
-      A
+      G
     </div>,
     // ImageResponse options
     {
