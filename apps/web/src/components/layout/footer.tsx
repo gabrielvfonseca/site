@@ -2,7 +2,8 @@
 
 import { capitalize } from '@gabfon/design-system/lib/utils';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import type { JSX } from 'react';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { CONFIG } from '@/constants/config';
 import { cn } from '@/lib/utils';
 
@@ -20,7 +21,7 @@ const FooterLink = ({ href, label }: FooterLinkProps) => {
   return (
     <Link
       className={cn(
-        'cursor-pointer rounded text-muted-foreground transition-colors duration-300 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
+        'cursor-pointer rounded text-muted-foreground transition-colors duration-300 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
       )}
       href={href}
       {...linkProps}
@@ -30,18 +31,11 @@ const FooterLink = ({ href, label }: FooterLinkProps) => {
   );
 };
 
-const DEFAULT_YEAR = 2024;
-
 export function Footer(): JSX.Element {
-  const [_currentYear, setCurrentYear] = useState(DEFAULT_YEAR); // Default year for SSR
   const socialLinks = Object.entries(CONFIG.social).map(([key, value]) => ({
     href: value,
     label: capitalize(key),
   }));
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
 
   const links: FooterLinkProps[] = [
     ...socialLinks,
@@ -49,7 +43,8 @@ export function Footer(): JSX.Element {
   ];
 
   return (
-    <footer className="mt-14 flex w-full items-center justify-end tracking-tight sm:mt-24">
+    <footer className="mt-14 flex w-full flex-col-reverse items-start justify-between gap-y-4 tracking-tight sm:mt-24 sm:flex-row sm:items-center">
+      <ThemeToggle />
       <nav
         aria-label="Footer navigation"
         className="flex flex-row gap-x-2 text-xs leading-none tracking-normal"
