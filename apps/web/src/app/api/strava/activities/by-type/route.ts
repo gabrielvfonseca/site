@@ -1,4 +1,4 @@
-import { stravaClient } from '@gabfon/strava';
+import { type StravaActivity, stravaClient } from '@gabfon/strava';
 import { type NextRequest, NextResponse } from 'next/server';
 
 /**

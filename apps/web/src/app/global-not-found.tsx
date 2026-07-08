@@ -32,7 +32,10 @@ const GlobalNotFound = (): JSX.Element => (
           </p>
           <Link
             aria-label="Go to homepage"
-            className={buttonVariants({ variant: 'default', shape: 'full' })}
+            className={buttonVariants({
+              variant: 'default',
+              className: 'rounded-full',
+            })}
             href="/"
           >
             Go home
