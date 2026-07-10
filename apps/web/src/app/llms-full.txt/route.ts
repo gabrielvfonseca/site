@@ -1,122 +1,64 @@
 import { CONFIG } from '@/constants/config';
+import { getPosts, getProjects } from '@/lib/content-index';
 
+/**
+ * GET /llms-full.txt — a comprehensive plain-text profile for detailed LLM
+ * analysis, generated from the site config and real content.
+ */
 export function GET() {
-  const content = `# Gabriel Fonseca - Comprehensive Portfolio (gabfon.com)
+  const updated = new Date().toISOString().split('T')[0];
+
+  const posts = getPosts()
+    .map(
+      (post) =>
+        `### ${post.title}\n${post.description}\nURL: /posts/${post.slug}${post.date ? `\nDate: ${post.date}` : ''}`
+    )
+    .join('\n\n');
+
+  const projects = getProjects()
+    .map(
+      (project) =>
+        `### ${project.title}\n${project.description}\nURL: ${project.link || `/projects/${project.slug}`}`
+    )
+    .join('\n\n');
+
+  const content = `# ${CONFIG.name} — Comprehensive Portfolio (gabfon.com)
 
 ## Personal Information
-**Name**: Gabriel Fonseca
-**Title**: Software Developer & Founder
-**Location**: ${CONFIG.location}
-**Email**: ${CONFIG.email.replace('mailto:', '')}
-**Status**: Computer Engineering Student at NOVA FCT
+Name: ${CONFIG.name}
+Title: ${CONFIG.title}
+Location: ${CONFIG.location}
+Email: ${CONFIG.email.replace('mailto:', '')}
 
 ## Professional Summary
-Lisbon-based software developer, founder of Frontal Labs, and Computer Engineering student at NOVA FCT. Passionate about building innovative solutions, edge-AI, and creating meaningful digital experiences. Believes in building in public and sharing knowledge with the community.
-
-## Key Projects
-
-### Frontal Labs
-AI-powered platform designed to streamline business operations and enhance decision-making processes through intelligent automation and data-driven insights.
-- **Role**: Founder & Lead Developer
-- **Technologies**: Next.js, AI/ML, Cloud Infrastructure
-- **Status**: Active Development
-
-### Fluent Theme
-A clean, modern VS Code theme designed for optimal developer experience and reduced eye strain during long coding sessions.
-- **Role**: Creator & Maintainer
-- **Platform**: Visual Studio Code Marketplace
-- **Downloads**: 1000+ active users
-
-### Open Source Contributions
-Active contributor to various open source projects with a focus on developer tools and AI applications.
-- **GitHub**: ${CONFIG.social.github}
-- **Focus Areas**: Developer Tools, AI/ML, Web Technologies
-- **Languages**: TypeScript, Go, Rust
+${CONFIG.description} Founder of Frontal Labs and Computer Engineering student at NOVA FCT. Focused on shipping polished, accessible, performant web products.
 
 ## Technical Expertise
+- Frontend: React, Next.js (App Router), TypeScript, Tailwind CSS, design systems
+- Backend: Node.js, serverless & edge functions, server actions
+- Practice: web performance & Core Web Vitals, accessibility (WCAG), testing (Vitest, Playwright), CI/CD
 
-### Core Technologies
-- **Frontend**: React, Next.js, TypeScript, Tailwind CSS
-- **Backend**: Node.js, Go, Rust, PostgreSQL
-- **AI/ML**: WebLLM, WebGPU, LangChain, OpenAI APIs
-- **DevOps**: Docker, Vercel, GitHub Actions
-- **Mobile**: React Native, Progressive Web Apps
+## Posts
+${posts || 'No posts published yet.'}
 
-### Specializations
-- **Edge-AI**: Browser-based AI implementations using WebLLM and WebGPU
-- **LLMs**: Integration and fine-tuning of large language models
-- **Micro-animations**: Subtle UI animations for enhanced user experience
-- **Product Development**: Full-stack development from concept to deployment
-- **Performance Optimization**: Web performance and Core Web Vitals
+## Projects
+${projects || 'No projects published yet.'}
 
-## Connect & Collaborate
+## About This Site
+Built with Next.js 16 (App Router) and React 19 in a Turborepo monorepo with a shared Tailwind design system. Features: MDX-powered posts and projects, a contact form (React server actions + Resend), and a live activity heatmap that aggregates GitHub contributions, Strava activities, and Spotify listening. Security via Arcjet + Nosecone headers and Upstash-backed rate limiting; analytics via PostHog + Vercel; error tracking via Sentry.
 
-### Professional Networks
-- **X**: ${CONFIG.social.x}
-- **LinkedIn**: ${CONFIG.social.linkedin}
-- **GitHub**: ${CONFIG.social.github}
-- **Email**: ${CONFIG.email}
-
-### Collaboration
-- **Open to**: Technical consulting, freelance projects, speaking opportunities
-- **Schedule**: ${CONFIG.schedule}
-- **Interests**: AI/ML projects, web development, startup advisory
-
-## Site Philosophy & Approach
-
-### Technical Philosophy
-A minimal, fast, and 100% static portfolio website designed with modern web standards. No backend required—uses client-side fetches and browser-based AI (WebLLM) for dynamic functionality.
-
-### Development Principles
-- **Performance First**: Optimized for speed and Core Web Vitals
-- **Accessibility**: WCAG compliant with semantic HTML
-- **Modern Stack**: Next.js, TypeScript, Tailwind CSS
-- **Static Generation**: Build-time optimization for maximum performance
-- **Progressive Enhancement**: Works without JavaScript, enhanced with it
-
-### Content Strategy
-- **Building in Public**: Sharing development journey and insights
-- **Knowledge Sharing**: Regular blog posts and tutorials
-- **Community Engagement**: Active participation in open source
-- **Continuous Learning**: Documenting new technologies and patterns
-
-## Recent Achievements
-
-### Technical
-- Launched multiple production applications with modern tech stack
-- Contributed to open source projects with 1000+ downloads
-- Implemented edge-AI solutions using WebLLM and WebGPU
-- Optimized web performance achieving Core Web Vitals scores
-
-### Community
-- Active contributor to developer community through open source
-- Speaker at local tech meetups and conferences
-- Mentor for junior developers through various platforms
-- Writer of technical articles and tutorials
-
-## Future Goals
-
-### Short Term (2024)
-- Complete Computer Engineering degree
-- Scale Frontal Labs to serve more businesses
-- Expand open source contributions
-- Launch additional developer tools
-
-### Long Term (2025+)
-- Build a successful tech company
-- Contribute to major open source projects
-- Speak at international conferences
-- Mentor the next generation of developers
+## Connect
+X: ${CONFIG.social.x}
+LinkedIn: ${CONFIG.social.linkedin}
+GitHub: ${CONFIG.social.github}
+Schedule: ${CONFIG.schedule}
 
 ---
-
-*Last Updated: ${new Date().toISOString().split('T')[0]}*
-*Portfolio URL: https://gabfon.com*
+Last updated: ${updated}
+Portfolio URL: https://gabfon.com
 `;
 
   return new Response(content, {
-    headers: {
-      'content-type': 'text/plain; charset=utf-8',
-    },
+    headers: { 'content-type': 'text/plain; charset=utf-8' },
   });
 }
