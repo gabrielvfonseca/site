@@ -1,14 +1,24 @@
-import { keys as ai } from '@gabfon/ai/keys';
 import { keys as analytics } from '@gabfon/analytics/keys';
+import { keys as database } from '@gabfon/database/keys';
 import { keys as email } from '@gabfon/email/keys';
+import { keys as github } from '@gabfon/github/keys';
 import { keys as core } from '@gabfon/next-config/keys';
 import { keys as observability } from '@gabfon/observability/keys';
 import { keys as rateLimit } from '@gabfon/rate-limit/keys';
 import { keys as security } from '@gabfon/security/keys';
+import { keys as spotify } from '@gabfon/spotify/keys';
+import { keys as strava } from '@gabfon/strava/keys';
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
-// Create the environment variables
+/**
+ * Centralized, type-safe environment configuration for the web app.
+ *
+ * Every package that reads env vars exposes a `keys()` factory (built with
+ * `@t3-oss/env-nextjs` + zod); we compose them via `extends` so validation is
+ * defined once per package but surfaced through a single `env` object. The
+ * `github`/`spotify`/`strava` keys power the `/api/activity` contribution graph.
+ */
 export const env = createEnv({
   extends: [
     core(),
@@ -16,35 +26,31 @@ export const env = createEnv({
     security(),
     rateLimit(),
     analytics(),
-    ai(),
+    database(),
     email(),
+    github(),
+    spotify(),
+    strava(),
   ],
   server: {
     ANALYZE: z.enum(['true', 'false']).optional().default('false'),
     FLAGS_SECRET: z.string().optional(),
   },
   client: {
-    NEXT_PUBLIC_X_URL: z
-      .string()
-      .url()
-      .optional()
-      .default('https://x.com/gabfon_'),
+    NEXT_PUBLIC_X_URL: z.url().optional().default('https://x.com/gabfon_'),
     NEXT_PUBLIC_LINKEDIN_URL: z
-      .string()
       .url()
       .optional()
       .default('https://www.linkedin.com/in/gabrielvfonseca/'),
     NEXT_PUBLIC_GITHUB_URL: z
-      .string()
       .url()
       .optional()
       .default('https://github.com/gabrielvfonseca'),
     NEXT_PUBLIC_SCHEDULE_URL: z
-      .string()
       .url()
       .optional()
       .default('https://calendar.notion.so/meet/gabfon/schedule'),
-    NEXT_PUBLIC_EMAIL: z.string().email().optional().default('hey@gabfon.com'),
+    NEXT_PUBLIC_EMAIL: z.email().optional().default('hey@gabfon.com'),
   },
   shared: {
     NODE_ENV: z
