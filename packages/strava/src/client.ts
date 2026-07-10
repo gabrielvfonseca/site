@@ -61,8 +61,11 @@ export class StravaClient {
     }
 
     const data = (await response.json()) as {
+      // biome-ignore lint/style/useNamingConvention: Strava API response field
       access_token: string;
+      // biome-ignore lint/style/useNamingConvention: Strava API response field
       refresh_token: string;
+      // biome-ignore lint/style/useNamingConvention: Strava API response field
       expires_in: number;
     };
     this.accessToken = data.access_token;
@@ -76,9 +79,9 @@ export class StravaClient {
   /**
    * Get valid access token
    */
-  private async getAccessToken(): Promise<string> {
+  private getAccessToken(): Promise<string> {
     if (this.accessToken && Date.now() < this.tokenExpiry) {
-      return this.accessToken;
+      return Promise.resolve(this.accessToken);
     }
     return this.refreshAccessToken();
   }
@@ -180,7 +183,7 @@ export class StravaClient {
   /**
    * Get activities from current week
    */
-  async getCurrentWeekActivities(): Promise<StravaActivity[]> {
+  getCurrentWeekActivities(): Promise<StravaActivity[]> {
     const now = new Date();
     const weekStart = new Date(
       now.getFullYear(),
@@ -195,7 +198,7 @@ export class StravaClient {
   /**
    * Get activities from current month
    */
-  async getCurrentMonthActivities(): Promise<StravaActivity[]> {
+  getCurrentMonthActivities(): Promise<StravaActivity[]> {
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
     const after = Math.floor(monthStart.getTime() / SECONDS_PER_MS);
@@ -206,7 +209,7 @@ export class StravaClient {
   /**
    * Get activities from current year
    */
-  async getCurrentYearActivities(): Promise<StravaActivity[]> {
+  getCurrentYearActivities(): Promise<StravaActivity[]> {
     const now = new Date();
     const yearStart = new Date(now.getFullYear(), 0, 1);
     const after = Math.floor(yearStart.getTime() / SECONDS_PER_MS);
@@ -217,8 +220,8 @@ export class StravaClient {
   /**
    * Get athlete achievements (kudos, etc.)
    */
-  async getAthleteAchievements(): Promise<StravaAchievement[]> {
-    return [];
+  getAthleteAchievements(): Promise<StravaAchievement[]> {
+    return Promise.resolve([]);
   }
 
   /**
@@ -238,23 +241,20 @@ export class StravaClient {
   async getDistanceStats(
     timeRange: 'week' | 'month' | 'year' = 'week'
   ): Promise<number> {
-    let activities: StravaActivity[];
-
-    switch (timeRange) {
-      case 'week':
-        activities = await this.getCurrentWeekActivities();
-        break;
-      case 'month':
-        activities = await this.getCurrentMonthActivities();
-        break;
-      case 'year':
-        activities = await this.getCurrentYearActivities();
-        break;
-      default:
-        activities = [];
-    }
-
+    const activities = await this.getActivitiesForRange(timeRange);
     return activities.reduce((total, activity) => total + activity.distance, 0);
+  }
+
+  /** Resolve activities for a named time range. */
+  private getActivitiesForRange(
+    timeRange: 'week' | 'month' | 'year'
+  ): Promise<StravaActivity[]> {
+    const fetchers = {
+      week: () => this.getCurrentWeekActivities(),
+      month: () => this.getCurrentMonthActivities(),
+      year: () => this.getCurrentYearActivities(),
+    };
+    return fetchers[timeRange]();
   }
 
   /**
@@ -263,22 +263,7 @@ export class StravaClient {
   async getTimeStats(
     timeRange: 'week' | 'month' | 'year' = 'week'
   ): Promise<number> {
-    let activities: StravaActivity[];
-
-    switch (timeRange) {
-      case 'week':
-        activities = await this.getCurrentWeekActivities();
-        break;
-      case 'month':
-        activities = await this.getCurrentMonthActivities();
-        break;
-      case 'year':
-        activities = await this.getCurrentYearActivities();
-        break;
-      default:
-        activities = [];
-    }
-
+    const activities = await this.getActivitiesForRange(timeRange);
     return activities.reduce(
       (total, activity) => total + activity.moving_time,
       0

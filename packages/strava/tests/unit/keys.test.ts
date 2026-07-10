@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+// @vitest-environment node
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock process.env
 const originalEnv = process.env;
 
 describe('strava keys', () => {
@@ -13,40 +13,36 @@ describe('strava keys', () => {
     process.env = originalEnv;
   });
 
-  it('returns valid configuration with Strava credentials', async () => {
-    process.env.STRAVA_CLIENT_ID = 'test_client_id';
-    process.env.STRAVA_CLIENT_SECRET = 'test_client_secret';
-    process.env.STRAVA_REFRESH_TOKEN = 'test_refresh_token';
+  it('returns the validated Strava credentials', async () => {
+    process.env.STRAVA_CLIENT_ID = 'client-id';
+    process.env.STRAVA_CLIENT_SECRET = 'client-secret';
+    process.env.STRAVA_REFRESH_TOKEN = 'refresh-token';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.STRAVA_CLIENT_ID).toBe('test_client_id');
-    expect(config.STRAVA_CLIENT_SECRET).toBe('test_client_secret');
-    expect(config.STRAVA_REFRESH_TOKEN).toBe('test_refresh_token');
+    expect(config.STRAVA_CLIENT_ID).toBe('client-id');
+    expect(config.STRAVA_REFRESH_TOKEN).toBe('refresh-token');
   });
 
-  it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
-    process.env.SKIP_ENV_VALIDATION = 'true';
-
-    const { keys } = await import('../../src/keys');
-    const config = keys();
-
-    expect(config).toBeDefined();
-  });
-
-  it('handles empty string as undefined', async () => {
-    process.env.STRAVA_CLIENT_ID = '';
-    process.env.STRAVA_CLIENT_SECRET = '';
-    process.env.STRAVA_REFRESH_TOKEN = '';
+  it('throws when a required credential is missing', async () => {
+    process.env.STRAVA_CLIENT_ID = 'client-id';
     process.env.SKIP_ENV_VALIDATION = 'false';
+    delete process.env.STRAVA_CLIENT_SECRET;
+    delete process.env.STRAVA_REFRESH_TOKEN;
 
     const { keys } = await import('../../src/keys');
-    const config = keys();
 
-    expect(config.STRAVA_CLIENT_ID).toBeUndefined();
-    expect(config.STRAVA_CLIENT_SECRET).toBeUndefined();
-    expect(config.STRAVA_REFRESH_TOKEN).toBeUndefined();
+    expect(() => keys()).toThrow();
+  });
+
+  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
+    delete process.env.SKIP_ENV_VALIDATION;
+    delete process.env.STRAVA_CLIENT_ID;
+
+    const { keys } = await import('../../src/keys');
+
+    expect(() => keys()).not.toThrow();
   });
 });
