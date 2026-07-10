@@ -26,7 +26,7 @@
     "bump-deps": "npx npm-check-updates --deep -u -x react-day-picker && bun install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/design-system",
     "clean": "git clean -xdf node_modules",
-    "prepare": "husky",
+    "prepare": "lefthook install",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish",
@@ -49,8 +49,7 @@
     "@types/node": "^24.5.0",
     "@vitejs/plugin-react": "^6.0.3",
     "estree-util-value-to-estree": "3.4.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.6",
+    "lefthook": "2.1.10",
     "tsx": "^4.23.0",
     "turbo": "^2.9.12",
     "typescript": "^5.9.2",
@@ -65,24 +64,6 @@
     "@rescale/nemo": "^2.2.0",
     "@vercel/toolbar": "^0.2.5",
     "commander": "^14.0.1"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "ultracite lint",
-      "ultracite format"
-    ],
-    "*.json": [
-      "ultracite format"
-    ],
-    "*.{yaml,yml}": [
-      "ultracite format"
-    ],
-    "*.md": [
-      "ultracite format"
-    ],
-    "*.{css,scss}": [
-      "ultracite format"
-    ]
   },
   "overrides": {
     "ultracite": "5.3.4",

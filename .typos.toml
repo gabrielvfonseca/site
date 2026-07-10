@@ -1,0 +1,8 @@
+[files]
+extend-exclude = ["packages/spotify/docs/"]
+
+[default]
+extend-ignore-identifiers-re = [
+  "CAnf",        # Spotify artist ID
+  "unparseable", # Valid variant of unparsable
+]

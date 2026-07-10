@@ -1,0 +1,84 @@
+# yaml-language-server: $schema=https://json.schemastore.org/lefthook.json
+
+pre-commit:
+  parallel: true
+  commands:
+    secrets:
+      tags: [security]
+      description: Scan staged files for secrets
+      run: gitleaks protect --verbose --redact --staged
+      skip:
+        - no_staged_files
+
+    biome:
+      tags: [lint, format]
+      description: Lint and format JS/TS/CSS/JSON files with Biome
+      glob: "*.{js,jsx,ts,tsx,json,css}"
+      run: npx @biomejs/biome check --staged --diagnostic-level=error
+      skip:
+        - no_staged_files
+
+    toml:
+      tags: [format]
+      description: Format TOML files
+      glob: "*.toml"
+      run: taplo format {staged_files}
+      skip:
+        - no_staged_files
+
+    clippy:
+      tags: [lint, rust]
+      description: Lint Rust code with Clippy
+      glob: "*.rs"
+      run: cargo clippy --all-targets --all-features -- -D warnings
+      skip:
+        - no_staged_files
+
+    fmt:
+      tags: [format, rust]
+      description: Format Rust code
+      glob: "*.rs"
+      run: cargo fmt --check
+      skip:
+        - no_staged_files
+
+    typos:
+      tags: [spelling]
+      description: Check for spelling errors
+      run: typos --force-exclude {staged_files}
+      skip:
+        - no_staged_files
+
+pre-push:
+  parallel: false
+  commands:
+    merge-conflicts:
+      tags: [safety]
+      description: Check for unresolved merge conflicts
+      run: |
+        conflicts=$(git diff --name-only --diff-filter=U)
+        if [ -n "$conflicts" ]; then
+          echo "Merge conflicts detected in:" >&2
+          echo "$conflicts" >&2
+          exit 1
+        fi
+      skip:
+        - no_staged_files
+
+    typecheck:
+      tags: [typescript]
+      description: Run TypeScript type checking
+      run: bun typecheck
+
+    test:
+      tags: [test]
+      description: Run test suite
+      run: bun run test
+
+commit-msg:
+  parallel: false
+  commands:
+    commitlint:
+      tags: [commit]
+      description: Validate commit message with commitlint
+      run: npx --no -- commitlint --edit {1}
