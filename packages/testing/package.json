@@ -12,17 +12,17 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "build": "bunx tsc --noEmit --emitDeclarationOnly false",
     "test": "echo 'No tests specified'",
     "analyze": "echo 'No analysis specified'",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@vitejs/plugin-react": "^5.0.2",
+    "@vitejs/plugin-react": "^6.0.3",
     "jsdom": "^27.0.0",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.10"
   }
 }

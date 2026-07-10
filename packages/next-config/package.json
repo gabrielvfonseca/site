@@ -9,18 +9,18 @@
     "./keys": "./src/keys.ts"
   },
   "scripts": {
-    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "build": "bunx tsc --noEmit --emitDeclarationOnly false",
     "test": "echo 'No tests specified'",
     "analyze": "echo 'No analysis specified'",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
   },
   "devDependencies": {
     "@gabfon/typescript-config": "workspace:*",
     "next": "16.2.1"
   },
   "peerDependencies": {
-    "next": "^16.2.1"
+    "next": "16.2.1"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^16.2.1",
