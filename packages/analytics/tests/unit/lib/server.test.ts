@@ -1,24 +1,32 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock the keys module
-vi.mock('../../src/keys', () => ({
+// Neutralize the `server-only` import guard so the module loads under vitest.
+vi.mock('server-only', () => ({}));
+
+// Mock the keys module (resolved relative to src/lib/server, three levels up).
+vi.mock('../../../src/keys', () => ({
   keys: () => ({
     NEXT_PUBLIC_POSTHOG_KEY: 'phc_test123',
     NEXT_PUBLIC_POSTHOG_HOST: 'https://app.posthog.com',
   }),
 }));
 
-// Mock posthog-node
+// Mock posthog-node. A regular (non-arrow) function is used so `new PostHog()`
+// works as a constructor under vitest 4, while `vi.fn` keeps it a spy.
 vi.mock('posthog-node', () => ({
-  PostHog: vi.fn().mockImplementation((key, options) => ({
-    key,
-    options,
-    capture: vi.fn(),
-    identify: vi.fn(),
-    alias: vi.fn(),
-    flush: vi.fn(),
-    shutdown: vi.fn(),
-  })),
+  PostHog: vi.fn(function (
+    this: Record<string, unknown>,
+    key: string,
+    options: unknown
+  ) {
+    this.key = key;
+    this.options = options;
+    this.capture = vi.fn();
+    this.identify = vi.fn();
+    this.alias = vi.fn();
+    this.flush = vi.fn();
+    this.shutdown = vi.fn();
+  }),
 }));
 
 describe('analytics server', () => {
@@ -30,7 +38,7 @@ describe('analytics server', () => {
     const { PostHog } = await import('posthog-node');
     const mockPostHog = vi.mocked(PostHog);
 
-    await import('../../src/lib/server');
+    await import('../../../src/lib/server');
 
     expect(mockPostHog).toHaveBeenCalledWith('phc_test123', {
       host: 'https://app.posthog.com',
@@ -40,7 +48,7 @@ describe('analytics server', () => {
   });
 
   it('exports analytics instance', async () => {
-    const { analytics } = await import('../../src/lib/server');
+    const { analytics } = await import('../../../src/lib/server');
 
     expect(analytics).toBeDefined();
     expect(typeof analytics.capture).toBe('function');
@@ -54,7 +62,7 @@ describe('analytics server', () => {
     const { PostHog } = await import('posthog-node');
     const mockPostHog = vi.mocked(PostHog);
 
-    await import('../../src/lib/server');
+    await import('../../../src/lib/server');
 
     const [, options] = mockPostHog.mock.calls[0];
     expect(options.flushAt).toBe(1);

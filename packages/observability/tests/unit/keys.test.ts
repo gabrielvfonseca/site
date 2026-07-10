@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+// @vitest-environment node
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock process.env
 const originalEnv = process.env;
 
 describe('observability keys', () => {
@@ -13,42 +13,43 @@ describe('observability keys', () => {
     process.env = originalEnv;
   });
 
-  it('returns valid configuration with Sentry DSN', async () => {
-    process.env.SENTRY_DSN = 'https://test@sentry.io/project';
+  it('returns a valid configuration with a Sentry DSN', async () => {
+    process.env.NEXT_PUBLIC_SENTRY_DSN = 'https://test@sentry.io/project';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.SENTRY_DSN).toBe('https://test@sentry.io/project');
+    expect(config.NEXT_PUBLIC_SENTRY_DSN).toBe(
+      'https://test@sentry.io/project'
+    );
   });
 
-  it('validates Sentry DSN format', async () => {
-    process.env.SENTRY_DSN = 'invalid-dsn';
+  it('rejects a malformed Sentry DSN', async () => {
+    process.env.NEXT_PUBLIC_SENTRY_DSN = 'not-a-url';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
-    await expect(async () => {
-      const { keys } = await import('../../src/keys');
-      keys();
-    }).toThrow();
+    const { keys } = await import('../../src/keys');
+
+    expect(() => keys()).toThrow();
   });
 
-  it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
-    process.env.SKIP_ENV_VALIDATION = 'true';
+  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
+    process.env.SKIP_ENV_VALIDATION = undefined;
+    delete process.env.SKIP_ENV_VALIDATION;
+
+    const { keys } = await import('../../src/keys');
+
+    expect(() => keys()).not.toThrow();
+  });
+
+  it('handles an empty string as undefined', async () => {
+    process.env.NEXT_PUBLIC_SENTRY_DSN = '';
+    process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config).toBeDefined();
-  });
-
-  it('handles empty string as undefined', async () => {
-    process.env.SENTRY_DSN = '';
-    process.env.SKIP_ENV_VALIDATION = 'false';
-
-    const { keys } = await import('../../src/keys');
-    const config = keys();
-
-    expect(config.SENTRY_DSN).toBeUndefined();
+    expect(config.NEXT_PUBLIC_SENTRY_DSN).toBeUndefined();
   });
 });

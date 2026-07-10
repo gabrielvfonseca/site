@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+// @vitest-environment node
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock process.env
 const originalEnv = process.env;
 
 describe('github keys', () => {
@@ -13,40 +13,36 @@ describe('github keys', () => {
     process.env = originalEnv;
   });
 
-  it('returns valid configuration with GitHub credentials', async () => {
-    process.env.GITHUB_CLIENT_ID = 'test_client_id';
-    process.env.GITHUB_CLIENT_SECRET = 'test_client_secret';
+  it('returns the validated token and username', async () => {
+    process.env.GITHUB_TOKEN = 'test_token';
+    process.env.GITHUB_USERNAME = 'octocat';
+    process.env.SKIP_ENV_VALIDATION = 'false';
+
+    const { keys } = await import('../../src/keys');
+    const config = keys();
+
+    expect(config.GITHUB_TOKEN).toBe('test_token');
+    expect(config.GITHUB_USERNAME).toBe('octocat');
+  });
+
+  it('applies the default username when unset', async () => {
     process.env.GITHUB_TOKEN = 'test_token';
     process.env.SKIP_ENV_VALIDATION = 'false';
+    process.env.GITHUB_USERNAME = undefined;
+    delete process.env.GITHUB_USERNAME;
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.GITHUB_CLIENT_ID).toBe('test_client_id');
-    expect(config.GITHUB_CLIENT_SECRET).toBe('test_client_secret');
-    expect(config.GITHUB_TOKEN).toBe('test_token');
+    expect(config.GITHUB_USERNAME).toBe('gabrielvfonseca');
   });
 
-  it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
-    process.env.SKIP_ENV_VALIDATION = 'true';
+  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
+    process.env.SKIP_ENV_VALIDATION = undefined;
+    process.env.GITHUB_TOKEN = undefined;
 
     const { keys } = await import('../../src/keys');
-    const config = keys();
 
-    expect(config).toBeDefined();
-  });
-
-  it('handles empty string as undefined', async () => {
-    process.env.GITHUB_CLIENT_ID = '';
-    process.env.GITHUB_CLIENT_SECRET = '';
-    process.env.GITHUB_TOKEN = '';
-    process.env.SKIP_ENV_VALIDATION = 'false';
-
-    const { keys } = await import('../../src/keys');
-    const config = keys();
-
-    expect(config.GITHUB_CLIENT_ID).toBeUndefined();
-    expect(config.GITHUB_CLIENT_SECRET).toBeUndefined();
-    expect(config.GITHUB_TOKEN).toBeUndefined();
+    expect(() => keys()).not.toThrow();
   });
 });

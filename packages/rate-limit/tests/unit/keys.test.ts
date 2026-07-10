@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
 
 // Mock process.env

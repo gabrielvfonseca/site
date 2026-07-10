@@ -1,7 +1,6 @@
 {
   "extends": "@gabfon/typescript-config/nextjs.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@gabfon/*": ["../../packages/*"],
       "@gabfon/next-config/*": ["./src/*"]

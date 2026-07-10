@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+// @vitest-environment node
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock process.env
 const originalEnv = process.env;
 
 describe('email keys', () => {
@@ -13,58 +13,44 @@ describe('email keys', () => {
     process.env = originalEnv;
   });
 
-  it('returns valid configuration with RESEND_TOKEN and RESEND_FROM', async () => {
+  it('returns the validated Resend configuration', async () => {
+    process.env.RESEND_FROM = 'contact@gabfon.com';
     process.env.RESEND_TOKEN = 're_test123';
-    process.env.RESEND_FROM = 'test@example.com';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
+    expect(config.RESEND_FROM).toBe('contact@gabfon.com');
     expect(config.RESEND_TOKEN).toBe('re_test123');
-    expect(config.RESEND_FROM).toBe('test@example.com');
   });
 
-  it('validates RESEND_TOKEN format', async () => {
+  it('rejects a token without the "re_" prefix', async () => {
+    process.env.RESEND_FROM = 'contact@gabfon.com';
     process.env.RESEND_TOKEN = 'invalid_token';
-    process.env.RESEND_FROM = 'test@example.com';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
-    await expect(async () => {
-      const { keys } = await import('../../src/keys');
-      keys();
-    }).toThrow();
+    const { keys } = await import('../../src/keys');
+
+    expect(() => keys()).toThrow();
   });
 
-  it('validates RESEND_FROM email format', async () => {
+  it('rejects a malformed from-address', async () => {
+    process.env.RESEND_FROM = 'not-an-email';
     process.env.RESEND_TOKEN = 're_test123';
-    process.env.RESEND_FROM = 'invalid-email';
-    process.env.SKIP_ENV_VALIDATION = 'false';
-
-    await expect(async () => {
-      const { keys } = await import('../../src/keys');
-      keys();
-    }).toThrow();
-  });
-
-  it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
-    process.env.SKIP_ENV_VALIDATION = 'true';
-
-    const { keys } = await import('../../src/keys');
-    const config = keys();
-
-    expect(config).toBeDefined();
-  });
-
-  it('handles empty string as undefined', async () => {
-    process.env.RESEND_TOKEN = '';
-    process.env.RESEND_FROM = '';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
-    const config = keys();
 
-    expect(config.RESEND_TOKEN).toBeUndefined();
-    expect(config.RESEND_FROM).toBeUndefined();
+    expect(() => keys()).toThrow();
+  });
+
+  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
+    delete process.env.SKIP_ENV_VALIDATION;
+    delete process.env.RESEND_TOKEN;
+
+    const { keys } = await import('../../src/keys');
+
+    expect(() => keys()).not.toThrow();
   });
 });

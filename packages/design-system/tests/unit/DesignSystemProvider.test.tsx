@@ -9,24 +9,36 @@ vi.mock('@gabfon/analytics', () => ({
   ),
 }));
 
-// Mock ThemeProvider
-vi.mock('./providers/theme', () => ({
-  ThemeProvider: ({ children, ...props }: any) => (
-    <div data-testid="theme-provider" {...props}>
-      {children}
-    </div>
-  ),
+// Mock ThemeProvider (path resolved relative to src/index, which the component
+// under test imports from).
+vi.mock('../../src/providers/theme', () => ({
+  ThemeProvider: ({
+    children,
+    ...props
+  }: {
+    children: React.ReactNode;
+  }) => {
+    // Stringify props so boolean values render as DOM attributes ("true").
+    const attrs = Object.fromEntries(
+      Object.entries(props).map(([key, value]) => [key, String(value)])
+    );
+    return (
+      <div data-testid="theme-provider" {...attrs}>
+        {children}
+      </div>
+    );
+  },
 }));
 
 // Mock TooltipProvider
-vi.mock('./components/tooltip', () => ({
+vi.mock('../../src/components/tooltip', () => ({
   TooltipProvider: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="tooltip-provider">{children}</div>
   ),
 }));
 
 // Mock Toaster
-vi.mock('./components/toaster', () => ({
+vi.mock('../../src/components/toaster', () => ({
   Toaster: () => <div data-testid="toaster" />,
 }));
 
