@@ -46,9 +46,9 @@ export function CodeBlock({
   };
 
   return (
-    <div className="not-prose group relative my-6 overflow-hidden rounded-lg border border-border">
-      <div className="flex items-center justify-between border-border border-b bg-muted/[var(--opacity-muted)] py-2 pr-2 pl-4">
-        <span className="font-medium text-muted-foreground text-xs tracking-wide">
+    <div className="not-prose group relative my-6 overflow-hidden rounded-lg border border-border bg-muted/[var(--opacity-muted)]">
+      <div className="flex items-center justify-between border-border border-b py-2 pr-2 pl-4">
+        <span className="font-medium font-mono text-muted-foreground text-xs tracking-wide">
           {title ?? 'Code'}
         </span>
         <button

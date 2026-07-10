@@ -146,8 +146,15 @@
 .prose {
   font-size: var(--font-size-body-md);
   line-height: var(--line-height-normal);
-  color: var(--color-foreground);
+  /* Body copy is muted like the homepage `<p>`; headings, links, strong and
+   * inline code opt back into full foreground below. */
+  color: var(--color-muted-foreground);
   text-wrap: pretty;
+}
+
+/* Emphasis pops back to foreground, matching the homepage's bright accents. */
+.prose :is(strong, b) {
+  color: var(--color-foreground);
 }
 
 /* Flow rhythm mirrors the homepage `flex flex-col gap-4` sections. */
@@ -174,22 +181,22 @@
 .prose h2 {
   margin-top: 2.5rem;
   margin-bottom: 0;
-  font-size: var(--font-size-body-lg);
-  line-height: var(--line-height-snug);
+  font-size: var(--font-size-body-lg); /* 1.125rem — homepage text-lg */
+  line-height: 1.75rem; /* matches Tailwind text-lg leading */
 }
 
 .prose h3 {
   margin-top: 2rem;
   margin-bottom: 0;
-  font-size: var(--font-size-body-md);
-  line-height: var(--line-height-snug);
+  font-size: var(--font-size-body-md); /* 1rem */
+  line-height: 1.5rem; /* matches Tailwind text-base leading */
 }
 
 .prose h4 {
   margin-top: 1.5rem;
   margin-bottom: 0;
-  font-size: var(--font-size-body-sm);
-  line-height: var(--line-height-snug);
+  font-size: var(--font-size-body-sm); /* 0.875rem */
+  line-height: 1.25rem; /* matches Tailwind text-sm leading */
 }
 
 /* A heading sets up the paragraph directly beneath it. */
@@ -270,6 +277,7 @@
 .prose :not(pre) > code {
   font-size: 0.8125em;
   font-weight: 450;
+  color: var(--color-foreground);
   padding: 0.15em 0.4em;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
@@ -321,4 +329,50 @@
 /* Code blocks own a touch more breathing room. */
 .prose .shiki {
   margin-top: 1.5em;
+}
+
+/*
+ * Monochrome code blocks.
+ *
+ * Shiki's `github-light` / `github-dark` themes ship a tinted surface
+ * (#24292e) and full-colour tokens (reds, blues, greens, purples) that clash
+ * with the strict black/gray/white system. We neutralise the surface so the
+ * block sits on the design-system tokens, then desaturate the syntax to a
+ * quiet range of greys — highlighting is preserved as luminance, not hue.
+ * The `.dark …` selectors match the specificity of the design-system's own
+ * `!important` overrides so these win by source order.
+ */
+.prose .shiki,
+.dark .prose .shiki {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 1rem;
+  filter: grayscale(1) contrast(1.05);
+}
+
+.prose .shiki span,
+.dark .prose .shiki span {
+  background-color: transparent !important;
+}
+
+/* "Now playing" equalizer bars on the /now page. */
+@keyframes now-equalize {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.now-eq-bar {
+  animation: now-equalize 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .now-eq-bar {
+    animation: none;
+    transform: scaleY(0.6);
+  }
 }
