@@ -1,3 +1,4 @@
+import { LINK_EXTERNAL_CLASS } from '@gabfon/design-system/lib/constants';
 import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -82,7 +83,7 @@ export default async function ProjectPage({
           {project.title}
         </h1>
         <p className="text-muted-foreground">{project.description}</p>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground/75 text-xs uppercase tracking-wider">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground/[var(--opacity-description)] text-xs uppercase tracking-wider">
           {project.date ? (
             <time dateTime={project.date}>
               {formatDisplayDate(project.date)}
@@ -90,7 +91,7 @@ export default async function ProjectPage({
           ) : null}
           {project.link ? (
             <Link
-              className="rounded transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className={LINK_EXTERNAL_CLASS}
               href={project.link}
               rel="noopener noreferrer"
               target="_blank"

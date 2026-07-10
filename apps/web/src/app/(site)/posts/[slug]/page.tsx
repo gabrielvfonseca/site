@@ -81,7 +81,7 @@ export default async function PostPage({
         <p className="text-muted-foreground">{post.description}</p>
         {post.date ? (
           <time
-            className="text-muted-foreground/75 text-xs uppercase tracking-wider"
+            className="text-muted-foreground/[var(--opacity-description)] text-xs uppercase tracking-wider"
             dateTime={post.date}
           >
             {formatDisplayDate(post.date)}

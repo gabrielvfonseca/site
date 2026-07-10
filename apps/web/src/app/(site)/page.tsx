@@ -1,3 +1,7 @@
+import {
+  LINK_CLASS,
+  LINK_EXTERNAL_CLASS,
+} from '@gabfon/design-system/lib/constants';
 import Link from 'next/link';
 import type { JSX } from 'react';
 import { ContributionGraph } from '@/components/contribution-graph';
@@ -19,12 +23,12 @@ export default function Page(): JSX.Element {
   return (
     <div className="flex flex-col gap-12">
       <section aria-label="About" className="flex flex-col gap-4">
-        <p className="font-medium text-foreground">
+        <p>
           I'm a Lisbon-based software developer, founder, and Computer
           Engineering student at{' '}
           <Link
             aria-label="NOVA School of Science and Technology (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href="https://www.fct.unl.pt"
             rel="noopener noreferrer"
             target="_blank"
@@ -38,7 +42,7 @@ export default function Page(): JSX.Element {
           I'm currently building an{' '}
           <Link
             aria-label="AI-powered platform (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
@@ -50,7 +54,7 @@ export default function Page(): JSX.Element {
           & CEO of{' '}
           <Link
             aria-label="Frontal (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href="https://frontal.dev"
             rel="noopener noreferrer"
             target="_blank"
@@ -65,7 +69,7 @@ export default function Page(): JSX.Element {
           freelance and{' '}
           <Link
             aria-label="personal projects"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_CLASS}
             href="#projects"
             title="personal projects"
           >
@@ -74,7 +78,7 @@ export default function Page(): JSX.Element {
           , always seeking to solve real-world problems creatively. I regularly{' '}
           <Link
             aria-label="write posts"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_CLASS}
             href="#posts"
             title="write posts"
           >
@@ -83,7 +87,7 @@ export default function Page(): JSX.Element {
           about my experiences and believe in{' '}
           <Link
             aria-label="building in public (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href={CONFIG.social.x}
             rel="noopener noreferrer"
             target="_blank"
@@ -99,7 +103,7 @@ export default function Page(): JSX.Element {
           I'm{' '}
           <Link
             aria-label="open to connecting (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href={CONFIG.social.linkedin}
             rel="noopener noreferrer"
             target="_blank"
@@ -112,7 +116,7 @@ export default function Page(): JSX.Element {
           out on{' '}
           <Link
             aria-label="X (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href={CONFIG.social.x}
             rel="noopener noreferrer"
             target="_blank"
@@ -123,7 +127,7 @@ export default function Page(): JSX.Element {
           ,{' '}
           <Link
             aria-label="LinkedIn (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href={CONFIG.social.linkedin}
             rel="noopener noreferrer"
             target="_blank"
@@ -134,7 +138,7 @@ export default function Page(): JSX.Element {
           , or{' '}
           <Link
             aria-label="GitHub (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href={CONFIG.social.github}
             rel="noopener noreferrer"
             target="_blank"
@@ -145,7 +149,7 @@ export default function Page(): JSX.Element {
           . If you'd like to schedule a meeting or a quick call, you can do so{' '}
           <Link
             aria-label="Schedule a meeting (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href={CONFIG.schedule}
             rel="noopener noreferrer"
             target="_blank"
@@ -156,13 +160,28 @@ export default function Page(): JSX.Element {
           {' or '}
           <Link
             aria-label="Email me (opens in a new tab)"
-            className="rounded text-foreground underline decoration-[0.5px] decoration-muted-foreground/30 underline-offset-4 transition-colors duration-200 hover:decoration-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className={LINK_EXTERNAL_CLASS}
             href={CONFIG.email}
             rel="noopener noreferrer"
             target="_blank"
             title="Email me"
           >
             email me
+          </Link>
+          .
+        </p>
+        <p>
+          Want the longer story? Read{' '}
+          <Link className={LINK_CLASS} href="/bio" title="Bio">
+            my bio
+          </Link>{' '}
+          for more about who I am and what I'm building, see what I'm focused on{' '}
+          <Link className={LINK_CLASS} href="/now" title="Now">
+            right now
+          </Link>
+          , or{' '}
+          <Link className={LINK_CLASS} href="/ama" title="Ask me anything">
+            ask me anything
           </Link>
           .
         </p>

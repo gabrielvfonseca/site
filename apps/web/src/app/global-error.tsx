@@ -53,7 +53,7 @@ export default function GlobalError({
             The server encountered an error.
           </p>
           <Link
-            className="rounded-lg bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
+            className="rounded-lg bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/[var(--opacity-emphasis)]"
             href="/"
             onClick={() => reset()}
           >
