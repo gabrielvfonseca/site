@@ -35,7 +35,7 @@ export function ArticleFooter({
       </p>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
         <Link className={LINK_MUTED_CLASS} href={backHref}>
-          ← {backLabel}
+          {backLabel}
         </Link>
         <Link className={LINK_MUTED_CLASS} href="/ama">
           Ask me anything

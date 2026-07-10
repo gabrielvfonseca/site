@@ -60,7 +60,7 @@ export default async function Page({
   return (
     <div className="flex flex-col gap-8">
       <Link className={LINK_MUTED_CLASS} href="/ama">
-        ← Back to AMA
+        Back to AMA
       </Link>
 
       <section
