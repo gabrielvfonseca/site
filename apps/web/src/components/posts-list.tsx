@@ -9,7 +9,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useIncremental } from '@/hooks/use-incremental';
 import type { Post } from '@/models/post';
+import { ShowMoreButton } from './show-more-button';
 
 /**
  * The PostsListProps for the site.
@@ -18,6 +20,10 @@ import type { Post } from '@/models/post';
 export interface PostsListProps
   extends Partial<ComponentPropsWithoutRef<typeof Link>> {
   items: Post[];
+  /** Items shown before "Show more" is used (default 4). */
+  initialCount?: number;
+  /** Items revealed per "Show more" click (default 4). */
+  batchSize?: number;
 }
 
 /**
@@ -28,11 +34,19 @@ export interface PostsListProps
 export function PostsList({
   items,
   className,
+  initialCount = 4,
+  batchSize = 4,
   ...props
 }: PostsListProps): JSX.Element {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activePillStyle, setActivePillStyle] = useState({});
   const featureRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const { visible, canLoadMore, remaining, showMore } = useIncremental(
+    items.length,
+    initialCount,
+    batchSize
+  );
+  const visibleItems = items.slice(0, visible);
 
   useEffect(() => {
     if (hoveredIndex !== null) {
@@ -70,7 +84,7 @@ export function PostsList({
             No posts published yet — check back soon.
           </p>
         ) : (
-          items.map((item, index: number) => (
+          visibleItems.map((item, index: number) => (
             <Link
               className="inline-block w-full rounded-md px-3 py-3 text-left transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               key={index}
@@ -91,6 +105,13 @@ export function PostsList({
           ))
         )}
       </div>
+      {canLoadMore && (
+        <ShowMoreButton
+          label="posts"
+          onShowMore={showMore}
+          remaining={remaining}
+        />
+      )}
     </div>
   );
 }

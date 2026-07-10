@@ -10,7 +10,9 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useIncremental } from '@/hooks/use-incremental';
 import type { Project } from '@/models/project';
+import { ShowMoreButton } from './show-more-button';
 
 /**
  * The ProjectsHoverListProps for the site.
@@ -19,6 +21,10 @@ import type { Project } from '@/models/project';
 export interface ProjectsHoverListProps
   extends Partial<ComponentPropsWithoutRef<typeof Link>> {
   items: Project[];
+  /** Items shown before "Show more" is used (default 4). */
+  initialCount?: number;
+  /** Items revealed per "Show more" click (default 4). */
+  batchSize?: number;
 }
 
 /**
@@ -29,11 +35,19 @@ export interface ProjectsHoverListProps
 export function ProjectsList({
   items,
   className,
+  initialCount = 4,
+  batchSize = 4,
   ...props
 }: ProjectsHoverListProps): JSX.Element {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activePillStyle, setActivePillStyle] = useState({});
   const featureRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const { visible, canLoadMore, remaining, showMore } = useIncremental(
+    items.length,
+    initialCount,
+    batchSize
+  );
+  const visibleItems = items.slice(0, visible);
 
   useEffect(() => {
     if (hoveredIndex !== null) {
@@ -71,7 +85,7 @@ export function ProjectsList({
             No projects to show yet — check back soon.
           </p>
         ) : (
-          items.map((item, index: number) => {
+          visibleItems.map((item, index: number) => {
             const external = Boolean(item.link);
             const href = external
               ? (item.link as string)
@@ -110,6 +124,13 @@ export function ProjectsList({
           })
         )}
       </div>
+      {canLoadMore && (
+        <ShowMoreButton
+          label="projects"
+          onShowMore={showMore}
+          remaining={remaining}
+        />
+      )}
     </div>
   );
 }
