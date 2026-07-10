@@ -14,4 +14,15 @@ export const projects = defineCollections({
   schema: projectSchema,
 });
 
-export default defineConfig();
+export default defineConfig({
+  mdxOptions: {
+    // Dual-theme syntax highlighting via Shiki. The prose CSS swaps to the
+    // dark palette under `.dark` using the emitted `--shiki-dark` variables.
+    rehypeCodeOptions: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+    },
+  },
+});
