@@ -3,8 +3,25 @@ import { secure } from '@gabfon/security';
 import { noseconeMiddleware, noseconeOptions } from '@gabfon/security/proxy';
 import { type NextRequest, NextResponse } from 'next/server';
 import { env } from '@/config/env';
+import { checkRateLimit, rateLimitHeaders } from '@/lib/rate-limit';
 
 const securityHeaders = noseconeMiddleware(noseconeOptions);
+
+// IP-based rate limiting for all matched routes. No-ops without Vercel KV.
+const rateLimitMiddleware = async (request: NextRequest) => {
+  const result = await checkRateLimit(request, {
+    prefix: 'gabfon:mw',
+    requests: 100,
+    window: '60 s',
+  });
+
+  if (result && !result.success) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please slow down.' },
+      { status: 429, headers: rateLimitHeaders(result) }
+    );
+  }
+};
 
 // Custom middleware for Arcjet security checks
 const arcjetMiddleware = async (request: NextRequest) => {
@@ -29,10 +46,16 @@ const arcjetMiddleware = async (request: NextRequest) => {
 };
 
 export default async function proxy(request: NextRequest) {
-  // Run security headers first
+  // Rate limit first (cheapest rejection).
+  const rateLimitResponse = await rateLimitMiddleware(request);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
+  // Run security headers.
   const headersResponse = securityHeaders();
 
-  // Run Arcjet middleware
+  // Run Arcjet middleware (bot/shield protection).
   const arcjetResponse = await arcjetMiddleware(request);
   if (arcjetResponse) {
     return arcjetResponse;

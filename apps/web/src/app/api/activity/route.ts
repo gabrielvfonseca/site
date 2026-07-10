@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
+import { checkRateLimit, rateLimitHeaders } from '@/lib/rate-limit';
 
 /**
  * GET /api/activity
@@ -100,7 +101,19 @@ function levelFor(count: number, max: number): Cell['level'] {
   return level as Cell['level'];
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const limit = await checkRateLimit(request, {
+    prefix: 'gabfon:activity',
+    requests: 30,
+    window: '60 s',
+  });
+  if (limit && !limit.success) {
+    return NextResponse.json(
+      { error: 'Too many requests.' },
+      { status: 429, headers: rateLimitHeaders(limit) }
+    );
+  }
+
   const [github, strava, spotify] = await Promise.all([
     loadGithub(),
     loadStrava(),
