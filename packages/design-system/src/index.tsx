@@ -5,6 +5,9 @@ import { TooltipProvider } from './components/tooltip';
 import type { ThemeProviderProps } from './providers/theme';
 import { ThemeProvider } from './providers/theme';
 
+export * from './lib/constants';
+export * from './lib/utils';
+
 interface DesignSystemProviderProperties extends ThemeProviderProps {
   privacyUrl?: string;
   termsUrl?: string;

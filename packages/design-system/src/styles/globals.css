@@ -1,16 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
-@source "../../node_modules/streamdown/dist/*.js";
-
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @source "../**/*.{ts,tsx}";
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @custom-variant dark (&:is(.dark *));
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -43,6 +37,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -50,6 +45,55 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --font-size-display-xl: clamp(2.5rem, 5vw + 1rem, 4rem);
+  --font-size-display-lg: clamp(2rem, 4vw + 0.5rem, 3rem);
+  --font-size-display-md: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+  --font-size-display-sm: clamp(1.5rem, 2.5vw + 0.5rem, 2rem);
+  --font-size-heading-xl: 1.875rem;
+  --font-size-heading-lg: 1.5rem;
+  --font-size-heading-md: 1.25rem;
+  --font-size-heading-sm: 1.125rem;
+  --font-size-heading-xs: 1rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-body-md: 1rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-body-xs: 0.8125rem;
+  --font-size-caption: 0.75rem;
+  --font-size-micro: 0.625rem;
+
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  --opacity-disabled: 0.3;
+  --opacity-muted: 0.5;
+  --opacity-subtle: 0.6;
+  --opacity-hover: 0.75;
+  --opacity-active: 0.9;
+  --opacity-focus: 0.5;
+
+  --text-display-xl: var(--font-size-display-xl) / var(--line-height-tight);
+  --text-display-lg: var(--font-size-display-lg) / var(--line-height-tight);
+  --text-display-md: var(--font-size-display-md) / var(--line-height-tight);
+  --text-display-sm: var(--font-size-display-sm) / var(--line-height-snug);
+  --text-heading-xl: var(--font-size-heading-xl) / var(--line-height-snug);
+  --text-heading-lg: var(--font-size-heading-lg) / var(--line-height-snug);
+  --text-heading-md: var(--font-size-heading-md) / var(--line-height-snug);
+  --text-heading-sm: var(--font-size-heading-sm) / var(--line-height-normal);
+  --text-heading-xs: var(--font-size-heading-xs) / var(--line-height-normal);
+  --text-body-lg: var(--font-size-body-lg) / var(--line-height-relaxed);
+  --text-body-md: var(--font-size-body-md) / var(--line-height-normal);
+  --text-body-sm: var(--font-size-body-sm) / var(--line-height-normal);
+  --text-body-xs: var(--font-size-body-xs) / var(--line-height-normal);
+  --text-caption: var(--font-size-caption) / var(--line-height-normal);
+  --text-micro: var(--font-size-micro) / var(--line-height-normal);
+
+  --link-underline-offset: 4px;
+  --link-underline-width: 1.5px;
+  --link-transition-duration: 200ms;
 }
 
 :root {
@@ -214,27 +258,22 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply border-border;
   }
   * {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply min-w-0;
   }
   html {
     text-rendering: optimizelegibility;
   }
   body {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply min-h-[100dvh];
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply cursor-pointer;
   }
   div {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply text-foreground;
   }
   h1,
@@ -243,26 +282,21 @@
   h4,
   h5,
   h6 {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply text-foreground font-medium;
   }
   p {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply text-muted-foreground;
   }
   *::selection {
-    /* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS @apply directive */
     @apply bg-primary text-primary-foreground;
   }
 }
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @utility container {
   --container-width: var(--container-width);
 }
 
 /* Typography plugin */
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @utility prose {
   --tw-prose-body: var(--color-foreground);
   --tw-prose-headings: var(--color-foreground);
@@ -304,7 +338,6 @@
  * `font-bold`-style utility (including those inside third-party components)
  * lands on semibold instead.
  */
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @theme {
   --font-weight-semibold: 600;
   --font-weight-bold: 600;
@@ -319,4 +352,185 @@
 
 .prose :is(strong, b) {
   font-weight: 500;
+}
+
+/* Unified link utilities */
+@utility link-base {
+  @apply relative rounded text-foreground no-underline;
+  text-decoration-thickness: var(--link-underline-width);
+  text-underline-offset: var(--link-underline-offset);
+  transition: text-decoration-color var(--link-transition-duration) ease;
+}
+
+@utility link-default {
+  @apply link-base;
+  text-decoration-color: var(--muted-foreground);
+  text-decoration-color: color-mix(
+    in oklch,
+    var(--muted-foreground) 30%,
+    transparent
+  );
+
+  &:hover {
+    text-decoration-color: var(--foreground);
+  }
+}
+
+@utility link-muted {
+  @apply link-base text-muted-foreground;
+  text-decoration-color: var(--muted-foreground);
+  text-decoration-color: color-mix(
+    in oklch,
+    var(--muted-foreground) 40%,
+    transparent
+  );
+
+  &:hover {
+    text-decoration-color: var(--muted-foreground);
+  }
+}
+
+@utility link-external {
+  @apply link-base inline-flex items-center gap-1;
+
+  &::after {
+    content: "";
+    @apply size-3;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+    mask-size: cover;
+    background: currentColor;
+    opacity: 0.6;
+    transition:
+      opacity var(--link-transition-duration) ease,
+      transform var(--link-transition-duration) ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+}
+
+/* Opacity utilities */
+@utility opacity-disabled {
+  opacity: var(--opacity-disabled);
+}
+
+@utility opacity-muted {
+  opacity: var(--opacity-muted);
+}
+
+@utility opacity-subtle {
+  opacity: var(--opacity-subtle);
+}
+
+@utility opacity-hover {
+  opacity: var(--opacity-hover);
+}
+
+@utility opacity-active {
+  opacity: var(--opacity-active);
+}
+
+@utility opacity-focus {
+  opacity: var(--opacity-focus);
+}
+
+/* Text size utilities using unified scale */
+@utility text-display-xl {
+  font-size: var(--font-size-display-xl);
+  line-height: var(--line-height-tight);
+}
+
+@utility text-display-lg {
+  font-size: var(--font-size-display-lg);
+  line-height: var(--line-height-tight);
+}
+
+@utility text-display-md {
+  font-size: var(--font-size-display-md);
+  line-height: var(--line-height-tight);
+}
+
+@utility text-display-sm {
+  font-size: var(--font-size-display-sm);
+  line-height: var(--line-height-snug);
+}
+
+@utility text-heading-xl {
+  font-size: var(--font-size-heading-xl);
+  line-height: var(--line-height-snug);
+}
+
+@utility text-heading-lg {
+  font-size: var(--font-size-heading-lg);
+  line-height: var(--line-height-snug);
+}
+
+@utility text-heading-md {
+  font-size: var(--font-size-heading-md);
+  line-height: var(--line-height-snug);
+}
+
+@utility text-heading-sm {
+  font-size: var(--font-size-heading-sm);
+  line-height: var(--line-height-normal);
+}
+
+@utility text-heading-xs {
+  font-size: var(--font-size-heading-xs);
+  line-height: var(--line-height-normal);
+}
+
+@utility text-body-lg {
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+@utility text-body-md {
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-normal);
+}
+
+@utility text-body-sm {
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-normal);
+}
+
+@utility text-body-xs {
+  font-size: var(--font-size-body-xs);
+  line-height: var(--line-height-normal);
+}
+
+@utility text-caption {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-normal);
+}
+
+@utility text-micro {
+  font-size: var(--font-size-micro);
+  line-height: var(--line-height-normal);
+}
+
+/* Prose code block sizing */
+.prose .shiki {
+  font-size: var(--font-size-body-xs);
+  line-height: var(--line-height-relaxed);
+}
+
+/*
+ * Shiki dual-theme code highlighting. fumadocs emits both palettes as inline
+ * `--shiki` / `--shiki-dark` variables; swap to the dark palette under `.dark`.
+ */
+.prose .shiki {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.dark .prose .shiki,
+.dark .prose .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
 }
