@@ -59,20 +59,28 @@ export async function checkRateLimit(
   let limiter = limiters.get(prefix);
 
   if (!limiter) {
-    const { createRateLimiter, slidingWindow } = await import(
-      '@gabfon/rate-limit'
-    );
-    limiter = createRateLimiter({
-      prefix,
-      limiter: slidingWindow(
-        options.requests ?? DEFAULT_REQUESTS,
-        options.window ?? DEFAULT_WINDOW
-      ),
-    }) as unknown as Limiter;
-    limiters.set(prefix, limiter);
+    try {
+      const { createRateLimiter, slidingWindow } = await import(
+        '@gabfon/rate-limit'
+      );
+      limiter = createRateLimiter({
+        prefix,
+        limiter: slidingWindow(
+          options.requests ?? DEFAULT_REQUESTS,
+          options.window ?? DEFAULT_WINDOW
+        ),
+      }) as unknown as Limiter;
+      limiters.set(prefix, limiter);
+    } catch {
+      return null;
+    }
   }
 
-  return limiter.limit(clientIp(request));
+  try {
+    return limiter.limit(clientIp(request));
+  } catch {
+    return null;
+  }
 }
 
 /** Standard `RateLimit-*` / `Retry-After` response headers for a result. */

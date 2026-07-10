@@ -138,203 +138,187 @@
  *
  * The design system ships only the `--tw-prose-*` color tokens (no
  * `@tailwindcss/typography` plugin is loaded), so the vertical rhythm,
- * heading scale, lists, quotes and inline code are authored here to keep
- * posts and project case studies visually cohesive with the rest of the
- * site: monochrome, restrained weights (<= 500 in body), generous measure.
+ * heading scale, lists, quotes and inline code are authored here. The goal is
+ * to read exactly like the homepage sections: plain foreground body copy,
+ * `gap-4` (1rem) rhythm, and small `font-semibold text-lg` headings — no
+ * editorial embellishment.
  */
-@layer components {
-  .prose {
-    font-size: var(--font-size-body-md);
-    line-height: var(--line-height-relaxed);
-    color: var(--color-foreground);
-    text-wrap: pretty;
-  }
+.prose {
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-foreground);
+  text-wrap: pretty;
+}
 
-  /* Flow rhythm: space is owned by the following element. */
-  .prose > * + * {
-    margin-top: 1.25em;
-  }
+/* Flow rhythm mirrors the homepage `flex flex-col gap-4` sections. */
+.prose > * + * {
+  margin-top: 1rem;
+}
 
-  .prose p {
-    margin: 0;
-  }
+.prose p {
+  margin: 0;
+}
 
-  /* Lead paragraph — the first paragraph after the header reads larger. */
-  .prose > p:first-child {
-    font-size: var(--font-size-body-lg);
-    line-height: var(--line-height-relaxed);
-    color: color-mix(in oklch, var(--color-foreground) 90%, transparent);
-  }
+/*
+ * Headings match the homepage section headings exactly: `font-semibold
+ * text-lg`. A larger lead-in gap echoes the `gap-12` between homepage
+ * sections; the following element sits `gap-4` beneath.
+ */
+.prose :is(h2, h3, h4) {
+  scroll-margin-top: 2rem;
+  font-weight: 600;
+  color: var(--color-foreground);
+  text-wrap: balance;
+}
 
-  /* Headings — medium weight, tight tracking, extra lead-in space. */
-  .prose :is(h2, h3, h4) {
-    scroll-margin-top: 6rem;
-    letter-spacing: -0.011em;
-    color: var(--color-foreground);
-    text-wrap: balance;
-  }
+.prose h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0;
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-snug);
+}
 
-  .prose h2 {
-    margin-top: 2.75em;
-    margin-bottom: 0;
-    font-size: var(--font-size-heading-md);
-    line-height: var(--line-height-snug);
-  }
+.prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-snug);
+}
 
-  .prose h3 {
-    margin-top: 2.25em;
-    margin-bottom: 0;
-    font-size: var(--font-size-heading-sm);
-    line-height: var(--line-height-snug);
-  }
+.prose h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-snug);
+}
 
-  .prose h4 {
-    margin-top: 2em;
-    margin-bottom: 0;
-    font-size: var(--font-size-body-md);
-    line-height: var(--line-height-snug);
-  }
+/* A heading sets up the paragraph directly beneath it. */
+.prose :is(h2, h3, h4) + * {
+  margin-top: 0.5rem;
+}
 
-  /* A heading sets up the paragraph directly beneath it. */
-  .prose :is(h2, h3, h4) + * {
-    margin-top: 0.75em;
-  }
+/* Lists */
+.prose :is(ul, ol) {
+  padding-left: 1.25em;
+}
 
-  /* Subtle rule under h2 to structure longer pieces without heavy chrome. */
-  .prose h2::after {
-    content: "";
-    display: block;
-    width: 2rem;
-    height: 1px;
-    margin-top: 0.75rem;
-    background: color-mix(in oklch, var(--color-foreground) 25%, transparent);
-  }
+.prose :is(ul, ol) > li {
+  padding-left: 0.375em;
+}
 
-  /* Lists */
-  .prose :is(ul, ol) {
-    padding-left: 1.25em;
-  }
+.prose :is(ul, ol) > li + li {
+  margin-top: 0.5em;
+}
 
-  .prose :is(ul, ol) > li {
-    padding-left: 0.375em;
-  }
+.prose ul {
+  list-style-type: none;
+}
 
-  .prose :is(ul, ol) > li + li {
-    margin-top: 0.5em;
-  }
+.prose ul > li {
+  position: relative;
+}
 
-  .prose ul {
-    list-style-type: none;
-  }
+.prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1em;
+  top: 0.7em;
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--color-foreground) 45%, transparent);
+}
 
-  .prose ul > li {
-    position: relative;
-  }
+.prose ol {
+  list-style-type: decimal;
+}
 
-  .prose ul > li::before {
-    content: "";
-    position: absolute;
-    left: -1em;
-    top: 0.7em;
-    width: 0.3125rem;
-    height: 0.3125rem;
-    border-radius: 9999px;
-    background: color-mix(in oklch, var(--color-foreground) 45%, transparent);
-  }
+.prose ol > li::marker {
+  color: var(--color-muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
 
-  .prose ol {
-    list-style-type: decimal;
-  }
+.prose :is(ul, ol) :is(ul, ol) {
+  margin-top: 0.5em;
+}
 
-  .prose ol > li::marker {
-    color: var(--color-muted-foreground);
-    font-variant-numeric: tabular-nums;
-  }
+/* Blockquote — quiet, hanging accent bar; body-sized like the rest. */
+.prose blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-border);
+  color: var(--color-muted-foreground);
+  font-style: normal;
+}
 
-  .prose :is(ul, ol) :is(ul, ol) {
-    margin-top: 0.5em;
-  }
+.prose blockquote p {
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-normal);
+}
 
-  /* Blockquote — editorial, hanging accent bar. */
-  .prose blockquote {
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 1.25rem;
-    border-left: 2px solid
-      color-mix(in oklch, var(--color-foreground) 30%, transparent);
-    color: var(--color-muted-foreground);
-    font-style: normal;
-  }
+/* Horizontal rule — a hairline, generously spaced. */
+.prose hr {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  border: 0;
+  height: 1px;
+  background: var(--color-border);
+}
 
-  .prose blockquote p {
-    font-size: var(--font-size-body-lg);
-    line-height: var(--line-height-relaxed);
-  }
+/* Inline code */
+.prose :not(pre) > code {
+  font-size: 0.8125em;
+  font-weight: 450;
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: color-mix(in oklch, var(--color-muted) 60%, transparent);
+  white-space: nowrap;
+}
 
-  /* Horizontal rule — a centered dot leader, not a hard line. */
-  .prose hr {
-    margin-top: 3em;
-    margin-bottom: 3em;
-    border: 0;
-    height: 1px;
-    background: color-mix(in oklch, var(--color-border) 100%, transparent);
-    position: relative;
-  }
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}
 
-  /* Inline code */
-  .prose :not(pre) > code {
-    font-size: 0.8125em;
-    font-weight: 450;
-    padding: 0.15em 0.4em;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-    background: color-mix(in oklch, var(--color-muted) 60%, transparent);
-    white-space: nowrap;
-  }
+/* Figures & standalone images */
+.prose figure {
+  margin: 0;
+}
 
-  .prose :not(pre) > code::before,
-  .prose :not(pre) > code::after {
-    content: none;
-  }
+.prose figcaption {
+  margin-top: 0.75rem;
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-normal);
+  color: var(--color-muted-foreground);
+  text-align: center;
+}
 
-  /* Figures & standalone images */
-  .prose figure {
-    margin: 0;
-  }
+/* Tables */
+.prose table {
+  font-variant-numeric: tabular-nums;
+}
 
-  .prose figcaption {
-    margin-top: 0.75rem;
-    font-size: var(--font-size-caption);
-    line-height: var(--line-height-normal);
-    color: var(--color-muted-foreground);
-    text-align: center;
-  }
+.prose :is(th, td) {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
 
-  /* Tables */
-  .prose table {
-    font-variant-numeric: tabular-nums;
-  }
+.prose thead th {
+  font-weight: 500;
+  font-size: var(--font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted-foreground);
+}
 
-  .prose :is(th, td) {
-    padding: 0.625rem 0.875rem;
-    text-align: left;
-    border-bottom: 1px solid var(--color-border);
-  }
+.prose tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
 
-  .prose thead th {
-    font-weight: 500;
-    font-size: var(--font-size-caption);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-muted-foreground);
-  }
-
-  .prose tbody tr:last-child :is(th, td) {
-    border-bottom: 0;
-  }
-
-  /* Code blocks own a touch more breathing room. */
-  .prose .shiki {
-    margin-top: 1.5em;
-  }
+/* Code blocks own a touch more breathing room. */
+.prose .shiki {
+  margin-top: 1.5em;
 }

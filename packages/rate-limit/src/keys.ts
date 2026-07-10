@@ -8,8 +8,8 @@ import { z } from 'zod';
 export const keys = () =>
   createEnv({
     server: {
-      KV_REST_API_URL: z.url(),
-      KV_REST_API_TOKEN: z.string(),
+      KV_REST_API_URL: z.url().optional(),
+      KV_REST_API_TOKEN: z.string().optional(),
     },
     runtimeEnv: {
       KV_REST_API_URL: process.env.KV_REST_API_URL,

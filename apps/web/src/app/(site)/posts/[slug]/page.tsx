@@ -2,9 +2,13 @@ import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { JSX } from 'react';
+import { ArticleFooter } from '@/components/content/article-footer';
+import { BackLink } from '@/components/content/back-link';
 import { CONFIG } from '@/constants/config';
 import { getPostEntry, getPosts } from '@/lib/content-index';
 import { formatDisplayDate } from '@/lib/format-date';
+import { getReadingTime } from '@/lib/reading-time';
+import { useMDXComponents } from '@/mdx-components';
 
 /**
  * The PostPageProps for the site.
@@ -73,24 +77,28 @@ export default async function PostPage({
   }
 
   const MdxContent = entry.body;
+  const readingTime = getReadingTime('posts', entry._file.path);
 
   return (
     <article className="flex flex-col gap-8">
-      <header className="flex flex-col gap-2">
-        <h1 className="font-semibold text-2xl tracking-tight">{post.title}</h1>
+      <header className="flex flex-col gap-4">
+        <BackLink href="/posts" label="Writing" />
+        <div className="flex flex-col gap-1">
+          <h1 className="font-semibold text-lg">{post.title}</h1>
+          <p className="text-muted-foreground text-sm">
+            {post.date ? (
+              <time dateTime={post.date}>{formatDisplayDate(post.date)}</time>
+            ) : null}
+            {post.date ? ' · ' : null}
+            {readingTime} min read
+          </p>
+        </div>
         <p className="text-muted-foreground">{post.description}</p>
-        {post.date ? (
-          <time
-            className="text-muted-foreground/[var(--opacity-description)] text-xs uppercase tracking-wider"
-            dateTime={post.date}
-          >
-            {formatDisplayDate(post.date)}
-          </time>
-        ) : null}
       </header>
       <div className="prose max-w-none">
-        <MdxContent />
+        <MdxContent components={useMDXComponents({})} />
       </div>
+      <ArticleFooter backHref="/posts" backLabel="All writing" />
     </article>
   );
 }

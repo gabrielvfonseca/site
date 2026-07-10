@@ -1,8 +1,23 @@
-import { LINK_CLASS_PROSE } from '@gabfon/design-system/lib/constants';
+import {
+  LINK_CLASS,
+  LINK_EXTERNAL_CLASS,
+} from '@gabfon/design-system/lib/constants';
 import type { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 import type { ComponentProps, ReactNode } from 'react';
+import { Accordion, AccordionItem } from '@/components/mdx/accordion';
 import { Callout } from '@/components/mdx/callout';
+import { CodeBlock } from '@/components/mdx/code-block';
+import { Divider } from '@/components/mdx/divider';
+import { Figure } from '@/components/mdx/figure';
+import { Kbd } from '@/components/mdx/kbd';
+import { LinkCard } from '@/components/mdx/link-card';
+import { PullQuote } from '@/components/mdx/pull-quote';
+import { Stat, StatGrid } from '@/components/mdx/stat';
+import { Step, Steps } from '@/components/mdx/steps';
+import { Tabbed } from '@/components/mdx/tabbed';
+import { TechStack } from '@/components/mdx/tech-stack';
+import { Video } from '@/components/mdx/video';
 import { cn } from '@/lib/utils';
 
 /** Matches absolute http(s) URLs (external links). */
@@ -60,6 +75,35 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
     Callout,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Accordion,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    AccordionItem,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Divider,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Figure,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Kbd,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    LinkCard,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    PullQuote,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Stat,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    StatGrid,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Step,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Steps,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Tabbed,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    TechStack,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Video,
+    pre: CodeBlock,
     h2: anchoredHeading('h2'),
     h3: anchoredHeading('h3'),
     h4: anchoredHeading('h4'),
@@ -68,7 +112,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const external = EXTERNAL_URL.test(url);
       return (
         <Link
-          className={LINK_CLASS_PROSE}
+          className={external ? LINK_EXTERNAL_CLASS : LINK_CLASS}
           href={url}
           {...(external
             ? { target: '_blank', rel: 'noopener noreferrer' }

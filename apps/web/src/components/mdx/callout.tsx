@@ -1,8 +1,14 @@
-import { InfoIcon, LightbulbIcon, TriangleAlertIcon } from 'lucide-react';
+import {
+  CircleCheckIcon,
+  InfoIcon,
+  LightbulbIcon,
+  OctagonAlertIcon,
+  TriangleAlertIcon,
+} from 'lucide-react';
 import type { ComponentType, JSX, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
-type CalloutVariant = 'note' | 'tip' | 'warning';
+type CalloutVariant = 'note' | 'tip' | 'success' | 'warning' | 'danger';
 
 const VARIANTS: Record<
   CalloutVariant,
@@ -10,8 +16,13 @@ const VARIANTS: Record<
 > = {
   note: { icon: InfoIcon, label: 'Note' },
   tip: { icon: LightbulbIcon, label: 'Tip' },
+  success: { icon: CircleCheckIcon, label: 'Success' },
   warning: { icon: TriangleAlertIcon, label: 'Warning' },
+  danger: { icon: OctagonAlertIcon, label: 'Important' },
 };
+
+/** Variants that borrow the destructive token for emphasis. */
+const DESTRUCTIVE_VARIANTS = new Set<CalloutVariant>(['warning', 'danger']);
 
 interface CalloutProps {
   /** Visual variant. Defaults to `note`. */
@@ -33,12 +44,13 @@ export function Callout({
   children,
 }: CalloutProps): JSX.Element {
   const { icon: Icon, label } = VARIANTS[variant];
+  const destructive = DESTRUCTIVE_VARIANTS.has(variant);
 
   return (
     <div
       className={cn(
         'not-prose my-6 flex gap-3 rounded-lg border p-4 text-sm',
-        variant === 'warning'
+        destructive
           ? 'border-destructive/[var(--opacity-subtle)] bg-destructive/[var(--opacity-disabled)]'
           : 'border-border bg-muted/[var(--opacity-muted)]'
       )}
@@ -46,7 +58,7 @@ export function Callout({
       <Icon
         className={cn(
           'mt-0.5 size-4 shrink-0',
-          variant === 'warning' ? 'text-destructive' : 'text-muted-foreground'
+          destructive ? 'text-destructive' : 'text-muted-foreground'
         )}
       />
       <div className="flex flex-col gap-1">

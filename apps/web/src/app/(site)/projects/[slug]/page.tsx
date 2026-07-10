@@ -4,9 +4,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { JSX } from 'react';
+import { ArticleFooter } from '@/components/content/article-footer';
+import { BackLink } from '@/components/content/back-link';
 import { CONFIG } from '@/constants/config';
 import { getProjectEntry, getProjects } from '@/lib/content-index';
 import { formatDisplayDate } from '@/lib/format-date';
+import { getReadingTime } from '@/lib/reading-time';
+import { useMDXComponents } from '@/mdx-components';
 
 /**
  * The ProjectPageProps for the site.
@@ -75,35 +79,40 @@ export default async function ProjectPage({
   }
 
   const MdxContent = entry.body;
+  const readingTime = getReadingTime('projects', entry._file.path);
 
   return (
     <article className="flex flex-col gap-8">
-      <header className="flex flex-col gap-2">
-        <h1 className="font-semibold text-2xl tracking-tight">
-          {project.title}
-        </h1>
-        <p className="text-muted-foreground">{project.description}</p>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground/[var(--opacity-description)] text-xs uppercase tracking-wider">
-          {project.date ? (
-            <time dateTime={project.date}>
-              {formatDisplayDate(project.date)}
-            </time>
-          ) : null}
-          {project.link ? (
-            <Link
-              className={LINK_EXTERNAL_CLASS}
-              href={project.link}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Visit project ↗
-            </Link>
-          ) : null}
+      <header className="flex flex-col gap-4">
+        <BackLink href="/projects" label="Projects" />
+        <div className="flex flex-col gap-1">
+          <h1 className="font-semibold text-lg">{project.title}</h1>
+          <p className="text-muted-foreground text-sm">
+            {project.date ? (
+              <time dateTime={project.date}>
+                {formatDisplayDate(project.date)}
+              </time>
+            ) : null}
+            {project.date ? ' · ' : null}
+            {readingTime} min read
+          </p>
         </div>
+        <p className="text-muted-foreground">{project.description}</p>
+        {project.link ? (
+          <Link
+            className={`${LINK_EXTERNAL_CLASS} w-fit text-sm`}
+            href={project.link}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Visit project
+          </Link>
+        ) : null}
       </header>
       <div className="prose max-w-none">
-        <MdxContent />
+        <MdxContent components={useMDXComponents({})} />
       </div>
+      <ArticleFooter backHref="/projects" backLabel="All projects" />
     </article>
   );
 }
