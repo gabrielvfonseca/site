@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@gabfon/design-system/components/button';
+import { FormField } from '@gabfon/design-system/components/form-field';
 import { Input } from '@gabfon/design-system/components/input';
-import { Label } from '@gabfon/design-system/components/label';
 import { Textarea } from '@gabfon/design-system/components/textarea';
 import { toast } from '@gabfon/design-system/components/toaster';
 import { type JSX, useActionState, useEffect, useRef } from 'react';
@@ -12,23 +12,6 @@ import {
 } from '@/app/actions/contact/actions';
 
 const INITIAL_STATE: ContactState = { status: 'idle' };
-
-function FieldError({
-  id,
-  error,
-}: {
-  id: string;
-  error?: string[];
-}): JSX.Element | null {
-  if (!error?.length) {
-    return null;
-  }
-  return (
-    <p className="text-destructive text-xs" id={id} role="alert">
-      {error[0]}
-    </p>
-  );
-}
 
 export function ContactForm(): JSX.Element {
   const [state, formAction, isPending] = useActionState(
@@ -51,51 +34,54 @@ export function ContactForm(): JSX.Element {
 
   return (
     <form action={formAction} className="flex flex-col gap-5" ref={formRef}>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="name">Name</Label>
+      <FormField
+        error={state.errors?.name?.[0]}
+        id="name"
+        label="Name"
+        required
+      >
         <Input
-          aria-describedby={invalid('name') ? 'name-error' : undefined}
           aria-invalid={invalid('name')}
           autoComplete="name"
           disabled={isPending}
-          id="name"
           name="name"
           placeholder="Your name"
           required
         />
-        <FieldError error={state.errors?.name} id="name-error" />
-      </div>
+      </FormField>
 
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="email">Email</Label>
+      <FormField
+        error={state.errors?.email?.[0]}
+        id="email"
+        label="Email"
+        required
+      >
         <Input
-          aria-describedby={invalid('email') ? 'email-error' : undefined}
           aria-invalid={invalid('email')}
           autoComplete="email"
           disabled={isPending}
-          id="email"
           name="email"
           placeholder="you@example.com"
           required
           type="email"
         />
-        <FieldError error={state.errors?.email} id="email-error" />
-      </div>
+      </FormField>
 
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="message">Message</Label>
+      <FormField
+        error={state.errors?.message?.[0]}
+        id="message"
+        label="Message"
+        required
+      >
         <Textarea
-          aria-describedby={invalid('message') ? 'message-error' : undefined}
           aria-invalid={invalid('message')}
           disabled={isPending}
-          id="message"
           name="message"
           placeholder="What's on your mind?"
           required
           rows={6}
         />
-        <FieldError error={state.errors?.message} id="message-error" />
-      </div>
+      </FormField>
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <Button className="w-full sm:w-auto" disabled={isPending} type="submit">
