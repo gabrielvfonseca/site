@@ -19,7 +19,7 @@ fi
 
 # 3. Run tests
 echo "   Running unit tests..."
-if ! bun test; then
+if ! bun run test; then
   echo " Tests failed. Push aborted."
   exit 1
 fi
