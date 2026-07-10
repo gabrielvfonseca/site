@@ -12,7 +12,7 @@ export const contentType = 'image/png';
 const AVATAR_URL = 'https://github.com/gabrielvfonseca.png';
 
 /**
- * The dynamic favicon — renders the GitHub avatar as a rounded icon.
+ * The dynamic favicon renders the GitHub avatar as a rounded icon.
  * @returns An ImageResponse with the avatar.
  */
 export default function Icon(): ImageResponse {

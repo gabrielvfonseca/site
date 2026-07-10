@@ -137,7 +137,7 @@ export async function submitQuestion(data: AmaFormData): Promise<boolean> {
   const askerName = optional(data.name);
   const askerEmail = optional(data.email);
 
-  // Persist (best-effort — no-op without a configured database).
+  // Persist (best-effort, no-op without a configured database).
   try {
     const { insertAmaQuestion } = await import('@gabfon/database');
     await insertAmaQuestion({
@@ -151,7 +151,7 @@ export async function submitQuestion(data: AmaFormData): Promise<boolean> {
     parseError(error);
   }
 
-  // Notify the owner (best-effort — mirrors the contact form).
+  // Notify the owner (best-effort, mirrors the contact form).
   try {
     const { resend } = await import('@gabfon/email');
     await resend.emails.send({

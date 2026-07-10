@@ -1,27 +1,27 @@
 ---
 title: Metal
-description: A type-safe ORM for graph databases - bringing relational ergonomics to connected data.
+description: A type-safe ORM for graph databases that brings relational ergonomics to connected data.
 date: 2026-05-15
 link: https://github.com/gabrielvfonseca/metal
 ---
 
-Metal is an ORM that gives graph databases the same ergonomic, type-safe development experience that relational databases have long enjoyed. Graph databases are a natural fit for connected data - social graphs, knowledge bases, dependency trees, recommendation networks - but working with them from application code has historically meant dropping into raw query languages and hand-mapping results to objects.
+Metal is an ORM that gives graph databases the same ergonomic, type-safe development experience that relational databases have long enjoyed. Graph databases are a natural fit for connected data like social graphs, knowledge bases, dependency trees, and recommendation networks, but working with them from application code has historically meant dropping into raw query languages and hand-mapping results to objects.
 
 Metal closes that gap.
 
 ## Why graphs need their own ORM
 
-Relational ORMs map tables to objects and joins to traversals. That model works because relational data is flat and relationships are secondary - they emerge from foreign keys at query time. Graph data is the opposite: relationships *are* the data. A node without its edges is nearly useless, and the value of a graph query is in how you traverse connected paths, not how you filter a flat set.
+Relational ORMs map tables to objects and joins to traversals. That model works because relational data is flat and relationships are secondary since they emerge from foreign keys at query time. Graph data is the opposite: relationships *are* the data. A node without its edges is nearly useless, and the value of a graph query is in how you traverse connected paths, not how you filter a flat set.
 
 A graph ORM can't just be a relational ORM with different SQL. It needs to model edges as first-class citizens, support path traversals as a native operation, and map deeply nested graph results to typed objects without N+1 queries or manual projection.
 
 ## What Metal provides
 
 - **Declarative schema mapping**: Define nodes and edges as typed classes, and Metal handles the translation to your graph database's native schema.
-- **Type-safe traversals**: Navigate relationships with full type inference - the compiler catches mismatched edge types, missing properties, and invalid path shapes before they hit the database.
+- **Type-safe traversals**: Navigate relationships with full type inference so the compiler catches mismatched edge types, missing properties, and invalid path shapes before they hit the database.
 - **Efficient query generation**: Automatically batches and optimizes traversals, avoiding the N+1 problem that naive ORM implementations introduce on connected data.
 - **Database agnostic core**: The query engine abstracts over backend-specific query languages, so your application code doesn't need to change when the storage layer does.
 
 ## The philosophy
 
-Relationships should feel like a native part of your type system, not a string you interpolate into a query. Metal is built on that conviction - that the tooling for connected data should be as thoughtful as the data model itself.
+Relationships should feel like a native part of your type system, not a string you interpolate into a query. Metal is built on the conviction that the tooling for connected data should be as thoughtful as the data model itself.

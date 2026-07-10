@@ -82,7 +82,7 @@ export function ProjectsList({
       <div className="relative flex w-full flex-col items-start gap-2">
         {items.length === 0 ? (
           <p className="px-3 py-3 text-muted-foreground text-sm leading-5">
-            No projects to show yet — check back soon.
+            No projects to show yet. Check back soon.
           </p>
         ) : (
           visibleItems.map((item, index: number) => {

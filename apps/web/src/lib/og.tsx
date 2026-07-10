@@ -14,7 +14,7 @@ interface OgCardOptions {
 }
 
 /**
- * Render a branded Open Graph card matching the site's monochrome design —
+ * Render a branded Open Graph card matching the site's monochrome design with a
  * black canvas, GitHub avatar, a title, and an optional subtitle. Shared by the
  * default card and the per-route post/project cards to keep them consistent.
  * @param options - The card title and optional subtitle.

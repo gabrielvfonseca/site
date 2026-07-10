@@ -45,7 +45,7 @@ function renderItem(item: FeedItem, now: Date): string {
 }
 
 /**
- * GET /rss.xml — an RSS 2.0 feed generated from the real posts and projects in
+ * GET /rss.xml: an RSS 2.0 feed generated from the real posts and projects in
  * the content index (no hardcoded/placeholder entries).
  */
 export function GET() {
@@ -77,7 +77,7 @@ export function GET() {
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${escapeXml(CONFIG.name)} — Posts &amp; Projects</title>
+    <title>${escapeXml(CONFIG.name)}: Posts &amp; Projects</title>
     <description>${escapeXml(CONFIG.description)}</description>
     <link>${SITE_URL}</link>
     <language>en-us</language>

@@ -1,27 +1,27 @@
 ---
 title: Vibe
-description: A unified AI systems framework for TypeScript - context, execution, memory, and optimization as native runtime primitives.
+description: A unified AI systems framework for TypeScript with context, execution, memory, and optimization as native runtime primitives.
 date: 2026-06-25
 link: https://github.com/gabrielvfonseca/vibe
 ---
 
-Vibe is an AI systems framework for TypeScript that replaces the fragmented ecosystem of agent tooling with a single, coherent runtime. Building with AI in TypeScript today means assembling a dozen half-compatible libraries: one for context windows, another for execution orchestration, something else for memory, and nothing at all that treats performance optimization as a first-class concern. The seams between those tools are where systems break - incompatible data formats, mismatched lifecycle models, conflicting concurrency assumptions.
+Vibe is an AI systems framework for TypeScript that replaces the fragmented ecosystem of agent tooling with a single, coherent runtime. Building with AI in TypeScript today means assembling a dozen half-compatible libraries: one for context windows, another for execution orchestration, something else for memory, and nothing at all that treats performance optimization as a first-class concern. The seams between those tools are where systems break due to incompatible data formats, mismatched lifecycle models, and conflicting concurrency assumptions.
 
-Vibe collapses those seams. Context, execution, memory, and optimization aren't libraries you bolt on and hope compose - they're native primitives in a shared runtime, designed to cooperate from the start.
+Vibe collapses those seams. Context, execution, memory, and optimization aren't libraries you bolt on and hope compose. They are native primitives in a shared runtime, designed to cooperate from the start.
 
 ## Core primitives
 
-- **Context**: A structured, versioned context layer that handles window management, prioritization, and compression - so you don't have to think about token budgets while building agent logic.
+- **Context**: A structured, versioned context layer that handles window management, prioritization, and compression so you don't have to think about token budgets while building agent logic.
 - **Execution**: An orchestration engine for multi-step agent workflows with branching, retries, parallel execution, and interrupt handling. Steps are declarative; the runtime handles scheduling and recovery.
-- **Memory**: Persistent storage that spans sessions - short-term working memory, long-term episodic memory, and semantic knowledge retrieval, all accessed through the same interface.
+- **Memory**: Persistent storage that spans sessions including short-term working memory, long-term episodic memory, and semantic knowledge retrieval, all accessed through the same interface.
 - **Optimization**: Built-in profiling and auto-tuning. The runtime observes its own performance and adjusts batching, caching, and parallelism strategies without configuration.
 
 ## Why a framework, not a wrapper
 
-There are plenty of "AI frameworks" that are really just API wrappers - thin clients around model providers with some prompt templating on top. Vibe is not that. It's a runtime that manages the lifecycle of AI interactions from construction through execution through observation. It handles the concerns that come up in every real AI system but that no model API addresses: state management, error recovery, resource governance, and observability.
+There are plenty of "AI frameworks" that are really just API wrappers, thin clients around model providers with some prompt templating on top. Vibe is not that. It's a runtime that manages the lifecycle of AI interactions from construction through execution through observation. It handles the concerns that come up in every real AI system but that no model API addresses: state management, error recovery, resource governance, and observability.
 
 The goal is a foundation for AI systems in TypeScript that you can build on without rebuilding the bottom layer every time. It's the layer I wanted to exist and kept having to reconstruct from scratch.
 
 ## Status
 
-Vibe is under active development as a framework and as the runtime that powers Operator and other projects. It's being built in the open - the architecture evolves as I learn what real AI systems actually need.
+Vibe is under active development as a framework and as the runtime that powers Operator and other projects. It's being built in the open and the architecture evolves as I learn what real AI systems actually need.

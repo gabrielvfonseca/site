@@ -2,7 +2,7 @@ import { CONFIG } from '@/constants/config';
 import { getPosts, getProjects } from '@/lib/content-index';
 
 /**
- * GET /llms.txt — a concise, plain-text profile for LLM consumption, generated
+ * GET /llms.txt: a concise, plain-text profile for LLM consumption, generated
  * from the site config and real content.
  */
 export function GET() {
@@ -17,7 +17,7 @@ export function GET() {
     )
     .join('\n');
 
-  const content = `# ${CONFIG.name} — Portfolio (gabfon.com)
+  const content = `# ${CONFIG.name} Portfolio (gabfon.com)
 
 ${CONFIG.location}-based software developer, founder of Frontal Labs, and Computer Engineering student at NOVA FCT.
 

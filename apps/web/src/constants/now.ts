@@ -1,5 +1,5 @@
 /**
- * Content for the `/now` page — a living snapshot of what I'm currently focused
+ * Content for the `/now` page: a living snapshot of what I'm currently focused
  * on, in the spirit of the "now page" movement (nownownow.com).
  *
  * This is the single source of truth for the page: update `NOW_UPDATED` and the
@@ -30,7 +30,7 @@ export const NOW_LOCATION = 'Lisbon, Portugal';
 
 /** Short lead paragraphs setting the scene. */
 export const NOW_INTRO: readonly string[] = [
-  "Here's what I'm focused on at the moment — the projects, ideas, and habits taking up most of my attention. It's a snapshot, not a résumé, and it changes as I do.",
+  "Here's what I'm focused on at the moment: the projects, ideas, and habits taking up most of my attention. It's a snapshot, not a résumé, and it changes as I do.",
 ];
 
 /** The sections shown on the page, in order. */
@@ -41,12 +41,12 @@ export const NOW_SECTIONS: readonly NowSection[] = [
       {
         label: 'Building Frontal',
         detail:
-          'Most of my energy goes into shipping our AI platform for organizational clarity — tightening the core product and talking to early users.',
+          'Most of my energy goes into shipping our AI platform for organizational clarity, tightening the core product and talking to early users.',
       },
       {
         label: 'Finishing my degree',
         detail:
-          'Balancing Computer Engineering at NOVA with building a company — learning to protect deep-work time.',
+          'Balancing Computer Engineering at NOVA with building a company while learning to protect deep-work time.',
       },
     ],
   },
@@ -56,12 +56,12 @@ export const NOW_SECTIONS: readonly NowSection[] = [
       {
         label: 'Frontal',
         detail:
-          'Product strategy, user research, and full-stack engineering — keeping the experience simple as the surface area grows.',
+          'Product strategy, user research, and full-stack engineering, keeping the experience simple as the surface area grows.',
       },
       {
         label: 'This site',
         detail:
-          'An ongoing playground for design and Next.js — small, focused improvements as I learn.',
+          'An ongoing playground for design and Next.js with small, focused improvements as I learn.',
       },
     ],
   },

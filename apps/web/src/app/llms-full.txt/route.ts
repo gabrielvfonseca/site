@@ -2,7 +2,7 @@ import { CONFIG } from '@/constants/config';
 import { getPosts, getProjects } from '@/lib/content-index';
 
 /**
- * GET /llms-full.txt — a comprehensive plain-text profile for detailed LLM
+ * GET /llms-full.txt: a comprehensive plain-text profile for detailed LLM
  * analysis, generated from the site config and real content.
  */
 export function GET() {
@@ -22,7 +22,7 @@ export function GET() {
     )
     .join('\n\n');
 
-  const content = `# ${CONFIG.name} — Comprehensive Portfolio (gabfon.com)
+  const content = `# ${CONFIG.name} Comprehensive Portfolio (gabfon.com)
 
 ## Personal Information
 Name: ${CONFIG.name}

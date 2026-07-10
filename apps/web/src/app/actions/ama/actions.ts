@@ -39,7 +39,7 @@ export async function askQuestion(
     await submitQuestion(parsed.data);
     return {
       status: 'success',
-      message: "Thanks — your question is in. I'll answer it soon.",
+      message: "Thanks. Your question is in. I'll answer it soon.",
     };
   } catch (error) {
     parseError(error);

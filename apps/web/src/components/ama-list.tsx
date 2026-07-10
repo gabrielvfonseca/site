@@ -73,7 +73,7 @@ export function AmaList({ items }: AmaListProps): JSX.Element {
   if (items.length === 0) {
     return (
       <p className="text-muted-foreground text-sm leading-5">
-        No answered questions yet — be the first to ask something below.
+        No answered questions yet. Be the first to ask something below.
       </p>
     );
   }

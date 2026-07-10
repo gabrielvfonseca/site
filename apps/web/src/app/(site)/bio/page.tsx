@@ -43,12 +43,12 @@ const TIMELINE: readonly TimelineItem[] = [
     period: 'Alongside',
     title: 'Freelance & personal projects',
     description:
-      'Full-stack development for clients and side projects — shipping small, focused tools that solve real problems.',
+      'Full-stack development for clients and side projects, shipping small, focused tools that solve real problems.',
   },
 ];
 
 /**
- * The bio page — a longer-form "about" for the site owner, styled to match the
+ * The bio page: a longer-form "about" for the site owner, styled to match the
  * homepage section rhythm.
  * @returns The bio page for the site.
  */
@@ -63,7 +63,7 @@ export default function Page(): JSX.Element {
           Bio
         </h1>
         <p>
-          I&apos;m {CONFIG.name} — a {CONFIG.title.toLowerCase()} and founder
+          I&apos;m {CONFIG.name}, a {CONFIG.title.toLowerCase()} and founder
           based in {CONFIG.location}.
         </p>
         <p>
@@ -85,7 +85,7 @@ export default function Page(): JSX.Element {
         <p>
           I started programming because I liked the feeling of turning an idea
           into something real and shippable in an afternoon. That instinct never
-          left — most of what I do now is still about compressing the distance
+          left. Most of what I do now is still about compressing the distance
           between a problem and a working solution, whether that&apos;s a full
           product or a small tool that saves someone ten minutes a day.
         </p>
@@ -101,7 +101,7 @@ export default function Page(): JSX.Element {
           What I&apos;m building
         </h2>
         <p>
-          Frontal is an AI-powered platform focused on organizational clarity —
+          Frontal is an AI-powered platform focused on organizational clarity,
           helping teams streamline operations and make better decisions with the
           context they already have. I work across product strategy, user
           research, and full-stack engineering to keep the experience simple as
@@ -125,8 +125,8 @@ export default function Page(): JSX.Element {
         </h2>
         <p>
           I like small teams, tight feedback loops, and shipping in the open. I
-          care about the details most people never notice — the copy, the
-          loading states, the empty screens — because they add up to whether
+          care about the details most people never notice, like the copy, the
+          loading states, and the empty screens, because they add up to whether
           something feels trustworthy. I&apos;d rather ship a smaller thing that
           works beautifully than a big thing that&apos;s almost done.
         </p>
@@ -172,10 +172,10 @@ export default function Page(): JSX.Element {
         <p>
           Outside of work I follow AI and productivity closely, enjoy writing
           about what I learn, and spend time running and staying active.
-          I&apos;m drawn to good design in every form — typography, product,
-          cities — and I take a lot of inspiration from things that are built to
-          last. I believe in building in public and sharing the journey along
-          the way.
+          I&apos;m drawn to good design in every form including typography,
+          product, and cities. I take a lot of inspiration from things that are
+          built to last. I believe in building in public and sharing the journey
+          along the way.
         </p>
         <p>
           Lisbon is a big part of the story too: the light, the pace, and a

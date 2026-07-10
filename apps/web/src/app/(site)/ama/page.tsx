@@ -12,7 +12,7 @@ import { getPublishedQuestions } from '@/lib/ama';
 export const metadata: Metadata = createMetadata({
   title: 'AMA | Gabriel Fonseca',
   description:
-    'Ask me anything — about building products, engineering, startups, or life in Lisbon. Read past answers or submit your own question.',
+    'Ask me anything about building products, engineering, startups, or life in Lisbon. Read past answers or submit your own question.',
 });
 
 /**
@@ -36,7 +36,7 @@ function AmaListSkeleton(): JSX.Element {
 /**
  * Fetches published AMA answers and renders them. Isolated in its own async
  * component so the surrounding page shell can render immediately while this
- * streams — keeping the data request-time dynamic (reflecting the live
+ * streams, keeping the data request-time dynamic (reflecting the live
  * database) instead of frozen into the build-time static output.
  * @returns The rendered list of published answers.
  */
@@ -63,8 +63,8 @@ export default function Page(): JSX.Element {
           Ask me anything
         </h1>
         <p className="text-muted-foreground">
-          Curious about something — building products, engineering, startups, or
-          life in Lisbon? Ask away. I answer the good ones publicly below.
+          Curious about something like building products, engineering, startups,
+          or life in Lisbon? Ask away. I answer the good ones publicly below.
         </p>
       </section>
 

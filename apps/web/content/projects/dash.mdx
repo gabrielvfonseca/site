@@ -1,24 +1,24 @@
 ---
 title: Dash
-description: A semantic formatter and linter built for speed - fast enough to run on every keystroke, smart enough to understand what your code means.
+description: A comprehensive package management platform with a registry, CLI, SDK, and tooling for the modern ecosystem.
 date: 2026-05-28
 link: https://github.com/gabrielvfonseca/dash
 ---
 
-Dash is a formatter and linter that refuses the usual trade-off between speed and depth. Most tools in this space pick a lane: they either parse your code deeply and run slowly, or they skim the surface and stay fast. Dash does both - it builds a full semantic understanding of your code and still runs fast enough that you'd never think to question it.
+Dash is a formatter and linter that refuses the usual trade-off between speed and depth. Most tools in this space pick a lane: they either parse your code deeply and run slowly, or they skim the surface and stay fast. Dash does both by building a full semantic understanding of your code while still running fast enough that you'd never think to question it.
 
-Formatting and linting are the tools you run most and think about least. They fire on every save, every commit, every CI run. Any latency there isn't an inconvenience - it's friction you feel hundreds of times a day, breaking flow in small but cumulative ways. Dash treats that friction as unacceptable.
+Formatting and linting are the tools you run most and think about least. They fire on every save, every commit, every CI run. Any latency there isn't an inconvenience but rather friction you feel hundreds of times a day, breaking flow in small but cumulative ways. Dash treats that friction as unacceptable.
 
 ## What semantic means here
 
-A regex-based linter can catch a missing semicolon. A semantic linter catches the *wrong* semicolon - the one that parses but doesn't mean what you intended. Dash builds a concrete syntax tree, resolves scopes, tracks types, and understands control flow. That means it can warn you about dead code after a return, unused variables that *look* used because of a coincidental name match, or expressions whose type doesn't match their context - all without needing a separate type-checker pass.
+A regex-based linter can catch a missing semicolon. A semantic linter catches the *wrong* semicolon, the one that parses but doesn't mean what you intended. Dash builds a concrete syntax tree, resolves scopes, tracks types, and understands control flow. That means it can warn you about dead code after a return, unused variables that *look* used because of a coincidental name match, or expressions whose type doesn't match their context, all without needing a separate type-checker pass.
 
 ## The architecture
 
-Dash is written in Rust and designed for parallelism from the ground up. File analysis is independent by default, incremental where it can be, and memoized across runs. The parser is hand-written and tuned for throughput, not just correctness. The linter rule engine evaluates constraints lazily - if a file is clean after the first pass of quick rules, the expensive checks never fire.
+Dash is written in Rust and designed for parallelism from the ground up. File analysis is independent by default, incremental where it can be, and memoized across runs. The parser is hand-written and tuned for throughput, not just correctness. The linter rule engine evaluates constraints lazily and if a file is clean after the first pass of quick rules, the expensive checks never fire.
 
 The result is a tool that scales with your project, not against it.
 
 ## Why it matters
 
-Code quality tools shape how you write. If they're slow, you batch runs and defer feedback. If they're shallow, they miss the problems that matter. Dash is an attempt to have neither limitation - a tool that stays out of your way on every save and tells you something useful every time it runs.
+Code quality tools shape how you write. If they're slow, you batch runs and defer feedback. If they're shallow, they miss the problems that matter. Dash is an attempt to have neither limitation, a tool that stays out of your way on every save and tells you something useful every time it runs.

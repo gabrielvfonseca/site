@@ -19,7 +19,7 @@ export interface GalleryImage {
  *
  * @example
  * export const BIO_GALLERY: readonly GalleryImage[] = [
- *   { src: '/gallery/lisbon.jpg', alt: 'Lisbon rooftops at sunset', caption: 'Home base — Lisbon' },
+ *   { src: '/gallery/lisbon.jpg', alt: 'Lisbon rooftops at sunset', caption: 'Home base in Lisbon' },
  *   { src: '/gallery/desk.jpg', alt: 'My desk setup while building Frontal' },
  * ];
  */
@@ -27,7 +27,7 @@ export const BIO_GALLERY: readonly GalleryImage[] = [
   {
     src: 'https://picsum.photos/seed/gabfon-lisbon/900/900?grayscale',
     alt: 'Lisbon streets and rooftops',
-    caption: 'Lisbon — home base',
+    caption: 'Lisbon, home base',
   },
   {
     src: 'https://picsum.photos/seed/gabfon-desk/900/900?grayscale',

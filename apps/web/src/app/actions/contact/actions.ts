@@ -50,7 +50,7 @@ export async function sendContactEmail(
 
     return {
       status: 'success',
-      message: "Thanks for reaching out — I'll get back to you soon.",
+      message: "Thanks for reaching out. I'll get back to you soon.",
     };
   } catch (error) {
     parseError(error);

@@ -2,7 +2,7 @@ import type { ImageResponse } from 'next/og';
 import { getPosts } from '@/lib/content-index';
 import { createOgImage, OG_CONTENT_TYPE, OG_SIZE } from '@/lib/og';
 
-export const alt = 'Post — Gabriel Fonseca';
+export const alt = 'Post - Gabriel Fonseca';
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

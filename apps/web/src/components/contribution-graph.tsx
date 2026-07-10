@@ -26,7 +26,7 @@ interface ActivityData {
   range: { start: string; end: string };
 }
 
-/** Monochrome intensity scale — subtle (empty) → full foreground (busiest). */
+/** Monochrome intensity scale: subtle (empty) to full foreground (busiest). */
 const LEVEL_CLASS = [
   'bg-muted',
   'bg-muted-foreground/25',
@@ -54,7 +54,7 @@ const MONTHS = [
 function tooltip(cell: Cell): string {
   const when = formatDisplayDate(cell.date);
   if (cell.count === 0) {
-    return `No activity — ${when}`;
+    return `No activity on ${when}`;
   }
   const parts: string[] = [];
   if (cell.github) {

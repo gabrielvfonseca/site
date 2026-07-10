@@ -19,11 +19,11 @@ import { formatDisplayDate } from '@/lib/format-date';
 export const metadata: Metadata = createMetadata({
   title: 'Now | Gabriel Fonseca',
   description:
-    'What Gabriel Fonseca is focused on right now — current projects, learning, writing, habits, and interests. A living snapshot, updated regularly.',
+    'What Gabriel Fonseca is focused on right now: current projects, learning, writing, habits, and interests. A living snapshot, updated regularly.',
 });
 
 /**
- * The `/now` page — a regularly updated snapshot of current priorities,
+ * The `/now` page: a regularly updated snapshot of current priorities,
  * projects, learning, writing, habits, and interests, in the spirit of the
  * "now page" movement. Structured like the bio page and driven entirely by
  * `@/constants/now`, so it's easy to keep current.
@@ -98,7 +98,7 @@ export default function Page(): JSX.Element {
             now page
           </Link>
           , a snapshot of what I&apos;m focused on at this point in my life. It
-          changes over time — check back to see what&apos;s new.
+          changes over time. Check back to see what&apos;s new.
         </p>
       </section>
     </div>

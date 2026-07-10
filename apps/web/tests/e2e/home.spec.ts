@@ -5,7 +5,7 @@ test.describe('Home page', () => {
     await page.goto('/');
 
     await expect(
-      page.getByRole('link', { name: 'Gabriel Fonseca - Home' })
+      page.getByRole('link', { name: 'Gabriel Fonseca Home' })
     ).toBeVisible();
     await expect(page.getByText('Software Developer').first()).toBeVisible();
     await expect(
@@ -20,7 +20,7 @@ test.describe('Home page', () => {
     await expect(activity.getByText('Less')).toBeVisible();
     await expect(activity.getByText('More')).toBeVisible();
     // Either real totals ("N contributions across M active days") or the
-    // graceful empty-state copy ("Daily activity across …") — both say "across".
+    // graceful empty-state copy ("Daily activity across …") - both say "across".
     await expect(activity.getByText(/across/i)).toBeVisible();
   });
 

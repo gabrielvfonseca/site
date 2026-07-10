@@ -13,7 +13,7 @@ import { CONFIG } from '@/constants/config';
 export const metadata: Metadata = createMetadata({
   title: 'Contact | Gabriel Fonseca',
   description:
-    'Get in touch with Gabriel Fonseca - Software Developer, Founder, and Computer Engineering student.',
+    'Get in touch with Gabriel Fonseca, a Software Developer, Founder, and Computer Engineering student.',
 });
 
 const Page = (): JSX.Element => {

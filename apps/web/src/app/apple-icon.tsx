@@ -12,7 +12,7 @@ export const contentType = 'image/png';
 const AVATAR_URL = 'https://github.com/gabrielvfonseca.png';
 
 /**
- * The Apple touch icon — renders the GitHub avatar (square, iOS masks corners).
+ * The Apple touch icon renders the GitHub avatar (square, iOS masks corners).
  * @returns An ImageResponse with the avatar.
  */
 export default function AppleIcon(): ImageResponse {

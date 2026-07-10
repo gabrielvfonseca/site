@@ -36,7 +36,7 @@ export async function generateMetadata({
     title: `${thread.question} | AMA`,
     description:
       thread.answer.slice(0, DESCRIPTION_MAX) ||
-      'Ask me anything — read the full thread.',
+      'Ask me anything. Read the full thread.',
   });
 }
 

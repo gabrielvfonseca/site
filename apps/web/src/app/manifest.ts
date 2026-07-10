@@ -7,7 +7,7 @@ import { CONFIG } from '@/constants/config';
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${CONFIG.name} - ${CONFIG.title}`,
+    name: `${CONFIG.name}: ${CONFIG.title}`,
     short_name: CONFIG.name,
     description: CONFIG.description,
     start_url: '/',

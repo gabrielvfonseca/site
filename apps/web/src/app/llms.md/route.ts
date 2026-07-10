@@ -2,7 +2,7 @@ import { CONFIG } from '@/constants/config';
 import { getPosts, getProjects } from '@/lib/content-index';
 
 /**
- * GET /llms.md — a structured Markdown profile for LLM consumption, generated
+ * GET /llms.md: a structured Markdown profile for LLM consumption, generated
  * from the site config and real content.
  */
 export function GET() {
