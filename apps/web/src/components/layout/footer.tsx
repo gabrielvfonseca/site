@@ -39,6 +39,9 @@ export function Footer(): JSX.Element {
 
   const links: FooterLinkProps[] = [
     ...socialLinks,
+    { href: '/bio', label: 'Bio' },
+    { href: '/now', label: 'Now' },
+    { href: '/ama', label: 'AMA' },
     { href: '/contact', label: 'Contact' },
   ];
 

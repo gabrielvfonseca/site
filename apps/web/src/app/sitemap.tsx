@@ -27,6 +27,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticEntries: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: today },
+    { url: `${SITE_URL}/bio`, lastModified: today },
+    { url: `${SITE_URL}/now`, lastModified: today },
+    { url: `${SITE_URL}/ama`, lastModified: today },
     { url: `${SITE_URL}/contact`, lastModified: today },
   ];
 
