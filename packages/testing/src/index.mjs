@@ -11,7 +11,11 @@ export const testingConfig = defineConfig({
   // Register React plugin for Vite
   plugins: [react()],
   test: {
-    // Use jsdom environment for browser-like testing
+    // Enable global test APIs (describe/it/expect) so setup files and
+    // jest-dom matcher registration work without explicit imports.
+    globals: true,
+    // Use jsdom environment for browser-like testing (individual test files
+    // may opt into node via `// @vitest-environment node`).
     environment: 'jsdom',
   },
   resolve: {
