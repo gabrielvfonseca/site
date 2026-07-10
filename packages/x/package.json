@@ -1,0 +1,46 @@
+{
+  "name": "@gabfon/x",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./keys": {
+      "import": "./src/keys.ts",
+      "types": "./src/keys.ts"
+    },
+    "./client": {
+      "import": "./src/client.ts",
+      "types": "./src/client.ts"
+    },
+    "./types": {
+      "import": "./src/types.ts",
+      "types": "./src/types.ts"
+    }
+  },
+  "scripts": {
+    "build": "bunx tsc --noEmit --emitDeclarationOnly false",
+    "test": "vitest run",
+    "test:unit": "vitest run unit",
+    "test:integration": "vitest run integration",
+    "test:e2e": "vitest run e2e",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "analyze": "echo 'No analysis specified'",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@gabfon/testing": "workspace:*",
+    "@gabfon/typescript-config": "workspace:*",
+    "@types/node": "24.10.1",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.10"
+  }
+}

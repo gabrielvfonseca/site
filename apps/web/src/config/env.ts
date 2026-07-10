@@ -8,6 +8,8 @@ import { keys as rateLimit } from '@gabfon/rate-limit/keys';
 import { keys as security } from '@gabfon/security/keys';
 import { keys as spotify } from '@gabfon/spotify/keys';
 import { keys as strava } from '@gabfon/strava/keys';
+import { keys as wakatime } from '@gabfon/wakatime/keys';
+import { keys as x } from '@gabfon/x/keys';
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
@@ -31,6 +33,8 @@ export const env = createEnv({
     github(),
     spotify(),
     strava(),
+    wakatime(),
+    x(),
   ],
   server: {
     ANALYZE: z.enum(['true', 'false']).optional().default('false'),

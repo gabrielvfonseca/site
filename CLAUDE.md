@@ -49,20 +49,23 @@ site-main/                         # Root monorepo (pnpm workspace + Turborepo)
 │       ├── next.config.ts         # Next.js config with MDX, Sentry, Analyzer wrappers
 │       ├── vitest.config.ts, playwright.config.ts, tsconfig.json
 │
-├── packages/                      # 12 workspace packages (@gabfon/*)
+├── packages/                      # 16 workspace packages (@gabfon/*)
 │   ├── analytics/                 # PostHog + Vercel Analytics
+│   ├── database/                  # Neon / PostgreSQL client
 │   ├── design-system/             # shadcn/ui source of truth (30+ components), Radix, Tailwind
 │   ├── email/                     # Email templates (contact notifications)
-│   ├── github/                    # GitHub API client (contribution graph)
+│   ├── github/                    # GitHub API client (contribution graph, stats)
 │   ├── next-config/               # Shared Next.js config presets
 │   ├── observability/             # Sentry + Logtail
 │   ├── rate-limit/                # Upstash Redis / Vercel KV rate limiting
 │   ├── security/                  # Arcjet + Nosecone middleware
 │   ├── seo/                       # Metadata, viewport, JSON-LD helpers
-│   ├── spotify/                   # Spotify API client (now playing)
-│   ├── strava/                    # Strava API client (activities)
+│   ├── spotify/                   # Spotify API client (now playing, top tracks)
+│   ├── strava/                    # Strava API client (activities, runs)
 │   ├── testing/                   # Shared test setup (mocks for ResizeObserver, matchMedia, etc.)
-│   └── typescript-config/         # Shared tsconfig presets
+│   ├── typescript-config/         # Shared tsconfig presets
+│   ├── wakatime/                  # WakaTime API client (coding hours)
+│   └── x/                         # X (Twitter) API client (latest post)
 │
 ├── scripts/                       # CLI scripts (security scan, changelog, etc.)
 ├── types/                         # Global ambient type declarations

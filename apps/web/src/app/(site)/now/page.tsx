@@ -3,6 +3,7 @@ import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import type { JSX } from 'react';
+import { NowLive } from '@/components/now/now-live';
 import { CONFIG } from '@/constants/config';
 import {
   NOW_INTRO,
@@ -49,6 +50,8 @@ export default function Page(): JSX.Element {
           <p key={paragraph}>{paragraph}</p>
         ))}
       </section>
+
+      <NowLive />
 
       {NOW_SECTIONS.map((section, index) => {
         const headingId = `now-section-${index}-heading`;

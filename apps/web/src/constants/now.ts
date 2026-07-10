@@ -22,6 +22,25 @@ export interface NowSection {
   readonly items: readonly NowItem[];
 }
 
+/** A hand-curated headline stat for the "By the numbers" strip. */
+export interface NowStat {
+  /** Short label, e.g. `Coffees`. */
+  readonly label: string;
+  /** The value as displayed, e.g. `14`. */
+  readonly value: string;
+  /** Optional supporting context, e.g. `This week`. */
+  readonly hint?: string;
+}
+
+/**
+ * Manually maintained fun stats shown alongside the live figures (coding time,
+ * contributions) in the "By the numbers" strip. Update these by hand.
+ */
+export const NOW_STATS: readonly NowStat[] = [
+  { label: 'Coffees', value: '14', hint: 'This week' },
+  { label: 'Books', value: '3', hint: 'This year' },
+];
+
 /** Date this page was last updated (ISO `YYYY-MM-DD`). */
 export const NOW_UPDATED = '2026-07-10';
 
@@ -93,12 +112,12 @@ export const NOW_SECTIONS: readonly NowSection[] = [
     title: 'Habits',
     items: [
       {
-        label: 'Running',
-        detail: 'Keeping a steady weekly rhythm to stay sharp.',
-      },
-      {
         label: 'Reading daily',
         detail: 'A little every day beats a lot occasionally.',
+      },
+      {
+        label: 'Deep-work mornings',
+        detail: 'Protecting the first hours of the day for focused building.',
       },
     ],
   },
