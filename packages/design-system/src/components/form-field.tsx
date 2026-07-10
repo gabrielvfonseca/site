@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps, JSX, ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 import * as React from 'react';
 import { cn } from '../lib/utils';
 import { Label } from './label';
@@ -52,11 +52,18 @@ export function FormField({
         )}
       </Label>
       {React.isValidElement(children)
-        ? React.cloneElement(children as ComponentProps<typeof children>, {
-            id,
-            'aria-describedby': describedBy,
-            'aria-invalid': Boolean(error),
-          })
+        ? React.cloneElement(
+            children as React.ReactElement<{
+              id?: string;
+              'aria-describedby'?: string;
+              'aria-invalid'?: boolean;
+            }>,
+            {
+              id,
+              'aria-describedby': describedBy,
+              'aria-invalid': Boolean(error),
+            }
+          )
         : children}
       {error && (
         <p className="text-caption text-destructive" id={errorId} role="alert">
