@@ -1,8 +1,20 @@
 'use client'; // Error boundaries must be client components
 
+import '@/styles/main.css';
+import { fonts } from '@gabfon/design-system/lib/fonts';
 import { parseError } from '@gabfon/observability';
+import { Geist } from 'next/font/google';
 import Link from 'next/link';
 import { type JSX, useEffect } from 'react';
+import { cn } from '@/lib/utils';
+
+/**
+ * Geist provides the `--font-sans` variable the Tailwind `font-sans` utility
+ * resolves to. `global-error` renders its own `<html>` outside the root
+ * layout, so the font stack must be re-applied here or it falls back to the
+ * platform default.
+ */
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 /**
  * The GlobalErrorProps for the site.
@@ -29,13 +41,14 @@ export default function GlobalError({
   error,
   reset,
 }: GlobalErrorProps): JSX.Element {
+  // Parse the error
   useEffect(() => {
     parseError(error);
   }, [error]);
 
   return (
     // global-error must include html and body tags
-    <html lang="en">
+    <html className={cn(fonts, 'font-sans', geist.variable)} lang="en">
       <body className="bg-background text-foreground">
         <main
           aria-describedby="global-error-description"
