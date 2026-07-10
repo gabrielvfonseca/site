@@ -19,11 +19,11 @@
     }
   },
   "scripts": {
-    "build": "tsc --noEmit --emitDeclarationOnly false",
+    "build": "bunx tsc --noEmit --emitDeclarationOnly false",
     "test": "echo 'No tests specified'",
     "analyze": "echo 'No analysis specified'",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "lodash.merge": "^4.6.2",
@@ -36,6 +36,6 @@
     "@types/node": "24.3.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
-    "next": "^15.5.3"
+    "next": "16.2.1"
   }
 }

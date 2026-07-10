@@ -14,6 +14,8 @@ const author: Metadata['authors'] = {
 };
 const publisher = 'Gabriel Fonseca';
 const xHandle = '@gabfon_';
+/** Absolute base for resolving OG/canonical URLs. */
+const siteUrl = process.env.NEXT_PUBLIC_WEB_URL ?? 'https://gabfon.com';
 
 export const createMetadata = ({
   title,
@@ -22,6 +24,7 @@ export const createMetadata = ({
   ...properties
 }: MetadataGenerator): Metadata => {
   const defaultMetadata: Metadata = {
+    metadataBase: new URL(siteUrl),
     title,
     description,
     applicationName,
