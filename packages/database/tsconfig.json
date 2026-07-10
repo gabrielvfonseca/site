@@ -1,0 +1,12 @@
+{
+  "extends": "@gabfon/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@gabfon/*": ["../*"],
+      "@gabfon/database/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "drizzle.config.ts"],
+  "exclude": ["node_modules"]
+}

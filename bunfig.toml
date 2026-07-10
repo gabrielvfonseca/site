@@ -1,0 +1,26 @@
+[install]
+# Use the frozen lockfile in CI to fail on drift
+frozenLockfile = false
+
+# Allow optional peer dependency versions
+peer = true
+
+# Save exact versions (no ^/~) for reproducible builds
+exact = true
+
+# Install missing packages automatically when not in node_modules
+auto = "fallback"
+
+# Registry
+registry = "https://registry.npmjs.org"
+
+[install.scopes]
+# @gabfon packages link locally via workspaces — no custom registry needed
+
+[test]
+# Preload test setup for DOM/environment mocks
+preload = "./packages/testing/src/setup.ts"
+
+[debug]
+# Enable source maps for readable stack traces
+sourceMap = true
