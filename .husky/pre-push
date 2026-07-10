@@ -12,14 +12,14 @@ fi
 
 # 2. Run type checking
 echo "   Running type checking..."
-if ! pnpm typecheck; then
+if ! bun typecheck; then
   echo " TypeScript compilation errors detected. Push aborted."
   exit 1
 fi
 
 # 3. Run tests
 echo "   Running unit tests..."
-if ! pnpm test; then
+if ! bun test; then
   echo " Tests failed. Push aborted."
   exit 1
 fi

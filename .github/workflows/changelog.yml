@@ -41,18 +41,20 @@ jobs:
           node-version: '20'
           
 
-      - name: Setup pnpm
-        run: npm install -g pnpm@10.8.0
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build packages
-        run: pnpm build
+        run: bun build
 
       - name: Generate changelog
         run: |
-          pnpm tsx scripts/auto-changelog.ts \
+          bun scripts/auto-changelog.ts \
             --since="${{ github.event.inputs.since || '1 week ago' }}" \
             ${{ github.event.inputs.force == 'true' && '--force' || '' }}
         env:

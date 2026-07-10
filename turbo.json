@@ -1,5 +1,6 @@
 {
   "$schema": "https://v2-9-12.turborepo.dev/schema.json",
+  "dangerouslyDisablePackageManagerCheck": true,
   "globalDependencies": ["**/.env.*local", "package.json", "tsconfig.json"],
   "tasks": {
     "build": {

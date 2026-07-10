@@ -36,7 +36,7 @@ permissions:
 
 env:
   NODE_VERSION: '20'
-  PNPM_VERSION: '10.8.0'
+  BUN_VERSION: 'latest'
 
 jobs:
   lint-check:
@@ -52,31 +52,18 @@ jobs:
       - name: Prepare repository
         run: git fetch --tags
 
-      - name: Install pnpm
-        run: npm install -g pnpm@10.8.0
-        
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-            ${{ runner.os }}-pnpm-store-
+          bun-version: ${{ env.BUN_VERSION }}
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install
 
       - name: Get changed files
         id: changed-files
@@ -153,7 +140,7 @@ jobs:
           echo "Running TypeScript type check..."
           
           # Run type check across all packages
-          if pnpm turbo typecheck; then
+          if bun run turbo typecheck; then
             echo "typescript_status=success" >> $GITHUB_OUTPUT
             echo " TypeScript type check passed"
           else
@@ -167,7 +154,7 @@ jobs:
           echo "Running tests..."
           
           # Run tests across all packages
-          if pnpm turbo test --no-watch; then
+          if bun run turbo test --no-watch; then
             echo "test_status=success" >> $GITHUB_OUTPUT
             echo " Tests passed"
           else

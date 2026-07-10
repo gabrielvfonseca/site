@@ -32,6 +32,12 @@
       "enabled": true
     }
   },
+  "bun": {
+    "rangeStrategy": "bump",
+    "lockFileMaintenance": {
+      "enabled": true
+    }
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -142,7 +148,7 @@
   "constraints": {
     "node": ">=20.0.0"
   },
-  "postUpdateOptions": ["npmDedupe", "yarnDedupeHighest"],
+  "postUpdateOptions": [],
   "logLevel": "info",
   "platform": "github",
   "repositoryCache": "enabled",

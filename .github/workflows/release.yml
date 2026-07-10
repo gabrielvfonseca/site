@@ -28,30 +28,20 @@ jobs:
         uses: actions/setup-node@v4
           node-version: '20'
 
-      - name: Install pnpm
-        run: npm install -g pnpm@10.8.0
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
           # This expects you to have a script called release which does a build for your packages and publishes them
-          publish: pnpm changeset publish
-          version: pnpm changeset version
+          publish: bun run changeset publish
+          version: bun run changeset version
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
