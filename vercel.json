@@ -1,5 +1,5 @@
 {
-  "buildCommand": "bun install --frozen-lockfile && bun run build --filter=site",
+  "buildCommand": "bun install && bun run build --filter=site",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs",
   "crons": []
