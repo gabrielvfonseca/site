@@ -1,0 +1,109 @@
+---
+title: "The Toolkit Behind These Posts"
+description: "A tour of the custom MDX components I use to write here — callouts, steps, stats, and more."
+date: 2026-07-10
+---
+
+Plain prose carries most of the weight on this site, but some ideas want more than a paragraph. Over time I've built a small kit of MDX components that stay out of the way and match the rest of the design. This post is both a reference and a live demo of that kit.
+
+## Callouts
+
+Callouts pull a single point out of the flow. There are five variants, monochrome by default with a destructive accent reserved for the ones that need it.
+
+<Callout variant="note">
+  A neutral aside — context that's useful but not urgent.
+</Callout>
+
+<Callout variant="tip" title="Worth knowing">
+  Tips get a title override and a lightbulb. Good for shortcuts.
+</Callout>
+
+<Callout variant="success" title="Shipped">
+  Confirmations and wins land here.
+</Callout>
+
+<Callout variant="warning">
+  Warnings borrow the destructive token — use them sparingly.
+</Callout>
+
+<Callout variant="danger" title="Don't do this">
+  The strongest signal, for genuinely dangerous footguns.
+</Callout>
+
+## Steps
+
+For walkthroughs, `Steps` renders an auto-numbered process with a connector down the gutter.
+
+<Steps>
+  <Step title="Draft in Markdown">
+    Write the words first. Structure and components come after the argument works.
+  </Step>
+  <Step title="Reach for a component">
+    Only when prose stops being enough — a metric, a comparison, a callout.
+  </Step>
+  <Step title="Read it back on mobile">
+    If it doesn't hold up in a narrow column, it doesn't ship.
+  </Step>
+</Steps>
+
+## Metrics
+
+Case studies live and die on numbers. `StatGrid` lays them out edge to edge.
+
+<StatGrid>
+  <Stat value="99.98%" label="Uptime" hint="Trailing 90 days" />
+  <Stat value="41ms" label="p95 latency" hint="Global median" />
+  <Stat value="3.2×" label="Throughput" hint="Versus the baseline" />
+</StatGrid>
+
+## Tags and tech
+
+<TechStack label="Built with" items={["Next.js", "TypeScript", "Tailwind CSS", "Rust", "PostgreSQL"]} />
+
+## Quotes that need room
+
+<PullQuote author="Gabriel Fonseca" role="Founder, Frontal">
+  Correctness, latency, and reliability aren't features you add later. They're the product.
+</PullQuote>
+
+## Tabs
+
+When one explanation has two audiences, `Tabbed` keeps them side by side without doubling the page length.
+
+<Tabbed
+  items={[
+    { label: "For engineers", content: "The API is a single typed function. No config, no runtime surprises, exhaustive tests." },
+    { label: "For everyone else", content: "It just works, and it keeps working when the load shows up." },
+  ]}
+/>
+
+## Linking out
+
+`LinkCard` turns a bare URL into something worth tapping.
+
+<LinkCard
+  eyebrow="frontal.dev"
+  title="Frontal"
+  description="Enterprise AI systems, built for scale."
+  href="https://frontal.dev"
+/>
+
+## Code, with a copy button
+
+Every fenced code block gets a header and a one-tap copy affordance.
+
+```ts title="reading-time.ts"
+export function getReadingTime(words: number): number {
+  return Math.max(1, Math.round(words / 220));
+}
+```
+
+## Small things
+
+Press <Kbd>⌘</Kbd> <Kbd>K</Kbd> to search. Inline `code` gets a subtle chip, and blockquotes stay quiet:
+
+> The clever part gets all the attention; the reliable part is what actually ships.
+
+<Divider label="That's the kit" />
+
+New components get added as the writing needs them — never before.
