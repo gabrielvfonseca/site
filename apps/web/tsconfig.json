@@ -15,7 +15,6 @@
       "@/*": ["./src/*"],
       "@source": ["./.source"],
       "@gabfon/analytics/*": ["../../packages/analytics/src/*"],
-      "@gabfon/ai/*": ["../../packages/ai/src/*"],
       "@gabfon/email/*": ["../../packages/email/src/*"],
       "@gabfon/observability/*": ["../../packages/observability/src/*"],
       "@gabfon/rate-limit/*": ["../../packages/rate-limit/src/*"],
@@ -24,7 +23,6 @@
       "@gabfon/typescript-config/*": [
         "../../internals/typescript-config/src/*"
       ],
-      "@gabfon/cache/*": ["../../packages/cache/src/*"],
       "@gabfon/design-system/*": ["../../packages/design-system/src/*"],
       "@gabfon/github/*": ["../../packages/github/src/*"],
       "@gabfon/seo/*": ["../../packages/seo/src/*"],

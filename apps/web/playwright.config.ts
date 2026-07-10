@@ -8,6 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html'], process.env.CI ? ['github'] : ['list']],
   use: {
+    // biome-ignore lint/style/useNamingConvention: Playwright config key
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',

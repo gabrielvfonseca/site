@@ -6,14 +6,21 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    setupFiles: ['./tests/setup.ts'],
+    setupFiles: ['../../packages/testing/src/setup.ts'],
     globals: true,
     environmentOptions: {
       jsdom: {
         resources: 'usable',
       },
     },
-    // Ensure React 19 compatibility
+    // Unit/integration tests only. Playwright E2E lives in tests/e2e and is run
+    // via `pnpm test:e2e`, not vitest.
+    include: [
+      'src/**/*.test.{ts,tsx}',
+      'tests/unit/**/*.test.{ts,tsx}',
+      'tests/integration/**/*.test.{ts,tsx}',
+    ],
+    exclude: ['**/node_modules/**', 'tests/e2e/**', '**/*.spec.ts'],
     testTimeout: 10_000,
   },
   resolve: {
@@ -23,16 +30,13 @@ export default defineConfig({
         __dirname,
         '../../packages/analytics/src'
       ),
-      '@gabfon/cache': path.resolve(__dirname, '../../packages/cache/src'),
-
       '@gabfon/design-system': path.resolve(
         __dirname,
         '../../packages/design-system/src'
       ),
-
       '@gabfon/next-config': path.resolve(
         __dirname,
-        '../../internals/next-config/src'
+        '../../packages/next-config/src'
       ),
       '@gabfon/observability': path.resolve(
         __dirname,
@@ -48,10 +52,6 @@ export default defineConfig({
       ),
       '@gabfon/seo': path.resolve(__dirname, '../../packages/seo/src'),
       '@gabfon/testing': path.resolve(__dirname, '../../packages/testing'),
-      '@gabfon/typescript-config': path.resolve(
-        __dirname,
-        '../../internals/typescript-config'
-      ),
     },
   },
 });
