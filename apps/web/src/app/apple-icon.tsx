@@ -1,29 +1,27 @@
 import { ImageResponse } from 'next/og';
 
-/** Favicon size (px). */
+/** Apple touch icon size (px). */
 export const size = {
-  width: 32,
-  height: 32,
+  width: 180,
+  height: 180,
 };
 
 export const contentType = 'image/png';
 
-/** GitHub avatar used as the site favicon / app icon. */
+/** GitHub avatar used as the Apple touch icon. */
 const AVATAR_URL = 'https://github.com/gabrielvfonseca.png';
 
 /**
- * The dynamic favicon — renders the GitHub avatar as a rounded icon.
+ * The Apple touch icon — renders the GitHub avatar (square, iOS masks corners).
  * @returns An ImageResponse with the avatar.
  */
-export default function Icon(): ImageResponse {
+export default function AppleIcon(): ImageResponse {
   return new ImageResponse(
     <div
       style={{
         display: 'flex',
         width: '100%',
         height: '100%',
-        borderRadius: '50%',
-        overflow: 'hidden',
         background: 'black',
       }}
     >
