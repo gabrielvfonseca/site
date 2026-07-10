@@ -26,9 +26,9 @@ interface ActivityData {
   range: { start: string; end: string };
 }
 
-/** Monochrome intensity scale — empty → white. */
+/** Monochrome intensity scale — subtle (empty) → full foreground (busiest). */
 const LEVEL_CLASS = [
-  'bg-muted/50',
+  'bg-muted',
   'bg-muted-foreground/25',
   'bg-muted-foreground/45',
   'bg-muted-foreground/70',
@@ -108,7 +108,7 @@ function GraphSkeleton(): JSX.Element {
         <div className="flex flex-col gap-1" key={`sk-col-${col}`}>
           {Array.from({ length: 7 }).map((__, row) => (
             <div
-              className="size-[11px] animate-pulse rounded-[2px] bg-muted/50"
+              className="size-[11px] animate-pulse rounded-[2px] bg-muted"
               key={`sk-${col}-${row}`}
             />
           ))}
@@ -175,7 +175,7 @@ export function ContributionGraph(): JSX.Element {
         {status === 'ready' && data && (
           <div className="flex w-max flex-col gap-1">
             {/* Month labels */}
-            <div className="flex gap-1 pl-8 text-[10px] text-muted-foreground">
+            <div className="flex gap-1 pl-8 text-[10px] text-muted-foreground leading-none">
               {labels.map((label, i) => (
                 <div className="w-[11px] shrink-0" key={`m-${i}`}>
                   <span className="whitespace-nowrap">{label}</span>
@@ -185,7 +185,7 @@ export function ContributionGraph(): JSX.Element {
 
             <div className="flex gap-1">
               {/* Weekday labels */}
-              <div className="flex w-7 shrink-0 flex-col gap-1 pr-1 text-[10px] text-muted-foreground">
+              <div className="flex w-7 shrink-0 flex-col gap-1 pr-1 text-[10px] text-muted-foreground leading-none">
                 {WEEKDAY_LABELS.map((label, i) => (
                   <div
                     className="flex h-[11px] items-center justify-end leading-none"

@@ -18,7 +18,7 @@ export function Header(): JSX.Element {
         >
           {CONFIG.name}
         </Link>
-        <p className="font-medium text-muted-foreground/75 leading-none">
+        <p className="font-medium text-muted-foreground leading-none">
           {CONFIG.title}
         </p>
       </nav>
