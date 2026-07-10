@@ -42,7 +42,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@gabfon/typescript-config": "workspace:*",
-    "@octokit/plugin-paginate-rest": "13.1.1",
+    "@octokit/plugin-paginate-rest": "14.0.0",
     "@octokit/request": "10.0.3",
     "@octokit/request-error": "7.0.0",
     "@turbo/gen": "^2.5.6",
