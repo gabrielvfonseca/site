@@ -11,8 +11,8 @@ npm install @gabfon/rate-limit
 Create environment variables for Upstash Redis:
 
 ```env
-KV_REST_API_URL=your_upstash_redis_url
-KV_REST_API_TOKEN=your_upstash_redis_token
+UPSTASH_REDIS_REST_URL=your_upstash_redis_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 ```
 
 ## Exports
@@ -189,8 +189,8 @@ await redis.del('key');
 #### Configuration
 
 The Redis client is automatically configured with:
-- URL from `KV_REST_API_URL` environment variable
-- Token from `KV_REST_API_TOKEN` environment variable
+- URL from `UPSTASH_REDIS_REST_URL` environment variable
+- Token from `UPSTASH_REDIS_REST_TOKEN` environment variable
 - Optimized settings for rate limiting operations
 
 ## Environment Variables
@@ -199,8 +199,8 @@ The Redis client is automatically configured with:
 
 | Variable | Description | Type | Required |
 |----------|-------------|------|----------|
-| `KV_REST_API_URL` | Upstash Redis REST API URL | string | Yes |
-| `KV_REST_API_TOKEN` | Upstash Redis REST API token | string | Yes |
+| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST API URL | string | Yes |
+| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis REST API token | string | Yes |
 
 ### Environment Validation
 
@@ -209,14 +209,14 @@ import { keys } from '@gabfon/rate-limit';
 
 // Validates environment variables and returns typed object
 const env = keys();
-console.log(env.KV_REST_API_URL);
-console.log(env.KV_REST_API_TOKEN);
+console.log(env.UPSTASH_REDIS_REST_URL);
+console.log(env.UPSTASH_REDIS_REST_TOKEN);
 ```
 
 ### Validation Rules
 
-- `KV_REST_API_URL`: Must be a valid Upstash Redis URL
-- `KV_REST_API_TOKEN`: Must be a valid Upstash Redis token
+- `UPSTASH_REDIS_REST_URL`: Must be a valid Upstash Redis URL
+- `UPSTASH_REDIS_REST_TOKEN`: Must be a valid Upstash Redis token
 
 ## Usage Examples
 

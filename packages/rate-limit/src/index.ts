@@ -3,14 +3,14 @@ import { redis } from './redis';
 
 /**
  * Creates a rate limiter using the Redis cache.
- * Throws when KV_REST_API_URL / KV_REST_API_TOKEN are not configured.
+ * Throws when UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN are not configured.
  * @param props - The rate limiter configuration.
  * @returns The rate limiter.
  */
 export const createRateLimiter = (props: Omit<RatelimitConfig, 'redis'>) => {
   if (!redis) {
     throw new Error(
-      'Rate limiting requires KV_REST_API_URL and KV_REST_API_TOKEN env vars.'
+      'Rate limiting requires UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars.'
     );
   }
   return new Ratelimit({

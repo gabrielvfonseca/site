@@ -51,7 +51,7 @@ export async function checkRateLimit(
   request: NextRequest,
   options: RateLimitOptions = {}
 ): Promise<RateLimitResult | null> {
-  if (!env.KV_REST_API_URL) {
+  if (!env.UPSTASH_REDIS_REST_URL) {
     return null;
   }
 

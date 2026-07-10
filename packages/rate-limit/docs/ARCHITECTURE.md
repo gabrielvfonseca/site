@@ -97,8 +97,8 @@ export const createRateLimiter = (props: Omit<RatelimitConfig, 'redis'>) =>
 
 ```typescript
 export const redis = new Redis({
-  url: keys().KV_REST_API_URL,
-  token: keys().KV_REST_API_TOKEN,
+  url: keys().UPSTASH_REDIS_REST_URL,
+  token: keys().UPSTASH_REDIS_REST_TOKEN,
 });
 ```
 
@@ -106,8 +106,8 @@ export const redis = new Redis({
 
 | Variable | Description | Type | Required |
 |----------|-------------|------|----------|
-| `KV_REST_API_URL` | Upstash Redis REST API URL | string | Yes |
-| `KV_REST_API_TOKEN` | Upstash Redis REST API token | string | Yes |
+| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST API URL | string | Yes |
+| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis REST API token | string | Yes |
 
 ## Integration Patterns
 

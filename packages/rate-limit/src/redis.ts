@@ -8,9 +8,9 @@ const config = keys();
  * is undefined (e.g. rate-limiting becomes a no-op).
  */
 export const redis =
-  config.KV_REST_API_URL && config.KV_REST_API_TOKEN
+  config.UPSTASH_REDIS_REST_URL && config.UPSTASH_REDIS_REST_TOKEN
     ? new Redis({
-        url: config.KV_REST_API_URL,
-        token: config.KV_REST_API_TOKEN,
+        url: config.UPSTASH_REDIS_REST_URL,
+        token: config.UPSTASH_REDIS_REST_TOKEN,
       })
     : undefined;

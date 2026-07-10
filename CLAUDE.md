@@ -207,7 +207,7 @@ All content is file-based MDX in `apps/web/content/`. No database.
 All env vars are validated at startup via `@t3-oss/env-nextjs` + Zod in `apps/web/src/config/env.ts`. Each `@gabfon/*` package exposes a `keys()` factory composed via `createEnv({ extends: [...] })`.
 
 ### Required
-`DATABASE_URL`, `ARCJET_KEY`, `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_WEB_URL`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`, `LOGTAIL_SOURCE_TOKEN`
+`DATABASE_URL`, `ARCJET_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_WEB_URL`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`, `LOGTAIL_SOURCE_TOKEN`
 
 ### Optional (with defaults)
 `NEXT_PUBLIC_X_URL`, `NEXT_PUBLIC_LINKEDIN_URL`, `NEXT_PUBLIC_GITHUB_URL`, `NEXT_PUBLIC_SCHEDULE_URL`, `NEXT_PUBLIC_EMAIL`, `ANALYZE`, `FLAGS_SECRET`
