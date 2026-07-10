@@ -1,19 +1,9 @@
 @import "tailwindcss";
 @import "@gabfon/design-system/styles/globals.css";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @custom-variant dark (&:is(.dark *));
 
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
-@source "../../node_modules/streamdown/dist/*.js";
-@source "../../node_modules/@streamdown/code/dist/*.js";
-@source "../../node_modules/@streamdown/cjk/dist/*.js";
-@source "../../node_modules/@streamdown/math/dist/*.js";
-@source "../../node_modules/@streamdown/mermaid/dist/*.js";
-
-/* biome-ignore lint/suspicious/noUnknownAtRules: Tailwind CSS custom directive */
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);

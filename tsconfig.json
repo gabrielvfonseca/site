@@ -16,6 +16,17 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2022",
-    "strictNullChecks": true
-  }
+    "strictNullChecks": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["scripts/**/*.ts", "types/**/*.d.ts"],
+  "exclude": [
+    "node_modules",
+    "apps",
+    "packages",
+    "internal",
+    "**/dist",
+    "**/.next"
+  ]
 }

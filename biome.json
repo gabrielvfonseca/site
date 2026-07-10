@@ -22,6 +22,7 @@
       "**/*.json",
       "**/*.css",
       "!**/node_modules",
+      "!**/*.d.ts",
       "!**/manifest.ts",
       "!**/dist",
       "!**/build",
@@ -39,6 +40,7 @@
       "**",
       "!.agents/**",
       "!skills/**",
+      "!**/*.d.ts",
       "!**/packages/database/generated/**",
       "!packages/github/src/types.ts",
       "!packages/spotify/src/types.ts",
@@ -167,41 +169,6 @@
     }
   },
   "overrides": [
-    {
-      "includes": ["**/components/ai-elements/**/*"],
-      "linter": {
-        "rules": {
-          "a11y": {
-            "noNoninteractiveElementInteractions": "off",
-            "useAnchorContent": "off",
-            "useSemanticElements": "off"
-          },
-          "nursery": {
-            "noShadow": "off",
-            "noUnnecessaryConditions": "off",
-            "useImageSize": "off"
-          },
-          "performance": {
-            "noImgElement": "off"
-          },
-          "style": {
-            "noMagicNumbers": "off",
-            "useNamingConvention": "off"
-          },
-          "suspicious": {
-            "noBitwiseOperators": "off",
-            "noConsole": "off",
-            "noEmptyBlockStatements": "off"
-          },
-          "complexity": {
-            "noExcessiveCognitiveComplexity": "off"
-          },
-          "security": {
-            "noDangerouslySetInnerHtml": "off"
-          }
-        }
-      }
-    },
     {
       "includes": ["**/*.css"],
       "linter": {
