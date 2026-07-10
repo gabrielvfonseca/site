@@ -54,7 +54,7 @@
     "tsx": "^4.23.0",
     "turbo": "^2.9.12",
     "typescript": "^5.9.2",
-    "ultracite": "5.3.4",
+    "ultracite": "7.9.3",
     "vite": "^8.1.4"
   },
   "engines": {
