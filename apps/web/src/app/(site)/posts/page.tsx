@@ -34,7 +34,7 @@ export default function Page(): JSX.Element {
             public as I go.
           </p>
         </div>
-        <Posts />
+        <Posts showAll />
       </section>
     </div>
   );

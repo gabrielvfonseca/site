@@ -23,6 +23,9 @@ export default defineConfig({
         light: 'github-light',
         dark: 'github-dark',
       },
+      // Render unknown/fictional fence languages (e.g. `gala`) as plain text
+      // instead of throwing a ShikiError that breaks the whole page.
+      fallbackLanguage: 'text',
     },
   },
 });

@@ -2,6 +2,29 @@
   "name": "site",
   "version": "0.2.3",
   "private": true,
+  "description": "Gabriel Fonseca's personal website and portfolio — gabfon.com",
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "react",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "engines": {
+    "node": ">=18"
+  },
   "overrides": {
     "react-dom": "19.2.1"
   },

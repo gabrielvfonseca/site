@@ -34,7 +34,7 @@ export default function Page(): JSX.Element {
             have designed and built.
           </p>
         </div>
-        <Projects />
+        <Projects showAll />
       </section>
     </div>
   );
