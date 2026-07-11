@@ -17,10 +17,14 @@ type CreateViewportProps = {
    */
   initialScale?: number;
   /**
-   * The maximum scale for the viewport.
-   * @default 1
+   * The maximum scale for the viewport. Left unset by default so users can
+   * pinch-to-zoom (WCAG 1.4.4). Override only when a page truly requires it.
    */
   maximumScale?: number;
+  /**
+   * Whether the user can zoom. Enabled by default for accessibility.
+   * @default true
+   */
   userScalable?: boolean;
 };
 
@@ -36,8 +40,8 @@ export function createViewport({
   ],
   width = 'device-width',
   initialScale = 1,
-  maximumScale = 1,
-  userScalable = false,
+  maximumScale,
+  userScalable = true,
 }: CreateViewportProps = {}): Viewport {
   return {
     themeColor,
