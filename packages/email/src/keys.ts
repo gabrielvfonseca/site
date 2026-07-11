@@ -12,5 +12,5 @@ export const keys = () =>
       RESEND_TOKEN: process.env.RESEND_TOKEN,
     },
     emptyStringAsUndefined: true,
-    skipValidation: !process.env.SKIP_ENV_VALIDATION,
+    skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   });

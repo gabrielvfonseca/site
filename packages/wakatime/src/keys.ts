@@ -20,5 +20,5 @@ export const keys = () =>
       WAKATIME_API_KEY: process.env.WAKATIME_API_KEY,
     },
     emptyStringAsUndefined: true,
-    skipValidation: !process.env.SKIP_ENV_VALIDATION,
+    skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   });

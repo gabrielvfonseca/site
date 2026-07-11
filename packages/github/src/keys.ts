@@ -20,5 +20,5 @@ export const keys = () =>
       GITHUB_USERNAME: process.env.GITHUB_USERNAME,
     },
     emptyStringAsUndefined: true,
-    skipValidation: !process.env.SKIP_ENV_VALIDATION,
+    skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   });

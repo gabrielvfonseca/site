@@ -18,5 +18,5 @@ export const keys = () =>
       STRAVA_REFRESH_TOKEN: process.env.STRAVA_REFRESH_TOKEN,
     },
     emptyStringAsUndefined: true,
-    skipValidation: !process.env.SKIP_ENV_VALIDATION,
+    skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   });

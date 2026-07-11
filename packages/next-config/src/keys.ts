@@ -20,5 +20,5 @@ export const keys = () =>
       NEXT_PUBLIC_WEB_URL: process.env.NEXT_PUBLIC_WEB_URL,
     },
     emptyStringAsUndefined: true,
-    skipValidation: !process.env.SKIP_ENV_VALIDATION,
+    skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   });

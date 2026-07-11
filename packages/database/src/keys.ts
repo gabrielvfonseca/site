@@ -14,5 +14,5 @@ export const keys = () =>
       DATABASE_URL: process.env.DATABASE_URL,
     },
     emptyStringAsUndefined: true,
-    skipValidation: !process.env.SKIP_ENV_VALIDATION,
+    skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   });
