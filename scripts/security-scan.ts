@@ -8,18 +8,18 @@ import { promisify } from 'node:util';
 const execAsync = promisify(exec);
 
 type SecurityScanOptions = {
-  severityThreshold?: 'low' | 'medium' | 'high' | 'critical';
-  failOnError?: boolean;
-  verbose?: boolean;
-  allProjects?: boolean;
+  readonly severityThreshold?: 'low' | 'medium' | 'high' | 'critical';
+  readonly failOnError?: boolean;
+  readonly verbose?: boolean;
+  readonly allProjects?: boolean;
 };
 
 type ScanResult = {
-  path: string;
-  name: string;
-  success: boolean;
-  error?: string;
-  output?: string;
+  readonly path: string;
+  readonly name: string;
+  readonly success: boolean;
+  readonly error?: string;
+  readonly output?: string;
 };
 
 class SecurityScanner {
@@ -34,12 +34,8 @@ class SecurityScanner {
     };
   }
 
-  private log(message: string, emoji?: string): void {
-    if (emoji) {
-      console.log(`${emoji} ${message}`);
-    } else {
-      console.log(message);
-    }
+  private log(message: string): void {
+    console.log(` ${message}`);
   }
 
   private async runSnyk(
@@ -58,7 +54,7 @@ class SecurityScanner {
     }
 
     try {
-      this.log(`Scanning ${name}: ${packagePath}`, '');
+      this.log(`Scanning ${name}: ${packagePath}`);
 
       const command = `npx snyk test --severity-threshold=${this.options.severityThreshold} --file="${packageJsonPath}"`;
       const { stdout } = await execAsync(command);
@@ -66,8 +62,6 @@ class SecurityScanner {
       if (this.options.verbose) {
         console.log(stdout);
       }
-
-      this.log(`${name} scan completed`, '');
 
       return {
         path: packagePath,
@@ -78,7 +72,7 @@ class SecurityScanner {
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
-      this.log(`Security issues found in ${name}`, '');
+      this.log(`Security issues found in ${name}`);
 
       if (this.options.verbose) {
         console.error(errorMessage);
@@ -107,7 +101,7 @@ class SecurityScanner {
   }
 
   private async scanAllProjects(): Promise<ScanResult[]> {
-    this.log('Running Snyk with --all-projects flag...', '');
+    this.log('Running Snyk with --all-projects flag...');
 
     try {
       const command = `npx snyk test --severity-threshold=${this.options.severityThreshold} --all-projects`;
@@ -116,8 +110,6 @@ class SecurityScanner {
       if (this.options.verbose) {
         console.log(stdout);
       }
-
-      this.log('All projects scan completed', '');
 
       return [
         {
@@ -130,7 +122,7 @@ class SecurityScanner {
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
-      this.log('Security issues found in one or more projects', '');
+      this.log('Security issues found in one or more projects');
 
       if (this.options.verbose) {
         console.error(errorMessage);
@@ -150,13 +142,11 @@ class SecurityScanner {
   private async scanIndividualProjects(): Promise<ScanResult[]> {
     const results: ScanResult[] = [];
 
-    // Scan root package.json
-    this.log('Scanning root package...', '');
+    this.log('Scanning root package...');
     const rootResult = await this.runSnyk('.', 'root');
     results.push(rootResult);
 
-    // Scan all packages
-    this.log('Scanning packages...', '');
+    this.log('Scanning packages...');
     const packageDirs = this.getDirectories('packages');
     for (const packageDir of packageDirs) {
       const packageName = packageDir.split('/').pop() || 'unknown';
@@ -164,8 +154,7 @@ class SecurityScanner {
       results.push(result);
     }
 
-    // Scan all apps
-    this.log('Scanning apps...', '');
+    this.log('Scanning apps...');
     const appDirs = this.getDirectories('apps');
     for (const appDir of appDirs) {
       const appName = appDir.split('/').pop() || 'unknown';
@@ -177,19 +166,17 @@ class SecurityScanner {
   }
 
   async scan(): Promise<ScanResult[]> {
-    this.log('Starting security scan...', '');
+    console.log('Starting security scan...');
 
     const results = this.options.allProjects
       ? await this.scanAllProjects()
       : await this.scanIndividualProjects();
 
-    // Summary
     const successful = results.filter((r) => r.success).length;
     const failed = results.filter((r) => !r.success).length;
 
-    this.log(
-      `Security scan completed! ${successful} successful, ${failed} failed`,
-      ''
+    console.log(
+      `Security scan completed! ${successful} successful, ${failed} failed`
     );
 
     if (failed > 0 && this.options.failOnError) {
@@ -200,12 +187,10 @@ class SecurityScanner {
   }
 }
 
-// CLI interface
-async function main() {
+async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const options: SecurityScanOptions = {};
 
-  // Parse command line arguments
   for (const [i, arg] of args.entries()) {
     switch (arg) {
       case '--severity-threshold':
@@ -230,7 +215,7 @@ async function main() {
         console.log(`
 Security Scanner for Monorepo
 
-Usage: tsx security-scan.ts [options]
+Usage: tsx scripts/security-scan.ts [options]
 
 Options:
   -s, --severity-threshold <level>  Set severity threshold (low, medium, high, critical) [default: high]
@@ -238,17 +223,9 @@ Options:
   -v, --verbose                    Show detailed output
   --no-fail                        Don't exit with error code on security issues
   -h, --help                       Show this help message
-
-Examples:
-  tsx security-scan.ts                    # Standard scan with high severity threshold
-  tsx security-scan.ts --all-projects     # Fast scan using --all-projects
-  tsx security-scan.ts --verbose          # Detailed output
-  tsx security-scan.ts --no-fail          # Don't fail on security issues
-        `);
+`);
         process.exit(0);
-        break;
       default:
-        // Ignore unknown arguments
         break;
     }
   }
@@ -257,12 +234,7 @@ Examples:
   await scanner.scan();
 }
 
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    console.error('Security scan failed:', error);
-    process.exit(1);
-  });
-}
-
-export { SecurityScanner, type SecurityScanOptions, type ScanResult };
+main().catch((error) => {
+  console.error('Security scan failed:', error);
+  process.exit(1);
+});

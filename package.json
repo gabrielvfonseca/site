@@ -50,7 +50,7 @@
     "security": "snyk test --severity-threshold=high --file=package.json",
     "security:all": "tsx scripts/security-scan.ts --all-projects",
     "security:detailed": "tsx scripts/security-scan.ts --verbose",
-    "security:scan": "tsx scripts/index.ts security"
+    "security:scan": "tsx scripts/security-scan.ts"
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.0",
