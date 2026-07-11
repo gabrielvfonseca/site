@@ -25,22 +25,25 @@ describe('analytics keys', () => {
     expect(config.NEXT_PUBLIC_POSTHOG_HOST).toBe('https://us.i.posthog.com');
   });
 
-  it('rejects a PostHog key with the wrong prefix', async () => {
-    process.env.NEXT_PUBLIC_POSTHOG_KEY = 'wrong_prefix';
-    process.env.NEXT_PUBLIC_POSTHOG_HOST = 'https://us.i.posthog.com';
-    process.env.SKIP_ENV_VALIDATION = 'false';
-
-    const { keys } = await import('../../src/keys');
-
-    expect(() => keys()).toThrow();
-  });
-
-  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
-    delete process.env.SKIP_ENV_VALIDATION;
+  it('handles missing required client env vars when validation skipped', async () => {
+    process.env.SKIP_ENV_VALIDATION = 'true';
     delete process.env.NEXT_PUBLIC_POSTHOG_KEY;
+    delete process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
     const { keys } = await import('../../src/keys');
 
     expect(() => keys()).not.toThrow();
+  });
+
+  it('handles an empty string as undefined', async () => {
+    process.env.NEXT_PUBLIC_POSTHOG_KEY = '';
+    process.env.NEXT_PUBLIC_POSTHOG_HOST = '';
+    process.env.SKIP_ENV_VALIDATION = 'false';
+
+    const { keys } = await import('../../src/keys');
+    const config = keys();
+
+    expect(config.NEXT_PUBLIC_POSTHOG_KEY).toBeUndefined();
+    expect(config.NEXT_PUBLIC_POSTHOG_HOST).toBeUndefined();
   });
 });

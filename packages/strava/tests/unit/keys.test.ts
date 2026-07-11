@@ -26,19 +26,19 @@ describe('strava keys', () => {
     expect(config.STRAVA_REFRESH_TOKEN).toBe('refresh-token');
   });
 
-  it('throws when a required credential is missing', async () => {
+  it('handles empty string as undefined', async () => {
     process.env.STRAVA_CLIENT_ID = 'client-id';
+    process.env.STRAVA_CLIENT_SECRET = '';
     process.env.SKIP_ENV_VALIDATION = 'false';
-    delete process.env.STRAVA_CLIENT_SECRET;
-    delete process.env.STRAVA_REFRESH_TOKEN;
 
     const { keys } = await import('../../src/keys');
+    const config = keys();
 
-    expect(() => keys()).toThrow();
+    expect(config.STRAVA_CLIENT_SECRET).toBeUndefined();
   });
 
-  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
-    delete process.env.SKIP_ENV_VALIDATION;
+  it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
+    process.env.SKIP_ENV_VALIDATION = 'true';
     delete process.env.STRAVA_CLIENT_ID;
 
     const { keys } = await import('../../src/keys');

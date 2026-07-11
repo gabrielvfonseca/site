@@ -1,7 +1,6 @@
 // @vitest-environment node
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock process.env
 const originalEnv = process.env;
 
 describe('security keys', () => {
@@ -15,23 +14,20 @@ describe('security keys', () => {
   });
 
   it('returns valid configuration with Arcjet settings', async () => {
-    process.env.ARCJET_KEY = 'aj_test_key';
-    process.env.SKIP_ENV_VALIDATION = 'false';
+    process.env.ARCJET_KEY = 'ajkey_test_key';
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.ARCJET_KEY).toBe('aj_test_key');
+    expect(config.ARCJET_KEY).toBe('ajkey_test_key');
   });
 
   it('validates Arcjet key format', async () => {
     process.env.ARCJET_KEY = 'invalid_key';
-    process.env.SKIP_ENV_VALIDATION = 'false';
 
-    await expect(async () => {
-      const { keys } = await import('../../src/keys');
-      keys();
-    }).toThrow();
+    const { keys } = await import('../../src/keys');
+
+    expect(() => keys()).toThrow();
   });
 
   it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
@@ -45,11 +41,9 @@ describe('security keys', () => {
 
   it('handles empty string as undefined', async () => {
     process.env.ARCJET_KEY = '';
-    process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
-    const config = keys();
 
-    expect(config.ARCJET_KEY).toBeUndefined();
+    expect(() => keys()).toThrow();
   });
 });

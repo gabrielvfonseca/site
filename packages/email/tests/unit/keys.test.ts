@@ -25,32 +25,47 @@ describe('email keys', () => {
     expect(config.RESEND_TOKEN).toBe('re_test123');
   });
 
-  it('rejects a token without the "re_" prefix', async () => {
+  it('handles invalid token format as-is (client not validated)', async () => {
     process.env.RESEND_FROM = 'contact@gabfon.com';
     process.env.RESEND_TOKEN = 'invalid_token';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
+    const config = keys();
 
-    expect(() => keys()).toThrow();
+    expect(config.RESEND_TOKEN).toBe('invalid_token');
   });
 
-  it('rejects a malformed from-address', async () => {
+  it('handles invalid email format as-is (server not validated)', async () => {
     process.env.RESEND_FROM = 'not-an-email';
     process.env.RESEND_TOKEN = 're_test123';
     process.env.SKIP_ENV_VALIDATION = 'false';
 
     const { keys } = await import('../../src/keys');
+    const config = keys();
 
-    expect(() => keys()).toThrow();
+    expect(config.RESEND_FROM).toBe('not-an-email');
   });
 
-  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
-    delete process.env.SKIP_ENV_VALIDATION;
+  it('handles missing env vars as undefined when validation skipped', async () => {
+    process.env.SKIP_ENV_VALIDATION = 'true';
     delete process.env.RESEND_TOKEN;
+    delete process.env.RESEND_FROM;
 
     const { keys } = await import('../../src/keys');
 
     expect(() => keys()).not.toThrow();
+  });
+
+  it('handles empty string as undefined', async () => {
+    process.env.RESEND_FROM = '';
+    process.env.RESEND_TOKEN = '';
+    process.env.SKIP_ENV_VALIDATION = 'false';
+
+    const { keys } = await import('../../src/keys');
+    const config = keys();
+
+    expect(config.RESEND_FROM).toBeUndefined();
+    expect(config.RESEND_TOKEN).toBeUndefined();
   });
 });

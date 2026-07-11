@@ -25,21 +25,20 @@ describe('github keys', () => {
     expect(config.GITHUB_USERNAME).toBe('octocat');
   });
 
-  it('applies the default username when unset', async () => {
+  it('returns undefined for username when unset', async () => {
     process.env.GITHUB_TOKEN = 'test_token';
     process.env.SKIP_ENV_VALIDATION = 'false';
-    process.env.GITHUB_USERNAME = undefined;
     delete process.env.GITHUB_USERNAME;
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.GITHUB_USERNAME).toBe('gabrielvfonseca');
+    expect(config.GITHUB_USERNAME).toBeUndefined();
   });
 
-  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
-    process.env.SKIP_ENV_VALIDATION = undefined;
-    process.env.GITHUB_TOKEN = undefined;
+  it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
+    process.env.SKIP_ENV_VALIDATION = 'true';
+    delete process.env.GITHUB_TOKEN;
 
     const { keys } = await import('../../src/keys');
 

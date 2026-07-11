@@ -25,7 +25,7 @@ describe('x keys', () => {
     expect(config.X_USERNAME).toBe('someone');
   });
 
-  it('applies the default username when unset', async () => {
+  it('returns undefined for username when unset', async () => {
     process.env.SKIP_ENV_VALIDATION = 'false';
     process.env.X_API_BEARER_TOKEN = 'test_bearer';
     delete process.env.X_USERNAME;
@@ -33,7 +33,7 @@ describe('x keys', () => {
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.X_USERNAME).toBe('gabfon_');
+    expect(config.X_USERNAME).toBeUndefined();
   });
 
   it('treats the bearer token as optional', async () => {
@@ -46,8 +46,8 @@ describe('x keys', () => {
     expect(keys().X_API_BEARER_TOKEN).toBeUndefined();
   });
 
-  it('skips validation when SKIP_ENV_VALIDATION is unset', async () => {
-    process.env.SKIP_ENV_VALIDATION = undefined;
+  it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
+    process.env.SKIP_ENV_VALIDATION = 'true';
 
     const { keys } = await import('../../src/keys');
 

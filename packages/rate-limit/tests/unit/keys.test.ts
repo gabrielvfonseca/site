@@ -1,7 +1,6 @@
 // @vitest-environment node
-import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock process.env
 const originalEnv = process.env;
 
 describe('rate-limit keys', () => {
@@ -14,16 +13,15 @@ describe('rate-limit keys', () => {
     process.env = originalEnv;
   });
 
-  it('returns valid configuration with rate limit settings', async () => {
-    process.env.RATE_LIMIT_WINDOW = '900000';
-    process.env.RATE_LIMIT_MAX = '100';
-    process.env.SKIP_ENV_VALIDATION = 'false';
+  it('returns valid configuration with redis settings', async () => {
+    process.env.UPSTASH_REDIS_REST_URL = 'https://example.upstash.io';
+    process.env.UPSTASH_REDIS_REST_TOKEN = 'token123';
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.RATE_LIMIT_WINDOW).toBe(900000);
-    expect(config.RATE_LIMIT_MAX).toBe(100);
+    expect(config.UPSTASH_REDIS_REST_URL).toBe('https://example.upstash.io');
+    expect(config.UPSTASH_REDIS_REST_TOKEN).toBe('token123');
   });
 
   it('skips validation when SKIP_ENV_VALIDATION is true', async () => {
@@ -36,14 +34,13 @@ describe('rate-limit keys', () => {
   });
 
   it('handles empty string as undefined', async () => {
-    process.env.RATE_LIMIT_WINDOW = '';
-    process.env.RATE_LIMIT_MAX = '';
-    process.env.SKIP_ENV_VALIDATION = 'false';
+    process.env.UPSTASH_REDIS_REST_URL = '';
+    process.env.UPSTASH_REDIS_REST_TOKEN = '';
 
     const { keys } = await import('../../src/keys');
     const config = keys();
 
-    expect(config.RATE_LIMIT_WINDOW).toBeUndefined();
-    expect(config.RATE_LIMIT_MAX).toBeUndefined();
+    expect(config.UPSTASH_REDIS_REST_URL).toBeUndefined();
+    expect(config.UPSTASH_REDIS_REST_TOKEN).toBeUndefined();
   });
 });
