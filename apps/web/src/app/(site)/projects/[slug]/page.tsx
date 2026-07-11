@@ -6,10 +6,14 @@ import { notFound } from 'next/navigation';
 import type { JSX } from 'react';
 import { ArticleFooter } from '@/components/content/article-footer';
 import { BackLink } from '@/components/content/back-link';
+import { BackToTop } from '@/components/content/back-to-top';
+import { ReadingProgress } from '@/components/content/reading-progress';
+import { TableOfContents } from '@/components/content/table-of-contents';
 import { CONFIG } from '@/constants/config';
 import { getProjectEntry, getProjects } from '@/lib/content-index';
 import { formatDisplayDate } from '@/lib/format-date';
 import { getReadingTime } from '@/lib/reading-time';
+import { getToc } from '@/lib/toc';
 import { useMDXComponents } from '@/mdx-components';
 
 /**
@@ -80,9 +84,19 @@ export default async function ProjectPage({
 
   const MdxContent = entry.body;
   const readingTime = getReadingTime('projects', entry._file.path);
+  const toc = getToc('projects', entry._file.path);
 
   return (
-    <article className="flex flex-col gap-8">
+    <article className="relative flex flex-col gap-8">
+      <ReadingProgress />
+      <BackToTop />
+      {toc.length >= 2 ? (
+        <aside className="absolute top-0 left-full hidden h-full pl-10 xl:block">
+          <div className="sticky top-28 w-56">
+            <TableOfContents entries={toc} />
+          </div>
+        </aside>
+      ) : null}
       <header className="flex flex-col gap-4">
         <BackLink href="/projects" label="Projects" />
         <div className="flex flex-col gap-1">
