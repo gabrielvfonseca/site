@@ -1,23 +1,49 @@
 {
   "name": "@gabfon/wakatime",
   "version": "0.1.0",
+  "description": "WakaTime API client (coding hours) for gabfon.com",
+  "keywords": [
+    "wakatime",
+    "api-client",
+    "productivity"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "type": "module",
   "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
+      "types": "./src/index.ts",
       "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "default": "./src/index.ts"
     },
     "./keys": {
+      "types": "./src/keys.ts",
       "import": "./src/keys.ts",
-      "types": "./src/keys.ts"
+      "default": "./src/keys.ts"
     },
     "./client": {
+      "types": "./src/client.ts",
       "import": "./src/client.ts",
-      "types": "./src/client.ts"
+      "default": "./src/client.ts"
     },
     "./types": {
+      "types": "./src/types.ts",
       "import": "./src/types.ts",
-      "types": "./src/types.ts"
+      "default": "./src/types.ts"
     }
   },
   "scripts": {

@@ -1,6 +1,26 @@
 {
   "name": "@gabfon/next-config",
   "version": "0.1.0",
+  "description": "Shared Next.js configuration presets for gabfon.com",
+  "keywords": [
+    "nextjs",
+    "configuration",
+    "presets"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "type": "module",
   "private": true,
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -11,16 +31,11 @@
   "scripts": {
     "build": "bunx tsc --noEmit --emitDeclarationOnly false",
     "test": "echo 'No tests specified'",
+    "test:watch": "echo 'No tests specified'",
+    "test:coverage": "echo 'No tests specified'",
     "analyze": "echo 'No analysis specified'",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
-  },
-  "devDependencies": {
-    "@gabfon/typescript-config": "workspace:*",
-    "next": "16.2.1"
-  },
-  "peerDependencies": {
-    "next": "16.2.1"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^16.2.1",
@@ -28,5 +43,15 @@
     "@t3-oss/env-core": "^0.13.8",
     "@t3-oss/env-nextjs": "^0.13.8",
     "zod": "^4.1.5"
+  },
+  "peerDependencies": {
+    "next": "16.2.1"
+  },
+  "devDependencies": {
+    "@gabfon/typescript-config": "workspace:*",
+    "@types/node": "24.10.1",
+    "next": "16.2.1",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.10"
   }
 }

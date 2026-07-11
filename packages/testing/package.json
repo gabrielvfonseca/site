@@ -1,6 +1,26 @@
 {
   "name": "@gabfon/testing",
   "version": "0.1.0",
+  "description": "Shared test setup and mock utilities for gabfon.com",
+  "keywords": [
+    "testing",
+    "vitest",
+    "mocks"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "type": "module",
   "private": true,
   "main": "./src/index.mjs",
   "types": "./src/index.d.ts",
@@ -10,17 +30,20 @@
       "default": "./src/index.mjs"
     }
   },
-  "type": "module",
   "scripts": {
     "build": "bunx tsc --noEmit --emitDeclarationOnly false",
     "test": "echo 'No tests specified'",
+    "test:watch": "echo 'No tests specified'",
+    "test:coverage": "echo 'No tests specified'",
     "analyze": "echo 'No analysis specified'",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
   },
   "devDependencies": {
+    "@gabfon/typescript-config": "workspace:*",
     "@testing-library/react": "^16.3.0",
     "@testing-library/jest-dom": "^6.6.3",
+    "@types/node": "24.10.1",
     "@vitejs/plugin-react": "^6.0.3",
     "jsdom": "^27.0.0",
     "vitest": "^4.1.10"

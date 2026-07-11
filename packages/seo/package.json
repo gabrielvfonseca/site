@@ -1,7 +1,36 @@
 {
   "name": "@gabfon/seo",
   "version": "0.1.0",
+  "description": "Metadata, JSON-LD, and viewport helpers for gabfon.com",
+  "keywords": [
+    "seo",
+    "metadata",
+    "json-ld",
+    "viewport"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "type": "module",
+  "private": true,
+  "main": "./src/metadata.ts",
+  "types": "./src/metadata.ts",
   "exports": {
+    ".": {
+      "types": "./src/metadata.ts",
+      "import": "./src/metadata.ts",
+      "default": "./src/metadata.ts"
+    },
     "./json-ld": {
       "types": "./src/json-ld.tsx",
       "import": "./src/json-ld.tsx",
@@ -20,22 +49,32 @@
   },
   "scripts": {
     "build": "bunx tsc --noEmit --emitDeclarationOnly false",
-    "test": "echo 'No tests specified'",
+    "test": "vitest run",
+    "test:unit": "vitest run unit",
+    "test:integration": "vitest run integration",
+    "test:e2e": "vitest run e2e",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
     "analyze": "echo 'No analysis specified'",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
+    "@t3-oss/env-nextjs": "^0.13.8",
     "lodash.merge": "^4.6.2",
     "react": "19.2.1",
-    "schema-dts": "^1.1.5"
+    "schema-dts": "^1.1.5",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
+    "@gabfon/testing": "workspace:*",
     "@gabfon/typescript-config": "workspace:*",
     "@types/lodash.merge": "^4.6.9",
-    "@types/node": "24.3.1",
+    "@types/node": "24.10.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
-    "next": "16.2.1"
+    "next": "16.2.1",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.10"
   }
 }

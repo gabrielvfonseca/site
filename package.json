@@ -1,10 +1,27 @@
 {
   "name": "gabfon",
   "version": "0.1.0",
+  "description": "Personal website and portfolio of Gabriel Fonseca — a Turborepo monorepo",
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "turborepo",
+    "typescript",
+    "react"
+  ],
+  "license": "MIT",
   "author": {
     "name": "Gabriel Fonseca",
     "email": "hey@gabfon.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
   "type": "module",
   "bin": {
     "site": "dist/index.js"

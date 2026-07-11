@@ -1,13 +1,37 @@
 {
   "name": "@gabfon/design-system",
   "version": "0.1.0",
+  "description": "shadcn/ui design system and Radix UI components for gabfon.com",
+  "keywords": [
+    "design-system",
+    "shadcn-ui",
+    "radix-ui",
+    "react-components"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
   "exports": {
     ".": {
       "import": "./src/index.tsx",
-      "require": "./src/index.tsx"
+      "require": "./src/index.tsx",
+      "default": "./src/index.tsx"
     },
     "./styles/globals.css": "./src/styles/globals.css",
     "./providers/*": {
@@ -106,7 +130,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^24.3.1",
+    "@types/node": "24.10.1",
     "@types/react": "19.2.7",
     "@vitejs/plugin-react": "^6.0.3",
     "jsdom": "^27.0.0",

@@ -1,9 +1,31 @@
 {
   "name": "@gabfon/analytics",
   "version": "0.1.0",
+  "description": "PostHog + Vercel Analytics integration for gabfon.com",
+  "keywords": [
+    "analytics",
+    "posthog",
+    "vercel-analytics"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
   "exports": {
     ".": {
       "types": "./src/index.tsx",
@@ -57,7 +79,7 @@
     "@gabfon/testing": "workspace:*",
     "@testing-library/react": "^16.3.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@types/node": "24.3.1",
+    "@types/node": "24.10.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
