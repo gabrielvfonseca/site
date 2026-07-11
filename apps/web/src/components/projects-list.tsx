@@ -1,7 +1,6 @@
 'use client'; // Ensure this is rendered in the client
 
 import { cn } from '@gabfon/design-system/lib/utils';
-import { ArrowUpRightIcon } from 'lucide-react';
 import Link from 'next/link';
 import {
   type ComponentPropsWithoutRef,
@@ -85,43 +84,26 @@ export function ProjectsList({
             No projects to show yet. Check back soon.
           </p>
         ) : (
-          visibleItems.map((item, index: number) => {
-            const external = Boolean(item.link);
-            const href = external
-              ? (item.link as string)
-              : `/projects/${item.slug}`;
-
-            return (
-              <Link
-                className="group inline-block w-full rounded-md px-3 py-3 text-left transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                key={index}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                ref={(element: HTMLAnchorElement | null) => {
-                  if (element) {
-                    featureRefs.current[index] = element;
-                  }
-                }}
-                {...(external
-                  ? { target: '_blank', rel: 'noopener noreferrer' }
-                  : {})}
-                {...props}
-                href={href}
-              >
-                <div className="flex items-center gap-1">
-                  <div className="font-medium text-sm leading-5">
-                    {item.title}
-                  </div>
-                  {external && (
-                    <ArrowUpRightIcon className="size-3 text-muted-foreground transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 motion-reduce:transition-none" />
-                  )}
-                </div>
-                <div className="text-muted-foreground text-sm leading-5">
-                  {item.description}
-                </div>
-              </Link>
-            );
-          })
+          visibleItems.map((item, index: number) => (
+            <Link
+              className="group inline-block w-full rounded-md px-3 py-3 text-left transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              key={index}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              ref={(element: HTMLAnchorElement | null) => {
+                if (element) {
+                  featureRefs.current[index] = element;
+                }
+              }}
+              {...props}
+              href={`/projects/${item.slug}`}
+            >
+              <div className="font-medium text-sm leading-5">{item.title}</div>
+              <div className="text-muted-foreground text-sm leading-5">
+                {item.description}
+              </div>
+            </Link>
+          ))
         )}
       </div>
       {canLoadMore && (
