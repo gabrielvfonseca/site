@@ -9,6 +9,17 @@ import {
   type GitHubUser,
 } from './types';
 
+/** Guards the "GitHub credentials not configured" warning to once per process. */
+let warnedMissingCreds = false;
+
+/** Thrown when the client is used without a configured token (e.g. local dev). */
+export class GitHubNotConfiguredError extends Error {
+  constructor() {
+    super('GitHub credentials not configured (GITHUB_TOKEN is unset)');
+    this.name = 'GitHubNotConfiguredError';
+  }
+}
+
 /**
  * Base GitHub API client with error handling
  */
@@ -24,12 +35,32 @@ export class GitHubClient {
   }
 
   /**
+   * Ensure a token is configured before making a request. When it is absent
+   * (common in local dev without credentials), warn once instead of letting
+   * every call fail with a noisy 401, and skip the doomed network round-trip.
+   * @throws {GitHubNotConfiguredError} When no token is configured.
+   */
+  private assertConfigured(): void {
+    if (!this.token) {
+      if (!warnedMissingCreds) {
+        warnedMissingCreds = true;
+        // biome-ignore lint/suspicious/noConsole: One-time setup warning
+        console.warn(
+          'GitHub client: GITHUB_TOKEN is not set — GitHub-backed widgets will be skipped.'
+        );
+      }
+      throw new GitHubNotConfiguredError();
+    }
+  }
+
+  /**
    * Make authenticated request to GitHub API
    */
   private async makeRequest(
     endpoint: string,
     options: RequestInit = {}
   ): Promise<GitHubApiResponse> {
+    this.assertConfigured();
     const url = `${this.baseUrl}${endpoint}`;
 
     const headers = {
@@ -61,8 +92,11 @@ export class GitHubClient {
 
       return result;
     } catch (error) {
-      // biome-ignore lint/suspicious/noConsole: Logging API failure is necessary
-      console.error(`GitHub API request failed for ${endpoint}:`, error);
+      // Missing-creds is already warned once by assertConfigured; don't spam.
+      if (!(error instanceof GitHubNotConfiguredError)) {
+        // biome-ignore lint/suspicious/noConsole: Logging API failure is necessary
+        console.error(`GitHub API request failed for ${endpoint}:`, error);
+      }
       throw error;
     }
   }
@@ -107,6 +141,7 @@ export class GitHubClient {
    * Get contribution calendar (parsed from GraphQL)
    */
   async getContributionCalendar(): Promise<GitHubContributionCalendar> {
+    this.assertConfigured();
     const query = `
       query {
         user(login: "${this.username}") {
