@@ -1,27 +1,125 @@
 ---
 title: Gala
-description: A programming language whose compiler statically enforces quantum mechanical laws while allowing seamless integration of classical and quantum computation.
+description: A hybrid quantum-classical programming language whose compiler enforces the laws of quantum mechanics, statically guaranteeing no-cloning, safe uncomputation, and correct reversibility.
 date: 2026-04-30
 link: https://github.com/gabrielvfonseca/gala
 ---
 
-Gala is an experimental programming language. It's not trying to replace anything. It's a place to hold strong opinions about language design and see if they survive contact with real code.
+Gala is a programming language for the generation of quantum software that will be written by engineers and AI agents, not physicists, and will be hybrid by default. Quantum programs are never purely quantum — they are classical programs that orchestrate quantum kernels, read measurements, and feed parameters back in a loop. Gala is therefore a classical language whose compiler enforces the laws of quantum mechanics: no-cloning, reversibility, and safe uncomputation, while making hybrid quantum-classical machine learning ergonomic end to end.
 
-The premise is simple: most languages carry decades of decisions made for compatibility, not quality. Gala starts from scratch, keeping only what earns its place. That means saying no to a lot including features that are conventional but expensive, syntax that's familiar but ambiguous, and abstractions that feel powerful but compose poorly.
+The language is written in Rust, with a compiler pipeline spanning 24 crates — lexer, parser, HIR, a full type and effect system, uncomputation synthesis, a typed intermediate representation (GIR), differentiation lowering, and backends for LLVM, QIR, and simulation. It ships with an LSP, formatter, package manager, and built-in simulator from day one.
 
-## Design tenets
+This is not a project with any establishment ambitions. I like quantum mechanics, so I wrote a language about it. The name comes from Gala, a type of apple. Newton had his apple — a falling one that led to the laws of motion. For me, quantum mechanics is that same kind of perfection: a description of reality so elegant that it feels like it had to be true. Gala is my apple. My favorite computer is the Macintosh, another type of apple, so the thread runs deeper than coincidence.
 
-- **Minimal surface area**: Fewer concepts, each one general enough to compose. If two features overlap in capability, one of them goes.
-- **Readability over writability**: Code is read far more often than it's written. Syntax should make the structure of a program visible at a glance, not efficient to type.
-- **Predictable semantics**: No hidden control flow, no implicit conversions, no magic you can't see in the local scope. What you read is what it does.
-- **First-class errors**: Error handling isn't an afterthought bolted onto a language designed without it. Gala treats failure as a fundamental part of computation, not an exceptional case.
+<TechStack items={["Rust", "LLVM", "QIR", "Salsa", "Chumsky", "Logos", "Inkwell", "Roqoqo", "Tower LSP"]} label="Built with" />
 
-## What it tests
+## Linear types for no-cloning
 
-Gala exists to answer questions you can only answer by building: What does a type system look like when you optimize for ergonomics instead of academic elegance? How small can a language be before composability breaks? What happens when you treat tooling such as formatter, linter, and language server as part of the language design from day one instead of an ecosystem afterthought?
+The no-cloning theorem — you cannot copy an arbitrary qubit — maps exactly onto linear typing, where a value must be used exactly once. Gala's type system enforces this statically. A qubit cannot be duplicated, implicitly dropped, or aliased. The compiler emits diagnostics that explain the physics behind the error:
 
-Every design decision in Gala is an experiment. The code is the lab.
+<Callout variant="danger" title="Compile-time check">
+A qubit is a linear resource. Using it after measurement or passing it to two gates without explicit threading is a compile error, not a runtime bug.
+</Callout>
+
+```gala
+fn bell() -> Qubits<2> quantum {
+    let a = qubit()
+    let b = qubit()
+    h(a)
+    cx(a, b)
+    (a, b)
+}
+```
+
+## The effect system
+
+Every function carries an effect: `pure` for deterministic classical computation, `quantum` for unitary evolution (reversible, no measurement), or `prob` for functions that perform measurement and carry classical randomness. The effect lattice `pure ⊑ quantum ⊑ prob` governs what can call what, and crossing the measurement boundary is always explicit in the type.
+
+<Callout variant="tip" title="Boundary safety">
+A `quantum` function is guaranteed measurement-free and therefore reversible as a whole. Asking for `adjoint` or `control` of a `prob` function is a type error with an explanatory message.
+</Callout>
+
+```gala
+fn coin() -> Measured<Bool> prob {
+    let q = qubit()
+    h(q)
+    measure(q)
+}
+```
+
+## Compiler-derived reversibility and gradients
+
+Every `quantum` function is reversible, and the compiler knows it. The built-in operators `reverse`, `adjoint`, and `control` derive correct inverses and controlled variants automatically. No hand-written reverse circuits. No opportunity to get them wrong.
+
+The `grad` operator extends this to hybrid quantum-classical machine learning. For quantum parameters — rotation angles feeding gates — the compiler emits the parameter-shift rule. For classical parameters, it uses reverse-mode autodiff. The two are composed by the chain rule so `grad` works end to end across a hybrid function:
+
+<Steps>
+  <Step title="Define a parameterized circuit">
+    Angle-encode classical data into qubit rotations, then apply a layered ansatz with trainable parameters.
+  </Step>
+  <Step title="Measure and classify">
+    Measure one qubit to produce a probabilistic classical result, crossing from quantum to prob effect.
+  </Step>
+  <Step title="Differentiate with grad">
+    The compiler synthesizes parameter-shift for quantum gates and autodiff for classical computation, composing them transparently.
+  </Step>
+</Steps>
+
+```gala
+fn classify(x: Vec<Float>, thet: Params) -> Measured<Bool> prob {
+    let q = ansatz(encode(x), thet)
+    measure(q[0])
+}
+
+let d_thet = grad(classify, wrt: thet)
+```
+
+## Safe automatic uncomputation
+
+Ancilla qubits entangled with your data cannot simply be discarded — doing so corrupts the computation via leaked entanglement. Forcing programmers to hand-write the reverse circuit is the assembly era of quantum programming.
+
+Gala classifies values as liftable when they are computed purely by reversible operations from known inputs. When a liftable ancilla goes out of scope or is `drop`ped, the compiler **synthesizes the uncompute sequence** — the adjoint of the computation that produced it — and inserts it automatically, returning the qubit to |0⟩ before release.
+
+<Callout variant="warning" title="Always safe">
+When automatic synthesis is not possible — because the value depends on a measurement or a non-reversible input — the compiler refuses and emits a diagnostic that explains the specific blocking reason. It never silently produces a wrong program.
+</Callout>
+
+## Architecture
+
+The compiler pipeline runs source through lexer (Logos), parser (Chumsky), HIR (Salsa query-based, giving fast incremental rebuilds), type and effect checking, linearity analysis, uncomputation synthesis, lowering to GIR — a typed, effect-annotated operation graph — optimization passes, and then parallel backends. The query-based core means batch compilation and the LSP share one engine, the same architecture rust-analyzer uses.
+
+<StatGrid columns={3}>
+  <Stat value="24" label="Compiler crates" hint="Each crate owns one concern with a thin API boundary" />
+  <Stat value="3" label="Backends" hint="QIR (LLVM), state-vector simulator, classical codegen" />
+  <Stat value="0" label="Unsound programs" hint="No-cloning, reversibility, and effects are compiler-enforced" />
+</StatGrid>
+
+## Built for AI agents
+
+Gala was designed from the ground up to be built by AI agents and engineers together. The project ships with a dedicated MCP server that exposes the compiler, simulator, type checker, and LSP as 8 programmatic tools any MCP-compatible agent can call at runtime. Three versioned JSON schemas and three templated prompts give agents structured access to diagnostics, intermediate representations, and property test results.
+
+Two specialized agent personas — `compiler-engineer` and `code-reviewer` — define distinct responsibilities, tool access, and review criteria. A separate Builder/Reviewer workflow governs every change: the engineer implements, the reviewer audits, and both must approve. Three path-scoped rule files (for compiler code, tests, and general Rust) activate automatically so an agent never has to guess the conventions of the file it's editing. Two invocable skills — `debug-compiler` and `add-extension` — provide structured, multi-step workflows for the most common agent tasks.
+
+A permission sandbox restricts what agents can do (build, test, lint, format) and what they cannot (publish, install arbitrary packages, shell out to the network). Auto-memory preserves context across sessions. The entire 12-document documentation suite, glossary, architecture diagrams, and crate map are written for machine parsing as much as human reading. Work packages with numbered branches, definition-of-done checklists, and escalation rules keep the workflow tractable for autonomous agents.
+
+<TechStack items={["Claude Code", "OpenCode", "MCP", "Tower LSP", "Salsa", "JSON Schema", "Zod"]} label="Agent tooling" />
+
+## Cookbook
+
+Beginner, quantum, and hybrid recipes walk through everything from your first Bell pair to end-to-end variational classification:
+
+<Accordion>
+  <AccordionItem title="Beginner — Classical programming fundamentals">
+    Hello world, functions, control flow (if/else, match, for, while as expressions), modules and imports. No quantum knowledge required.
+  </AccordionItem>
+  <AccordionItem title="Quantum — Qubits, gates, and the effect system">
+    Bell pairs, single and multi-qubit gates, superposition and entanglement, the measurement boundary, and linear type ownership in action.
+  </AccordionItem>
+  <AccordionItem title="Hybrid — Quantum-classical ML">
+    Parameterized circuits with Params, variational classifiers, gradient computation via grad, and classical pre/post-processing around quantum kernels.
+  </AccordionItem>
+</Accordion>
 
 ## Status
 
-Gala is in active development with a working compiler, a growing set of experiments, and a lot of open questions. It's less a product than a research project, and it's built in exactly that spirit: curious, demanding, and willing to be wrong.
+Gala is in active development with a working compiler, a growing set of examples and recipes, and a clear roadmap toward logical-qubit programs with rich control flow. It compiles today on simulators and is designed for the fault-tolerant hardware arriving on the other side of the decade. The code is the lab.

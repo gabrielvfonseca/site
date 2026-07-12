@@ -1,0 +1,164 @@
+---
+title: "Software as Craftsmanship"
+description: "Code isn't just instructions for machines. It's a craft—like woodworking or ceramics. The pride, the standards, the details nobody sees but everyone feels. Why craftsmanship matters in a disposable industry."
+date: 2026-07-24
+---
+
+My grandfather was a carpenter. He built furniture that's still in my parents' house—solid, quiet, beautiful in ways you only notice when you run your hand along the joinery.
+
+He taught me: *The back of the drawer matters as much as the front. Nobody sees it, but you know it's there.*
+
+Software is the same.
+
+## The Invisible Quality
+
+Most users never see:
+- The test that catches the regression at 2am
+- The comment that saves a future developer 3 hours
+- The error message that tells you *what* and *where* and *how to fix*
+- The migration that runs safely because you wrote it backwards-compatible
+- The log line that makes the 3am page actionable instead of mysterious
+
+But they *feel* it. The app that doesn't crash. The feature that ships on time. The bug that never happens.
+
+That's craftsmanship. Not the visible UI. The invisible integrity.
+
+## My Standards (The Ones I Enforce)
+
+### 1. Every Function Has a Purpose, Every Name Tells Truth
+
+```typescript
+// Bad: what does this do? what does it return?
+function process(data) { ... }
+
+// Good: obvious intent, explicit contract
+function parseGitHubWebhookPayload(
+  payload: unknown,
+  secret: string
+): Result<WebhookEvent, SignatureError> { ... }
+```
+
+If you can't name it precisely, you don't understand it. Keep thinking.
+
+### 2. Errors Are First-Class Citizens
+
+```typescript
+// Bad: throws, returns null, returns undefined—who knows?
+function fetchUser(id: string): Promise<User> { ... }
+
+// Good: the type signature IS the documentation
+function fetchUser(id: string): Promise<Result<User, NotFoundError | AuthError>> { ... }
+```
+
+Errors aren't exceptional. They're the normal path. Design for them.
+
+### 3. No Magic, No Surprises
+
+- No global state mutation
+- No monkey patching
+- No "clever" metaprogramming that runs at import time
+- No framework magic that hides control flow
+
+If I search for where a function is called, I find it. If I trace a request, I see every step.
+
+### 4. Consistency > Cleverness
+
+```typescript
+// We do it this way everywhere. Even when there's a "better" way.
+// Consistency lets you read any file and know the patterns.
+export async function createThing(input: CreateThingInput): Promise<Thing> {
+  const validated = CreateThingSchema.parse(input);
+  const thing = await db.insert(things).values(validated).returning();
+  await eventBus.publish('thing.created', thing);
+  return thing;
+}
+```
+
+Every service, every handler, every mutation follows this pattern. Boring? Yes. Maintainable? Infinitely.
+
+### 5. The "Delete Test"
+
+Before merging, I ask: *If I deleted this file, what would break?*
+
+- If the answer is "nothing" → delete it
+- If the answer is "everything" → it's doing too much
+- If the answer is "one clear thing" → good
+
+Dead code is the enemy. It rots, confuses, and compounds.
+
+## The Tools of the Craft
+
+A carpenter maintains their chisels. I maintain:
+
+**My editor:** VS Code, configured once, synced everywhere. Same shortcuts, same linting, same formatting. Muscle memory compounds.
+
+**My shell:** Zsh + starship + fzf + ripgrep. Fast, predictable, scriptable.
+
+**My git:** Conventional commits. Atomic. Revertible. `git log --oneline` tells the story.
+
+**My CI:** Runs the exact same checks locally. No "works on my machine."
+
+**My dependencies:** Pinned. Audited. Minimal. Each one is a commitment.
+
+## The Apprenticeship Model
+
+I don't hire "seniors" and "juniors." I hire **craftspeople at different stages.**
+
+- **Apprentice:** Learns the standards. Writes code under review. Asks "why?" constantly.
+- **Journeyman:** Owns features end-to-end. Reviews apprentices. Proposes improvements to standards.
+- **Master:** Defines the standards. Teaches. Makes the hard calls on trade-offs.
+
+Everyone reviews. Everyone teaches. Everyone learns.
+
+Code review isn't gatekeeping. It's *the* teaching moment.
+
+```typescript
+// Review comment:
+// "This works, but consider: what if the API returns 429?
+// Our standard is to retry with exponential backoff.
+// See @gabfon/retry for the pattern we use."
+```
+
+Specific. Educational. Kind.
+
+## Pride Without Ego
+
+I'm proud of:
+- The test that caught a bug before production
+- The error message a user thanked us for
+- The onboarding doc a new hire said "actually helped"
+- The 500 lines I deleted that removed a whole class of bugs
+
+I'm not proud of:
+- The clever abstraction nobody understands
+- The framework I built that we used once
+- The "optimization" that made code unreadable for 2% speedup
+
+**Pride in the work. No ego in the author.**
+
+## Why It Matters
+
+Software eats the world. It runs hospitals, banks, power grids, elections, communications.
+
+When we treat it as disposable—"move fast, break things," "ship it, fix it later," "tech debt is fine"—we break trust. We hurt people.
+
+Craftsmanship is the antidote. It says:
+- *I care about the person who maintains this.*
+- *I care about the user who depends on this.*
+- *I care about the truth of what this code does.*
+
+Not because it's efficient. Because it's *right*.
+
+## The Japanese Concept: *Shokunin*
+
+*Shokunin* means "craftsman" but carries deeper meaning: **a dedication to mastery for the sake of society.**
+
+Not for money. Not for fame. For the quiet satisfaction of making something that holds.
+
+My grandfather didn't sign his furniture. He didn't need to. The joints told you who made it.
+
+I want my code to be the same. Unsigned. Obvious. Solid. The kind you run your hand along and feel the care in every joint.
+
+That's the standard. Every day. Every commit.
+
+*Measure twice. Cut once. Test thrice. Ship once.*

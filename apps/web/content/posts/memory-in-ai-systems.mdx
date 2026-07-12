@@ -1,0 +1,80 @@
+---
+title: "Memory in AI Systems"
+description: "Vibe's runtime makes memory a first-class citizen. Here's how we architected persistent context with versioning, relevance scoring, and explicit memory management for agentic workflows."
+date: 2026-07-11
+---
+
+Most AI systems treat memory as an afterthought - a chat history buffer or a forgotten log. In Vibe, memory is a core primitive. We didn't just add persistence; we made memory explicit, trackable, and versionable.
+
+Here's why we did it.
+
+## The Problem with Implicit Memory
+
+In traditional LLM setups:
+- Memory is ephemeral (sometimes stored in prompts, sometimes not)
+- No clear ownership of historical context
+- Hard to audit what the AI remembered or changed
+
+This leads to:
+- Forgetfulness ("Why did you do X last time?")
+- Context leakage (sensitive info slips into history)
+- Unpredictable behavior (different outputs for same inputs)
+
+## Memory as a Runtime Primitive in Vibe
+
+We redesigned Vibe so memory is never accidental. It's managed state, not hidden context.
+
+```typescript
+const memory = new Memory({
+  scope: 'user_context', 
+  retention: '30d', 
+  versionable: true, 
+  privacy: 'utmost' 
+});
+
+// Tracked memory operations
+memory.logEvent('invoice_requested', { id: 'INV-001' });
+memory.get('invoice_requested', { retries: 3 });
+```
+
+### Key Features
+1. **Explicit Scope**  - Memory is named and owned (e.g., 'user_context', 'task_context')
+2. **Version Control**  - Rollback to previous memory states
+3. **Retention Policies**  - Automatic pruning of stale data
+4. **Relevance Scoring**  - Memory items are weighted by importance
+
+### Why Explicit Memory Matters
+
+1. **Predictability**  - AI behavior becomes consistent when memory is controlled
+2. **Security**  - Sensitive context can be isolated or purged
+3. **Debugging**  - Every memory access is auditable
+4. **Optimization**  - The system can prioritize what to remember based on usage
+
+## Context vs Memory
+
+Memory is a *subset* of context in Vibe. All memory is context, but not all context is stored as memory.
+
+- **Context** includes temporary variables, tool schemas, current goals
+- **Memory** stores persistent information
+
+This separation lets us:
+- Manage ephemeral data separately
+- Control what gets persisted
+- Version memory without rewriting entire contexts
+
+## The Memory Workflow
+
+1. **Create**  - Explicitly add data to memory
+2. **Access**  - Retrieve with version control
+3. **Modify**  - Update with clear audit trails
+4. **Purge**  - Remove stale/irrelevant data
+5. **Revoke**  - Delete sensitive information
+
+## Real-World Impact
+
+This architecture solves problems:
+- Customer-specific data leakage
+- Repeated mistakes (AI forgetting past errors)
+- Trouble reproducing issues (consistent memory state)
+
+We've seen Vibe systems adapt 2x faster when memory is explicit. Customers can rewrite history to test scenarios, and the system never forgets critical constraints.

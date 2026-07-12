@@ -1,0 +1,148 @@
+---
+title: "Agents Are the New Apps"
+description: "Agentic workflows aren't features - they're the new runtime primitives. Here's how we built Operator to move beyond chat-based interaction to execution systems."
+date: 2026-07-10
+---
+
+We used to call them 'chatbots.' Then 'copilots.'
+
+Now we're called 'agents.'
+
+But calling it that misses the point. Agents aren't smarter chatbots. They're a new kind of application.
+
+Here's why **Agentic workflows are the new runtime primitives** - and why you need to build them differently.
+
+## The Evolution: From Magic to Mainstream
+
+Chat interfaces like GPT made AI accessible. But they're just interfaces - single-purpose models that respond to prompts.
+
+Agentic workflows take this further. They combine:
+- Planning
+- Tool use
+- Memory
+- Execution
+
+This isn't just 'talking to AI.' It's **AI that actively solves problems**.
+
+## Why We Stopped With Chatbots
+
+They have fundamental limitations:
+- No persistent memory of context
+- No multi-step planning
+- Can't call external tools
+- Can't validate their outputs
+
+They're single-turn, stateless interactions. That works for writing poems, not for production workflows.
+
+We needed something deeper.
+
+## What Are Agentic Workflows
+
+Agentic workflows are systems that:
+1. **Plan** solutions based on goals
+2. **Execute** steps to implement those plans
+3. **Remember** context across interactions
+4. **Act** on external systems (APIs, databases, etc.)
+5. **Validate** their own outputs
+6. **Iterate** until successful
+
+They're not 'asking an AI a question.' They're **running a distributed system** where AI is both architect and constructor.
+
+## How We Built Operator
+
+Operator is our runtime for agentic workflows. It provides:
+
+### Planning Primitives
+Agents can generate task trees using predefined patterns:
+- Linear execution
+- Conditional branches
+- Parallel paths
+- Optimized loops
+
+### Execution Engine
+When you call `agent.executeTask()`, it doesn't just plan - it actually runs code and orchestrates tools to achieve the goal.
+
+### Memory System
+Persistent context that survives across steps. Not just token buffers, but structured memory primitives.
+
+### Validation Layer
+Built-in mechanisms to check that outputs meet success criteria before moving on.
+
+We built Operator because existing frameworks were fragmented. Some handled memory but not tool use. Some excelled at planning but lacked validation.
+
+Operator consolidates these primitives into a single runtime.
+
+## Real-World Use Cases
+
+### Customer Support Automation
+Instead of building chatbots, we let operators:
+1. Identify customer intent from email
+2. Pull relevant support policies from the knowledge base
+3. Check order and billing history
+4. Draft a customized response
+5. Validate the response before sending
+6. Escalate complex cases automatically
+
+### Data Migration
+An operator can:
+1. Connect to source and target databases
+2. Analyze schema differences
+3. Generate migration scripts
+4. Execute with rollback capability
+5. Validate data integrity
+6. Report failure modes
+
+### Internal Tool Configuration
+Operators can:
+1. Scan existing configuration files
+2. Identify deprecated patterns
+3. Suggest modern replacements
+4. Generate code to refactor
+5. Test the refactored code
+6. Deploy incrementally
+
+## The Key Shift
+
+Agentic workflows change everything:
+- **Power shifts** from linear code to adaptive planning
+- **Error handling** becomes probabilistic but traceable
+- **Logic** becomes dynamic but constrained
+- **Reliability** comes from layers of validation, not perfect AI
+
+It's not about building AI that's 'smarter.' It's about building systems that are **more coherent and reliable**.
+
+## Our Principles for Agentic Systems
+
+1. **Actionable Goals**  
+   Agents work toward specific, measurable outcomes, not vague exploration.
+
+2. **Bounded Autonomy**  
+   Agents have autonomy within clearly defined constraints.
+
+3. **Human-in-the-Loop**  
+   Critical paths include human oversight points.
+
+4. **Traceability First**  
+   Every action must be auditable - where it happened, why it happened, and what state it affected.
+
+5. **Fail Gracefully**  
+   Operators degrade functionality smoothly when uncertain rather than guessing.
+
+## The Operating System of AI
+
+We're building Operator not as a framework, but as **the operating system for agentic workflows**. It handles:
+- Context management
+- Execution orchestration
+- Memory persistence
+- State transitions
+- Error recovery
+
+It's the infrastructure beneath the questions.
+
+Because when AI systems become production tools, they must behave like any other reliable component - predictable, observable, and trustworthy.
+
+We stopped treating agents as curiosities and started building them as infrastructure.
+
+And if you're thinking about agents, I'd challenge you: are you building demos, or are you building systems?
+
+That distinction will determine whether this is another interesting blog post or the next foundational layer of your company.

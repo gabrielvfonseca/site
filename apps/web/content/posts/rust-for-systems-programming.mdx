@@ -1,0 +1,136 @@
+---
+title: "Rust for Systems Programming"
+description: "I built Dash (a formatter/linter) in Rust. It changed how I think about performance, correctness, and what 'fast enough' means. Here's why Rust earned its place in my toolkit."
+date: 2026-07-17
+---
+
+I avoided Rust for years. "Too complex," "steep learning curve," "I have TypeScript and Go."
+
+Then I built Dash—a formatter and linter that does deep semantic analysis on TypeScript code. It builds a full CST, resolves scopes, tracks types, understands control flow.
+
+It had to be fast. Like, "format 100k lines in under a second" fast.
+
+TypeScript wasn't fast enough. Go's GC pauses were unpredictable. I tried Rust.
+
+Three months later, Dash works. And Rust has permanently changed how I think about systems software.
+
+## Why Rust for Dash?
+
+**Zero-cost abstractions are real**
+
+```rust
+// This compiles to the same assembly as hand-written loops
+let sum: usize = items.iter().map(|x| x.len()).sum();
+```
+
+I don't pay for what I don't use. Iterators, closures, generics—they optimize away. In TypeScript, every abstraction has a runtime cost. In Rust, the cost is compile-time.
+
+**Memory safety without GC**
+
+Dash processes large codebases. A GC pause during formatting is unacceptable. Rust gives me deterministic memory management—no pauses, no leaks, no "sometimes it's slow."
+
+The borrow checker forces me to think about ownership upfront. It's painful at first. Then it becomes a design tool.
+
+**Fearless concurrency**
+
+```rust
+// This is safe. The compiler proves no data races.
+let results: Vec<_> = files.par_iter()
+    .map(|file| analyze_file(file))
+    .collect();
+```
+
+`rayon` makes parallelism trivial. The type system guarantees I'm not sharing mutable state incorrectly. In TypeScript, I'd use workers and hope. In Go, I'd use goroutines and hope. In Rust, the compiler *proves* it.
+
+## The Learning Curve Is Real
+
+**Week 1-2: Fight the borrow checker**
+
+"You can't mutate that." "This doesn't live long enough." "Move occurred here."
+
+I wanted to quit. Everything that was easy in TypeScript was a puzzle.
+
+**Week 3-4: It clicks**
+
+Ownership isn't a restriction—it's a design principle. Who owns this data? Who borrows it? When does it die?
+
+These are questions I *should* ask in any language. Rust just forces me to answer them.
+
+**Month 2: Productivity returns**
+
+I'm not faster than TypeScript yet. But my code has fewer bugs. The bugs I do get are logic errors, not null pointer exceptions or race conditions.
+
+**Month 3: I'm faster for certain problems**
+
+For Dash's use case—tree traversal, scope resolution, type inference—Rust's pattern matching, enums, and zero-cost abstractions make the code *simpler* than the TypeScript equivalent would be.
+
+## What Rust Taught Me (That Applies Everywhere)
+
+**Explicit is better than implicit**
+
+```rust
+// Rust: explicit about failure
+fn parse_config(path: &Path) -> Result<Config, ConfigError> { ... }
+
+// TypeScript: easy to forget
+function parseConfig(path: string): Config { ... } // throws? returns null?
+```
+
+Rust makes failure a type. I now use `Result`/`Option` patterns in TypeScript via libraries like `neverthrow`. It changes how I design APIs.
+
+**Ownership clarifies architecture**
+
+Who owns the database connection? Who owns the cache? Who owns the request context?
+
+In Rust, the answer is in the type signature. In other languages, it's in documentation (or nowhere). I now design systems with explicit ownership boundaries.
+
+**Zero-cost abstractions change what's possible**
+
+I can write high-level code (iterators, combinators, traits) that compiles to optimal assembly. I don't have to drop to C for performance. The abstraction *is* the optimization.
+
+## Where Rust Still Hurts
+
+**Compile times**
+
+Dash takes ~45s for a clean build. Incremental is ~3s. TypeScript's `tsc --noEmit` is ~800ms for my whole monorepo.
+
+For iteration speed, Rust loses.
+
+**Async is still maturing**
+
+`async`/`await` works, but the ecosystem is fragmented (tokio vs async-std, pinning, `Send` bounds). For a formatter, I didn't need async. For a server, I'd think twice.
+
+**GUI/ecosystem gaps**
+
+No mature Rust GUI framework. WebAssembly story is good but not "just works." If I needed a desktop app, I'd use Tauri (Rust + WebView) or Electron (TypeScript).
+
+**Hiring**
+
+Rust engineers are harder to find. If I'm building a team, that matters.
+
+## My Current Stack Decision Matrix
+
+| Project Type | Language | Why |
+|--------------|----------|-----|
+| Web apps, APIs, tooling | TypeScript | Velocity, ecosystem, hiring |
+| Formatters, linters, compilers | Rust | Performance, correctness, concurrency |
+| High-throughput services | Rust/Go | Latency, throughput, operational simplicity |
+| Scripts, glue code | Python/Bash | Startup time, libraries |
+| Language experiments | Gala | Learning, not production |
+
+## The Realization
+
+Rust didn't replace TypeScript for me. It expanded what I can build.
+
+There's a class of problems—compilers, formatters, databases, engines—where GC languages fundamentally struggle. Rust unlocks those.
+
+And the discipline it teaches (ownership, explicit errors, zero-cost abstractions) makes me better in *every* language.
+
+I still write TypeScript daily. I reach for Rust when:
+- Performance is a hard constraint
+- Correctness is non-negotiable
+- I'm building developer tools that process code
+
+Dash wouldn't exist in TypeScript. Or it would exist and be too slow to use.
+
+That's the difference.

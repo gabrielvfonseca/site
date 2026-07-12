@@ -1,0 +1,157 @@
+---
+title: "Startup Mistakes"
+description: "The expensive lessons from building Frontal. Wrong hires, wrong product, wrong priorities. What I'd do differently and what I'm fixing now."
+date: 2026-07-20
+---
+
+I've made most of the classic startup mistakes. Some I caught early. Some cost months.
+
+Here's the autopsy, so you don't repeat them.
+
+## Product Mistakes
+
+### 1. Building for "Enterprise" Before Having a Single User
+
+**What I did:** Designed multi-tenant architecture, RBAC, audit logs, SSO integration before talking to 5 potential customers.
+
+**Why:** "Enterprise requirements" felt like real work. Talking to humans felt scary.
+
+**Cost:** 3 months of features nobody asked for.
+
+**Fix:** First 10 customers = manual onboarding, shared instance, no SSO. Build auth when someone *pays* and *asks* for it.
+
+### 2. Confusing "Cool Tech" with "Valuable Problem"
+
+**What I did:** Built Operator (agentic framework) with complex planning, memory, tool use. Spent months on the "how."
+
+**Why:** The tech was intellectually satisfying. The demo was impressive.
+
+**Reality:** Customers wanted "reliable extraction from PDFs" not "autonomous agents that plan multi-step workflows."
+
+**Fix:** Start with the ugliest, most specific problem someone will pay to solve. Wrap the cool tech *inside* that solution.
+
+### 3. Ignoring Distribution Until Launch
+
+**What I did:** "Build it, they will come." Zero content, zero outreach, zero pipeline until product was "ready."
+
+**Why:** Distribution felt like "marketing fluff." I'm an engineer.
+
+**Cost:** Launch day = 0 signups. 6 weeks to first paying customer.
+
+**Fix:** Distribution starts day 1. Write about the problem. Talk to 100 people. Build the waitlist *while* building the product.
+
+## People Mistakes
+
+### 4. Hiring for Skills, Not Values Alignment
+
+**What I did:** Hired a brilliant engineer who optimized for technical elegance over shipping. Beautiful code, missed every deadline.
+
+**Why:** "They're so smart!" I ignored that they'd never shipped a product.
+
+**Cost:** 4 months of velocity drag, team morale hit, painful separation.
+
+**Fix:** Hire for: shipping track record, communication, ownership. Test with a paid 2-week project before full offer.
+
+### 5. Not Firing Fast Enough
+
+**What I did:** Kept someone 3 months past the point I knew it wouldn't work. "They'll improve." "It's hard to hire."
+
+**Why:** Conflict avoidance. Sunk cost. Hope.
+
+**Cost:** Team saw I tolerated underperformance. The person knew and was miserable anyway.
+
+**Fix:** 30-60-90 day plan with explicit milestones. If not met at 30, have the conversation. At 60, decide. At 90, act.
+
+### 6. Treating Advisors as Decoration
+
+**What I did:** Got 5 impressive advisors. Talked to them quarterly. Asked generic questions.
+
+**Why:** "Advisors = credibility for investors."
+
+**Reality:** Advisors who don't engage are useless. Credibility comes from *their* results, not their names on your deck.
+
+**Fix:** 1-2 advisors with specific domain expertise. Monthly 30-min calls with prepared agenda. Equity vests monthly based on engagement.
+
+## Strategy Mistakes
+
+### 7. Raising Money Before Product-Market Fit
+
+**What I did:** Raised pre-seed on vision + team. Spent 60% of time fundraising for 6 months.
+
+**Why:** "Everyone raises early." Felt like validation.
+
+**Cost:** 6 months not talking to users. Money created pressure to "execute" on wrong things.
+
+**Fix:** Raise when you have: 10+ paying customers, clear retention, repeatable sales motion. Or don't raise at all.
+
+### 8. Chasing Competitors' Features
+
+**What I did:** Competitor launched "vector search." We pivoted sprint to add vector search. Nobody used it.
+
+**Why:** Fear of missing out. Investor pressure.
+
+**Fix:** Competitors are noise. Customers are signal. If 3+ customers ask for X, build X. Otherwise, ignore.
+
+### 9. Optimizing for Valuation, Not Value
+
+**What I did:** Structured raise to maximize cap. Took money from fund that wanted board seat + aggressive growth.
+
+**Why:** Ego. "Higher valuation = success."
+
+**Reality:** Wrong partner > lower valuation. Board seat with misaligned incentives = lost control.
+
+**Fix:** Optimize for: partner quality, alignment, flexibility. Valuation is a number. Control is survival.
+
+## Execution Mistakes
+
+### 10. No Weekly Review Cadence
+
+**What I did:** Sprint planning Monday. Retro... never. Just "keep shipping."
+
+**Why:** "Process is bureaucracy."
+
+**Reality:** Without reflection, you optimize for activity, not outcomes.
+
+**Fix:** Every Friday: What moved revenue? What didn't? What do we stop? What do we double? 30 minutes. Non-negotiable.
+
+### 11. Measuring Vanity Metrics
+
+**What I did:** Tracked: GitHub stars, Twitter followers, blog views, team size.
+
+**Why:** They go up and feel good.
+
+**Reality:** None correlate with revenue.
+
+**Fix:** Track only: paying customers, revenue, retention, CAC, LTV, NPS. Everything else is noise.
+
+### 12. Not Documenting Decisions
+
+**What I did:** Made architecture choices in Slack calls. No ADRs. No decision log.
+
+**Why:** "We'll remember."
+
+**Reality:** 3 months later: "Why did we choose X?" Nobody knows. Debate restarts.
+
+**Fix:** Every non-trivial decision gets an ADR (Architecture Decision Record):
+- Context
+- Decision
+- Consequences
+- Alternatives considered
+
+## The Meta-Mistake
+
+**Thinking mistakes are avoidable.**
+
+They're not. You *will* make them. The goal isn't zero mistakes—it's:
+1. **Smaller mistakes** (ship smaller, learn faster)
+2. **Faster recognition** (weekly reviews, honest metrics)
+3. **Cheaper correction** (reversible decisions, documented rationale)
+4. **Learning once** (write it down, share with team)
+
+Every mistake above taught me something I couldn't have learned from a blog post.
+
+But I'd rather you learn from my scars than get your own.
+
+---
+
+**Current mistake I'm probably making:** Over-indexing on "enterprise readiness" again. Ask me in 6 months.

@@ -1,0 +1,193 @@
+---
+title: "AI Will Change Programming"
+description: "Not the 'AI replaces developers' hype. The real shift: from writing syntax to designing systems, from implementation to intent, from code as artifact to code as conversation. What actually changes and what stays the same."
+date: 2026-07-25
+---
+
+The hype says "AI will replace programmers."
+
+The reality: **AI changes what programming *is*.**
+
+I've built Operator (agentic runtime), Vibe (AI systems framework), and Frontal (enterprise AI platform). I use AI daily. Here's what's actually changing—and what isn't.
+
+## What's Actually Changing
+
+### 1. Syntax Is Becoming Irrelevant
+
+```typescript
+// 2020: You write this
+const users = await db.select().from(usersTable).where(eq(usersTable.active, true));
+
+// 2024: You say this
+"Get all active users"
+
+// 2026: You say this
+"Build a dashboard showing active user trends with export to CSV"
+```
+
+The translation layer (natural language → code) is solving syntax. What remains is **intent specification**.
+
+The skill shifts from "knowing the API" to "describing the outcome precisely."
+
+### 2. Implementation → Verification
+
+Old loop: Write → Run → Debug → Repeat  
+New loop: Specify → Generate → **Verify** → Refine
+
+The bottleneck moves from *producing code* to *proving it's correct*.
+
+This is why I built Vibe with evaluation as a first-class primitive. If you can't automatically verify the output, you don't have a system—you have a demo.
+
+### 3. Context Engineering > Prompt Engineering
+
+"Prompt engineering" was always a misnomer. It's **context engineering**:
+
+- What context does the model need?
+- What tools can it use?
+- What memory persists?
+- What are the constraints?
+- How do we validate?
+
+This is *systems design*, not word-crafting. The best "prompt engineers" I know are systems architects.
+
+### 4. Code as Conversation, Not Artifact
+
+```
+You: "Add retry logic to the GitHub client"
+AI:  [Generates code with exponential backoff]
+You: "Use our standard retry policy from @gabfon/retry"
+AI:  [Refactors to use shared package]
+You: "Add tests for 429 and 5xx"
+AI:  [Generates tests]
+You: "Ship it"
+```
+
+The code is a *byproduct* of the conversation. The artifact is the **decision trail**.
+
+This is why Operator stores every step: the plan, the tool calls, the reasoning, the validation. The conversation *is* the documentation.
+
+## What Isn't Changing
+
+### 1. You Still Need to Understand Systems
+
+AI doesn't eliminate the need to know:
+- How databases work (transactions, isolation, indexes)
+- How networks fail (timeouts, retries, partitions)
+- How memory works (allocation, GC, leaks)
+- How concurrency works (races, deadlocks, starvation)
+
+**AI writes the code. You own the architecture.**
+
+If you don't understand the system, you can't verify the AI's output. You become a passenger in a car you can't drive.
+
+### 2. Abstractions Still Leak
+
+AI generates leaky abstractions faster than humans.
+
+```typescript
+// AI generates this
+async function getUser(id: string) {
+  const cached = await redis.get(`user:${id}`);
+  if (cached) return JSON.parse(cached);
+  const user = await db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+  await redis.setex(`user:${id}`, 3600, JSON.stringify(user));
+  return user;
+}
+```
+
+Problems: cache stampede, stale reads, serialization coupling, no TTL strategy, no error handling.
+
+**You still fix the leaks. AI just creates more surface area.**
+
+### 3. Trust Is Earned, Not Generated
+
+Enterprise buyers don't trust "AI magic." They trust:
+- Audit trails
+- Deterministic behavior
+- Explainable decisions
+- Rollback capability
+- SLA-backed performance
+
+Frontal sells *trust infrastructure*, not AI. The AI is the engine. The trust layer is the product.
+
+### 4. Human Judgment Remains the Differentiator
+
+AI can generate 10 solutions. It can't tell you:
+- Which one aligns with the 3-year strategy
+- Which one the team can actually maintain
+- Which one the customer will actually pay for
+- Which one creates technical debt vs. technical asset
+
+**Taste, judgment, strategy—these are human.**
+
+## The New Programming Stack
+
+| Layer | 2020 | 2026 |
+|-------|------|------|
+| Intent | Requirements doc | Natural language + examples |
+| Specification | Code | Executable spec (tests + types + contracts) |
+| Generation | Human typing | AI (guided by spec) |
+| Verification | Manual test | Automated eval (correctness, perf, security) |
+| Deployment | CI/CD | Progressive rollout with observability |
+| Operations | Logs/metrics | AI-assisted debugging + auto-remediation |
+
+The **specification layer** is the new source of truth. Code is a *view* of the spec.
+
+## What This Means for You
+
+### If You're Learning
+- Learn systems *deeply* (OS, networks, databases, compilers)
+- Learn to specify precisely (types, contracts, properties)
+- Learn to verify rigorously (property testing, model checking, evals)
+- Learn to architect (boundaries, trade-offs, evolution)
+
+Syntax is the easiest part. Don't optimize for it.
+
+### If You're Building Tools
+- Build for **verification**, not generation
+- Build for **context management**, not prompting
+- Build for **auditability**, not magic
+- Build for **human-in-the-loop**, not autonomy
+
+The winners aren't "AI code generators." They're **AI-augmented development environments.**
+
+### If You're Hiring
+Don't test: "Can you write a binary search?"
+Test: "Here's a buggy AI-generated PR. Find the issues. Propose the fix. Write the regression test."
+
+Don't test: "Do you know React hooks?"
+Test: "Design a system where AI generates React components. How do you ensure accessibility, performance, and consistency?"
+
+### If You're Leading
+- Invest in **eval infrastructure** before generation infrastructure
+- Hire **systems thinkers** who use AI, not **AI operators** who avoid systems
+- Measure **outcomes**, not lines of code (AI makes LOC meaningless)
+- Build **culture of verification**: "Show me the eval" > "Show me the code"
+
+## The Honest Prediction
+
+**2027:** Most code is AI-generated. Developers specify, verify, architect. "Writing code" is a niche skill (like assembly today).
+
+**2030:** Specification languages evolve. We write executable specs in structured natural language + types. AI handles the rest.
+
+**2035:** The distinction between "programmer" and "domain expert" blurs. A biologist specifies the analysis; AI builds the pipeline. The biologist *is* the programmer.
+
+**But:** Someone still needs to build the AI that builds the pipeline. Someone needs to design the verification. Someone needs to own the architecture.
+
+That someone is the **systems engineer who speaks AI.**
+
+## My Bet
+
+I'm not betting on "no code." I'm betting on **higher-level code.**
+
+- Types as specifications
+- Tests as executable requirements  
+- Contracts as system boundaries
+- Evals as continuous verification
+- Context as first-class runtime primitive
+
+The syntax changes. The discipline doesn't.
+
+**Programming was never about typing. It was about thinking precisely. AI just makes the thinking visible.**
+
+Get good at the thinking. The rest is tooling.

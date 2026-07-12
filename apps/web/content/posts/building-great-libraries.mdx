@@ -1,0 +1,179 @@
+---
+title: "Building Great Libraries"
+description: "16 packages in my monorepo, each with clean boundaries, full types, and zero external confusion. Here's what I've learned about building libraries people actually want to depend on."
+date: 2026-07-18
+---
+
+I maintain 16 packages under `@gabfon/*`. They're not famous. But they work, they're typed, and they don't cause dependency hell.
+
+Here's what I've learned about building libraries that don't suck.
+
+## The Golden Rule: Be Boring
+
+Great libraries don't surprise you. They do exactly what the name says, with the API you'd guess.
+
+- `@gabfon/github` → talks to GitHub API
+- `@gabfon/spotify` → talks to Spotify API
+- `@gabfon/rate-limit` → rate limits requests
+
+If I have to read the source to understand the API, the library failed.
+
+## Design for the Consumer, Not the Author
+
+I used to design APIs around my implementation. "This is how I store the token internally, so the API should expose it this way."
+
+Wrong. The consumer doesn't care about your internals. They care about:
+
+```typescript
+// What they want to write
+const github = createGitHubClient({ token: env.GITHUB_TOKEN });
+const repos = await github.getUserRepos('gabrielvfonseca');
+```
+
+Not:
+
+```typescript
+// What I used to make them write
+const client = new GitHubClient({
+  auth: new BearerTokenAuth(env.GITHUB_TOKEN),
+  baseUrl: 'https://api.github.com',
+  retry: new ExponentialBackoff(),
+  // ... 15 more options
+});
+```
+
+Hide the complexity. Expose the happy path. Put advanced options in a second argument object.
+
+## Types Are the API
+
+Every `@gabfon/*` package exports full TypeScript types. Not "mostly typed"—*fully* typed.
+
+```typescript
+// Consumer gets this for free
+type GitHubRepo = {
+  readonly id: number;
+  readonly name: string;
+  readonly owner: GitHubUser;
+  readonly private: boolean;
+  // ... every field
+};
+
+async function getUserRepos(username: string): Promise<GitHubRepo[]>;
+```
+
+No `any`. No `unknown` without narrowing. If the API returns it, the type describes it.
+
+This means:
+- Consumers get autocomplete
+- Refactoring is safe
+- Breaking changes are compile errors, not runtime surprises
+
+## Zod at Every Boundary
+
+External data is untrusted. Every package validates at the boundary:
+
+```typescript
+// Inside @gabfon/github
+const RepoSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  owner: UserSchema,
+  private: z.boolean(),
+  // ...
+});
+
+export async function getUserRepos(username: string): Promise<Repo[]> {
+  const response = await fetch(`/users/${username}/repos`);
+  const data = await response.json();
+  return z.array(RepoSchema).parse(data); // Throws if wrong
+}
+```
+
+Consumers never get malformed data. If GitHub changes their API, *my* package breaks loudly at the parse site, not silently in their code.
+
+## One Job Per Package
+
+`@gabfon/github` doesn't do rate limiting. `@gabfon/rate-limit` does.
+
+`@gabfon/spotify` doesn't cache. The consumer decides caching.
+
+`@gabfon/database` doesn't know about migrations. It's just a typed query builder.
+
+Each package has *one* reason to change. When Spotify changes their API, only `@gabfon/spotify` changes. When rate limit algorithm improves, only `@gabfon/rate-limit` changes.
+
+This is the Unix philosophy: do one thing, compose via types.
+
+## Versioning: Semantic, Not Romantic
+
+I don't do "major version = marketing event." I do:
+
+- **Patch**: Bug fix, no API change
+- **Minor**: New function, new optional parameter, new type export
+- **Major**: Removed function, changed signature, removed type field
+
+Every package has its own `CHANGELOG.md`. Consumers can `pnpm update @gabfon/github` and know exactly what changed.
+
+## Testing: Real APIs, Real Types
+
+```typescript
+// Integration test (runs against real API in CI)
+it('fetches real repos', async () => {
+  const client = createGitHubClient({ token: process.env.GITHUB_TOKEN });
+  const repos = await client.getUserRepos('gabrielvfonseca');
+  
+  expect(repos.length).toBeGreaterThan(0);
+  expect(repos[0]).toHaveProperty('id');
+  expect(typeof repos[0].id).toBe('number');
+});
+```
+
+Types are tested by TypeScript. Behavior is tested by real calls. Mocks are for unit-testing internal logic only.
+
+## Documentation = README + Types
+
+I don't write separate docs. The README shows the happy path. The types show the complete API.
+
+```markdown
+## @gabfon/github
+
+```bash
+pnpm add @gabfon/github
+```
+
+```typescript
+import { createGitHubClient } from '@gabfon/github';
+
+const github = createGitHubClient({ token: process.env.GITHUB_TOKEN });
+const repos = await github.getUserRepos('username');
+```
+
+See `src/index.ts` for full API.
+```
+
+If the types are good, the API documents itself.
+
+## What I Avoid
+
+**Peer dependencies** — They create version conflicts. I bundle or re-export what I need.
+
+**Global side effects** — No `console.log`, no global state mutation, no monkey-patching.
+
+**Framework coupling** — `@gabfon/github` works in Node, Bun, Cloudflare Workers, browser. No Next.js, no React, no Express.
+
+**Breaking changes without migration** — If I remove a function, the old name stays as a deprecated re-export with a JSDoc pointing to the replacement.
+
+## The Payoff
+
+When I need GitHub data in a new project:
+
+```bash
+pnpm add @gabfon/github
+```
+
+It works. Types are there. No config. No wrapper needed. No "wait, which version of `@octokit/rest` does this need?"
+
+That's the goal: **the library disappears into your codebase.**
+
+You import it. You use it. You forget it exists.
+
+That's a great library.

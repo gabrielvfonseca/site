@@ -1,0 +1,72 @@
+---
+title: "Why I Built My Own Language"
+description: "Gala is a small, readable, predictable language with first-class errors. Here's why I spent months building a compiler instead of just using someone else's."
+date: 2026-07-10
+---
+
+Most engineers never build a programming language. I almost didn't either.
+
+Then I built Gala—a minimal language with predictable semantics and first-class errors. It has a working compiler. It's not a toy, and it's not meant to replace Go or Rust. It's a study in what I wish languages got right.
+
+Here's why I did it.
+
+## The Problem: Languages Optimize for Writing, Not Reading
+
+Most languages are optimized for the person writing code fast. They reward terse syntax, clever operators, and "expressive" features.
+
+But code is read far more than it's written. The bottleneck in every mature codebase isn't typing speed. It's comprehension speed.
+
+Gala optimizes for the reader:
+- Minimal surface area (few keywords, no operator overloading)
+- Readability over writability
+- Predictable semantics (no hidden control flow)
+
+If you can't understand a line in 3 seconds, the language failed.
+
+## First-Class Errors
+
+Errors in most languages are an afterthought. They're exceptions, or return codes, or `Result` types bolted on later.
+
+In Gala, errors are part of the type system from the start. Every function declares what it can fail with. You can't ignore an error because the compiler won't let you.
+
+```gala
+fn read_config(path: String) -> Config | FileError | ParseError
+```
+
+This isn't new—Rust does `Result`. But Gala makes it the only way, not an option.
+
+## What I Learned Building a Compiler
+
+Building Gala taught me more about software than any course:
+- Parsing is harder than it looks
+- Type systems are where correctness lives
+- Small decisions compound into big semantics
+- Documentation is part of the language, not an afterthought
+
+A compiler is the ultimate test of "does this actually work?"
+
+## Why Not Just Use an Existing Language?
+
+I could have. But:
+1. I wanted to understand the trade-offs from the inside
+2. I had specific gripes no existing language solved cleanly
+3. Building it taught me things reading never would
+
+Gala is also a design statement. It says: "languages should be small, readable, and honest about failure."
+
+## Will Gala Replace Your Stack?
+
+No. That's not the point.
+
+The point is that building a language changes how you think about every language you use. You stop seeing syntax as magic and start seeing it as a series of trade-offs someone made.
+
+Every language is a philosophy encoded in grammar. Gala is mine.
+
+## Try It
+
+```bash
+git clone https://github.com/gabrielvfonseca/gala
+cd gala && make && ./gala examples/hello.gala
+```
+
+It's early. The docs are thin. But it runs, and it's honest about what it is: a small language that tries to be readable first.

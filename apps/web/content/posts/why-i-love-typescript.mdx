@@ -1,0 +1,144 @@
+---
+title: "Why I Love TypeScript"
+description: "TypeScript isn't perfect. But after building Gala (my own language), Dash (a Rust formatter), and a 16-package monorepo, I still choose TS for almost everything. Here's why."
+date: 2026-07-16
+---
+
+I built a programming language. I write Rust for performance-critical tools. I could use anything.
+
+I still choose TypeScript for 90% of what I build.
+
+Here's why, and where I'd rather use something else.
+
+## The Pragmatic Case
+
+**The ecosystem is unbeatable**
+
+Every library has types. Every framework is built for it. Every tool understands it. When I `npm install` something, it *just works* with my editor. No `@types/` hunting, no declaration file wrangling, no "this library doesn't export types."
+
+That matters more than the type system itself.
+
+**It's JavaScript with guardrails**
+
+I don't have to context-switch. The same language runs in the browser, on the server, in my build scripts, in my tests. One mental model. One toolchain. One hiring pool.
+
+When I write `import { db } from '@gabfon/database'`, it works everywhere. No FFI, no bindings, no "wait, is this the Node or browser build?"
+
+**Refactoring is safe**
+
+Rename a function. Change a type. Add a required field. My IDE shows me every call site. I make the change, run `pnpm typecheck`, and if it passes, I'm confident.
+
+That confidence lets me move fast without breaking things. It's not academic—it's practical velocity.
+
+## The Type System Hits a Sweet Spot
+
+**Structural typing > Nominal typing**
+
+```typescript
+// This works because shape matches
+function greet(user: { name: string }) { ... }
+greet({ name: "Gabriel", age: 25 }); // ✓ extra properties allowed
+```
+
+Nominal typing (Java, Rust, Go) forces you to name every relationship. Structural typing lets the shape speak. For application code, this is the right default.
+
+**Type inference is remarkable**
+
+```typescript
+const users = await db.select().from(usersTable);
+// users is User[] — no annotation needed
+```
+
+I write types at boundaries (APIs, libraries, complex logic). Inside functions, inference carries me. The signal-to-noise ratio is excellent.
+
+**Generics without the ceremony**
+
+```typescript
+function first<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
+```
+
+Compare to Rust's `fn first<T>(arr: &[T]) -> Option<&T>` or Java's `public <T> T first(List<T> list)`. TypeScript's generics are ergonomic enough that I actually use them.
+
+## Where TypeScript Frustrates Me
+
+**No runtime guarantees**
+
+```typescript
+// Compiles fine. Crashes at runtime.
+const user: User = JSON.parse(untrustedInput);
+user.email.toLowerCase(); // 💥 if email is missing
+```
+
+This is the fundamental lie. Types are erased. I use Zod at every boundary (`@t3-oss/env-nextjs` for env, Zod schemas for API, forms, database). But it's manual discipline, not language enforcement.
+
+**`any` is too easy**
+
+```typescript
+// "I'll fix this later"
+const data: any = fetchSomething();
+```
+
+The escape hatch is wide open. Strict mode helps (`noImplicitAny`, `strictNullChecks`), but you can always cast. Rust doesn't let you lie. TypeScript does.
+
+**Performance on large codebases**
+
+My monorepo takes ~8s for a full typecheck. That's fast for 16 packages, but I've seen 5-minute typechecks elsewhere. The language server can lag on massive files. It's not Go-speed.
+
+**No pattern matching, no algebraic data types**
+
+```typescript
+// TypeScript: verbose, error-prone
+type Result<T, E> = 
+  | { ok: true; value: T }
+  | { ok: false; error: E };
+
+function handle(result: Result<User, Error>) {
+  if (result.ok) { /* use result.value */ }
+  else { /* use result.error */ }
+}
+```
+
+Rust's `match` on `Result<T, E>` is so much cleaner. Discriminated unions work but feel bolted on.
+
+## Why I Built Gala Then
+
+If I love TypeScript, why build my own language?
+
+Because Gala explores a different point in the design space:
+- **Errors as values, not exceptions** — baked into the type system
+- **No `null`, no `undefined`, no `any`** — by design, not convention
+- **Readability over expressiveness** — fewer ways to do the same thing
+- **Ahead-of-time compilation** — no JIT, predictable performance
+
+Gala isn't "better TypeScript." It's a different philosophy. Building it taught me what TypeScript *does* well—and why those trade-offs exist.
+
+## When I Don't Use TypeScript
+
+| Domain | Language | Why |
+|--------|----------|-----|
+| CLI tools, formatters, linters | Rust | Performance, single binary, memory safety |
+| High-throughput services | Rust/Go | Latency, throughput, concurrency |
+| Embedded/systems | Rust | No runtime, deterministic memory |
+| Quick scripts | Bash/Python | Startup time, ecosystem |
+| Language experimentation | Gala | Learning, not production |
+
+## The Honest Summary
+
+TypeScript is the best *pragmatic* choice for application development in 2026.
+
+Not because its type system is the most sound (it's not).
+Not because it's the fastest (it's not).
+Not because it's the most elegant (it's not).
+
+Because it meets the real constraints of building software that ships:
+- Runs everywhere JavaScript runs
+- Has types for everything
+- Lets you adopt gradually
+- Has tooling that actually works
+- Hires existing
+
+I'd rather ship a TypeScript app with Zod boundaries than a perfect Rust service that never launches.
+
+That's the real reason.

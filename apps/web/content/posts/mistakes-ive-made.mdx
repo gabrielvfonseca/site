@@ -1,0 +1,111 @@
+---
+title: "Mistakes I've Made"
+description: "Honest mistakes made as a student founder building Frontal, open source projects, and AI systems. What I got wrong and what I'm doing differently now."
+date: 2026-07-12
+---
+
+I'm not writing this to excuse myself. I'm writing it because I made some expensive mistakes recently, and I'd rather you learn from them than repeat them.
+
+Here's what I got wrong.
+
+## Product Mistakes
+
+**Trying to solve all problems at once**
+In the early days of Frontal, I tried to build a platform that could do everything: multi-modal inputs, complex workflows, enterprise integrations. The result was a product that did nothing well.
+
+The fix: Ship something narrow that works brilliantly, then widen scope. We spent months building features nobody used before we found our core problem.
+
+**Ignoring user feedback**
+We built Operator based on what we thought users wanted, not what they actually needed. We shipped complex planning features before basic error handling.
+
+The fix: Talk to real users before writing code. Every feature now has a user story backed by actual conversations.
+
+## Technical Mistakes
+
+**Over-engineering the architecture**
+I designed a plugin system for Vibe that was so complex nobody could extend it. I spent weeks building abstractions that were never used.
+
+The fix: Build the simplest thing that could work. Add complexity only when you hit real problems, not hypothetical ones.
+
+**Premature optimization**
+I optimized memory allocation in Dash before I had benchmarks showing it was slow. I also chose TypeScript for everything when Rust would have been better for performance-critical paths.
+
+The fix: Profile first. Optimize second. The second law of thermodynamics applies to code too - entropy increases unless you pay the energy cost.
+
+**Not testing enough**
+I assumed TypeScript's type system would catch all the bugs. Then I spent days debugging a race condition in memory updates.
+
+The fix: Test everything. Types catch some errors, but they can't catch logic errors. Write tests for the things you think are "obvious."
+
+## Business Mistakes
+
+**Not protecting deep work time**
+Early in building Frontal, I let meetings and emails consume my mornings. My best code came in the afternoon, when my brain was tired.
+
+The fix: Guard mornings ruthlessly. Deep work is a limited resource - use it on the most important problems.
+
+**Over-promising to investors**
+I told investors we'd have 100 customers by Q2. We had 3. The gap between promise and reality destroyed trust faster than any code bug.
+
+The fix: Under-promise, over-deliver. Your reputation is built on keeping commitments, not making big ones.
+
+## Learning Mistakes
+
+**Trying to learn everything at once**
+I tried to master Rust, learn TypeScript deeply, understand AI systems, and study business all at the same time. I ended up with shallow knowledge in all areas.
+
+The fix: Focus. Master one thing deeply before moving to the next. The compound interest of expertise beats the lottery ticket of breadth.
+
+**Skipping fundamentals**
+I jumped into building AI agents without understanding distributed systems well enough. My first operators had race conditions and memory leaks.
+
+The fix: Learn the foundations first. Distributed systems, databases, and reliability patterns aren't optional prerequisites - they're the bedrock.
+
+## Open Source Mistakes
+
+**Not documenting properly**
+My early packages had minimal docs. Contributors struggled to understand the codebase and gave up.
+
+The fix: Documentation is code. Write it before you write the implementation. Update it when you change anything.
+
+**Not accepting contributions**
+I was too protective of my code. I rejected good PRs because they didn't match my exact vision.
+
+The fix: Trust contributors. If they're solving problems you didn't know existed, their solution might be better than yours.
+
+## Founder Mistakes
+
+**Not hiring early enough**
+I tried to do everything myself for too long. When I finally hired, I was behind on product decisions and technical debt.
+
+The fix: Hire early for skills you lack. A co-founder who complements you is worth more than saving on salary.
+
+**Confusing busy with productive**
+I measured success by how many tasks I completed, not whether I solved the right problems.
+
+The fix: Focus on outcomes, not activity. A single well-chosen feature beats 10 half-baked ones.
+
+## What I'm Doing Differently Now
+
+1. **Ship smaller, safer things**
+   Before I was building for a year, now I ship something useful every two weeks.
+
+2. **Write tests first**
+   Every new feature gets tests before implementation. No exceptions.
+
+3. **Talk to users weekly**
+   I set calendar reminders because talking to users is the only way to stay honest.
+
+4. **Protect deep work**
+   Morning = no meetings, no emails, just building.
+
+5. **Under-promise, over-deliver**
+   I set conservative goals and celebrate when I beat them.
+
+## The Real Cost
+
+Each mistake cost me time, money, and reputation. But they also taught me lessons I couldn't have learned otherwise.
+
+I'd rather make mistakes now, when they're cheap, than later when they're expensive.
+
+What mistakes have you made recently? I'm learning too.

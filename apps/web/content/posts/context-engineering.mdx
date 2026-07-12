@@ -1,0 +1,139 @@
+---
+title: "Context Engineering"
+description: "Prompts are just the surface. The real primitive in AI systems isn't prompting - it's context. Here's how we re-architected Vibe's runtime around context as the first-class citizen."
+date: 2026-07-10
+---
+
+Prompt engineering is dead. Long live **context engineering**.
+
+I realized this when we were building Vibe - our AI systems framework. Everyone talks about "prompt engineering", but the real control we have over AI systems isn't in the text we send - it's in the context we give them to work with.
+
+Here's what I mean.
+
+## Prompt Engineering Was Always Table Stakes
+
+Writing better prompts matters. But it's a skill you eventually stop needing because systems can auto-optimize them.
+
+Context, though? That's about what information an AI system actually has to work with. That's **architecture**.
+
+When you're building agentic systems at scale, you spend more time managing context than crafting prompts.
+
+## What Context Actually Means
+
+Context isn't just the prompt string. It's:
+- Knowledge base content
+- User history and preferences  
+- Task state and constraints
+- Available tools and their schemas
+- Previous decisions and their outcomes
+
+Context is the **environment** the AI operates in. And unlike prompts, you can't just "try again" when context fails.
+
+## Why We Re-Architected Vibe
+
+We started with a traditional LLM abstraction - send a prompt, get a response. But when we tried to build real agentic workflows, we kept hitting the same problem: the AI would forget critical information or make incorrect assumptions.
+
+So we rebuilt with context as the core primitive.
+
+## Context as Runtime in Vibe
+
+In Vibe, context isn't a passive payload. It's an active runtime object:
+
+```typescript
+const context = createContext({
+  goal: "Find customer invoice and send follow-up",
+  tools: { emailClient, crm, accounting },
+  history: [...previousActions],
+  constraints: { timeZone: "Europe/Lisbon" }
+});
+
+// Context can be queried, modified, and versioned
+context.addFact("invoice_found", { id: "INV-001", amount: 100 });
+context.getRelevant("customer_preferences", currentTask);
+```
+
+This changes everything. Instead of hoping the prompt captures context, you **manage it explicitly**.
+
+## The Four Context Layers
+
+### 1. System Context
+The immutable facts about your system:
+- Available APIs and their behaviors
+- Time zone and configuration
+- User's role and permissions
+
+### 2. Task Context  
+What the AI is currently trying to accomplish:
+- Goal definition
+- Success criteria
+- Current step in execution plan
+- Available tools for this task
+
+### 3. Historical Context
+What happened before that matters:
+- Previous decisions and their outcomes
+- User corrections and preferences
+- Error recovery attempts
+- Domain-specific context (customer history, etc.)
+
+### 4. Environmental Context
+What's happening in the world:
+- Current date/time
+- API rate limits
+- System load
+
+Each layer has explicit controls for:
+- **Relevance scoring** - what matters right now
+- **Expiration policies** - when it becomes stale
+- **Audit trails** - what was used when
+
+## Context Decay is Real
+
+Most AI systems fail because context decays. The AI loses track of:
+- What it already tried
+- Why that didn't work
+- What the user actually cares about
+
+We built explicit mechanisms in Vibe to prevent this:
+- Automatic context summarization
+- Explicit memory checkpoints
+- Relevance-weighted retrieval
+- Context versioning (rollback capability)
+
+## The Architecture Shift
+
+When you treat context as a runtime primitive, you stop thinking in prompts.
+
+You start thinking in:
+- **Context providers** - where information comes from
+- **Context consumers** - what uses what information
+- **Context boundaries** - what information is shared between agents
+- **Context lifecycle** - when information is created, updated, and pruned
+
+This is why Vibe isn't another agent framework. It's a **context operating system**.
+
+## Real Lessons
+
+### Context Size Isn't Everything
+It's about context quality. 10 accurate facts beat 1000 noisy ones.
+
+### Context Ownership Matters
+Every piece of context should have a clear owner. Who updates customer preferences? The system? The user?
+
+### Context Validation
+Poor context leads to poor decisions. We validate context before execution and after updates.
+
+### Context Partitioning
+Agents shouldn't share raw context. We partition by security boundaries and relevance.
+
+## The Future
+
+I think we'll see:
+- Context stores as infrastructure services
+- Context versioning and audit as table stakes
+- Multi-agent context negotiation protocols
+- Context-aware model selection
+
+Because when AI systems become production tools, they need the same rigor we apply to databases and APIs.
+
+Context engineering isn't glamorous. It's just where the real control lives.

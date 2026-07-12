@@ -1,0 +1,134 @@
+---
+title: "Simplicity Over Complexity"
+description: "Complexity is the enemy. Every abstraction, every dependency, every clever trick is a tax on everyone who touches the code after you. Why I choose boring, obvious solutions."
+date: 2026-07-22
+---
+
+I used to think senior engineers wrote complex code. The clever one-liners. The abstract factories. The meta-programming.
+
+Now I think senior engineers *prevent* complexity.
+
+The best code I've seen looks boring. Obvious. "I could have written that." That's the compliment.
+
+## Complexity Is a Tax
+
+Every piece of complexity costs:
+- **Cognitive load:** Next person (often you) must understand it to change it
+- **Debugging time:** Clever code hides bugs in clever places
+- **Onboarding:** New hires spend weeks learning your "elegant" abstractions
+- **Refactoring risk:** Changing one thing breaks three others in non-obvious ways
+- **Tooling friction:** Linters, type checkers, formatters struggle with clever patterns
+
+The tax compounds. A 10k-line codebase with low complexity is easier to work in than a 2k-line codebase with high complexity.
+
+## The Simplicity Checklist
+
+Before I add *anything*—abstraction, dependency, pattern, config option—I ask:
+
+### 1. "Can I solve this with boring code?"
+
+```typescript
+// Clever: Higher-order component with render props
+const withAuth = (Wrapped) => (props) => (
+  <AuthContext.Consumer>
+    {auth => auth ? <Wrapped {...props} /> : <Login />}
+  </AuthContext.Consumer>
+);
+
+// Boring: Just check in the component
+function Dashboard({ user }) {
+  if (!user) return <Login />;
+  return <DashboardContent user={user} />;
+}
+```
+
+The boring version: readable, debuggable, testable, no library needed.
+
+### 2. "Will this exist in 6 months?"
+
+If I'm not sure the feature survives, I don't abstract it. Copy-paste twice, *then* extract. Premature abstraction is technical debt with better marketing.
+
+### 3. "What does this dependency actually give me?"
+
+```bash
+# Before: npm install lodash
+# After: 
+const groupBy = (arr, key) => arr.reduce((acc, item) => {
+  const k = item[key];
+  (acc[k] = acc[k] || []).push(item);
+  return acc;
+}, {});
+```
+
+3 lines replace a 70KB dependency. The dependency has tests, edge cases, maintenance—but so does *my* code now. And I own it.
+
+### 4. "Can a junior engineer debug this at 2am?"
+
+If the answer is no, simplify. Production bugs don't happen during office hours with full context.
+
+### 5. "What's the exit strategy?"
+
+If this abstraction/dependency/pattern causes pain, how hard is it to remove?
+
+- Utility function: Delete file. Easy.
+- Custom framework: Rewrite half the app. Hard.
+- External service with vendor lock-in: Migrate data, rewrite integrations. Very hard.
+
+Optimize for easy exits.
+
+## Patterns I've Killed in My Codebase
+
+| Pattern | Replaced With | Why |
+|---------|--------------|-----|
+| Custom DI container | Explicit imports | 500 lines → 0 lines, obvious dependencies |
+| Redux-style store | React Context + useReducer | No middleware, no devtools needed, 50 lines |
+| Plugin architecture | Function composition | Plugins never materialized; composition is explicit |
+| Class-based services | Pure functions + modules | Easier to test, tree-shake, understand |
+| Config-driven behavior | Explicit function params | Config files hide coupling; params show it |
+
+Each removal made the codebase smaller, faster to build, easier to onboard.
+
+## When Complexity *Is* Justified
+
+- **Performance critical path:** Dash's CST parser *needs* complexity for speed
+- **Correctness critical path:** Vibe's memory system *needs* formal verification
+- **Platform boundary:** Database driver, HTTP client, OS interface
+- **Stable, reusable core:** Design system components (30+ used daily)
+
+The rule: **Complexity belongs at the boundaries. The center should be boring.**
+
+## The "Junior Test"
+
+I imagine a smart, motivated junior engineer joining the team tomorrow.
+
+- Can they trace a request from API to database in 10 minutes?
+- Can they add a field to a form without asking "where does this go?"
+- Can they fix a bug without breaking three unrelated things?
+
+If the answer to any is "no," the codebase is too complex.
+
+Not "they need more time to learn." The *code* needs to be simpler.
+
+## Simplicity Takes Courage
+
+It's easier to add a layer of abstraction than to say "this doesn't need one."
+
+It's easier to install a library than to write 20 lines of code.
+
+It's easier to build a framework than to solve the specific problem in front of you.
+
+**Simple is harder.** It requires:
+- Saying no to "what if" scenarios
+- Accepting duplication until it *hurts*
+- Writing code that looks "unsophisticated"
+- Deleting your own clever solutions
+
+But simple scales. Complex collapses.
+
+## The Real Senior Move
+
+Junior: "I built a framework for this!"
+Mid: "I used the right library for this."
+Senior: "This doesn't need a framework or a library. Here's 50 lines that solve it."
+
+Be the senior.

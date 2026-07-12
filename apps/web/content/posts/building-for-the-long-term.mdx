@@ -1,0 +1,220 @@
+---
+title: "Building for the Long Term"
+description: "Most software rots in 3 years. Frontal, this site, and my open source are built to last 100. Here's the philosophy and the practical choices that make it possible."
+date: 2026-07-23
+---
+
+I want Frontal to exist in 2126.
+
+Not the same code. Not the same product. But the *company*—the mission, the standards, the people who carry it forward.
+
+That changes every decision I make today.
+
+## The 100-Year Lens
+
+When you optimize for next quarter, you:
+- Cut corners on testing
+- Skip documentation
+- Hire fast, fire slow
+- Accumulate technical debt "temporarily"
+- Choose vendors on price, not stability
+
+When you optimize for 100 years, you:
+- Write tests that survive rewrites
+- Document *why*, not just *what*
+- Hire for values, train for skills
+- Pay down debt before it compounds
+- Choose boring, stable dependencies
+
+The irony: **long-term thinking makes you faster in the short term.**
+
+Code that's easy to change *is* fast to change. Teams that trust each other *move* faster. Systems that don't break *don't* need midnight firefighting.
+
+## Technical Decisions for Longevity
+
+### 1. Choose Technologies That Outlive Hype
+
+| Category | Choice | Why It Lasts |
+|----------|--------|--------------|
+| Language | TypeScript / Rust | Industry standards, massive ecosystems, backed by giants |
+| Runtime | Node.js / Bun | 15+ year track record, not going away |
+| Database | PostgreSQL | 30 years, ACID, extensible, runs everywhere |
+| Auth | OAuth 2.0 / OIDC | Open standards, not vendor lock-in |
+| Hosting | Vercel (now) + portable | Next.js is portable; we can move if needed |
+| Styling | Tailwind CSS v4 | Utility-first, no runtime, standard CSS |
+
+I avoid: proprietary BaaS, single-vendor databases, framework-specific lock-in, "serverless-only" architectures that can't run on a VM.
+
+### 2. Own Your Boundaries
+
+Every external dependency is a risk. I minimize and wrap:
+
+```typescript
+// @gabfon/github - we own this boundary
+export async function getUserRepos(username: string): Promise<Repo[]> {
+  // Octokit is internal. If we switch, consumers don't care.
+  const octokit = createOctokit();
+  return octokit.rest.repos.listForUser({ username });
+}
+```
+
+If GitHub changes their API, or we switch to GitLab, or we mock for tests—one file changes. Consumers see zero diff.
+
+### 3. Schema-First, Code-Second
+
+Every API, every message, every config—Zod schema first.
+
+```typescript
+// The schema IS the contract. Code generates from it.
+const RepoSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  owner: UserSchema,
+  // ...
+});
+
+export type Repo = z.infer<typeof RepoSchema>;
+```
+
+Schemas survive language rewrites. They're the Rosetta Stone between systems.
+
+### 4. Explicit Over Implicit
+
+No magic. No "convention over configuration" that becomes "configuration over comprehension."
+
+```typescript
+// Explicit: obvious what happens
+const client = createGitHubClient({ token: env.GITHUB_TOKEN });
+const repos = await client.getUserRepos('gabrielvfonseca');
+
+// Implicit: where does token come from? What client? What errors?
+const repos = await github.getRepos('gabrielvfonseca');
+```
+
+Explicit code survives team turnover. Implicit code becomes tribal knowledge that evaporates.
+
+### 5. Tests as Living Documentation
+
+```typescript
+// This test documents: "We retry 3x with exponential backoff on 5xx"
+it('retries on server error with exponential backoff', async () => {
+  const server = createMockServer()
+    .get('/repos', { status: 500 })  // attempt 1
+    .get('/repos', { status: 500 })  // attempt 2
+    .get('/repos', { status: 200, body: repos }); // attempt 3
+  
+  const result = await client.getUserRepos('user');
+  expect(result).toEqual(repos);
+  
+  // Verify timing: 100ms, 200ms, 400ms
+  expect(server.requestTimings).toMatchInlineSnapshot(`
+    [100, 300, 700]
+  `);
+});
+```
+
+A new engineer reads this test and *knows* the behavior. No README stays this accurate.
+
+## Organizational Decisions for Longevity
+
+### Hire for Values, Train for Skills
+
+Skills expire in 2-3 years. Values don't.
+
+Our interview weighs:
+- **Ownership** (40%): "Tell me about a mistake you made and fixed."
+- **Clarity** (30%): "Explain a complex system to me in 2 minutes."
+- **Curiosity** (20%): "What did you learn last month?"
+- **Skill** (10%): "Here's a small refactoring task."
+
+A senior engineer with wrong values destroys more than a junior with right values creates.
+
+### Document Decisions, Not Just Code
+
+Every architectural choice gets an ADR (Architecture Decision Record):
+
+```markdown
+# ADR-004: Use PostgreSQL over MongoDB
+
+## Context
+Need durable, relational storage for agent memory.
+
+## Decision
+PostgreSQL with JSONB for flexible fields.
+
+## Consequences
++ ACID transactions for memory consistency
++ Mature tooling, hiring pool
++ JSONB gives document flexibility when needed
+- More schema migration work than schemaless
+- Slightly more complex local dev (Docker required)
+```
+
+Six months later, when someone asks "why not Mongo?", the answer is in the repo. Not in someone's head.
+
+### Make Boring Things Easy, Hard Things Possible
+
+Our internal tooling optimizes for the 90% case:
+- `pnpm new:package` scaffolds a complete `@gabfon/*` package
+- `pnpm changeset` handles versioning + changelog
+- `pnpm deploy` deploys to preview/production
+- CI runs typecheck, lint, test, build in parallel
+
+The hard things (custom deployment, weird integration) are *possible* because we didn't hardcode assumptions. But they're manual—and that's fine, they're rare.
+
+## Financial Discipline for Longevity
+
+- **Profitability > Growth at all costs.** We charge from day 1. No "free tier forever" that creates unsustainable unit economics.
+- **Runway > Valuation.** We raise enough for 24 months + 5 months buffer. Never optimize for headline number.
+- **Ownership concentration.** Founders + employees own majority. No board control by investors who need 10x in 7 years.
+
+This lets us say no to bad deals, bad hires, bad features. The freedom to be long-term greedy.
+
+## Cultural Artifacts
+
+**Weekly "State of the Union" (15 min):**
+- Metrics: revenue, churn, usage, team health
+- Decisions: what we chose, what we rejected
+- Risks: what keeps us up at night
+
+**Quarterly "Pre-Mortem":**
+> "It's 2 years from now. Frontal failed. What killed it?"
+> 
+> Write 5 scenarios. Assign owners to prevent each.
+
+**Annual "Founder Letter":**
+Written to the team (and future team). State of mission, mistakes, direction. Archived forever.
+
+## The Compounding Loop
+
+Long-term thinking creates a flywheel:
+
+```
+Clear code → Faster changes → More customer value → More revenue
+    ↓
+Better hires → Better culture → Better decisions → Clearer code
+    ↓
+Stable infra → Fewer incidents → More trust → Bigger bets
+```
+
+Each turn makes the next easier. The opposite—short-term thinking—creates a death spiral.
+
+## What This Looks Like Day-to-Day
+
+- I spend 20% of my time on "tax": docs, tests, ADRs, tooling
+- We reject features that don't fit the 5-year vision
+- We over-communicate: weekly updates, public roadmap, open issues
+- We celebrate *deleting* code more than adding it
+- We optimize for the maintainer, not the author
+
+## The Honest Answer
+
+I don't know if Frontal lasts 100 years. Most companies don't.
+
+But I know this: **every decision above makes us better *today*, regardless of tomorrow.**
+
+If we fail, it won't be because we wrote clean code, hired well, documented decisions, or chose boring tech.
+
+It'll be because we built something nobody wanted. And long-term thinking helps there too—by forcing us to talk to customers *now*, not "after launch."
+
+Build for the long term because it's the only way to build well for the short term.

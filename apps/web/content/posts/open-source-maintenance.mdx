@@ -1,0 +1,201 @@
+---
+title: "Open Source Maintenance"
+description: "What I've learned maintaining 16 packages, a design system, and this site. The unglamorous work that keeps open source usable, and why most projects fail at it."
+date: 2026-07-18
+---
+
+I maintain 16 packages in my monorepo. I open-source my entire site. I've contributed to shadcn/ui, submitted PRs to Next.js, and run a design system used in production.
+
+Here's what maintenance actually looks like—and why most projects get it wrong.
+
+## The Reality: Maintenance Is Not Coding
+
+Coding is the fun part. Maintenance is:
+- Updating 47 dependencies across 16 packages every week
+- Responding to "this doesn't work" issues that are actually user errors
+- Writing changelogs nobody reads but everyone complains about when missing
+- Saying no to features that don't fit the project's scope
+- Backporting security fixes to versions you'd rather forget
+
+If you only like the coding part, don't open source your project. Keep it private.
+
+## My Maintenance Stack
+
+**Automation first, human review second:**
+
+```yaml
+# .github/workflows/maintenance.yml
+- Dependabot: Daily PRs for dependency updates
+- Renovate: Groups related updates, auto-merges patch/minor with passing tests
+- CodeQL: Static analysis on every PR
+- pnpm audit: Blocks vulnerable dependencies
+- Changesets: Enforced changelog entries on every PR
+```
+
+**Human gates:**
+- Every PR needs typecheck + lint + test pass
+- Breaking changes require a changeset entry
+- Security alerts block merge until addressed
+- I review every PR (it's just me, but the process scales)
+
+## The Four Pillars
+
+### 1. Stability Over Features
+
+My packages don't get new features often. They get:
+- Bug fixes
+- Dependency updates
+- Type improvements
+- Performance tweaks
+
+When someone asks for a feature, I ask: "Does this belong in the core, or should you fork?"
+
+Scope creep kills maintainability. A package that does one thing well is maintainable. A package that does five things "okay" is a burden.
+
+### 2. Explicit Versioning
+
+Every package uses Changesets. Every PR that changes behavior *must* include a changeset.
+
+```markdown
+# .changeset/add-github-retry-logic.md
+---
+"@gabfon/github": minor
+---
+
+Add automatic retry with exponential backoff for 5xx errors.
+```
+
+This forces me to think: *Is this a patch, minor, or major?* If I can't decide, the design isn't clear enough.
+
+### 3. Migration Over Deprecation
+
+When I change an API:
+
+```typescript
+// Old - kept for one major version
+/**
+ * @deprecated Use `createGitHubClient` instead.
+ * Will be removed in v2.0.0.
+ */
+export function createClient(options: ClientOptions): GitHubClient {
+  console.warn('[github] createClient is deprecated. Use createGitHubClient.');
+  return createGitHubClient(options);
+}
+
+// New
+export function createGitHubClient(options: ClientOptions): GitHubClient { ... }
+```
+
+Users get a warning, not a broken build. They have time to migrate.
+
+### 4. Documentation as Code
+
+If it's not in the types, it doesn't exist. If it's not in the README, it's not discoverable.
+
+My package README template:
+
+```markdown
+# @gabfon/package-name
+
+One-line description.
+
+## Installation
+```bash
+pnpm add @gabfon/package-name
+```
+
+## Quick Start
+```typescript
+import { thing } from '@gabfon/package-name';
+const result = thing({ option: true });
+```
+
+## API
+See `src/index.ts` for complete typed API.
+
+## License
+MIT
+```
+
+No separate docs site. No tutorial hell. Types + README = complete documentation.
+
+## Handling Issues
+
+**Template for every issue:**
+
+```markdown
+## Environment
+- Package version:
+- Node/Bun version:
+- OS:
+
+## Expected Behavior
+
+## Actual Behavior
+
+## Minimal Reproduction
+```
+
+I close issues without this template. Not to be mean—because without it, I can't help.
+
+**Labels I use:**
+- `bug` — Something's broken
+- `enhancement` — Feature request (default: closed unless aligned with scope)
+- `question` — Usage question (I answer, then close)
+- `good first issue` — Rare, but I tag them when they exist
+- `wontfix` — Explicitly out of scope
+
+**Response time:** I try for 48 hours. If I can't reproduce, I ask for a reproduction repo. No repo = no fix.
+
+## Dependencies: The Silent Killer
+
+Most "my package broke" issues are actually "a dependency changed."
+
+My strategy:
+1. **Pin major versions** in `package.json` (`"@octokit/rest": "^20.0.0"`)
+2. **Allow minor/patch auto-updates** via Renovate
+3. **Test against latest minor** in CI
+4. **Audit weekly** with `pnpm audit --prod`
+
+If a dependency goes unmaintained, I vendor it or replace it. No exceptions.
+
+## Security: Boring but Critical
+
+- `pnpm audit` on every CI run
+- CodeQL + Snyk scanning
+- GPG-signed commits (enforced by husky)
+- `package.json` has `"publishConfig": { "access": "public", "provenance": true }`
+- 2FA on npm and GitHub (obviously)
+
+I treat every package as if it runs in a bank. Because someone's does.
+
+## The Hard Part: Saying No
+
+"I'd love to add GraphQL support to @gabfon/github!"
+
+No. The package is for REST. GraphQL is a different client.
+
+"But it would be so convenient!"
+
+Convenience for you = complexity for everyone else. Fork it. Extend it. Publish your own.
+
+"No" protects the project. "Yes" to everything kills it.
+
+## Burnout Prevention
+
+I don't maintain 16 packages alone in the sense of "I do all the work."
+
+- **Automation does 90%:** Dependabot, Renovate, Changesets, CI
+- **Scope limits the rest:** Each package has a narrow, documented purpose
+- **I batch maintenance:** Monday mornings = dependency updates, security audits, issue triage
+- **I archive fearlessly:** Packages that don't serve me get archived. No guilt.
+
+## Why Bother?
+
+Because when I `pnpm add @gabfon/github` in a new project, it works. Types are there. API is stable. No surprises.
+
+That's the product of maintenance. Not the code—the *reliability*.
+
+Users don't thank you for maintenance. They notice when it's missing.
+
+Be the maintainer you'd want to depend on.
