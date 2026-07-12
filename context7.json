@@ -1,0 +1,33 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "gabfon",
+  "description": "Personal website and portfolio of Gabriel Fonseca — a Turborepo monorepo with Next.js, CMS, database, design system, and observability packages",
+  "folders": [
+    "docs",
+    "apps/web",
+    "apps/cms",
+    "packages/database",
+    "packages/design-system",
+    "packages/seo",
+    "packages/analytics",
+    "packages/security",
+    "packages/testing"
+  ],
+  "excludeFolders": [
+    "node_modules",
+    ".next",
+    "dist",
+    "build",
+    ".turbo",
+    ".cache",
+    "migrations"
+  ],
+  "excludeFiles": ["CHANGELOG.md", "LICENSE"],
+  "rules": [
+    "Turborepo monorepo — apps/ contains web and cms, packages/ contains shared libraries",
+    "Database schema and queries in packages/database",
+    "UI components in packages/design-system",
+    "Next.js app router in apps/web",
+    "TypeScript strict mode throughout"
+  ]
+}
