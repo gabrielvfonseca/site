@@ -1,6 +1,18 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
 
+// React and Turbopack rely on `eval()` for hot reloading and debugging features
+// in development, so `'unsafe-eval'` must be allowed there. It is intentionally
+// omitted in production to keep the policy strict.
+const isDevelopment = process.env.NODE_ENV === 'development';
+const scriptSrc = [
+  "'self'",
+  "'unsafe-inline'",
+  'https://va.vercel-scripts.com',
+  ...(isDevelopment ? ["'unsafe-eval'"] : []),
+].join(' ');
+const contentSecurityPolicy = `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://va.vercel-scripts.com; font-src 'self'; object-src 'none'; base-uri 'self';`;
+
 export const config: NextConfig = {
   // Security headers for production
   // biome-ignore lint/suspicious/useAwait: required for Next.js config
@@ -12,8 +24,7 @@ export const config: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://va.vercel-scripts.com; font-src 'self'; object-src 'none'; base-uri 'self';",
+            value: contentSecurityPolicy,
           },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },

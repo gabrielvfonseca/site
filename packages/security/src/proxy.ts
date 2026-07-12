@@ -7,6 +7,11 @@ export { createMiddleware as noseconeMiddleware } from '@nosecone/next';
 // https://docs.arcjet.com/nosecone/quick-start
 export const noseconeOptions = {
   ...defaults,
+  // Disable Cross-Origin-Embedder-Policy. The default `require-corp` blocks
+  // cross-origin resources that don't send a CORP header, including the
+  // OpenStreetMap tiles used by the /now map. This site doesn't rely on
+  // cross-origin isolation (SharedArrayBuffer, etc.), so relaxing it is safe.
+  crossOriginEmbedderPolicy: false as const,
   // Content Security Policy (CSP) configuration
   // In development, enable unsafe-eval for React's debugging features
   contentSecurityPolicy:
@@ -28,6 +33,13 @@ export const noseconeOptions = {
               ...(defaults.contentSecurityPolicy?.directives?.connectSrc ||
                 (["'self'"] as const)),
               'https://va.vercel-scripts.com' as const, // Vercel Analytics beacon
+            ] as const,
+            imgSrc: [
+              ...(defaults.contentSecurityPolicy?.directives?.imgSrc ||
+                (["'self'"] as const)),
+              'data:' as const,
+              'blob:' as const,
+              'https://*.basemaps.cartocdn.com' as const, // CARTO map tiles on /now
             ] as const,
           },
         }
