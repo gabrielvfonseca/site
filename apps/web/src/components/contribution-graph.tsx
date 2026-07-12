@@ -26,12 +26,16 @@ interface ActivityData {
   range: { start: string; end: string };
 }
 
-/** Monochrome intensity scale: subtle (empty) to full foreground (busiest). */
+/**
+ * Monochrome intensity scale: an empty baseline then four evenly-stepped
+ * `foreground` opacities so each level is clearly distinguishable on both the
+ * dark and light backgrounds (theme-flipping via the `foreground` token).
+ */
 const LEVEL_CLASS = [
   'bg-muted',
-  'bg-muted-foreground/25',
-  'bg-muted-foreground/45',
-  'bg-muted-foreground/70',
+  'bg-foreground/30',
+  'bg-foreground/50',
+  'bg-foreground/75',
   'bg-foreground',
 ] as const;
 

@@ -24,6 +24,8 @@ const LEVEL_1_MAX = 0.25;
 const LEVEL_2_MAX = 0.5;
 const LEVEL_3_MAX = 0.75;
 const QUARTILE_THRESHOLDS = [LEVEL_1_MAX, LEVEL_2_MAX, LEVEL_3_MAX];
+/** Percentile of active days used as the intensity ceiling (outlier-robust). */
+const LEVEL_PERCENTILE = 0.9;
 
 interface Cell {
   date: string;
@@ -152,8 +154,20 @@ export async function GET(request: NextRequest) {
     });
   }
 
+  // Scale intensity against a robust ceiling (the 90th percentile of active
+  // days) rather than the single busiest day, so one outlier day doesn't
+  // squash every typical day down to level 1.
+  const activeCounts = cells
+    .map((cell) => cell.count)
+    .filter((count) => count > 0)
+    .sort((a, b) => a - b);
+  const ceiling = activeCounts.length
+    ? (activeCounts[Math.floor((activeCounts.length - 1) * LEVEL_PERCENTILE)] ??
+      max)
+    : max;
+
   for (const cell of cells) {
-    cell.level = levelFor(cell.count, max);
+    cell.level = levelFor(cell.count, ceiling);
   }
 
   const weeks: (Cell | null)[][] = [];
