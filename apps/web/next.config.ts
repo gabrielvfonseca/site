@@ -19,6 +19,14 @@ let nextConfig: NextConfig = withToolbar(
     // Self-contained server bundle for the Docker runtime image.
     output: 'standalone',
     outputFileTracingRoot: monorepoRoot,
+    // The `opengraph-image`/`twitter-image` routes read bundled Geist TTFs at
+    // runtime; ensure file tracing ships them with the serverless functions.
+    outputFileTracingIncludes: {
+      '/opengraph-image': ['./apps/web/assets/fonts/*.ttf'],
+      '/twitter-image': ['./apps/web/assets/fonts/*.ttf'],
+      '/posts/[slug]/opengraph-image': ['./apps/web/assets/fonts/*.ttf'],
+      '/projects/[slug]/opengraph-image': ['./apps/web/assets/fonts/*.ttf'],
+    },
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
     transpilePackages: [
       '@gabfon/analytics',
