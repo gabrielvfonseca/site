@@ -3,6 +3,7 @@ import { createMetadata } from '@gabfon/seo/metadata';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import type { JSX } from 'react';
+import { LisbonMap } from '@/components/now/lisbon-map';
 import { NowLive } from '@/components/now/now-live';
 import { CONFIG } from '@/constants/config';
 import {
@@ -53,6 +54,21 @@ export default function Page(): JSX.Element {
       </section>
 
       <NowLive />
+
+      <section
+        aria-labelledby="now-map-heading"
+        className="flex scroll-mt-8 flex-col gap-4"
+      >
+        <div className="flex flex-col gap-1">
+          <h2 className="font-semibold text-lg" id="now-map-heading">
+            Around Lisbon
+          </h2>
+          <p className="text-muted-foreground text-sm">
+            My favourite spots for coffee and getting work done.
+          </p>
+        </div>
+        <LisbonMap />
+      </section>
 
       {NOW_SECTIONS.map((section, index) => {
         const headingId = `now-section-${index}-heading`;

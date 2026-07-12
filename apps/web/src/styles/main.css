@@ -173,10 +173,6 @@
   margin-top: 1.5rem;
 }
 
-.prose p {
-  margin: 0;
-}
-
 /*
  * Headings match the homepage section headings exactly: `font-semibold
  * text-lg`. A larger lead-in gap echoes the `gap-12` between homepage
@@ -543,4 +539,101 @@
     animation: none;
     transform: scaleY(0.6);
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Lisbon map (/now) — on-brand Leaflet overrides. Kept unlayered so they win  */
+/* over Leaflet's own stylesheet, and driven by design-system tokens so the    */
+/* map tracks light/dark automatically. Popup/control selectors are scoped     */
+/* under `.leaflet-container` to out-specify Leaflet's defaults, which load     */
+/* after main.css (the map stylesheet is imported by the lazy canvas).         */
+/* -------------------------------------------------------------------------- */
+.leaflet-container.leaflet-container {
+  background: var(--color-muted);
+  font-family: inherit;
+  outline: none;
+}
+
+/* Custom marker: a soft circular chip carrying the category glyph. */
+.lisbon-pin {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.12),
+    0 4px 12px rgb(0 0 0 / 0.14);
+  font-size: 0.95rem;
+  line-height: 1;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.lisbon-pin:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow:
+    0 2px 4px rgb(0 0 0 / 0.14),
+    0 8px 20px rgb(0 0 0 / 0.18);
+}
+
+/* Popups styled to match cards: bordered surface, muted body, no default chrome. */
+.leaflet-container .leaflet-popup-content-wrapper {
+  background: var(--color-popover);
+  color: var(--color-popover-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.16);
+}
+
+.leaflet-container .leaflet-popup-content {
+  margin: 0.75rem 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.leaflet-container .leaflet-popup-tip {
+  background: var(--color-popover);
+  border: 1px solid var(--color-border);
+}
+
+.leaflet-container .leaflet-popup-close-button {
+  color: var(--color-muted-foreground);
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: var(--color-foreground);
+  background: transparent;
+}
+
+/* Zoom control + attribution: quiet, bordered, theme-aware. */
+.leaflet-container .leaflet-bar {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+}
+
+.leaflet-container .leaflet-bar a {
+  background: var(--color-card);
+  color: var(--color-foreground);
+  border-bottom-color: var(--color-border);
+}
+
+.leaflet-container .leaflet-bar a:hover {
+  background: var(--color-muted);
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: color-mix(in oklch, var(--color-card) 80%, transparent);
+  color: var(--color-muted-foreground);
+  font-size: 0.625rem;
+  border-top-left-radius: var(--radius-sm);
+}
+
+.leaflet-container .leaflet-control-attribution a {
+  color: var(--color-muted-foreground);
 }

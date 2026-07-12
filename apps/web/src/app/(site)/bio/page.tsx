@@ -172,11 +172,12 @@ export default function Page(): JSX.Element {
         </h2>
         <p>
           Outside of work I follow AI and productivity closely, enjoy writing
-          about what I learn, and spend time running and staying active.
-          I&apos;m drawn to good design in every form including typography,
-          product, and cities. I take a lot of inspiration from things that are
-          built to last. I believe in building in public and sharing the journey
-          along the way.
+          about what I learn, and spend time running and staying active. Music
+          is a constant too: I play guitar, DJ, and keep a set of decks at home
+          for when I need to step away from the screen. I&apos;m drawn to good
+          design in every form including typography, product, and cities. I take
+          a lot of inspiration from things that are built to last. I believe in
+          building in public and sharing the journey along the way.
         </p>
         <p>
           Lisbon is a big part of the story too: the light, the pace, and a

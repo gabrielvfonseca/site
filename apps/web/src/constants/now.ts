@@ -38,7 +38,6 @@ export interface NowStat {
  */
 export const NOW_STATS: readonly NowStat[] = [
   { label: 'Coffees', value: '14', hint: 'This week' },
-  { label: 'Books', value: '3', hint: 'This year' },
 ];
 
 /** Date this page was last updated (ISO `YYYY-MM-DD`). */
@@ -70,51 +69,8 @@ export const NOW_SECTIONS: readonly NowSection[] = [
     ],
   },
   {
-    title: 'Building',
-    items: [
-      {
-        label: 'Frontal',
-        detail:
-          'Product strategy, user research, and full-stack engineering, keeping the experience simple as the surface area grows.',
-      },
-      {
-        label: 'This site',
-        detail:
-          'An ongoing playground for design and Next.js with small, focused improvements as I learn.',
-      },
-    ],
-  },
-  {
-    title: 'Learning',
-    items: [
-      {
-        label: 'Applied AI',
-        detail: 'Agentic workflows and evals in production.',
-      },
-      {
-        label: 'Design details',
-        detail:
-          'Typography, motion, and the small touches that make software feel trustworthy.',
-      },
-    ],
-  },
-  {
-    title: 'Writing',
-    items: [
-      {
-        label: 'Building in public',
-        detail:
-          'Notes on the founder journey, engineering, and lessons from shipping.',
-      },
-    ],
-  },
-  {
     title: 'Habits',
     items: [
-      {
-        label: 'Reading daily',
-        detail: 'A little every day beats a lot occasionally.',
-      },
       {
         label: 'Deep-work mornings',
         detail: 'Protecting the first hours of the day for focused building.',
@@ -131,6 +87,11 @@ export const NOW_SECTIONS: readonly NowSection[] = [
       {
         label: 'Good coffee and long walks',
         detail: 'Where most of the thinking actually happens.',
+      },
+      {
+        label: 'Music, DJing, and guitar',
+        detail:
+          'Playing guitar and mixing on the decks — the best way to reset off the clock.',
       },
     ],
   },
