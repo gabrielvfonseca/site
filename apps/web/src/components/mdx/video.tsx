@@ -51,7 +51,7 @@ export function Video({
         )}
       </div>
       {caption ? (
-        <figcaption className="text-center text-muted-foreground text-xs leading-normal">
+        <figcaption className="text-center text-[length:var(--font-size-caption)] text-muted-foreground leading-normal">
           {caption}
         </figcaption>
       ) : null}

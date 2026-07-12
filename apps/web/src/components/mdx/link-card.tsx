@@ -41,7 +41,7 @@ export function LinkCard({
   return (
     <Link
       className={cn(
-        'not-prose group flex items-center justify-between gap-4 rounded-lg border border-border bg-muted/[var(--opacity-muted)] px-5 py-4 no-underline transition-colors duration-200 hover:border-foreground/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        'not-prose group flex items-center justify-between gap-4 rounded-lg border border-border bg-muted/[var(--opacity-muted)] px-5 py-4 no-underline transition-colors duration-200 hover:border-foreground/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none',
         className
       )}
       href={href}
@@ -64,7 +64,7 @@ export function LinkCard({
       </span>
       <ArrowUpRightIcon
         aria-hidden="true"
-        className="group-hover:-translate-y-0.5 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-foreground"
+        className="group-hover:-translate-y-0.5 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-foreground motion-reduce:transition-none"
       />
     </Link>
   );

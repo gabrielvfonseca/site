@@ -26,15 +26,15 @@ export function Lead({
   className,
 }: LeadProps): JSX.Element {
   return (
-    <p
+    <div
       className={cn(
-        'text-balance text-foreground text-lg leading-relaxed sm:text-xl',
+        'text-balance text-foreground text-lg leading-relaxed sm:text-xl [&>p]:m-0',
         dropcap &&
-          '[&::first-letter]:float-left [&::first-letter]:mr-2 [&::first-letter]:font-semibold [&::first-letter]:text-5xl [&::first-letter]:leading-[0.8]',
+          '[&>p::first-letter]:float-left [&>p::first-letter]:mr-2 [&>p::first-letter]:font-semibold [&>p::first-letter]:text-5xl [&>p::first-letter]:leading-[0.8]',
         className
       )}
     >
       {children}
-    </p>
+    </div>
   );
 }

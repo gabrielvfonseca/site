@@ -1,64 +1,62 @@
-import {
-  LINK_CLASS,
-  LINK_EXTERNAL_CLASS,
-} from '@gabfon/design-system/lib/constants';
+import { LINK_CLASS_PROSE } from '@gabfon/design-system/lib/constants';
 import type { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps } from 'react';
 import { Accordion, AccordionItem } from '@/components/mdx/accordion';
+import { Bookmark } from '@/components/mdx/bookmark';
 import { Callout } from '@/components/mdx/callout';
 import { CodeBlock } from '@/components/mdx/code-block';
+import { CodeGroup } from '@/components/mdx/code-group';
+import { Details } from '@/components/mdx/details';
 import { Divider } from '@/components/mdx/divider';
+import { Embed } from '@/components/mdx/embed';
+import { Epigraph } from '@/components/mdx/epigraph';
 import { Figure } from '@/components/mdx/figure';
+import { FurtherReading } from '@/components/mdx/further-reading';
+import { Gallery } from '@/components/mdx/gallery';
+import { Gist } from '@/components/mdx/gist';
+import { Highlight } from '@/components/mdx/highlight';
 import { Kbd } from '@/components/mdx/kbd';
+import { Lead } from '@/components/mdx/lead';
 import { LinkCard } from '@/components/mdx/link-card';
+import { Mermaid } from '@/components/mdx/mermaid';
+import { Newsletter } from '@/components/mdx/newsletter';
 import { PullQuote } from '@/components/mdx/pull-quote';
+import { Share } from '@/components/mdx/share';
+import { Sidenote } from '@/components/mdx/sidenote';
 import { Stat, StatGrid } from '@/components/mdx/stat';
 import { Step, Steps } from '@/components/mdx/steps';
 import { Tabbed } from '@/components/mdx/tabbed';
 import { TechStack } from '@/components/mdx/tech-stack';
+import { Terminal } from '@/components/mdx/terminal';
+import { Tweet } from '@/components/mdx/tweet';
 import { Video } from '@/components/mdx/video';
+import { slugifyNode } from '@/lib/slugify';
 import { cn } from '@/lib/utils';
 
 /** Matches absolute http(s) URLs (external links). */
 const EXTERNAL_URL = /^https?:\/\//;
-/** Characters stripped when slugifying heading text. */
-const NON_SLUG_CHARS = /[^\w\s-]/g;
-/** Runs of whitespace collapsed to a single hyphen. */
-const WHITESPACE = /\s+/g;
 
-/** Flatten MDX heading children to plain text for slug generation. */
-function toText(node: ReactNode): string {
-  if (typeof node === 'string' || typeof node === 'number') {
-    return String(node);
-  }
-  if (Array.isArray(node)) {
-    return node.map(toText).join('');
-  }
-  if (node && typeof node === 'object' && 'props' in node) {
-    return toText(
-      (node as { props?: { children?: ReactNode } }).props?.children
-    );
-  }
-  return '';
-}
-
-/** GitHub-style slug from heading text, used as a deep-link id. */
-function slugify(node: ReactNode): string {
-  return toText(node)
-    .toLowerCase()
-    .trim()
-    .replace(NON_SLUG_CHARS, '')
-    .replace(WHITESPACE, '-');
-}
-
-/** Factory for deep-linkable headings (adds a slug `id` for `#anchor` links). */
+/**
+ * Factory for deep-linkable headings. Adds a slug `id` for `#anchor` links and
+ * a hover-revealed `#` link so readers can grab a permalink to any section.
+ */
 function anchoredHeading(Tag: 'h2' | 'h3' | 'h4') {
-  const AnchoredHeading = ({ children, ...props }: ComponentProps<'h2'>) => (
-    <Tag className="scroll-mt-24" id={slugify(children)} {...props}>
-      {children}
-    </Tag>
-  );
+  const AnchoredHeading = ({ children, ...props }: ComponentProps<'h2'>) => {
+    const id = slugifyNode(children);
+    return (
+      <Tag className="group scroll-mt-24" id={id} {...props}>
+        <a
+          aria-label="Link to this section"
+          className="-ml-5 pr-1 text-muted-foreground no-underline opacity-0 transition-opacity duration-150 focus:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-40"
+          href={`#${id}`}
+        >
+          #
+        </a>
+        {children}
+      </Tag>
+    );
+  };
   return AnchoredHeading;
 }
 
@@ -82,13 +80,45 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
     Divider,
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Details,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Epigraph,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
     Figure,
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Highlight,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
     Kbd,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Lead,
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
     LinkCard,
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
     PullQuote,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Sidenote,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    CodeGroup,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Terminal,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Mermaid,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Gallery,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Tweet,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Embed,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Gist,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Bookmark,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Newsletter,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    FurtherReading,
+    // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
+    Share,
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
     Stat,
     // biome-ignore lint/style/useNamingConvention: MDX components are referenced by PascalCase names in .mdx
@@ -112,7 +142,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const external = EXTERNAL_URL.test(url);
       return (
         <Link
-          className={external ? LINK_EXTERNAL_CLASS : LINK_CLASS}
+          className={cn(
+            LINK_CLASS_PROSE,
+            external && 'inline-flex items-center gap-1'
+          )}
           href={url}
           {...(external
             ? { target: '_blank', rel: 'noopener noreferrer' }
@@ -134,7 +167,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     table: ({ className, ...props }: ComponentProps<'table'>) => (
-      <div className="my-6 w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto">
         <table
           className={cn('w-full border-collapse text-sm', className)}
           {...props}

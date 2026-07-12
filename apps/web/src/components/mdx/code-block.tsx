@@ -15,6 +15,11 @@ const COPIED_RESET_MS = 2000;
 interface CodeBlockProps extends ComponentProps<'pre'> {
   /** Optional filename/title rendered in the header bar. */
   readonly title?: string;
+  /**
+   * When true, render only the `<pre>` without the surrounding card, header or
+   * copy button. Used by {@link CodeGroup}, which supplies shared chrome.
+   */
+  readonly bare?: boolean;
 }
 
 /**
@@ -27,6 +32,7 @@ interface CodeBlockProps extends ComponentProps<'pre'> {
  */
 export function CodeBlock({
   title,
+  bare = false,
   className,
   children,
   ...props
@@ -45,15 +51,30 @@ export function CodeBlock({
     }
   };
 
+  if (bare) {
+    return (
+      <pre
+        className={cn(
+          '!my-0 !rounded-none !border-0 overflow-x-auto',
+          className
+        )}
+        ref={preRef}
+        {...props}
+      >
+        {children}
+      </pre>
+    );
+  }
+
   return (
-    <div className="not-prose group relative my-6 overflow-hidden rounded-lg border border-border bg-muted/[var(--opacity-muted)]">
+    <div className="not-prose group relative overflow-hidden rounded-lg border border-border bg-muted/[var(--opacity-muted)]">
       <div className="flex items-center justify-between border-border border-b py-2 pr-2 pl-4">
         <span className="font-medium font-mono text-muted-foreground text-xs tracking-wide">
           {title ?? 'Code'}
         </span>
         <button
           aria-label={copied ? 'Copied' : 'Copy code'}
-          className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors duration-200 hover:bg-accent hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors duration-200 hover:bg-accent hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           onClick={copy}
           type="button"
         >

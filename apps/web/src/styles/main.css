@@ -162,6 +162,17 @@
   margin-top: 1rem;
 }
 
+/*
+ * Custom MDX blocks (Callout, CodeBlock, Figure, Steps, …) are all marked
+ * `.not-prose`. They earn a touch more air than body paragraphs. Owning the
+ * spacing here — instead of per-component `my-*` utilities — keeps a single
+ * source of truth for block rhythm and avoids the specificity clash where the
+ * generic `> * + *` rule silently overrode a component's own top margin.
+ */
+.prose > * + .not-prose {
+  margin-top: 1.5rem;
+}
+
 .prose p {
   margin: 0;
 }
@@ -282,7 +293,10 @@
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
   background: color-mix(in oklch, var(--color-muted) 60%, transparent);
-  white-space: nowrap;
+  /* Keep short snippets tidy, but let long tokens (URLs, identifiers) wrap
+   * instead of forcing horizontal scroll on narrow screens. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .prose :not(pre) > code::before,
@@ -332,27 +346,181 @@
 }
 
 /*
- * Monochrome code blocks.
+ * Syntax-highlighted code blocks (Vercel/Geist look).
  *
- * Shiki's `github-light` / `github-dark` themes ship a tinted surface
- * (#24292e) and full-colour tokens (reds, blues, greens, purples) that clash
- * with the strict black/gray/white system. We neutralise the surface so the
- * block sits on the design-system tokens, then desaturate the syntax to a
- * quiet range of greys — highlighting is preserved as luminance, not hue.
- * The `.dark …` selectors match the specificity of the design-system's own
- * `!important` overrides so these win by source order.
+ * Shiki emits a dual-theme block: each token carries `--shiki-light`
+ * (vitesse-light) and `--shiki-dark` (vesper) colours. We neutralise the
+ * theme's own surface so the block sits on the design-system muted panel
+ * (border + header bar are owned by the `CodeBlock` component), keep the
+ * light palette by default, and swap every token to its `--shiki-dark` value
+ * under `.dark`. The `.dark …` selectors match the specificity of the
+ * design-system's own `!important` overrides so these win by source order.
  */
 .prose .shiki,
 .dark .prose .shiki {
   background: transparent !important;
   border: 0 !important;
   padding: 1rem;
-  filter: grayscale(1) contrast(1.05);
 }
 
 .prose .shiki span,
 .dark .prose .shiki span {
   background-color: transparent !important;
+}
+
+/* Activate the dark (vesper) palette: recolour tokens to their dark value. */
+.dark .prose .shiki,
+.dark .prose .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+/*
+ * Shiki transformer output. Lines are `<span class="line">`; the meta and
+ * notation transformers tag them with `.highlighted`, `.diff.add/.remove` and
+ * `.focused`. The line accents stay neutral (foreground tints + a hairline
+ * gutter bar) so they read as structure over the syntax colour rather than
+ * competing with it, and raise specificity to beat the transparent-span reset
+ * above.
+ */
+.prose .shiki .line {
+  display: inline-block;
+  width: 100%;
+  padding-inline: 1rem;
+  margin-inline: -1rem;
+  border-left: 2px solid transparent;
+}
+
+.prose .shiki .line.highlighted {
+  background-color: color-mix(
+    in oklch,
+    var(--color-foreground) 8%,
+    transparent
+  ) !important;
+  border-left-color: var(--color-foreground);
+}
+
+.prose .shiki .line.diff {
+  background-color: color-mix(
+    in oklch,
+    var(--color-foreground) 6%,
+    transparent
+  ) !important;
+}
+
+.prose .shiki .line.diff.add {
+  border-left-color: var(--color-foreground);
+}
+
+.prose .shiki .line.diff.remove {
+  opacity: 0.55;
+  border-left-color: var(--color-muted-foreground);
+}
+
+.prose .shiki .line.diff::before {
+  position: absolute;
+  margin-left: -0.75rem;
+  color: var(--color-muted-foreground);
+}
+
+.prose .shiki .line.diff.add::before {
+  content: "+";
+}
+
+.prose .shiki .line.diff.remove::before {
+  content: "-";
+}
+
+.prose .shiki.has-focused .line:not(.focused) {
+  filter: blur(0.095rem);
+  opacity: 0.5;
+  transition:
+    filter 0.2s,
+    opacity 0.2s;
+}
+
+.prose .shiki.has-focused:hover .line:not(.focused) {
+  filter: none;
+  opacity: 1;
+}
+
+/*
+ * Footnotes (GFM `[^1]`). remark-gfm emits a `<section class="footnotes">`
+ * with an ordered list and back-references. Style it as a quiet, hairline-
+ * separated appendix that matches the body scale.
+ */
+.prose sup a[data-footnote-ref],
+.prose sup a {
+  font-size: 0.75em;
+  font-weight: 500;
+  padding: 0 0.15em;
+  text-decoration: none;
+}
+
+.prose .footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-muted-foreground);
+}
+
+.prose .footnotes h2 {
+  font-size: var(--font-size-body-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted-foreground);
+  margin-top: 0;
+}
+
+.prose .footnotes ol {
+  margin-top: 1rem;
+}
+
+.prose .footnotes li + li {
+  margin-top: 0.5rem;
+}
+
+.prose a[data-footnote-backref] {
+  text-decoration: none;
+}
+
+/* GFM task lists (`- [ ]` / `- [x]`) — drop the bullet, align the checkbox. */
+.prose li:has(> input[type="checkbox"]) {
+  list-style: none;
+}
+
+.prose li > input[type="checkbox"] {
+  margin-right: 0.5em;
+  vertical-align: middle;
+  accent-color: var(--color-foreground);
+}
+
+.prose ul > li:has(> input[type="checkbox"])::before {
+  content: none;
+}
+
+/* Inline highlight — quiet tinted underlay, not a loud marker. */
+.prose mark {
+  background: color-mix(in oklch, var(--color-foreground) 12%, transparent);
+  color: var(--color-foreground);
+  padding: 0.05em 0.2em;
+  border-radius: 0.25em;
+}
+
+/* Definition lists (`<dl>`). */
+.prose dt {
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.prose dd {
+  margin-left: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-border);
+}
+
+.prose dd + dt {
+  margin-top: 1rem;
 }
 
 /* "Now playing" equalizer bars on the /now page. */

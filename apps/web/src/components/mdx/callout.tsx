@@ -49,7 +49,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        'not-prose my-6 flex gap-3 rounded-lg border p-4 text-sm',
+        'not-prose flex gap-3 rounded-lg border p-4 text-sm',
         destructive
           ? 'border-destructive/[var(--opacity-subtle)] bg-destructive/[var(--opacity-disabled)]'
           : 'border-border bg-muted/[var(--opacity-muted)]'
