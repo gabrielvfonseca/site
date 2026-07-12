@@ -1,0 +1,53 @@
+{
+  "name": "cms",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Keystatic CMS admin for gabfon.com",
+  "keywords": [
+    "cms",
+    "keystatic",
+    "nextjs"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gabriel Fonseca",
+    "email": "hey@gabfon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabriel-fonseca/site-main"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriel-fonseca/site-main/issues"
+  },
+  "homepage": "https://gabfon.com",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo 'No tests specified'",
+    "test:watch": "echo 'No tests specified'",
+    "test:coverage": "echo 'No tests specified'",
+    "analyze": "echo 'No analysis specified'",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@keystatic/core": "^0.5.51",
+    "@keystatic/next": "^5.0.4",
+    "next": "16.2.1",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@gabfon/typescript-config": "workspace:*",
+    "@types/node": "^24.3.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "typescript": "^5.9.2"
+  }
+}
