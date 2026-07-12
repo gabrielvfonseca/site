@@ -21,7 +21,8 @@ export default async function ProjectOgImage({
   const { slug } = await params;
   const project = getProjects().find((entry) => entry.slug === slug);
   return createOgImage({
+    eyebrow: 'Project',
     title: project?.title ?? 'Project',
-    subtitle: 'Gabriel Fonseca',
+    subtitle: project?.description,
   });
 }

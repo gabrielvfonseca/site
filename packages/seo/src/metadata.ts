@@ -6,8 +6,14 @@ type MetadataGenerator = Omit<Metadata, 'description' | 'title'> & {
   /** Page title. A plain string, or the root template object (`default`/`template`). */
   title: Metadata['title'];
   description: string;
-  /** Absolute URL of a page-specific Open Graph image. Falls back to the file-based card. */
-  image?: string;
+  /**
+   * Open Graph image control:
+   * - omit → hardcode the default site card (`/opengraph-image`);
+   * - a URL → use that page-specific image;
+   * - `null` → emit no image in metadata, deferring to the route's own
+   *   file-based `opengraph-image` card (used by article routes).
+   */
+  image?: string | null;
   /**
    * Path (relative to the site root, e.g. `/bio`) used to derive the canonical
    * link and `og:url`. `metadataBase` resolves it to an absolute URL.
@@ -117,7 +123,6 @@ export const createMetadata = ({
       type: 'website',
       siteName: applicationName,
       locale: 'en_US',
-      images: [defaultOgImage],
       ...(pathname ? { url: pathname } : {}),
     },
     twitter: {
@@ -126,23 +131,26 @@ export const createMetadata = ({
       description,
       creator: xHandle,
       site: xHandle,
-      images: [defaultOgImage.url],
     },
   };
 
   const metadata: Metadata = merge({}, defaultMetadata, properties);
 
-  // A page-specific image overrides the default hardcoded card on both cards.
-  if (image && metadata.openGraph && metadata.twitter) {
-    const pageImage = {
-      url: image,
-      width: 1200,
-      height: 630,
-      alt: titleText,
-    };
+  // Resolve the social card: `null` defers to the route's file-based card;
+  // a string uses that image; otherwise hardcode the default site card.
+  const resolvedImage =
+    image === null ? undefined : (image ?? defaultOgImage.url);
 
-    metadata.openGraph.images = [pageImage];
-    metadata.twitter.images = [image];
+  if (resolvedImage && metadata.openGraph && metadata.twitter) {
+    metadata.openGraph.images = [
+      {
+        url: resolvedImage,
+        width: defaultOgImage.width,
+        height: defaultOgImage.height,
+        alt: titleText ?? defaultOgImage.alt,
+      },
+    ];
+    metadata.twitter.images = [resolvedImage];
   }
 
   return metadata;

@@ -17,3 +17,20 @@ export function formatDisplayDate(date: string): string {
     day: 'numeric',
   });
 }
+
+/**
+ * Normalize a date value into an ISO 8601 string suitable for machine-readable
+ * metadata (e.g. Open Graph `article:published_time`, `<time dateTime>`).
+ * Frontmatter dates may arrive as `Date` objects or strings.
+ * @param date - The date value to normalize.
+ * @returns The ISO 8601 string, or undefined when missing/unparseable.
+ */
+export function toIsoDate(date: string | Date | undefined): string | undefined {
+  if (!date) {
+    return;
+  }
+
+  const parsed = new Date(date);
+
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
+}

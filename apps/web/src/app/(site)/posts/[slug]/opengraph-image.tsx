@@ -21,7 +21,8 @@ export default async function PostOgImage({
   const { slug } = await params;
   const post = getPosts().find((entry) => entry.slug === slug);
   return createOgImage({
+    eyebrow: 'Writing',
     title: post?.title ?? 'Post',
-    subtitle: 'Gabriel Fonseca',
+    subtitle: post?.description,
   });
 }
