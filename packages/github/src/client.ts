@@ -150,7 +150,7 @@ export class GitHubClient {
               totalContributions
               weeks {
                 firstDay
-                days {
+                days: contributionDays {
                   date
                   contributionCount
                   color
@@ -179,11 +179,24 @@ export class GitHubClient {
     }
 
     const data = await response.json();
-    const result = GitHubContributionCalendarSchema.parse(
-      data.data.user.contributionsCollection.contributionCalendar
-    );
 
-    return result;
+    // GraphQL returns HTTP 200 even for query errors; surface them clearly
+    // instead of letting an undefined access throw a cryptic TypeError.
+    if (Array.isArray(data?.errors) && data.errors.length > 0) {
+      throw new Error(
+        `GitHub GraphQL error: ${data.errors.map((e: { message: string }) => e.message).join('; ')}`
+      );
+    }
+
+    const calendar =
+      data?.data?.user?.contributionsCollection?.contributionCalendar;
+    if (!calendar) {
+      throw new Error(
+        `GitHub GraphQL error: no contribution calendar for user "${this.username}"`
+      );
+    }
+
+    return GitHubContributionCalendarSchema.parse(calendar);
   }
 
   /**
