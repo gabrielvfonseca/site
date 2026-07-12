@@ -4,22 +4,18 @@ import 'leaflet/dist/leaflet.css';
 import { useTheme } from '@gabfon/design-system/providers/theme';
 import L from 'leaflet';
 import type { JSX } from 'react';
+import { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import {
-  LISBON_CENTER,
-  LISBON_SPOTS,
-  LISBON_ZOOM,
-  type LisbonSpotCategory,
-} from '@/constants/lisbon-spots';
+import { CENTER, type Spot, type SpotCategory, ZOOM } from '@/constants/spots';
 
 /** Emoji glyph shown inside each marker, per category. */
-const CATEGORY_GLYPH: Record<LisbonSpotCategory, string> = {
+const CATEGORY_GLYPH: Record<SpotCategory, string> = {
   coffee: '☕',
   work: '💻',
 };
 
 /** Human-readable label per category, shown in the popup. */
-const CATEGORY_LABEL: Record<LisbonSpotCategory, string> = {
+const CATEGORY_LABEL: Record<SpotCategory, string> = {
   coffee: 'Coffee',
   work: 'Work',
 };
@@ -47,7 +43,7 @@ const TILE_URL: Record<'light' | 'dark', string> = {
  * @param category - The spot category, selecting the glyph.
  * @returns A Leaflet `divIcon` for the given category.
  */
-function createPin(category: LisbonSpotCategory): L.DivIcon {
+function createPin(category: SpotCategory): L.DivIcon {
   return L.divIcon({
     className: 'lisbon-pin-wrap',
     html: `<div class="lisbon-pin"><span>${CATEGORY_GLYPH[category]}</span></div>`,
@@ -60,26 +56,65 @@ function createPin(category: LisbonSpotCategory): L.DivIcon {
 /**
  * The interactive Leaflet map itself. Rendered client-side only (loaded via a
  * `dynamic({ ssr: false })` wrapper) because Leaflet touches `window` at import.
- * Tiles follow the active theme.
+ * Spots are fetched from `/api/spots` so the map can be driven by a Google Maps
+ * list when configured. Tiles follow the active theme.
  * @returns The Lisbon spots map canvas.
  */
 export default function LisbonMapCanvas(): JSX.Element {
   const { resolvedTheme } = useTheme();
   const mode = resolvedTheme === 'dark' ? 'dark' : 'light';
 
+  const [spots, setSpots] = useState<Spot[] | null>(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/spots', { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Request failed: ${res.status}`);
+        }
+        return res.json() as Promise<{ spots: Spot[] }>;
+      })
+      .then((data) => {
+        setSpots(data.spots);
+      })
+      .catch((err: unknown) => {
+        if (err instanceof DOMException && err.name === 'AbortError') {
+          return;
+        }
+        setError(true);
+      });
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  if (error) {
+    return (
+      <div className="flex h-80 w-full items-center justify-center rounded-xl bg-muted text-muted-foreground text-sm">
+        Couldn&apos;t load the map spots right now.
+      </div>
+    );
+  }
+
+  if (!spots) {
+    return <div className="h-80 w-full animate-pulse bg-muted" />;
+  }
+
   return (
     <MapContainer
-      center={[LISBON_CENTER[0], LISBON_CENTER[1]]}
+      center={[CENTER[0], CENTER[1]]}
       className="h-80 w-full"
       scrollWheelZoom={false}
-      zoom={LISBON_ZOOM}
+      zoom={ZOOM}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
         key={mode}
         url={TILE_URL[mode]}
       />
-      {LISBON_SPOTS.map((spot) => (
+      {spots.map((spot) => (
         <Marker
           icon={createPin(spot.category)}
           key={spot.name}

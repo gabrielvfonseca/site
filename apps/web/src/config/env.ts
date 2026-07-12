@@ -39,6 +39,8 @@ export const env = createEnv({
   server: {
     ANALYZE: z.enum(['true', 'false']).optional().default('false'),
     FLAGS_SECRET: z.string().optional(),
+    GOOGLE_MAPS_API_KEY: z.string().optional(),
+    GOOGLE_MAPS_LIST_ID: z.string().optional(),
   },
   client: {
     NEXT_PUBLIC_X_URL: z.url().optional().default('https://x.com/gabfon_'),
@@ -66,6 +68,8 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     ANALYZE: process.env.ANALYZE,
     FLAGS_SECRET: process.env.FLAGS_SECRET,
+    GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
+    GOOGLE_MAPS_LIST_ID: process.env.GOOGLE_MAPS_LIST_ID,
     NEXT_PUBLIC_X_URL: process.env.NEXT_PUBLIC_X_URL,
     NEXT_PUBLIC_LINKEDIN_URL: process.env.NEXT_PUBLIC_LINKEDIN_URL,
     NEXT_PUBLIC_GITHUB_URL: process.env.NEXT_PUBLIC_GITHUB_URL,

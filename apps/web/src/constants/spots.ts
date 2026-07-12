@@ -5,16 +5,16 @@
  */
 
 /** Whether a spot is primarily a coffee stop or a place to work from. */
-export type LisbonSpotCategory = 'coffee' | 'work';
+export type SpotCategory = 'coffee' | 'work';
 
 /** A single mappable Lisbon spot. */
-export interface LisbonSpot {
+export interface Spot {
   /** Display name of the place. */
   readonly name: string;
   /** Short, personal note on why it's worth a visit. */
   readonly note: string;
   /** Whether it's a coffee stop or a work spot (drives the marker style). */
-  readonly category: LisbonSpotCategory;
+  readonly category: SpotCategory;
   /** Latitude in decimal degrees. */
   readonly lat: number;
   /** Longitude in decimal degrees. */
@@ -22,24 +22,24 @@ export interface LisbonSpot {
 }
 
 /** Latitude of Lisbon's approximate center. */
-const LISBON_CENTER_LAT = 38.7223;
+const CENTER_LAT = 38.7223;
 /** Longitude of Lisbon's approximate center. */
-const LISBON_CENTER_LNG = -9.1393;
+const CENTER_LNG = -9.1393;
 
 /** Approximate geographic center of Lisbon, used to frame the map. */
-export const LISBON_CENTER: readonly [number, number] = [
-  LISBON_CENTER_LAT,
-  LISBON_CENTER_LNG,
-];
+export const CENTER: readonly [number, number] = [CENTER_LAT, CENTER_LNG];
 
 /** Default zoom level that comfortably fits the spots below. */
-export const LISBON_ZOOM = 13;
+export const ZOOM = 13;
 
 /**
  * Favourite Lisbon coffee and work spots shown on the `/now` map. These are
  * sensible, well-known starting points — swap in your own go-to places.
+ *
+ * Kept as a fallback so the map still renders when no Google Maps list is
+ * configured (i.e. `GOOGLE_MAPS_LIST_ID` / `GOOGLE_MAPS_API_KEY` are absent).
  */
-export const LISBON_SPOTS: readonly LisbonSpot[] = [
+export const SPOTS: readonly Spot[] = [
   {
     name: 'Fábrica Coffee Roasters',
     note: 'Serious espresso in Baixa and my default when I want the coffee to do the talking.',
