@@ -28,7 +28,23 @@
         "SENTRY_ORG",
         "SENTRY_PROJECT",
         "UPSTASH_REDIS_REST_URL",
-        "UPSTASH_REDIS_REST_TOKEN"
+        "UPSTASH_REDIS_REST_TOKEN",
+        "RESEND_FROM",
+        "RESEND_TOKEN",
+        "LOGTAIL_SOURCE_TOKEN",
+        "SPOTIFY_CLIENT_ID",
+        "SPOTIFY_CLIENT_SECRET",
+        "SPOTIFY_REFRESH_TOKEN",
+        "STRAVA_CLIENT_ID",
+        "STRAVA_CLIENT_SECRET",
+        "STRAVA_REFRESH_TOKEN",
+        "WAKATIME_API_KEY",
+        "X_API_BEARER_TOKEN",
+        "X_USERNAME",
+        "FLAGS_SECRET",
+        "ANALYZE",
+        "NODE_ENV",
+        "SKIP_ENV_VALIDATION"
       ]
     },
     "test": {
