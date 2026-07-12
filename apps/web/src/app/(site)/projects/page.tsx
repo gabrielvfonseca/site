@@ -8,9 +8,10 @@ import { Projects } from '@/components/projects';
  * @returns The metadata for the projects index page.
  */
 export const metadata: Metadata = createMetadata({
-  title: 'Projects | Gabriel Fonseca',
+  title: 'Projects',
   description:
     'Selected projects and case studies — the tools, products, and systems I have designed and built.',
+  pathname: '/projects',
 });
 
 /**

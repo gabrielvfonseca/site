@@ -27,7 +27,7 @@ export const viewport: Viewport = createViewport();
  * The metadata for the site.
  * @returns The metadata for the site.
  */
-export const metadata: Metadata = createMetadata({ ...meta });
+export const metadata: Metadata = createMetadata({ ...meta, pathname: '/' });
 
 /**
  * The RootLayoutProps for the site.

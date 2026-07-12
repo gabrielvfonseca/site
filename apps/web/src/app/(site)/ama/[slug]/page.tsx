@@ -27,16 +27,21 @@ export async function generateMetadata({
 
   if (!thread) {
     return createMetadata({
-      title: 'AMA | Gabriel Fonseca',
+      title: 'AMA',
       description: 'Ask me anything.',
+      pathname: `/ama/${slug}`,
     });
   }
 
   return createMetadata({
-    title: `${thread.question} | AMA`,
+    title: thread.question,
     description:
       thread.answer.slice(0, DESCRIPTION_MAX) ||
       'Ask me anything. Read the full thread.',
+    pathname: `/ama/${slug}`,
+    openGraph: {
+      type: 'article',
+    },
   });
 }
 

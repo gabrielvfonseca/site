@@ -1,11 +1,8 @@
 export const meta = {
-  title: 'Gabriel Fonseca',
+  title: {
+    default: 'Gabriel Fonseca — Software Developer',
+    template: '%s — Gabriel Fonseca',
+  },
   description:
-    'Gabriel Fonseca is a computer engineering student living in Lisbon, pt.',
-  projects: {
-    title: 'Projects | Gabriel Fonseca',
-  },
-  posts: {
-    title: 'Posts | Gabriel Fonseca',
-  },
+    'Gabriel Fonseca is a software developer, founder, and computer engineering student in Lisbon, Portugal. Portfolio, writing, and projects.',
 } as const;

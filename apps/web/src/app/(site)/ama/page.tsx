@@ -10,9 +10,10 @@ import { getPublishedQuestions } from '@/lib/ama';
  * @returns The metadata for the AMA page.
  */
 export const metadata: Metadata = createMetadata({
-  title: 'AMA | Gabriel Fonseca',
+  title: 'AMA',
   description:
     'Ask me anything about building products, engineering, startups, or life in Lisbon. Read past answers or submit your own question.',
+  pathname: '/ama',
 });
 
 /**

@@ -18,9 +18,10 @@ import { formatDisplayDate } from '@/lib/format-date';
  * @returns The metadata for the now page.
  */
 export const metadata: Metadata = createMetadata({
-  title: 'Now | Gabriel Fonseca',
+  title: 'Now',
   description:
     'What Gabriel Fonseca is focused on right now: current projects, learning, writing, habits, and interests. A living snapshot, updated regularly.',
+  pathname: '/now',
 });
 
 /**

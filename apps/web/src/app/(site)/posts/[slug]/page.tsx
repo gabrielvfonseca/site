@@ -9,7 +9,7 @@ import { ReadingProgress } from '@/components/content/reading-progress';
 import { TableOfContents } from '@/components/content/table-of-contents';
 import { CONFIG } from '@/constants/config';
 import { getPostEntry, getPosts } from '@/lib/content-index';
-import { formatDisplayDate } from '@/lib/format-date';
+import { formatDisplayDate, toIsoDate } from '@/lib/format-date';
 import { getReadingTime } from '@/lib/reading-time';
 import { getToc } from '@/lib/toc';
 import { useMDXComponents } from '@/mdx-components';
@@ -46,8 +46,11 @@ export async function generateMetadata({
   }
 
   return createMetadata({
-    title: `${post.title} | Gabriel Fonseca`,
+    title: post.title,
     description: post.description,
+    pathname: `/posts/${slug}`,
+    // Defer to the per-post file-based opengraph-image card.
+    image: null,
     authors: [
       {
         name: CONFIG.name,
@@ -58,8 +61,9 @@ export async function generateMetadata({
       title: post.title,
       description: post.description,
       type: 'article',
-      publishedTime: post.date,
+      publishedTime: toIsoDate(post.date),
       section: 'Blog',
+      authors: [CONFIG.name],
     },
   });
 }

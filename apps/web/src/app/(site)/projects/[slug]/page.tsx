@@ -11,7 +11,7 @@ import { ReadingProgress } from '@/components/content/reading-progress';
 import { TableOfContents } from '@/components/content/table-of-contents';
 import { CONFIG } from '@/constants/config';
 import { getProjectEntry, getProjects } from '@/lib/content-index';
-import { formatDisplayDate } from '@/lib/format-date';
+import { formatDisplayDate, toIsoDate } from '@/lib/format-date';
 import { getReadingTime } from '@/lib/reading-time';
 import { getToc } from '@/lib/toc';
 import { useMDXComponents } from '@/mdx-components';
@@ -48,8 +48,11 @@ export async function generateMetadata({
   }
 
   return createMetadata({
-    title: `${project.title} | Gabriel Fonseca`,
+    title: project.title,
     description: project.description,
+    pathname: `/projects/${slug}`,
+    // Defer to the per-project file-based opengraph-image card.
+    image: null,
     authors: [
       {
         name: CONFIG.name,
@@ -60,8 +63,9 @@ export async function generateMetadata({
       title: project.title,
       description: project.description,
       type: 'article',
-      publishedTime: project.date,
+      publishedTime: toIsoDate(project.date),
       section: 'Projects',
+      authors: [CONFIG.name],
     },
   });
 }

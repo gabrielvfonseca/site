@@ -1,4 +1,8 @@
 import type { MetadataRoute } from 'next';
+import { env } from '@/config/env';
+
+/** Absolute base URL for the site, used for the sitemap and host directives. */
+const siteUrl = env.NEXT_PUBLIC_WEB_URL;
 
 /**
  * The robots for the site.
@@ -9,8 +13,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
+      disallow: ['/private/', '/api/'],
     },
-    sitemap: 'https://gabfon.com/sitemap.xml',
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }

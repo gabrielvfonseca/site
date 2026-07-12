@@ -14,9 +14,10 @@ import { CONFIG } from '@/constants/config';
  * @returns The metadata for the bio page.
  */
 export const metadata: Metadata = createMetadata({
-  title: 'Bio | Gabriel Fonseca',
+  title: 'Bio',
   description:
     'The longer story: who Gabriel Fonseca is, what he is building, and how to get in touch.',
+  pathname: '/bio',
 });
 
 /** A single milestone rendered in the timeline section. */

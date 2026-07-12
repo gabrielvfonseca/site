@@ -8,9 +8,10 @@ import { Posts } from '@/components/posts';
  * @returns The metadata for the writing index page.
  */
 export const metadata: Metadata = createMetadata({
-  title: 'Writing | Gabriel Fonseca',
+  title: 'Writing',
   description:
     'Posts on building products, engineering, systems, and startups — written in public as I go.',
+  pathname: '/posts',
 });
 
 /**

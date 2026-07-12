@@ -11,9 +11,10 @@ import { CONFIG } from '@/constants/config';
  * @returns The metadata for the contact page.
  */
 export const metadata: Metadata = createMetadata({
-  title: 'Contact | Gabriel Fonseca',
+  title: 'Contact',
   description:
     'Get in touch with Gabriel Fonseca, a Software Developer, Founder, and Computer Engineering student.',
+  pathname: '/contact',
 });
 
 const Page = (): JSX.Element => {
