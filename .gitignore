@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # Dependencies
 node_modules
 .pnpm-store
@@ -14,30 +12,24 @@ node_modules
 .env.production.local
 
 # Build outputs
-dist
 .next
 out
-
-# Misc
-.DS_Store
-.idea
-*.pem
+dist
+build
+.source
 
 # Test files
 coverage
 .nyc_output
+playwright-report
+test-results
+.playwright-mcp
 
-# Docker files
-Dockerfile
-docker-compose.yml
-.dockerignore
-
-# Misc
-.turbo
-.cache 
-
-# Testing
-coverage
+# IDE and editor
+.DS_Store
+.idea
+*.pem
+.claude/settings.local.json
 
 # Turbo
 .turbo
@@ -45,14 +37,15 @@ coverage
 # Vercel
 .vercel
 
-# Build Outputs
-.next/
-out/
-build
-dist
-
 # Sentry Config File
 .env.sentry-build-plugin
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Generated code
+generated
 
 # AI Rules
 .cursorrules
