@@ -1,0 +1,59 @@
+# Dependencies (root + nested workspace packages)
+node_modules
+**/node_modules
+.pnpm-store
+.pnp
+.pnp.js
+
+# Build outputs (root + nested)
+dist
+**/dist
+.next
+**/.next
+out
+**/out
+.turbo
+**/.turbo
+.cache
+**/.cache
+**/.source
+
+# Environment files (never bake secrets into the image)
+.env
+.env.*
+!.env.example
+!.env.docker.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Git / VCS
+.git
+.gitignore
+
+# Misc
+.DS_Store
+.idea
+.vscode
+*.pem
+
+# Testing
+coverage
+**/coverage
+.nyc_output
+
+# Vercel
+.vercel
+
+# Sentry
+.env.sentry-build-plugin
+
+# AI Rules
+.cursorrules
+.github/copilot-instructions.md
+
+# BaseHub
+.basehub
+
+# Documentation
+docs
