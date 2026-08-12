@@ -96,7 +96,7 @@ See the [Deployment Guide](./deployment.md) for detailed instructions.
 docker build -t your-app .
 
 # Run with Docker Compose
-docker-compose up -d
+docker-compose -f infrastructure/docker/docker-compose.yml up -d
 ```
 
 ### What environment variables are needed?
@@ -290,7 +290,7 @@ site/
 ├── content/         # MDX content
 ├── docs/           # Project documentation
 ├── scripts/         # Utility scripts
-└── migrations/      # Database migrations
+└── infrastructure/migrations/      # Database migrations
 ```
 
 ### How does Turbo work?

@@ -1,77 +1,39 @@
 # @gabfon/supabase
 
-Shared Supabase client factories, queries, mutations, and utilities for gabfon.com. Auth is not included.
-
-## Environment variables
-
-| Variable | Description |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public anon key |
+This package provides a Supabase client and environment validation for the gabfon.com monorepo.
 
 ## Usage
 
-### Server client (Server Components)
-
 ```ts
-import { createServerClient } from "@gabfon/supabase/server";
+import { createClient } from '@gabfon/supabase';
 
-const supabase = await createServerClient();
-const { data } = await supabase.from("teams").select("*");
+// For browser/client-side
+const client = createClient();
+
+// For server-side
+const serverClient = await createClient();
 ```
 
-### Browser client (Client Components)
+## Environment Variables
 
-```ts
-"use client";
+The package validates the following environment variables:
 
-import { createBrowserClient } from "@gabfon/supabase/client";
+- `NEXT_PUBLIC_SUPABASE_URL`: The Supabase project URL (client-side)
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`: The Supabase anon key (client-side)
 
-const supabase = createBrowserClient();
-```
+These variables are validated using `@t3-oss/env-core` and `zod`.
 
-### Queries
+## API
 
-```ts
-import { getUserQuery, getTeamByIdQuery } from "@gabfon/supabase/queries";
+### `createClient()`
 
-const user = await getUserQuery(supabase, userId);
-const team = await getTeamByIdQuery(supabase, teamId);
-```
+Returns a Supabase client instance configured with the validated environment variables.
+This function is synchronous and can be used in both client and server components.
 
-### Cached queries
+### `keys()`
 
-```ts
-import { getSession } from "@gabfon/supabase/cached-queries";
+Returns the validated environment variables object. This is useful if you need to access the environment variables directly.
 
-const { data } = await getSession();
-```
+## Types
 
-### Mutations
-
-```ts
-import { updateTeamPlan, deleteBankConnection } from "@gabfon/supabase/mutations";
-
-await updateTeamPlan(supabase, { id: teamId, plan: "pro" });
-await deleteBankConnection(supabase, { id: connectionId });
-```
-
-### Storage
-
-```ts
-import { upload, remove, signedUrl } from "@gabfon/supabase/storage";
-
-const url = await upload(supabase, { file, path: ["docs", "file.pdf"], bucket: "uploads" });
-await remove(supabase, { path: ["docs", "file.pdf"], bucket: "uploads" });
-const signed = await signedUrl(supabase, { path: "file.pdf", bucket: "uploads", expireIn: 3600 });
-```
-
-## Database types
-
-Generated types from the Supabase schema are available at `src/types/db.ts`.
-
-Regenerate with:
-
-```bash
-bun run db:generate
-```
+This package also exports the Supabase database types and other internal types.

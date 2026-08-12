@@ -40,7 +40,7 @@ site/
 │   ├── next-config/        # Next.js shared config
 │   └── typescript-config/   # TypeScript shared config
 ├── scripts/                # Utility scripts
-└── migrations/             # Database migrations
+└── infrastructure/migrations/             # Database migrations
 ```
 
 ## Package Dependencies

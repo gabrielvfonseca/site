@@ -389,7 +389,7 @@ const connect = (): Promise<void>;
 
 #### `migrate()`
 
-Run database migrations.
+Run database migrations from infrastructure/migrations/.
 
 ```typescript
 const migrate = (): Promise<void>;

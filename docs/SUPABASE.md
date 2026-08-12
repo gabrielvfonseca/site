@@ -26,7 +26,7 @@ Auth-specific variables (`SUPABASE_SECRET_KEY`, etc.) are not used because auth 
 When the Supabase schema changes, regenerate the TypeScript types:
 
 ```bash
-cd packages/supabase
+cd infrastructure/supabase
 bun run db:generate
 ```
 

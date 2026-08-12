@@ -24,11 +24,11 @@ site-main/
 │   ├── seo/          # Metadata, viewport, JSON-LD helpers
 │   ├── spotify/      # Spotify API client
 │   ├── strava/       # Strava API client
+│   ├── infrastructure/supabase/     # Supabase client and environment validation
 │   ├── testing/      # Shared test setup (mocks)
 │   ├── typescript-config/ # Shared tsconfig presets
 │   ├── wakatime/     # WakaTime API client
-│   ├── x/            # X (Twitter) API client
-│   └── supabase/     # Supabase client and environment validation
+│   └── x/            # X (Twitter) API client
 ├── docs/             # Project documentation
 ├── scripts/          # CLI scripts
 └── skills/           # AI agent skill definitions

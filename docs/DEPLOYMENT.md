@@ -130,13 +130,13 @@ docker tag your-app-name your-registry/your-app-name:latest
 
 ```bash
 # Start all services
-docker-compose up -d
+docker-compose -f infrastructure/docker/docker-compose.yml up -d
 
 # View logs
-docker-compose logs -f
+docker-compose -f infrastructure/docker/docker-compose.yml logs -f
 
 # Stop services
-docker-compose down
+docker-compose -f infrastructure/docker/docker-compose.yml down
 ```
 
 ### Production Docker Compose
@@ -451,8 +451,8 @@ ANALYZE=true pnpm build
 vercel rollback
 
 # Docker rollback
-docker-compose down
-docker-compose up -d --force-recreate
+docker-compose -f infrastructure/docker/docker-compose.yml down
+docker-compose -f infrastructure/docker/docker-compose.yml up -d --force-recreate
 ```
 
 ## Scaling Considerations
