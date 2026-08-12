@@ -1,0 +1,110 @@
+# Local, fully working stack for the `site` app.
+#
+# The app talks to its data stores over HTTP/REST (Neon serverless driver +
+# Upstash Redis REST), NOT the native Postgres/Redis protocols. So a plain
+# `postgres`/`redis` container is not enough on its own — we put the correct
+# local proxies in front of them:
+#   - local-neon-http-proxy  -> exposes a Neon HTTP endpoint over Postgres
+#   - serverless-redis-http   -> exposes an Upstash-compatible REST API over Redis
+#
+# Cloud-only integrations (Sentry, PostHog, Arcjet, Resend, Logtail) degrade
+# gracefully when unset; drop real values into `.env.docker` to enable them.
+#
+#   docker compose up --build
+#   open http://localhost:3001
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_WEB_URL: http://localhost:3001
+    ports:
+      - '3001:3000'
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_WEB_URL: http://localhost:3001
+      # Neon HTTP driver -> local proxy. The host `db.localtest.me` is a network
+      # alias for the proxy (below); the driver's fetches are redirected there.
+      DATABASE_URL: postgres://postgres:postgres@db.localtest.me:5432/main
+      DATABASE_HTTP_ENDPOINT: http://db.localtest.me:4444/sql
+      # Upstash-compatible Redis REST (rate limiting).
+      KV_REST_API_URL: http://serverless-redis-http:80
+      KV_REST_API_TOKEN: local_dev_token
+    # Optional real secrets for cloud integrations (file may be absent).
+    env_file:
+      - path: .env.docker
+        required: false
+    depends_on:
+      neon-proxy:
+        condition: service_started
+      serverless-redis-http:
+        condition: service_started
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: main
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d main']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # HTTP proxy that lets the Neon serverless driver run against local Postgres.
+  neon-proxy:
+    image: ghcr.io/timowilhelm/local-neon-http-proxy:main
+    environment:
+      PG_CONNECTION_STRING: postgres://postgres:postgres@postgres:5432/main
+    ports:
+      - '4444:4444'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      default:
+        aliases:
+          # The app's DATABASE_URL host resolves here.
+          - db.localtest.me
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # Upstash-compatible REST API in front of Redis (used by @upstash/redis).
+  serverless-redis-http:
+    image: hiett/serverless-redis-http:latest
+    environment:
+      SRH_MODE: env
+      SRH_TOKEN: local_dev_token
+      SRH_CONNECTION_STRING: redis://redis:6379
+    ports:
+      - '8079:80'
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

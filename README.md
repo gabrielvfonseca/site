@@ -11,7 +11,7 @@ site-main/
 ├── apps/
 │   ├── web/          # Next.js 16 site — gabfon.com (Fumadocs MDX content)
 │   └── cms/          # Keystatic CMS admin — cms.gabfon.com
-├── packages/         # 16 shared @gabfon/* packages
+├── packages/         # 17 shared @gabfon/* packages
 │   ├── analytics/    # PostHog + Vercel Analytics
 │   ├── database/     # Neon/PostgreSQL client
 │   ├── design-system/# shadcn/ui + Radix UI components (~30)
@@ -27,7 +27,8 @@ site-main/
 │   ├── testing/      # Shared test setup (mocks)
 │   ├── typescript-config/ # Shared tsconfig presets
 │   ├── wakatime/     # WakaTime API client
-│   └── x/            # X (Twitter) API client
+│   ├── x/            # X (Twitter) API client
+│   └── supabase/     # Supabase client and environment validation
 ├── docs/             # Project documentation
 ├── scripts/          # CLI scripts
 └── skills/           # AI agent skill definitions

@@ -1,0 +1,39 @@
+{
+	"name": "@gabfon/supabase",
+	"version": "0.1.0",
+	"private": true,
+	"exports": {
+		"./server": "./src/client/server.ts",
+		"./client": "./src/client/client.ts",
+		"./keys": "./src/keys.ts",
+		"./mutations": "./src/mutations/index.ts",
+		"./queries": "./src/queries/index.ts",
+		"./storage": "./src/utils/storage.ts",
+		"./types": "./src/types/index.ts"
+	},
+	"scripts": {
+		"clean": "rm -rf .turbo node_modules",
+		"lint": "biome check .",
+		"lint:fix": "biome format --write .",
+		"typecheck": "tsc --noEmit",
+		"db:generate": "supabase gen types --lang=typescript --project-id $PROJECT_ID --schema public > src/types/db.ts"
+	},
+	"dependencies": {
+		"@supabase/postgrest-js": "^2.101.1",
+		"@supabase/ssr": "^0.10.0",
+		"@supabase/supabase-js": "^2.101.1",
+		"@t3-oss/env-nextjs": "^0.13.8",
+		"date-fns": "^4.4.0",
+		"next": "16.2.1",
+		"react": "^19.2.1",
+		"server-only": "^0.0.1",
+		"supabase": "^2.84.6",
+		"zod": "^4.1.13"
+	},
+	"devDependencies": {
+		"@gabfon/typescript-config": "workspace:*",
+		"@types/node": "24.10.1",
+		"@types/react": "19.2.7",
+		"typescript": "^5.9.2"
+	}
+}

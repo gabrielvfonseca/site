@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.5.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.5/schema.json",
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": false
@@ -9,11 +9,50 @@
 			"tailwindDirectives": true
 		}
 	},
+	"html": {
+		"parser": {
+			"interpolation": true
+		}
+	},
 	"linter": {
 		"rules": {
 			"complexity": {
 				"noImportantStyles": "off"
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["packages/supabase/src/types/db.ts"],
+			"linter": {
+				"rules": {
+					"complexity": {
+						"noBannedTypes": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"packages/supabase/src/types/index.ts",
+				"packages/supabase/src/utils/storage.ts"
+			],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noExplicitAny": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"infrastructure/supabase/templates/*.html",
+				"supabase/templates/*.html"
+			],
+			"formatter": {
+				"enabled": false
+			}
+		}
+	]
 }
