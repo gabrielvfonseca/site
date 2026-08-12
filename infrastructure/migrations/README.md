@@ -18,10 +18,10 @@ numeric order within each directory.
 
 ```bash
 # Apply schema
-psql "$DATABASE_URL" -f migrations/schema/001__initial_schema.sql
+psql "$DATABASE_URL" -f infrastructure/migrations/schema/001__initial_schema.sql
 
 # Seed dev data
-psql "$DATABASE_URL" -f migrations/seed/001__ama_seed.sql
+psql "$DATABASE_URL" -f infrastructure/migrations/seed/001__ama_seed.sql
 ```
 
 For Docker Compose, volume-mount the relevant directory to
