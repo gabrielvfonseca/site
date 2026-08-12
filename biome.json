@@ -23,7 +23,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["packages/supabase/src/types/db.ts"],
+			"includes": ["infrastructure/supabase/src/types/db.ts"],
 			"linter": {
 				"rules": {
 					"complexity": {
@@ -34,8 +34,8 @@
 		},
 		{
 			"includes": [
-				"packages/supabase/src/types/index.ts",
-				"packages/supabase/src/utils/storage.ts"
+				"infrastructure/supabase/src/types/index.ts",
+				"infrastructure/supabase/src/utils/storage.ts"
 			],
 			"linter": {
 				"rules": {
@@ -48,7 +48,7 @@
 		{
 			"includes": [
 				"infrastructure/supabase/templates/*.html",
-				"supabase/templates/*.html"
+				"infrastructure/supabase/templates/*.html"
 			],
 			"formatter": {
 				"enabled": false

@@ -429,7 +429,7 @@
         "vitest": "^4.1.10",
       },
     },
-    "packages/supabase": {
+    "infrastructure/supabase": {
       "name": "@gabfon/supabase",
       "version": "0.1.0",
       "dependencies": {
@@ -449,6 +449,7 @@
         "@types/node": "24.10.1",
         "@types/react": "19.2.7",
         "typescript": "^5.9.2",
+        "vitest": "^4.1.10",
       },
     },
     "packages/testing": {
@@ -994,7 +995,7 @@
 
     "@gabfon/strava": ["@gabfon/strava@workspace:packages/strava"],
 
-    "@gabfon/supabase": ["@gabfon/supabase@workspace:packages/supabase"],
+    "@gabfon/supabase": ["@gabfon/supabase@workspace:infrastructure/supabase"],
 
     "@gabfon/testing": ["@gabfon/testing@workspace:packages/testing"],
 
