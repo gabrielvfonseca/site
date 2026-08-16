@@ -1,4 +1,4 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "name": "gabfon-cms"
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"name": "gabfon-cms"
 }

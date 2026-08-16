@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * Keystatic's admin UI (built on `@keystar/ui` / React Aria) renders some link
@@ -13,33 +13,34 @@
  */
 
 /** Substring that uniquely identifies the Keystatic empty-`href` warning. */
-const SUPPRESSED_HREF_WARNING = 'was passed to the';
+const SUPPRESSED_HREF_WARNING = "was passed to the";
 
-if (typeof window !== 'undefined') {
-  const globalWithFlag = window as typeof window & {
-    __consoleWarningsPatched?: boolean;
-  };
+if (typeof window !== "undefined") {
+	const globalWithFlag = window as typeof window & {
+		// biome-ignore lint/style/useNamingConvention: double-underscore marks this as an internal global flag
+		__consoleWarningsPatched?: boolean;
+	};
 
-  if (!globalWithFlag.__consoleWarningsPatched) {
-    globalWithFlag.__consoleWarningsPatched = true;
+	if (!globalWithFlag.__consoleWarningsPatched) {
+		globalWithFlag.__consoleWarningsPatched = true;
 
-    // biome-ignore lint/suspicious/noConsole: Intentionally wrapping console.error to filter Keystatic dev warning
-    const originalError = console.error;
+		// biome-ignore lint/suspicious/noConsole: Intentionally wrapping console.error to filter Keystatic dev warning
+		const originalError = console.error;
 
-    console.error = (...args: unknown[]): void => {
-      const [first, ...rest] = args;
-      const isEmptyHrefWarning =
-        typeof first === 'string' &&
-        first.includes(SUPPRESSED_HREF_WARNING) &&
-        rest.some((arg) => arg === 'href');
+		console.error = (...args: unknown[]): void => {
+			const [first, ...rest] = args;
+			const isEmptyHrefWarning =
+				typeof first === "string" &&
+				first.includes(SUPPRESSED_HREF_WARNING) &&
+				rest.some((arg) => arg === "href");
 
-      if (isEmptyHrefWarning) {
-        return;
-      }
+			if (isEmptyHrefWarning) {
+				return;
+			}
 
-      originalError.apply(console, args);
-    };
-  }
+			originalError.apply(console, args);
+		};
+	}
 }
 
 /**
@@ -48,5 +49,5 @@ if (typeof window !== 'undefined') {
  * @returns `null`.
  */
 export function SuppressConsoleWarnings(): null {
-  return null;
+	return null;
 }

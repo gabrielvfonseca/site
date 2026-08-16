@@ -1,17 +1,17 @@
-import type { ReactNode } from 'react';
-import { SuppressConsoleWarnings } from './suppress-console-warnings';
+import type { ReactNode } from "react";
+import { SuppressConsoleWarnings } from "./suppress-console-warnings";
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  readonly children: ReactNode;
+	readonly children: ReactNode;
 }): ReactNode {
-  return (
-    <html lang="en">
-      <body>
-        <SuppressConsoleWarnings />
-        {children}
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body>
+				<SuppressConsoleWarnings />
+				{children}
+			</body>
+		</html>
+	);
 }
