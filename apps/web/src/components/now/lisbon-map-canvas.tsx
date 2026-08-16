@@ -1,23 +1,22 @@
-'use client';
+"use client";
 
-import 'leaflet/dist/leaflet.css';
-import { useTheme } from '@gabfon/design-system/providers/theme';
-import L from 'leaflet';
-import type { JSX } from 'react';
-import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { CENTER, type Spot, type SpotCategory, ZOOM } from '@/constants/spots';
+import "leaflet/dist/leaflet.css";
+import { useTheme } from "@gabfon/design-system/providers/theme";
+import L from "leaflet";
+import { useEffect, useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { CENTER, type Spot, type SpotCategory, ZOOM } from "@/data/spots";
 
 /** Emoji glyph shown inside each marker, per category. */
 const CATEGORY_GLYPH: Record<SpotCategory, string> = {
-  coffee: '☕',
-  work: '💻',
+	coffee: "☕",
+	work: "💻",
 };
 
 /** Human-readable label per category, shown in the popup. */
 const CATEGORY_LABEL: Record<SpotCategory, string> = {
-  coffee: 'Coffee',
-  work: 'Work',
+	coffee: "Coffee",
+	work: "Work",
 };
 
 /** Marker chip size in pixels (matches `.lisbon-pin` in main.css). */
@@ -31,9 +30,9 @@ const POPUP_OFFSET = -18;
  * Monochrome CARTO basemaps that match the site's grayscale palette, keyed by
  * resolved theme. Free to use with attribution; far cleaner than raster OSM.
  */
-const TILE_URL: Record<'light' | 'dark', string> = {
-  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+const TILE_URL: Record<"light" | "dark", string> = {
+	light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+	dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
 };
 
 /**
@@ -44,13 +43,13 @@ const TILE_URL: Record<'light' | 'dark', string> = {
  * @returns A Leaflet `divIcon` for the given category.
  */
 function createPin(category: SpotCategory): L.DivIcon {
-  return L.divIcon({
-    className: 'lisbon-pin-wrap',
-    html: `<div class="lisbon-pin"><span>${CATEGORY_GLYPH[category]}</span></div>`,
-    iconSize: [PIN_SIZE, PIN_SIZE],
-    iconAnchor: [PIN_ANCHOR, PIN_ANCHOR],
-    popupAnchor: [0, POPUP_OFFSET],
-  });
+	return L.divIcon({
+		className: "lisbon-pin-wrap",
+		html: `<div class="lisbon-pin"><span>${CATEGORY_GLYPH[category]}</span></div>`,
+		iconSize: [PIN_SIZE, PIN_SIZE],
+		iconAnchor: [PIN_ANCHOR, PIN_ANCHOR],
+		popupAnchor: [0, POPUP_OFFSET],
+	});
 }
 
 /**
@@ -60,77 +59,77 @@ function createPin(category: SpotCategory): L.DivIcon {
  * list when configured. Tiles follow the active theme.
  * @returns The Lisbon spots map canvas.
  */
-export default function LisbonMapCanvas(): JSX.Element {
-  const { resolvedTheme } = useTheme();
-  const mode = resolvedTheme === 'dark' ? 'dark' : 'light';
+export default function LisbonMapCanvas() {
+	const { resolvedTheme } = useTheme();
+	const mode = resolvedTheme === "dark" ? "dark" : "light";
 
-  const [spots, setSpots] = useState<Spot[] | null>(null);
-  const [error, setError] = useState(false);
+	const [spots, setSpots] = useState<Spot[] | null>(null);
+	const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch('/api/spots', { signal: controller.signal })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Request failed: ${res.status}`);
-        }
-        return res.json() as Promise<{ spots: Spot[] }>;
-      })
-      .then((data) => {
-        setSpots(data.spots);
-      })
-      .catch((err: unknown) => {
-        if (err instanceof DOMException && err.name === 'AbortError') {
-          return;
-        }
-        setError(true);
-      });
-    return () => {
-      controller.abort();
-    };
-  }, []);
+	useEffect(() => {
+		const controller = new AbortController();
+		fetch("/api/spots", { signal: controller.signal })
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error(`Request failed: ${res.status}`);
+				}
+				return res.json() as Promise<{ spots: Spot[] }>;
+			})
+			.then((data) => {
+				setSpots(data.spots);
+			})
+			.catch((err: unknown) => {
+				if (err instanceof DOMException && err.name === "AbortError") {
+					return;
+				}
+				setError(true);
+			});
+		return () => {
+			controller.abort();
+		};
+	}, []);
 
-  if (error) {
-    return (
-      <div className="flex h-80 w-full items-center justify-center rounded-xl bg-muted text-muted-foreground text-sm">
-        Couldn&apos;t load the map spots right now.
-      </div>
-    );
-  }
+	if (error) {
+		return (
+			<div className="flex h-80 w-full items-center justify-center rounded-xl bg-muted text-muted-foreground text-sm">
+				Couldn&apos;t load the map spots right now.
+			</div>
+		);
+	}
 
-  if (!spots) {
-    return <div className="h-80 w-full animate-pulse bg-muted" />;
-  }
+	if (!spots) {
+		return <div className="h-80 w-full animate-pulse bg-muted" />;
+	}
 
-  return (
-    <MapContainer
-      center={[CENTER[0], CENTER[1]]}
-      className="h-80 w-full"
-      scrollWheelZoom={false}
-      zoom={ZOOM}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        key={mode}
-        url={TILE_URL[mode]}
-      />
-      {spots.map((spot) => (
-        <Marker
-          icon={createPin(spot.category)}
-          key={spot.name}
-          position={[spot.lat, spot.lng]}
-        >
-          <Popup>
-            <span className="font-semibold text-foreground">{spot.name}</span>
-            <span className="mt-0.5 block text-[0.6875rem] text-muted-foreground uppercase tracking-wide">
-              {CATEGORY_LABEL[spot.category]}
-            </span>
-            <span className="mt-1.5 block text-muted-foreground">
-              {spot.note}
-            </span>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
+	return (
+		<MapContainer
+			center={[CENTER[0], CENTER[1]]}
+			className="h-80 w-full"
+			scrollWheelZoom={false}
+			zoom={ZOOM}
+		>
+			<TileLayer
+				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+				key={mode}
+				url={TILE_URL[mode]}
+			/>
+			{spots.map((spot) => (
+				<Marker
+					icon={createPin(spot.category)}
+					key={spot.name}
+					position={[spot.lat, spot.lng]}
+				>
+					<Popup>
+						<span className="text-foreground">{spot.name}</span>
+						<span className="mt-0.5 block text-[0.6875rem] text-muted-foreground uppercase tracking-wide">
+							{CATEGORY_LABEL[spot.category]}
+						</span>
+						<span className="mt-1.5 block text-muted-foreground">
+							{spot.note}
+						</span>
+					</Popup>
+				</Marker>
+			))}
+		</MapContainer>
+	);
 }

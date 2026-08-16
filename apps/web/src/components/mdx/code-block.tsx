@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { CheckIcon, CopyIcon } from 'lucide-react';
-import { type ComponentProps, type JSX, useRef, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { CheckIcon, CopyIcon } from "lucide-react";
+import { type ComponentProps, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 /** How long the "copied" confirmation state persists, in ms. */
 const COPIED_RESET_MS = 2000;
 
 /**
- * Props for {@link CodeBlock}. Extends the native `<pre>` props so it can be
+ * Props for {@link CodeBlock}. Extends the native`<pre>`props so it can be
  * used as a drop-in `pre` override for MDX. `title` is emitted by fumadocs
  * when a code fence declares `title="..."`.
  */
-interface CodeBlockProps extends ComponentProps<'pre'> {
-  /** Optional filename/title rendered in the header bar. */
-  readonly title?: string;
-  /**
-   * When true, render only the `<pre>` without the surrounding card, header or
-   * copy button. Used by {@link CodeGroup}, which supplies shared chrome.
-   */
-  readonly bare?: boolean;
+interface CodeBlockProps extends ComponentProps<"pre"> {
+	/** Optional filename/title rendered in the header bar. */
+	readonly title?: string;
+	/**
+	 * When true, render only the`<pre>`without the surrounding card, header or
+	 * copy button. Used by {@link CodeGroup}, which supplies shared chrome.
+	 */
+	readonly bare?: boolean;
 }
 
 /**
@@ -31,70 +31,70 @@ interface CodeBlockProps extends ComponentProps<'pre'> {
  * @returns The CodeBlock element.
  */
 export function CodeBlock({
-  title,
-  bare = false,
-  className,
-  children,
-  ...props
-}: CodeBlockProps): JSX.Element {
-  const preRef = useRef<HTMLPreElement>(null);
-  const [copied, setCopied] = useState(false);
+	title,
+	bare = false,
+	className,
+	children,
+	...props
+}: CodeBlockProps) {
+	const preRef = useRef<HTMLPreElement>(null);
+	const [copied, setCopied] = useState(false);
 
-  const copy = async (): Promise<void> => {
-    const text = preRef.current?.textContent ?? '';
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), COPIED_RESET_MS);
-    } catch {
-      // Clipboard access can be denied; fail silently.
-    }
-  };
+	const copy = async (): Promise<void> => {
+		const text = preRef.current?.textContent ?? "";
+		try {
+			await navigator.clipboard.writeText(text);
+			setCopied(true);
+			setTimeout(() => setCopied(false), COPIED_RESET_MS);
+		} catch {
+			// Clipboard access can be denied; fail silently.
+		}
+	};
 
-  if (bare) {
-    return (
-      <pre
-        className={cn(
-          '!my-0 !rounded-none !border-0 overflow-x-auto',
-          className
-        )}
-        ref={preRef}
-        {...props}
-      >
-        {children}
-      </pre>
-    );
-  }
+	if (bare) {
+		return (
+			<pre
+				className={cn(
+					"!my-0 !rounded-none !border-0 overflow-x-auto",
+					className,
+				)}
+				ref={preRef}
+				{...props}
+			>
+				{children}
+			</pre>
+		);
+	}
 
-  return (
-    <div className="not-prose group relative overflow-hidden rounded-lg border border-border bg-muted/[var(--opacity-muted)]">
-      <div className="flex items-center justify-between border-border border-b py-2 pr-2 pl-4">
-        <span className="font-medium font-mono text-muted-foreground text-xs tracking-wide">
-          {title ?? 'Code'}
-        </span>
-        <button
-          aria-label={copied ? 'Copied' : 'Copy code'}
-          className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors duration-200 hover:bg-accent hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          onClick={copy}
-          type="button"
-        >
-          {copied ? (
-            <CheckIcon aria-hidden="true" className="size-3.5" />
-          ) : (
-            <CopyIcon aria-hidden="true" className="size-3.5" />
-          )}
-        </button>
-      </div>
-      <pre
-        className={cn(
-          '!my-0 !rounded-none !border-0 overflow-x-auto',
-          className
-        )}
-        ref={preRef}
-        {...props}
-      >
-        {children}
-      </pre>
-    </div>
-  );
+	return (
+		<div className="not-prose group relative overflow-hidden rounded-lg border border-border bg-muted/50">
+			<div className="flex items-center justify-between border-border border-b py-2 pr-2 pl-4">
+				<span className="font-mono text-muted-foreground text-xs tracking-wide">
+					{title ?? "Code"}
+				</span>
+				<button
+					aria-label={copied ? "Copied" : "Copy code"}
+					className="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors duration-200 hover:bg-accent hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+					onClick={copy}
+					type="button"
+				>
+					{copied ? (
+						<CheckIcon aria-hidden="true" className="size-3.5" />
+					) : (
+						<CopyIcon aria-hidden="true" className="size-3.5" />
+					)}
+				</button>
+			</div>
+			<pre
+				className={cn(
+					"!my-0 !rounded-none !border-0 overflow-x-auto",
+					className,
+				)}
+				ref={preRef}
+				{...props}
+			>
+				{children}
+			</pre>
+		</div>
+	);
 }

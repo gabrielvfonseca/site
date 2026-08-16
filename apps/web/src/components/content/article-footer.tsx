@@ -1,16 +1,14 @@
-import { LINK_MUTED_CLASS } from '@gabfon/design-system/lib/constants';
-import Link from 'next/link';
-import type { JSX } from 'react';
-import { CONFIG } from '@/constants/config';
+import Link from "next/link";
+import { CONFIG } from "@/config/site";
 
 /**
  * Props for {@link ArticleFooter}.
  */
 interface ArticleFooterProps {
-  /** Index href for the collection, e.g. `/posts`. */
-  readonly backHref: string;
-  /** Label for the index link, e.g. `all writing`. */
-  readonly backLabel: string;
+	/** Index href for the collection, e.g. `/posts`. */
+	readonly backHref: string;
+	/** Label for the index link, e.g. `all writing`. */
+	readonly backLabel: string;
 }
 
 /**
@@ -20,27 +18,24 @@ interface ArticleFooterProps {
  * @param props - The article footer props.
  * @returns The ArticleFooter element.
  */
-export function ArticleFooter({
-  backHref,
-  backLabel,
-}: ArticleFooterProps): JSX.Element {
-  return (
-    <footer className="mt-16 flex flex-col gap-4 border-border border-t pt-8">
-      <p className="text-muted-foreground text-sm leading-relaxed">
-        Thanks for reading. If this sparked a thought,{' '}
-        <Link className={LINK_MUTED_CLASS} href="/contact">
-          reach out
-        </Link>{' '}
-        — {CONFIG.name.split(' ')[0]} replies to most messages.
-      </p>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-        <Link className={LINK_MUTED_CLASS} href={backHref}>
-          {backLabel}
-        </Link>
-        <Link className={LINK_MUTED_CLASS} href="/ama">
-          Ask me anything
-        </Link>
-      </div>
-    </footer>
-  );
+export function ArticleFooter({ backHref, backLabel }: ArticleFooterProps) {
+	return (
+		<footer className="mt-16 flex flex-col gap-4 border-border border-t pt-8">
+			<p className="text-muted-foreground text-sm leading-relaxed">
+				Thanks for reading. If this sparked a thought,{" "}
+				<Link className="link-muted" href="/contact">
+					reach out
+				</Link>{" "}
+				— {CONFIG.name.split(" ")[0]} replies to most messages.
+			</p>
+			<div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+				<Link className="link-muted" href={backHref}>
+					{backLabel}
+				</Link>
+				<Link className="link-muted" href="/ama">
+					Ask me anything
+				</Link>
+			</div>
+		</footer>
+	);
 }

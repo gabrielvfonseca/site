@@ -1,13 +1,8 @@
-import {
-	LINK_CLASS,
-	LINK_EXTERNAL_CLASS,
-} from "@gabfon/design-system/lib/constants";
 import { createMetadata } from "@gabfon/seo/metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { JSX } from "react";
 import { BioGallery } from "@/components/bio-gallery";
-import { CONFIG } from "@/constants/config";
+import { CONFIG } from "@/config/site";
 
 /**
  * The metadata for the bio page.
@@ -53,14 +48,14 @@ const TIMELINE: readonly TimelineItem[] = [
  * homepage section rhythm.
  * @returns The bio page for the site.
  */
-export default function Page(): JSX.Element {
+export default function Page() {
 	return (
 		<div className="flex flex-col gap-12">
 			<section
 				aria-labelledby="bio-intro-heading"
 				className="flex scroll-mt-8 flex-col gap-4"
 			>
-				<h1 className="font-semibold text-lg" id="bio-intro-heading">
+				<h1 className="text-lg" id="bio-intro-heading">
 					Bio
 				</h1>
 				<p>
@@ -72,7 +67,7 @@ export default function Page(): JSX.Element {
 					to use. Most of my time goes into{" "}
 					<Link
 						aria-label="Frontal (opens in a new tab)"
-						className={LINK_CLASS}
+						className="link-default"
 						href="https://frontal.dev"
 						rel="noopener noreferrer"
 						target="_blank"
@@ -98,7 +93,7 @@ export default function Page(): JSX.Element {
 				aria-labelledby="bio-building-heading"
 				className="flex scroll-mt-8 flex-col gap-4"
 			>
-				<h2 className="font-semibold text-lg" id="bio-building-heading">
+				<h2 className="text-lg" id="bio-building-heading">
 					What I&apos;m building
 				</h2>
 				<p>
@@ -121,7 +116,7 @@ export default function Page(): JSX.Element {
 				aria-labelledby="bio-approach-heading"
 				className="flex scroll-mt-8 flex-col gap-4"
 			>
-				<h2 className="font-semibold text-lg" id="bio-approach-heading">
+				<h2 className="text-lg" id="bio-approach-heading">
 					How I work
 				</h2>
 				<p>
@@ -143,7 +138,7 @@ export default function Page(): JSX.Element {
 				aria-labelledby="bio-timeline-heading"
 				className="flex scroll-mt-8 flex-col gap-4"
 			>
-				<h2 className="font-semibold text-lg" id="bio-timeline-heading">
+				<h2 className="text-lg" id="bio-timeline-heading">
 					Timeline
 				</h2>
 				<ul className="flex flex-col gap-4">
@@ -152,9 +147,7 @@ export default function Page(): JSX.Element {
 							<span className="text-muted-foreground text-xs uppercase tracking-wide">
 								{item.period}
 							</span>
-							<span className="font-medium text-sm leading-5">
-								{item.title}
-							</span>
+							<span className="text-sm leading-5">{item.title}</span>
 							<span className="text-muted-foreground text-sm leading-5">
 								{item.description}
 							</span>
@@ -167,7 +160,7 @@ export default function Page(): JSX.Element {
 				aria-labelledby="bio-interests-heading"
 				className="flex scroll-mt-8 flex-col gap-4"
 			>
-				<h2 className="font-semibold text-lg" id="bio-interests-heading">
+				<h2 className="text-lg" id="bio-interests-heading">
 					Interests
 				</h2>
 				<p>
@@ -190,14 +183,14 @@ export default function Page(): JSX.Element {
 				aria-labelledby="bio-elsewhere-heading"
 				className="flex scroll-mt-8 flex-col gap-4"
 			>
-				<h2 className="font-semibold text-lg" id="bio-elsewhere-heading">
+				<h2 className="text-lg" id="bio-elsewhere-heading">
 					Elsewhere
 				</h2>
 				<p className="text-muted-foreground">
 					Find me on{" "}
 					<Link
 						aria-label="X (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.x}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -207,7 +200,7 @@ export default function Page(): JSX.Element {
 					,{" "}
 					<Link
 						aria-label="LinkedIn (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.linkedin}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -217,7 +210,7 @@ export default function Page(): JSX.Element {
 					, and{" "}
 					<Link
 						aria-label="GitHub (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.github}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -227,7 +220,7 @@ export default function Page(): JSX.Element {
 					. You can also{" "}
 					<Link
 						aria-label="Schedule a meeting (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.schedule}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -237,7 +230,7 @@ export default function Page(): JSX.Element {
 					or{" "}
 					<Link
 						aria-label="Email me"
-						className={LINK_CLASS}
+						className="link-default"
 						href={CONFIG.email}
 					>
 						email me

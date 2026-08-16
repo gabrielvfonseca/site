@@ -1,27 +1,27 @@
-import { CONFIG } from '@/constants/config';
-import { getPosts, getProjects } from '@/lib/content-index';
+import { CONFIG } from "@/config/site";
+import { getPosts, getProjects } from "@/lib/content-index";
 
 /**
  * GET /llms.md: a structured Markdown profile for LLM consumption, generated
  * from the site config and real content.
  */
 export function GET() {
-  const updated = new Date().toISOString().split('T')[0];
+	const updated = new Date().toISOString().split("T")[0];
 
-  const posts = getPosts()
-    .map(
-      (post) => `### [${post.title}](/posts/${post.slug})\n${post.description}`
-    )
-    .join('\n\n');
+	const posts = getPosts()
+		.map(
+			(post) => `### [${post.title}](/posts/${post.slug})\n${post.description}`,
+		)
+		.join("\n\n");
 
-  const projects = getProjects()
-    .map(
-      (project) =>
-        `### [${project.title}](${project.link || `/projects/${project.slug}`})\n${project.description}`
-    )
-    .join('\n\n');
+	const projects = getProjects()
+		.map(
+			(project) =>
+				`### [${project.title}](${project.link || `/projects/${project.slug}`})\n${project.description}`,
+		)
+		.join("\n\n");
 
-  const content = `# ${CONFIG.name}
+	const content = `# ${CONFIG.name}
 
 > ${CONFIG.title} • [gabfon.com](https://gabfon.com)
 
@@ -32,7 +32,7 @@ export function GET() {
 ${CONFIG.location}-based software developer, founder of [Frontal Labs](https://frontal.dev), and Computer Engineering student at [NOVA FCT](https://www.fct.unl.pt).
 
 - **Location**: ${CONFIG.location}
-- **Email**: [${CONFIG.email.replace('mailto:', '')}](${CONFIG.email})
+- **Email**: [${CONFIG.email.replace("mailto:", "")}](${CONFIG.email})
 
 ## Technical Expertise
 
@@ -42,11 +42,11 @@ ${CONFIG.location}-based software developer, founder of [Frontal Labs](https://f
 
 ## Posts
 
-${posts || 'No posts published yet.'}
+${posts || "No posts published yet."}
 
 ## Projects
 
-${projects || 'No projects published yet.'}
+${projects || "No projects published yet."}
 
 ## Connect
 
@@ -60,7 +60,7 @@ ${projects || 'No projects published yet.'}
 *Last updated: ${updated} · [gabfon.com](https://gabfon.com)*
 `;
 
-  return new Response(content, {
-    headers: { 'content-type': 'text/markdown; charset=utf-8' },
-  });
+	return new Response(content, {
+		headers: { "content-type": "text/markdown; charset=utf-8" },
+	});
 }

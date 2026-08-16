@@ -1,10 +1,8 @@
-import { LINK_EXTERNAL_CLASS } from "@gabfon/design-system/lib/constants";
 import { createMetadata } from "@gabfon/seo/metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { JSX } from "react";
 import { ContactForm } from "@/components/forms/contact-form";
-import { CONFIG } from "@/constants/config";
+import { CONFIG } from "@/config/site";
 
 /**
  * The metadata for the contact page.
@@ -17,14 +15,14 @@ export const metadata: Metadata = createMetadata({
 	pathname: "/contact",
 });
 
-const Page = (): JSX.Element => {
+const Page = () => {
 	return (
 		<div className="flex flex-col gap-12">
 			<section
 				aria-labelledby="contact-heading"
 				className="flex scroll-mt-8 flex-col gap-4"
 			>
-				<h1 className="font-semibold text-lg" id="contact-heading">
+				<h1 className="text-lg" id="contact-heading">
 					Get in touch
 				</h1>
 				<p className="text-muted-foreground">
@@ -37,7 +35,7 @@ const Page = (): JSX.Element => {
 			<p className="text-muted-foreground/[var(--opacity-description)] text-sm">
 				Prefer another way?{" "}
 				<Link
-					className={LINK_EXTERNAL_CLASS}
+					className="link-external"
 					href={CONFIG.email}
 					rel="noopener noreferrer"
 					target="_blank"
@@ -46,7 +44,7 @@ const Page = (): JSX.Element => {
 				</Link>{" "}
 				or{" "}
 				<Link
-					className={LINK_EXTERNAL_CLASS}
+					className="link-external"
 					href={CONFIG.schedule}
 					rel="noopener noreferrer"
 					target="_blank"

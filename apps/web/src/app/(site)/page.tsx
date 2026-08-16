@@ -1,21 +1,16 @@
-import {
-	LINK_CLASS,
-	LINK_EXTERNAL_CLASS,
-} from "@gabfon/design-system/lib/constants";
 import Link from "next/link";
-import type { JSX } from "react";
 import { ContributionGraph } from "@/components/contribution-graph";
 import { Posts } from "@/components/posts";
 import { Projects } from "@/components/projects";
-import { CONFIG } from "@/constants/config";
-import { hasPublishedPosts } from "@/utils/post";
-import { hasProjects } from "@/utils/project";
+import { CONFIG } from "@/config/site";
+import { hasPublishedPosts } from "@/lib/post";
+import { hasProjects } from "@/lib/project";
 
 /**
  * The Page for the site.
  * @returns The Page for the site.
  */
-export default function Page(): JSX.Element {
+export default function Page() {
 	// Check if there are posts and projects
 	const posts: boolean = hasPublishedPosts();
 	const projects: boolean = hasProjects();
@@ -28,7 +23,7 @@ export default function Page(): JSX.Element {
 					Engineering student at{" "}
 					<Link
 						aria-label="NOVA School of Science and Technology (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href="https://www.fct.unl.pt"
 						rel="noopener noreferrer"
 						target="_blank"
@@ -42,7 +37,7 @@ export default function Page(): JSX.Element {
 					I'm currently building an{" "}
 					<Link
 						aria-label="AI-powered platform (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href="https://frontal.dev"
 						rel="noopener noreferrer"
 						target="_blank"
@@ -54,7 +49,7 @@ export default function Page(): JSX.Element {
 					& CEO of{" "}
 					<Link
 						aria-label="Frontal (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href="https://frontal.dev"
 						rel="noopener noreferrer"
 						target="_blank"
@@ -69,7 +64,7 @@ export default function Page(): JSX.Element {
 					and{" "}
 					<Link
 						aria-label="personal projects"
-						className={LINK_CLASS}
+						className="link-default"
 						href="#projects"
 						title="personal projects"
 					>
@@ -78,7 +73,7 @@ export default function Page(): JSX.Element {
 					, always seeking to solve real-world problems creatively. I regularly{" "}
 					<Link
 						aria-label="write posts"
-						className={LINK_CLASS}
+						className="link-default"
 						href="#posts"
 						title="write posts"
 					>
@@ -87,7 +82,7 @@ export default function Page(): JSX.Element {
 					about my experiences and believe in{" "}
 					<Link
 						aria-label="building in public (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.x}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -103,7 +98,7 @@ export default function Page(): JSX.Element {
 					I'm{" "}
 					<Link
 						aria-label="open to connecting (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.linkedin}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -116,7 +111,7 @@ export default function Page(): JSX.Element {
 					out on{" "}
 					<Link
 						aria-label="X (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.x}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -127,7 +122,7 @@ export default function Page(): JSX.Element {
 					,{" "}
 					<Link
 						aria-label="LinkedIn (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.linkedin}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -138,7 +133,7 @@ export default function Page(): JSX.Element {
 					, or{" "}
 					<Link
 						aria-label="GitHub (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.social.github}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -149,7 +144,7 @@ export default function Page(): JSX.Element {
 					. If you'd like to schedule a meeting or a quick call, you can do so{" "}
 					<Link
 						aria-label="Schedule a meeting (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.schedule}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -157,10 +152,10 @@ export default function Page(): JSX.Element {
 					>
 						here
 					</Link>
-					{" or "}
+					{" or"}
 					<Link
 						aria-label="Email me (opens in a new tab)"
-						className={LINK_EXTERNAL_CLASS}
+						className="link-external"
 						href={CONFIG.email}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -172,15 +167,15 @@ export default function Page(): JSX.Element {
 				</p>
 				<p>
 					Want the longer story? Read{" "}
-					<Link className={LINK_CLASS} href="/bio" title="Bio">
+					<Link className="link-default" href="/bio" title="Bio">
 						my bio
 					</Link>{" "}
 					for more about who I am and what I'm building, see what I'm focused on{" "}
-					<Link className={LINK_CLASS} href="/now" title="Now">
+					<Link className="link-default" href="/now" title="Now">
 						right now
 					</Link>
 					, or{" "}
-					<Link className={LINK_CLASS} href="/ama" title="Ask me anything">
+					<Link className="link-default" href="/ama" title="Ask me anything">
 						ask me anything
 					</Link>
 					.
@@ -192,7 +187,7 @@ export default function Page(): JSX.Element {
 				className="flex scroll-mt-8 flex-col gap-4"
 				id="activity"
 			>
-				<h2 className="font-semibold text-lg" id="homepage-activity-heading">
+				<h2 className="text-lg" id="homepage-activity-heading">
 					Activity
 				</h2>
 				<ContributionGraph />
@@ -204,7 +199,7 @@ export default function Page(): JSX.Element {
 					className="flex scroll-mt-8 flex-col gap-4"
 					id="projects"
 				>
-					<h2 className="font-semibold text-lg" id="homepage-projects-heading">
+					<h2 className="text-lg" id="homepage-projects-heading">
 						Projects
 					</h2>
 					<Projects />
@@ -217,7 +212,7 @@ export default function Page(): JSX.Element {
 					className="flex scroll-mt-8 flex-col gap-4"
 					id="posts"
 				>
-					<h2 className="font-semibold text-lg" id="homepage-posts-heading">
+					<h2 className="text-lg" id="homepage-posts-heading">
 						Posts
 					</h2>
 					<Posts />

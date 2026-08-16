@@ -19,6 +19,16 @@ let nextConfig: NextConfig = withToolbar(
 		// Self-contained server bundle for the Docker runtime image.
 		output: "standalone",
 		outputFileTracingRoot: monorepoRoot,
+		// Allow the dev server to serve HMR/`_next` resources to other devices on
+		// the local network (phone testing, hotspot). Private ranges only, and only
+		// in development — the option is ignored by production builds.
+		allowedDevOrigins: [
+			"192.168.*.*",
+			"10.*.*.*",
+			"172.16.*.*",
+			"172.20.*.*",
+			"*.local",
+		],
 		// The `opengraph-image`/`twitter-image` routes read bundled Geist TTFs at
 		// runtime; ensure file tracing ships them with the serverless functions.
 		outputFileTracingIncludes: {
@@ -37,6 +47,7 @@ let nextConfig: NextConfig = withToolbar(
 			"@gabfon/security",
 			"@gabfon/seo",
 			"@gabfon/spotify",
+			"@gabfon/supabase",
 			"@gabfon/strava",
 			"@gabfon/github",
 			"@gabfon/email",

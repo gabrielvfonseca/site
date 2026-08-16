@@ -1,16 +1,16 @@
-import type { JSX, ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 /**
  * Props for {@link Epigraph}.
  */
 interface EpigraphProps {
-  /** The quoted line(s). */
-  readonly children: ReactNode;
-  /** Optional attribution (person, work). */
-  readonly cite?: string;
-  /** Optional extra class names. */
-  readonly className?: string;
+	/** The quoted line(s). */
+	readonly children: ReactNode;
+	/** Optional attribution (person, work). */
+	readonly cite?: string;
+	/** Optional extra class names. */
+	readonly className?: string;
 }
 
 /**
@@ -20,21 +20,17 @@ interface EpigraphProps {
  * @param props - The epigraph props.
  * @returns The Epigraph element.
  */
-export function Epigraph({
-  children,
-  cite,
-  className,
-}: EpigraphProps): JSX.Element {
-  return (
-    <figure className={cn('not-prose flex flex-col gap-1 py-2', className)}>
-      <blockquote className="text-balance text-muted-foreground italic">
-        {children}
-      </blockquote>
-      {cite ? (
-        <figcaption className="text-muted-foreground/80 text-sm">
-          — {cite}
-        </figcaption>
-      ) : null}
-    </figure>
-  );
+export function Epigraph({ children, cite, className }: EpigraphProps) {
+	return (
+		<figure className={cn("not-prose flex flex-col gap-1 py-2", className)}>
+			<blockquote className="text-balance text-muted-foreground italic">
+				{children}
+			</blockquote>
+			{cite ? (
+				<figcaption className="text-muted-foreground/80 text-sm">
+					— {cite}
+				</figcaption>
+			) : null}
+		</figure>
+	);
 }

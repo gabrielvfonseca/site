@@ -1,16 +1,16 @@
-'use client'; // Templates must be client components
+"use client"; // Templates must be client components
 
-import { motion, useReducedMotion } from 'motion/react';
-import type { JSX, ReactNode } from 'react';
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
 
 /**
  * The TransitionProps for the site.
  */
 interface TransitionProps {
-  /**
-   * The children for the site.
-   */
-  readonly children: ReactNode;
+	/**
+	 * The children for the site.
+	 */
+	readonly children: ReactNode;
 }
 
 /** Duration (seconds) of the page-transition fade. */
@@ -26,19 +26,19 @@ const FADE_DURATION = 0.25;
  * @param props - The TransitionProps.
  * @returns The Transition for the site.
  */
-export default function Transition({ children }: TransitionProps): JSX.Element {
-  const shouldReduceMotion = useReducedMotion();
+export default function Transition({ children }: TransitionProps) {
+	const shouldReduceMotion = useReducedMotion();
 
-  return (
-    <motion.div
-      animate={{ opacity: 1 }}
-      initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
-      transition={{
-        duration: shouldReduceMotion ? 0 : FADE_DURATION,
-        ease: 'easeInOut',
-      }}
-    >
-      {children}
-    </motion.div>
-  );
+	return (
+		<motion.div
+			animate={{ opacity: 1 }}
+			initial={{ opacity: shouldReduceMotion ? 1 : 0 }}
+			transition={{
+				duration: shouldReduceMotion ? 0 : FADE_DURATION,
+				ease: "easeInOut",
+			}}
+		>
+			{children}
+		</motion.div>
+	);
 }

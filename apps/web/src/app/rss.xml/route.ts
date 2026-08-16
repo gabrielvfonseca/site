@@ -1,39 +1,39 @@
-import { CONFIG } from '@/constants/config';
-import { getPosts, getProjects } from '@/lib/content-index';
+import { CONFIG } from "@/config/site";
+import { getPosts, getProjects } from "@/lib/content-index";
 
-const SITE_URL = 'https://gabfon.com';
+const SITE_URL = "https://gabfon.com";
 
 /** Escape a string for safe inclusion in XML text/attribute nodes. */
 function escapeXml(unsafe: string): string {
-  return unsafe
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+	return unsafe
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
 }
 
 /** RFC-822 date for RSS `pubDate`, tolerant of missing/invalid dates. */
 function toRfc822(date: string | undefined, fallback: Date): string {
-  const parsed = date ? new Date(date) : null;
-  return (
-    parsed && !Number.isNaN(parsed.getTime()) ? parsed : fallback
-  ).toUTCString();
+	const parsed = date ? new Date(date) : null;
+	return (
+		parsed && !Number.isNaN(parsed.getTime()) ? parsed : fallback
+	).toUTCString();
 }
 
 interface FeedItem {
-  title: string;
-  description: string;
-  url: string;
-  date: string | undefined;
-  categories: string[];
+	title: string;
+	description: string;
+	url: string;
+	date: string | undefined;
+	categories: string[];
 }
 
 function renderItem(item: FeedItem, now: Date): string {
-  const categories = item.categories
-    .map((category) => `<category>${escapeXml(category)}</category>`)
-    .join('\n      ');
-  return `    <item>
+	const categories = item.categories
+		.map((category) => `<category>${escapeXml(category)}</category>`)
+		.join("\n      ");
+	return `    <item>
       <title>${escapeXml(item.title)}</title>
       <description>${escapeXml(item.description)}</description>
       <link>${item.url}</link>
@@ -49,29 +49,29 @@ function renderItem(item: FeedItem, now: Date): string {
  * the content index (no hardcoded/placeholder entries).
  */
 export function GET() {
-  const now = new Date();
+	const now = new Date();
 
-  const postItems: FeedItem[] = getPosts().map((post) => ({
-    title: post.title,
-    description: post.description,
-    url: `${SITE_URL}/posts/${post.slug}`,
-    date: post.date,
-    categories: ['Posts'],
-  }));
+	const postItems: FeedItem[] = getPosts().map((post) => ({
+		title: post.title,
+		description: post.description,
+		url: `${SITE_URL}/posts/${post.slug}`,
+		date: post.date,
+		categories: ["Posts"],
+	}));
 
-  const projectItems: FeedItem[] = getProjects().map((project) => ({
-    title: project.title,
-    description: project.description,
-    url: project.link || `${SITE_URL}/projects/${project.slug}`,
-    date: project.date,
-    categories: ['Projects'],
-  }));
+	const projectItems: FeedItem[] = getProjects().map((project) => ({
+		title: project.title,
+		description: project.description,
+		url: project.link || `${SITE_URL}/projects/${project.slug}`,
+		date: project.date,
+		categories: ["Projects"],
+	}));
 
-  const items = [...postItems, ...projectItems]
-    .map((item) => renderItem(item, now))
-    .join('\n');
+	const items = [...postItems, ...projectItems]
+		.map((item) => renderItem(item, now))
+		.join("\n");
 
-  const rss = `<?xml version="1.0" encoding="UTF-8"?>
+	const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -89,10 +89,10 @@ ${items}
   </channel>
 </rss>`;
 
-  return new Response(rss, {
-    headers: {
-      'content-type': 'application/rss+xml; charset=utf-8',
-      'cache-control': 'public, max-age=3600, s-maxage=3600',
-    },
-  });
+	return new Response(rss, {
+		headers: {
+			"content-type": "application/rss+xml; charset=utf-8",
+			"cache-control": "public, max-age=3600, s-maxage=3600",
+		},
+	});
 }

@@ -1,27 +1,27 @@
-import { CONFIG } from '@/constants/config';
-import { getPosts, getProjects } from '@/lib/content-index';
+import { CONFIG } from "@/config/site";
+import { getPosts, getProjects } from "@/lib/content-index";
 
 /**
  * GET /sitemap.md: a human-readable Markdown sitemap reflecting the live
  * routes and real content (posts/projects) of the site.
  */
 export function GET() {
-  const updated = new Date().toISOString().split('T')[0];
+	const updated = new Date().toISOString().split("T")[0];
 
-  const posts = getPosts()
-    .map(
-      (post) => `- [${post.title}](/posts/${post.slug}): ${post.description}`
-    )
-    .join('\n');
+	const posts = getPosts()
+		.map(
+			(post) => `- [${post.title}](/posts/${post.slug}): ${post.description}`,
+		)
+		.join("\n");
 
-  const projects = getProjects()
-    .map(
-      (project) =>
-        `- [${project.title}](${project.link || `/projects/${project.slug}`}): ${project.description}`
-    )
-    .join('\n');
+	const projects = getProjects()
+		.map(
+			(project) =>
+				`- [${project.title}](${project.link || `/projects/${project.slug}`}): ${project.description}`,
+		)
+		.join("\n");
 
-  const content = `# Sitemap: ${CONFIG.name} (gabfon.com)
+	const content = `# Sitemap: ${CONFIG.name} (gabfon.com)
 
 A human-readable overview of every page and endpoint on gabfon.com.
 
@@ -34,11 +34,11 @@ A human-readable overview of every page and endpoint on gabfon.com.
 
 ## Posts
 
-${posts || '- No posts published yet.'}
+${posts || "- No posts published yet."}
 
 ## Projects
 
-${projects || '- No projects published yet.'}
+${projects || "- No projects published yet."}
 
 ## Feeds & machine-readable
 
@@ -63,12 +63,12 @@ ${projects || '- No projects published yet.'}
 
 ---
 
-*Last updated: ${updated} · Contact: ${CONFIG.email.replace('mailto:', '')}*
+*Last updated: ${updated} · Contact: ${CONFIG.email.replace("mailto:", "")}*
 `;
 
-  return new Response(content, {
-    headers: {
-      'content-type': 'text/markdown; charset=utf-8',
-    },
-  });
+	return new Response(content, {
+		headers: {
+			"content-type": "text/markdown; charset=utf-8",
+		},
+	});
 }

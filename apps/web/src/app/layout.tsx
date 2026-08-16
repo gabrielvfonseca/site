@@ -2,18 +2,17 @@ import "@/styles/main.css";
 import { AnalyticsProvider } from "@gabfon/analytics";
 import { Toaster } from "@gabfon/design-system/components/toaster";
 import { TooltipProvider } from "@gabfon/design-system/components/tooltip";
-
 import { ThemeProvider } from "@gabfon/design-system/providers/theme";
 import { createMetadata } from "@gabfon/seo/metadata";
 import { createViewport } from "@gabfon/seo/viewport";
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
-import type { JSX, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { SkipNav } from "@/components/accessibility/skip-nav";
-import { meta } from "@/constants/metadata";
+import { QueryProvider } from "@/components/providers/query-provider";
+import { ThemeInitScript } from "@/components/theme-init-script";
+import { meta } from "@/config/metadata";
 import { cn } from "@/lib/utils";
-import { QueryProvider } from "@/providers/query-provider";
-import { ThemeInitScript } from "@/scripts/theme-init-script";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -44,9 +43,13 @@ interface RootLayoutProps {
  * @param props - The RootLayoutProps.
  * @returns The RootLayout for the site.
  */
-const RootLayout = ({ children }: RootLayoutProps): JSX.Element => {
+export default function Layout({ children }: RootLayoutProps) {
 	return (
-		<html className={cn(geist.className, "font-sans")} lang="en">
+		<html
+			className={cn(geist.className, "font-sans")}
+			lang="en"
+			suppressHydrationWarning
+		>
 			<body className="min-h-screen bg-background text-foreground">
 				<SkipNav />
 				<ThemeInitScript />
@@ -61,6 +64,4 @@ const RootLayout = ({ children }: RootLayoutProps): JSX.Element => {
 			</body>
 		</html>
 	);
-};
-
-export default RootLayout;
+}

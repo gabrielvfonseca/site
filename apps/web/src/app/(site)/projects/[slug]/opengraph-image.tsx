@@ -1,13 +1,13 @@
-import type { ImageResponse } from 'next/og';
-import { getProjects } from '@/lib/content-index';
-import { createOgImage, OG_CONTENT_TYPE, OG_SIZE } from '@/lib/og';
+import type { ImageResponse } from "next/og";
+import { getProjects } from "@/lib/content-index";
+import { createOgImage, OG_CONTENT_TYPE, OG_SIZE } from "@/lib/og";
 
-export const alt = 'Project - Gabriel Fonseca';
+export const alt = "Project - Gabriel Fonseca";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
 interface Params {
-  params: Promise<{ slug: string }>;
+	params: Promise<{ slug: string }>;
 }
 
 /**
@@ -16,13 +16,13 @@ interface Params {
  * @returns The branded ImageResponse.
  */
 export default async function ProjectOgImage({
-  params,
+	params,
 }: Params): Promise<ImageResponse> {
-  const { slug } = await params;
-  const project = getProjects().find((entry) => entry.slug === slug);
-  return createOgImage({
-    eyebrow: 'Project',
-    title: project?.title ?? 'Project',
-    subtitle: project?.description,
-  });
+	const { slug } = await params;
+	const project = getProjects().find((entry) => entry.slug === slug);
+	return createOgImage({
+		eyebrow: "Project",
+		title: project?.title ?? "Project",
+		subtitle: project?.description,
+	});
 }
