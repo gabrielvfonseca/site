@@ -1,6 +1,6 @@
 {
-  "buildCommand": "bun install && turbo build --filter=site",
-  "outputDirectory": "apps/web/.next",
-  "framework": "nextjs",
-  "crons": []
+	"buildCommand": "bun install && turbo build --filter=site",
+	"outputDirectory": "apps/web/.next",
+	"framework": "nextjs",
+	"crons": []
 }
