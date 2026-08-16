@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 /**
  * Flatten an arbitrary React node tree to its plain text content. MDX wraps
@@ -9,16 +9,16 @@ import type { ReactNode } from 'react';
  * @returns The concatenated text content.
  */
 export function nodeToText(node: ReactNode): string {
-  if (typeof node === 'string' || typeof node === 'number') {
-    return String(node);
-  }
-  if (Array.isArray(node)) {
-    return node.map(nodeToText).join('');
-  }
-  if (node && typeof node === 'object' && 'props' in node) {
-    return nodeToText(
-      (node as { props?: { children?: ReactNode } }).props?.children
-    );
-  }
-  return '';
+	if (typeof node === "string" || typeof node === "number") {
+		return String(node);
+	}
+	if (Array.isArray(node)) {
+		return node.map(nodeToText).join("");
+	}
+	if (node && typeof node === "object" && "props" in node) {
+		return nodeToText(
+			(node as { props?: { children?: ReactNode } }).props?.children,
+		);
+	}
+	return "";
 }

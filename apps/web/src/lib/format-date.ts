@@ -5,17 +5,17 @@
  * @returns The formatted date string.
  */
 export function formatDisplayDate(date: string): string {
-  const parsed = new Date(date);
+	const parsed = new Date(date);
 
-  if (Number.isNaN(parsed.getTime())) {
-    return date;
-  }
+	if (Number.isNaN(parsed.getTime())) {
+		return date;
+	}
 
-  return parsed.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+	return parsed.toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	});
 }
 
 /**
@@ -26,11 +26,11 @@ export function formatDisplayDate(date: string): string {
  * @returns The ISO 8601 string, or undefined when missing/unparseable.
  */
 export function toIsoDate(date: string | Date | undefined): string | undefined {
-  if (!date) {
-    return;
-  }
+	if (!date) {
+		return;
+	}
 
-  const parsed = new Date(date);
+	const parsed = new Date(date);
 
-  return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
+	return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
 }

@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * Return shape of {@link useIncremental}.
  */
 export interface UseIncrementalResult {
-  /** How many items should currently be rendered. */
-  visible: number;
-  /** Whether there are still hidden items to reveal. */
-  canLoadMore: boolean;
-  /** Number of items still hidden. */
-  remaining: number;
-  /** Reveal the next batch of items. */
-  showMore: () => void;
+	/** How many items should currently be rendered. */
+	visible: number;
+	/** Whether there are still hidden items to reveal. */
+	canLoadMore: boolean;
+	/** Number of items still hidden. */
+	remaining: number;
+	/** Reveal the next batch of items. */
+	showMore: () => void;
 }
 
 /**
@@ -26,27 +26,27 @@ export interface UseIncrementalResult {
  * @returns The current visible count and helpers to reveal more.
  */
 export function useIncremental(
-  total: number,
-  initialCount = 4,
-  batchSize = 4
+	total: number,
+	initialCount = 4,
+	batchSize = 4,
 ): UseIncrementalResult {
-  const [visible, setVisible] = useState(initialCount);
+	const [visible, setVisible] = useState(initialCount);
 
-  // Reset when the underlying list size changes (e.g. filtered/replaced).
-  useEffect(() => {
-    setVisible(initialCount);
-  }, [initialCount]);
+	// Reset when the underlying list size changes (e.g. filtered/replaced).
+	useEffect(() => {
+		setVisible(initialCount);
+	}, [initialCount]);
 
-  const showMore = useCallback(() => {
-    setVisible((current) => Math.min(current + batchSize, total));
-  }, [batchSize, total]);
+	const showMore = useCallback(() => {
+		setVisible((current) => Math.min(current + batchSize, total));
+	}, [batchSize, total]);
 
-  const cappedVisible = Math.min(visible, total);
+	const cappedVisible = Math.min(visible, total);
 
-  return {
-    visible: cappedVisible,
-    canLoadMore: cappedVisible < total,
-    remaining: Math.max(0, total - cappedVisible),
-    showMore,
-  };
+	return {
+		visible: cappedVisible,
+		canLoadMore: cappedVisible < total,
+		remaining: Math.max(0, total - cappedVisible),
+		showMore,
+	};
 }

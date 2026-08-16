@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 /** Average adult reading speed, in words per minute. */
 const WORDS_PER_MINUTE = 220;
@@ -20,18 +20,18 @@ const WHITESPACE = /\s+/;
  * @returns The estimated reading time in minutes.
  */
 export function getReadingTime(
-  collection: 'posts' | 'projects',
-  filePath: string
+	collection: "posts" | "projects",
+	filePath: string,
 ): number {
-  try {
-    const raw = readFileSync(
-      join(process.cwd(), 'content', collection, filePath),
-      'utf8'
-    );
-    const body = raw.replace(FRONTMATTER, '').replace(MDX_NOISE, ' ');
-    const words = body.split(WHITESPACE).filter(Boolean).length;
-    return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
-  } catch {
-    return 1;
-  }
+	try {
+		const raw = readFileSync(
+			join(process.cwd(), "content", collection, filePath),
+			"utf8",
+		);
+		const body = raw.replace(FRONTMATTER, "").replace(MDX_NOISE, " ");
+		const words = body.split(WHITESPACE).filter(Boolean).length;
+		return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+	} catch {
+		return 1;
+	}
 }
