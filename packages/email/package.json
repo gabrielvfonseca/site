@@ -58,7 +58,7 @@
 		"@react-email/components": "^1.0.12",
 		"@react-email/render": "^1.0.2",
 		"react": "19.2.1",
-		"react-dom": "19.2.1",
+		"react-dom": "19.2.8",
 		"@t3-oss/env-nextjs": "^0.13.8",
 		"resend": "^6.5.2",
 		"zod": "^4.1.13"
@@ -68,7 +68,7 @@
 		"@gabfon/testing": "workspace:*",
 		"@types/node": "24.10.1",
 		"@types/react": "19.2.7",
-		"@types/react-dom": "19.2.3",
+		"@types/react-dom": "19.2.4",
 		"typescript": "^5.9.2",
 		"vitest": "^4.1.10"
 	}
