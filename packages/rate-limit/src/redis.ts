@@ -1,5 +1,5 @@
-import { Redis } from '@upstash/redis';
-import { keys } from './keys';
+import { Redis } from "@upstash/redis";
+import { keys } from "./keys";
 
 const config = keys();
 /**
@@ -8,9 +8,9 @@ const config = keys();
  * is undefined (e.g. rate-limiting becomes a no-op).
  */
 export const redis =
-  config.UPSTASH_REDIS_REST_URL && config.UPSTASH_REDIS_REST_TOKEN
-    ? new Redis({
-        url: config.UPSTASH_REDIS_REST_URL,
-        token: config.UPSTASH_REDIS_REST_TOKEN,
-      })
-    : undefined;
+	config.UPSTASH_REDIS_REST_URL && config.UPSTASH_REDIS_REST_TOKEN
+		? new Redis({
+				url: config.UPSTASH_REDIS_REST_URL,
+				token: config.UPSTASH_REDIS_REST_TOKEN,
+			})
+		: undefined;

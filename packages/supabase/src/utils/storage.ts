@@ -49,10 +49,7 @@ type RemoveParams = {
 	bucket: string;
 };
 
-export async function remove(
-	client: StorageClient,
-	{ bucket, path }: RemoveParams,
-) {
+export function remove(client: StorageClient, { bucket, path }: RemoveParams) {
 	return client.storage
 		.from(bucket)
 		.remove([decodeURIComponent(path.join("/"))]);
@@ -63,7 +60,7 @@ type DownloadParams = {
 	bucket: string;
 };
 
-export async function download(
+export function download(
 	client: StorageClient,
 	{ bucket, path }: DownloadParams,
 ) {
@@ -79,7 +76,7 @@ type SignedUrlParams = {
 	};
 };
 
-export async function signedUrl(
+export function signedUrl(
 	client: StorageClient,
 	{ bucket, path, expireIn, options }: SignedUrlParams,
 ) {

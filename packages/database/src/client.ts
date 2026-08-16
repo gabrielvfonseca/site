@@ -1,6 +1,6 @@
-import { neon, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
-import * as schema from './schema';
+import { neon, neonConfig } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import * as schema from "./schema";
 
 /** The Drizzle client type backed by Neon's HTTP driver. */
 export type Database = ReturnType<typeof drizzle<typeof schema>>;
@@ -14,13 +14,13 @@ let cached: Database | null = null;
  * production continues to hit Neon's managed endpoint unchanged.
  */
 function configureLocalNeonProxy(): void {
-  const endpoint = process.env.DATABASE_HTTP_ENDPOINT;
-  if (!endpoint) {
-    return;
-  }
-  neonConfig.fetchEndpoint = endpoint;
-  neonConfig.useSecureWebSocket = false;
-  neonConfig.poolQueryViaFetch = true;
+	const endpoint = process.env.DATABASE_HTTP_ENDPOINT;
+	if (!endpoint) {
+		return;
+	}
+	neonConfig.fetchEndpoint = endpoint;
+	neonConfig.useSecureWebSocket = false;
+	neonConfig.poolQueryViaFetch = true;
 }
 
 /**
@@ -31,13 +31,13 @@ function configureLocalNeonProxy(): void {
  * @returns The Drizzle client, or `null` when no database is configured.
  */
 export function getDatabase(): Database | null {
-  const url = process.env.DATABASE_URL;
-  if (!url) {
-    return null;
-  }
-  if (!cached) {
-    configureLocalNeonProxy();
-    cached = drizzle(neon(url), { schema });
-  }
-  return cached;
+	const url = process.env.DATABASE_URL;
+	if (!url) {
+		return null;
+	}
+	if (!cached) {
+		configureLocalNeonProxy();
+		cached = drizzle(neon(url), { schema });
+	}
+	return cached;
 }

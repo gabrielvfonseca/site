@@ -7,6 +7,7 @@ export type Json =
 	| Json[];
 
 export type Database = {
+	// biome-ignore lint/style/useNamingConvention: key name is fixed by Supabase codegen
 	__InternalSupabase: {
 		PostgrestVersion: "12.2.3 (519615d)";
 	};
@@ -84,11 +85,18 @@ export type Database = {
 				];
 			};
 		};
+		Views: {
+			[_ in never]: never;
+		};
+		Functions: {
+			[_ in never]: never;
+		};
 		Enums: {
 			ama_status: "pending" | "answered" | "published" | "rejected";
 			ama_message_role: "asker" | "owner";
 		};
-		Functions: unknown;
-		Views: unknown;
+		CompositeTypes: {
+			[_ in never]: never;
+		};
 	};
 };

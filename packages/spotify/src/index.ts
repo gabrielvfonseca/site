@@ -1,13 +1,13 @@
-export { SpotifyClient, spotifyClient } from './client';
+export { SpotifyClient, spotifyClient } from "./client";
 
-export { keys } from './keys';
+export { keys } from "./keys";
 export type {
-  SpotifyApiResponse,
-  SpotifyArtist,
-  SpotifyAudioFeatures,
-  SpotifyCurrentlyPlaying,
-  SpotifyRecentTrack,
-  SpotifyTopArtists,
-  SpotifyTopTracks,
-  SpotifyTrack,
-} from './types';
+	SpotifyApiResponse,
+	SpotifyArtist,
+	SpotifyAudioFeatures,
+	SpotifyCurrentlyPlaying,
+	SpotifyRecentTrack,
+	SpotifyTopArtists,
+	SpotifyTopTracks,
+	SpotifyTrack,
+} from "./types";

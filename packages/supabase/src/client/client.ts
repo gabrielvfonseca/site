@@ -1,11 +1,12 @@
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
-import { keys } from "../keys";
+import { requireSupabaseCredentials } from "../keys";
 import type { Database } from "../types";
 
+/**
+ * Create a Supabase client for browser use.
+ * @returns The Supabase client, bound to this project's `Database` schema.
+ */
 export const createClient = () => {
-	const env = keys();
-	return createSupabaseClient<Database>(
-		env.NEXT_PUBLIC_SUPABASE_URL,
-		env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
-	);
+	const { url, publishableKey } = requireSupabaseCredentials();
+	return createSupabaseClient<Database>(url, publishableKey);
 };

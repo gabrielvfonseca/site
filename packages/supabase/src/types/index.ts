@@ -1,10 +1,11 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "./db";
 
-export type Client = {
-	from: <T extends keyof Database["public"]["Tables"]>(table: T) => any;
-	storage: {
-		from(bucket: string): any;
-	};
-};
+/**
+ * A Supabase client bound to this project's generated `Database` schema. Both
+ * the browser and server factories return this, so query and mutation helpers
+ * accept either interchangeably while staying fully typed.
+ */
+export type Client = SupabaseClient<Database>;
 
 export * from "./db";

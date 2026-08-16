@@ -1,11 +1,11 @@
 {
-  "extends": "@gabfon/typescript-config/nextjs.json",
-  "compilerOptions": {
-    "paths": {
-      "@gabfon/*": ["../../packages/*"],
-      "@gabfon/next-config/*": ["./src/*"]
-    }
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"]
+	"extends": "@gabfon/typescript-config/nextjs.json",
+	"compilerOptions": {
+		"paths": {
+			"@gabfon/*": ["../../packages/*"],
+			"@gabfon/next-config/*": ["./src/*"]
+		}
+	},
+	"include": ["src/**/*.ts", "src/**/*.tsx"],
+	"exclude": ["node_modules"]
 }
