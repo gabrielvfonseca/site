@@ -74,7 +74,7 @@
 		"@gabfon/typescript-config": "workspace:*",
 		"@types/node": "24.10.1",
 		"@types/react": "19.2.7",
-		"@types/react-dom": "19.2.3",
+		"@types/react-dom": "19.2.4",
 		"typescript": "^5.9.2",
 		"vitest": "^4.1.10"
 	}

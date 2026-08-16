@@ -40,14 +40,14 @@
 		"@keystatic/next": "^5.0.4",
 		"next": "16.2.1",
 		"react": "19.2.1",
-		"react-dom": "19.2.1",
+		"react-dom": "19.2.8",
 		"server-only": "^0.0.1"
 	},
 	"devDependencies": {
 		"@gabfon/typescript-config": "workspace:*",
 		"@types/node": "^24.3.1",
 		"@types/react": "19.2.7",
-		"@types/react-dom": "19.2.3",
+		"@types/react-dom": "19.2.4",
 		"typescript": "^5.9.2"
 	}
 }
