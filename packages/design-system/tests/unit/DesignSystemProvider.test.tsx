@@ -1,141 +1,136 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { DesignSystemProvider } from '../../src/index';
+import { render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { DesignSystemProvider } from "../../src/index";
 
 // Mock AnalyticsProvider
-vi.mock('@gabfon/analytics', () => ({
-  AnalyticsProvider: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="analytics-provider">{children}</div>
-  ),
+vi.mock("@gabfon/analytics", () => ({
+	AnalyticsProvider: ({ children }: { children: React.ReactNode }) => (
+		<div data-testid="analytics-provider">{children}</div>
+	),
 }));
 
 // Mock ThemeProvider (path resolved relative to src/index, which the component
 // under test imports from).
-vi.mock('../../src/providers/theme', () => ({
-  ThemeProvider: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-  }) => {
-    // Stringify props so boolean values render as DOM attributes ("true").
-    const attrs = Object.fromEntries(
-      Object.entries(props).map(([key, value]) => [key, String(value)])
-    );
-    return (
-      <div data-testid="theme-provider" {...attrs}>
-        {children}
-      </div>
-    );
-  },
+vi.mock("../../src/providers/theme", () => ({
+	ThemeProvider: ({ children, ...props }: { children: React.ReactNode }) => {
+		// Stringify props so boolean values render as DOM attributes ("true").
+		const attrs = Object.fromEntries(
+			Object.entries(props).map(([key, value]) => [key, String(value)]),
+		);
+		return (
+			<div data-testid="theme-provider" {...attrs}>
+				{children}
+			</div>
+		);
+	},
 }));
 
 // Mock TooltipProvider
-vi.mock('../../src/components/tooltip', () => ({
-  TooltipProvider: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="tooltip-provider">{children}</div>
-  ),
+vi.mock("../../src/components/tooltip", () => ({
+	TooltipProvider: ({ children }: { children: React.ReactNode }) => (
+		<div data-testid="tooltip-provider">{children}</div>
+	),
 }));
 
 // Mock Toaster
-vi.mock('../../src/components/toaster', () => ({
-  Toaster: () => <div data-testid="toaster" />,
+vi.mock("../../src/components/toaster", () => ({
+	Toaster: () => <div data-testid="toaster" />,
 }));
 
-describe('DesignSystemProvider', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
+describe("DesignSystemProvider", () => {
+	beforeEach(() => {
+		vi.clearAllMocks();
+	});
 
-  it('renders children within all providers', () => {
-    render(
-      <DesignSystemProvider>
-        <div>Test Content</div>
-      </DesignSystemProvider>
-    );
+	it("renders children within all providers", () => {
+		render(
+			<DesignSystemProvider>
+				<div>Test Content</div>
+			</DesignSystemProvider>,
+		);
 
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
-    expect(screen.getByTestId('theme-provider')).toBeInTheDocument();
-    expect(screen.getByTestId('analytics-provider')).toBeInTheDocument();
-    expect(screen.getByTestId('tooltip-provider')).toBeInTheDocument();
-    expect(screen.getByTestId('toaster')).toBeInTheDocument();
-  });
+		expect(screen.getByText("Test Content")).toBeInTheDocument();
+		expect(screen.getByTestId("theme-provider")).toBeInTheDocument();
+		expect(screen.getByTestId("analytics-provider")).toBeInTheDocument();
+		expect(screen.getByTestId("tooltip-provider")).toBeInTheDocument();
+		expect(screen.getByTestId("toaster")).toBeInTheDocument();
+	});
 
-  it('passes theme provider properties correctly', () => {
-    const themeProps = {
-      attribute: 'class',
-      defaultTheme: 'dark',
-      enableSystem: true,
-    };
+	it("passes theme provider properties correctly", () => {
+		const themeProps = {
+			attribute: "class",
+			defaultTheme: "dark",
+			enableSystem: true,
+		};
 
-    render(
-      <DesignSystemProvider {...themeProps}>
-        <div>Test Content</div>
-      </DesignSystemProvider>
-    );
+		render(
+			<DesignSystemProvider {...themeProps}>
+				<div>Test Content</div>
+			</DesignSystemProvider>,
+		);
 
-    const themeProvider = screen.getByTestId('theme-provider');
-    expect(themeProvider).toHaveAttribute('attribute', 'class');
-    expect(themeProvider).toHaveAttribute('defaultTheme', 'dark');
-    expect(themeProvider).toHaveAttribute('enableSystem', 'true');
-  });
+		const themeProvider = screen.getByTestId("theme-provider");
+		expect(themeProvider).toHaveAttribute("attribute", "class");
+		expect(themeProvider).toHaveAttribute("defaultTheme", "dark");
+		expect(themeProvider).toHaveAttribute("enableSystem", "true");
+	});
 
-  it('maintains correct provider hierarchy', () => {
-    render(
-      <DesignSystemProvider>
-        <div data-testid="test-content">Test Content</div>
-      </DesignSystemProvider>
-    );
+	it("maintains correct provider hierarchy", () => {
+		render(
+			<DesignSystemProvider>
+				<div data-testid="test-content">Test Content</div>
+			</DesignSystemProvider>,
+		);
 
-    const themeProvider = screen.getByTestId('theme-provider');
-    const analyticsProvider = screen.getByTestId('analytics-provider');
-    const tooltipProvider = screen.getByTestId('tooltip-provider');
-    const testContent = screen.getByTestId('test-content');
-    const toaster = screen.getByTestId('toaster');
+		const themeProvider = screen.getByTestId("theme-provider");
+		const analyticsProvider = screen.getByTestId("analytics-provider");
+		const tooltipProvider = screen.getByTestId("tooltip-provider");
+		const testContent = screen.getByTestId("test-content");
+		const toaster = screen.getByTestId("toaster");
 
-    // ThemeProvider should be the outermost provider
-    expect(themeProvider).toContainElement(analyticsProvider);
-    
-    // AnalyticsProvider should contain TooltipProvider and Toaster
-    expect(analyticsProvider).toContainElement(tooltipProvider);
-    expect(analyticsProvider).toContainElement(toaster);
-    
-    // TooltipProvider should contain the test content
-    expect(tooltipProvider).toContainElement(testContent);
-  });
+		// ThemeProvider should be the outermost provider
+		expect(themeProvider).toContainElement(analyticsProvider);
 
-  it('handles optional properties', () => {
-    const optionalProps = {
-      privacyUrl: 'https://example.com/privacy',
-      termsUrl: 'https://example.com/terms',
-      helpUrl: 'https://example.com/help',
-    };
+		// AnalyticsProvider should contain TooltipProvider and Toaster
+		expect(analyticsProvider).toContainElement(tooltipProvider);
+		expect(analyticsProvider).toContainElement(toaster);
 
-    render(
-      <DesignSystemProvider {...optionalProps}>
-        <div>Test Content</div>
-      </DesignSystemProvider>
-    );
+		// TooltipProvider should contain the test content
+		expect(tooltipProvider).toContainElement(testContent);
+	});
 
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
-  });
+	it("handles optional properties", () => {
+		const optionalProps = {
+			privacyUrl: "https://example.com/privacy",
+			termsUrl: "https://example.com/terms",
+			helpUrl: "https://example.com/help",
+		};
 
-  it('renders without any optional properties', () => {
-    render(
-      <DesignSystemProvider>
-        <div>Test Content</div>
-      </DesignSystemProvider>
-    );
+		render(
+			<DesignSystemProvider {...optionalProps}>
+				<div>Test Content</div>
+			</DesignSystemProvider>,
+		);
 
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
-  });
+		expect(screen.getByText("Test Content")).toBeInTheDocument();
+	});
 
-  it('handles empty children', () => {
-    render(<DesignSystemProvider />);
-    
-    expect(screen.getByTestId('theme-provider')).toBeInTheDocument();
-    expect(screen.getByTestId('analytics-provider')).toBeInTheDocument();
-    expect(screen.getByTestId('tooltip-provider')).toBeInTheDocument();
-    expect(screen.getByTestId('toaster')).toBeInTheDocument();
-  });
+	it("renders without any optional properties", () => {
+		render(
+			<DesignSystemProvider>
+				<div>Test Content</div>
+			</DesignSystemProvider>,
+		);
+
+		expect(screen.getByText("Test Content")).toBeInTheDocument();
+	});
+
+	it("handles empty children", () => {
+		render(<DesignSystemProvider />);
+
+		expect(screen.getByTestId("theme-provider")).toBeInTheDocument();
+		expect(screen.getByTestId("analytics-provider")).toBeInTheDocument();
+		expect(screen.getByTestId("tooltip-provider")).toBeInTheDocument();
+		expect(screen.getByTestId("toaster")).toBeInTheDocument();
+	});
 });

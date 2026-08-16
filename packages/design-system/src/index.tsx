@@ -1,17 +1,15 @@
-import { AnalyticsProvider } from '@gabfon/analytics';
-import type { JSX } from 'react';
-import { Toaster } from './components/toaster';
-import { TooltipProvider } from './components/tooltip';
-import type { ThemeProviderProps } from './providers/theme';
-import { ThemeProvider } from './providers/theme';
+import { AnalyticsProvider } from "@gabfon/analytics";
+import { Toaster } from "./components/toaster";
+import { TooltipProvider } from "./components/tooltip";
+import type { ThemeProviderProps } from "./providers/theme";
+import { ThemeProvider } from "./providers/theme";
 
-export * from './lib/constants';
-export * from './lib/utils';
+export * from "./lib/utils";
 
 interface DesignSystemProviderProperties extends ThemeProviderProps {
-  privacyUrl?: string;
-  termsUrl?: string;
-  helpUrl?: string;
+	privacyUrl?: string;
+	termsUrl?: string;
+	helpUrl?: string;
 }
 
 /**
@@ -20,18 +18,18 @@ interface DesignSystemProviderProperties extends ThemeProviderProps {
  * @returns The DesignSystemProvider for the site.
  */
 export function DesignSystemProvider({
-  children,
-  privacyUrl,
-  termsUrl,
-  helpUrl,
-  ...properties
-}: DesignSystemProviderProperties): JSX.Element {
-  return (
-    <ThemeProvider {...properties}>
-      <AnalyticsProvider>
-        <TooltipProvider>{children}</TooltipProvider>
-        <Toaster />
-      </AnalyticsProvider>
-    </ThemeProvider>
-  );
+	children,
+	privacyUrl,
+	termsUrl,
+	helpUrl,
+	...properties
+}: DesignSystemProviderProperties) {
+	return (
+		<ThemeProvider {...properties}>
+			<AnalyticsProvider>
+				<TooltipProvider>{children}</TooltipProvider>
+				<Toaster />
+			</AnalyticsProvider>
+		</ThemeProvider>
+	);
 }
