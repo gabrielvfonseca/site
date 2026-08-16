@@ -70,6 +70,7 @@
         "@gabfon/seo": "workspace:*",
         "@gabfon/spotify": "workspace:*",
         "@gabfon/strava": "workspace:*",
+        "@gabfon/supabase": "workspace:*",
         "@gabfon/wakatime": "workspace:*",
         "@gabfon/x": "workspace:*",
         "@mdx-js/loader": "^3.1.1",
@@ -429,7 +430,7 @@
         "vitest": "^4.1.10",
       },
     },
-    "infrastructure/supabase": {
+    "packages/supabase": {
       "name": "@gabfon/supabase",
       "version": "0.1.0",
       "dependencies": {
@@ -995,7 +996,7 @@
 
     "@gabfon/strava": ["@gabfon/strava@workspace:packages/strava"],
 
-    "@gabfon/supabase": ["@gabfon/supabase@workspace:infrastructure/supabase"],
+    "@gabfon/supabase": ["@gabfon/supabase@workspace:packages/supabase"],
 
     "@gabfon/testing": ["@gabfon/testing@workspace:packages/testing"],
 
