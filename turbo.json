@@ -1,121 +1,121 @@
 {
-  "$schema": "https://v2-9-12.turborepo.dev/schema.json",
-  "dangerouslyDisablePackageManagerCheck": true,
-  "globalDependencies": ["**/.env.*local", "package.json", "tsconfig.json"],
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "passThroughEnv": [
-        "ARCJET_KEY",
-        "POSTGRES_URL",
-        "POSTGRES_PRISMA_URL",
-        "DATABASE_URL_UNPOOLED",
-        "POSTGRES_URL_NON_POOLING",
-        "PGHOST",
-        "POSTGRES_USER",
-        "STACK_SECRET_SERVER_KEY",
-        "DATABASE_URL",
-        "POSTGRES_PASSWORD",
-        "POSTGRES_DATABASE",
-        "PGPASSWORD",
-        "PGDATABASE",
-        "PGHOST_UNPOOLED",
-        "PGUSER",
-        "POSTGRES_URL_NO_SSL",
-        "POSTGRES_HOST",
-        "NEON_PROJECT_ID",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "UPSTASH_REDIS_REST_URL",
-        "UPSTASH_REDIS_REST_TOKEN",
-        "RESEND_FROM",
-        "RESEND_TOKEN",
-        "LOGTAIL_SOURCE_TOKEN",
-        "SPOTIFY_CLIENT_ID",
-        "SPOTIFY_CLIENT_SECRET",
-        "SPOTIFY_REFRESH_TOKEN",
-        "STRAVA_CLIENT_ID",
-        "STRAVA_CLIENT_SECRET",
-        "STRAVA_REFRESH_TOKEN",
-        "WAKATIME_API_KEY",
-        "X_API_BEARER_TOKEN",
-        "X_USERNAME",
-        "FLAGS_SECRET",
-        "ANALYZE",
-        "NODE_ENV",
-        "SKIP_ENV_VALIDATION"
-      ]
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"],
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "test/**/*.ts",
-        "test/**/*.tsx",
-        "*.config.*"
-      ]
-    },
-    "test:unit": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
-    },
-    "test:integration": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
-    },
-    "test:e2e": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**", "test-results/**"]
-    },
-    "test:watch": {
-      "cache": false,
-      "persistent": true
-    },
-    "test:coverage": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
-    },
-    "lint": {
-      "outputs": []
-    },
-    "lint:fix": {
-      "cache": false
-    },
-    "check": {
-      "outputs": []
-    },
-    "typecheck": {
-      "dependsOn": ["^typecheck"],
-      "outputs": []
-    },
-    "analyze": {
-      "dependsOn": ["^analyze"],
-      "outputs": []
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "clean": {
-      "cache": false
-    },
-    "translate": {
-      "cache": false
-    },
-    "security": {
-      "cache": false
-    },
-    "security:all": {
-      "cache": false
-    },
-    "security:detailed": {
-      "cache": false
-    },
-    "security:scan": {
-      "cache": false
-    }
-  }
+	"$schema": "https://v2-9-12.turborepo.dev/schema.json",
+	"dangerouslyDisablePackageManagerCheck": true,
+	"globalDependencies": ["**/.env.*local", "package.json", "tsconfig.json"],
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": [".next/**", "!.next/cache/**", "dist/**"],
+			"passThroughEnv": [
+				"ARCJET_KEY",
+				"POSTGRES_URL",
+				"POSTGRES_PRISMA_URL",
+				"DATABASE_URL_UNPOOLED",
+				"POSTGRES_URL_NON_POOLING",
+				"PGHOST",
+				"POSTGRES_USER",
+				"STACK_SECRET_SERVER_KEY",
+				"DATABASE_URL",
+				"POSTGRES_PASSWORD",
+				"POSTGRES_DATABASE",
+				"PGPASSWORD",
+				"PGDATABASE",
+				"PGHOST_UNPOOLED",
+				"PGUSER",
+				"POSTGRES_URL_NO_SSL",
+				"POSTGRES_HOST",
+				"NEON_PROJECT_ID",
+				"SENTRY_ORG",
+				"SENTRY_PROJECT",
+				"UPSTASH_REDIS_REST_URL",
+				"UPSTASH_REDIS_REST_TOKEN",
+				"RESEND_FROM",
+				"RESEND_TOKEN",
+				"LOGTAIL_SOURCE_TOKEN",
+				"SPOTIFY_CLIENT_ID",
+				"SPOTIFY_CLIENT_SECRET",
+				"SPOTIFY_REFRESH_TOKEN",
+				"STRAVA_CLIENT_ID",
+				"STRAVA_CLIENT_SECRET",
+				"STRAVA_REFRESH_TOKEN",
+				"WAKATIME_API_KEY",
+				"X_API_BEARER_TOKEN",
+				"X_USERNAME",
+				"FLAGS_SECRET",
+				"ANALYZE",
+				"NODE_ENV",
+				"SKIP_ENV_VALIDATION"
+			]
+		},
+		"test": {
+			"dependsOn": ["^build"],
+			"outputs": ["coverage/**"],
+			"inputs": [
+				"src/**/*.ts",
+				"src/**/*.tsx",
+				"test/**/*.ts",
+				"test/**/*.tsx",
+				"*.config.*"
+			]
+		},
+		"test:unit": {
+			"dependsOn": ["^build"],
+			"outputs": ["coverage/**"]
+		},
+		"test:integration": {
+			"dependsOn": ["^build"],
+			"outputs": ["coverage/**"]
+		},
+		"test:e2e": {
+			"dependsOn": ["^build"],
+			"outputs": ["coverage/**", "test-results/**"]
+		},
+		"test:watch": {
+			"cache": false,
+			"persistent": true
+		},
+		"test:coverage": {
+			"dependsOn": ["^build"],
+			"outputs": ["coverage/**"]
+		},
+		"lint": {
+			"outputs": []
+		},
+		"lint:fix": {
+			"cache": false
+		},
+		"check": {
+			"outputs": []
+		},
+		"typecheck": {
+			"dependsOn": ["^typecheck"],
+			"outputs": []
+		},
+		"analyze": {
+			"dependsOn": ["^analyze"],
+			"outputs": []
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"clean": {
+			"cache": false
+		},
+		"translate": {
+			"cache": false
+		},
+		"security": {
+			"cache": false
+		},
+		"security:all": {
+			"cache": false
+		},
+		"security:detailed": {
+			"cache": false
+		},
+		"security:scan": {
+			"cache": false
+		}
+	}
 }
