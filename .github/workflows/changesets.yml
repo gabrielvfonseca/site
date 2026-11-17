@@ -1,5 +1,11 @@
 name: Changesets
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: write
+
 on:
   push:
     branches:

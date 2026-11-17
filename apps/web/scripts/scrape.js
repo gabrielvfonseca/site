@@ -11,8 +11,10 @@ async function main() {
 	for (const file of files) {
 		const fileContent = await readFile(file, "utf-8");
 		// a very simple regex to remove JSX tags and other syntax
+		// (the [^>] match is explicit rather than dotall so multi-line
+		// tags such as "<script ...>" are stripped instead of surviving)
 		const textContent = fileContent
-			.replace(/<[^>]*>/g, "")
+			.replace(/<[^>]*>/gms, "")
 			.replace(/import[^;]+;/g, "");
 		content += `${textContent}\\n`;
 	}
