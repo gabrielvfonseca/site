@@ -68,7 +68,7 @@
 		"estree-util-value-to-estree": "3.4.0",
 		"lefthook": "2.1.10",
 		"tsx": "^4.23.0",
-		"turbo": "^2.9.14",
+		"turbo": "^2.10.7",
 		"typescript": "^5.9.2",
 		"ultracite": "latest",
 		"vite": "^8.1.4"
