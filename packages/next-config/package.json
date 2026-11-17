@@ -38,19 +38,19 @@
 		"typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
 	},
 	"dependencies": {
-		"@next/bundle-analyzer": "^16.2.1",
+		"@next/bundle-analyzer": "^16.4.6",
 		"@prisma/nextjs-monorepo-workaround-plugin": "^6.15.0",
 		"@t3-oss/env-core": "^0.13.8",
 		"@t3-oss/env-nextjs": "^0.13.8",
 		"zod": "^4.1.5"
 	},
 	"peerDependencies": {
-		"next": "16.2.1"
+		"next": "16.4.6"
 	},
 	"devDependencies": {
 		"@gabfon/typescript-config": "workspace:*",
 		"@types/node": "24.10.1",
-		"next": "16.2.1",
+		"next": "16.4.6",
 		"typescript": "^5.9.2",
 		"vitest": "^4.1.10"
 	}

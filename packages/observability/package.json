@@ -78,7 +78,7 @@
 		"zod": "^4.1.5"
 	},
 	"peerDependencies": {
-		"next": "16.2.1"
+		"next": "16.4.6"
 	},
 	"devDependencies": {
 		"@gabfon/typescript-config": "workspace:*",
@@ -90,7 +90,7 @@
 		"@types/react-dom": "19.2.3",
 		"@vitejs/plugin-react": "^6.0.3",
 		"jsdom": "^27.0.0",
-		"next": "16.2.1",
+		"next": "16.4.6",
 		"typescript": "^5.9.2",
 		"vitest": "^4.1.10"
 	}

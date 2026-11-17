@@ -25,7 +25,7 @@
 		"@supabase/supabase-js": "^2.101.1",
 		"@t3-oss/env-core": "^0.12.0",
 		"date-fns": "^4.4.0",
-		"next": "16.2.1",
+		"next": "16.4.6",
 		"react": "^19.2.1",
 		"server-only": "^0.0.1",
 		"supabase": "^2.84.6",
