@@ -38,6 +38,12 @@ let nextConfig: NextConfig = withToolbar(
 			"/projects/[slug]/opengraph-image": ["./apps/web/assets/fonts/*.ttf"],
 		},
 		pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+		// i18n configuration for path-prefix routing (vinext supports this)
+		i18n: {
+			locales: ["en", "es", "fr", "de"],
+			defaultLocale: "en",
+			localeDetection: false, // We handle locale detection in middleware
+		},
 		transpilePackages: [
 			"@gabfon/analytics",
 			"@gabfon/next-config",
@@ -56,7 +62,8 @@ let nextConfig: NextConfig = withToolbar(
 		experimental: {
 			globalNotFound: true,
 			prefetchInlining: true,
-			cachedNavigations: true,
+			// cachedNavigations requires cacheComponents (PPR) which is not supported in vinext
+			// Use "use cache" directive instead for granular caching
 			appNewScrollHandler: true,
 			inlineCss: true,
 			turbopackFileSystemCacheForDev: true,
@@ -81,9 +88,35 @@ let nextConfig: NextConfig = withToolbar(
 					protocol: "https",
 					hostname: "fastly.picsum.photos",
 				},
+				// Additional common image hosts for better @unpic/react detection
+				{
+					protocol: "https",
+					hostname: "*.cloudinary.com",
+				},
+				{
+					protocol: "https",
+					hostname: "*.imgix.net",
+				},
+				{
+					protocol: "https",
+					hostname: "cdn.sanity.io",
+				},
+				{
+					protocol: "https",
+					hostname: "images.ctfassets.net",
+				},
+				{
+					protocol: "https",
+					hostname: "media.graphcms.com",
+				},
 			],
+			// Custom loader for images not on supported CDNs
+			// This allows vinext to optimize remote images via Cloudflare Images
+			loader: "custom",
+			loaderFile: "@/lib/image-loader",
 		},
-		cacheComponents: true,
+		// PPR not supported in vinext - use "use cache" directive instead
+		// cacheComponents: true,
 		devIndicators: false,
 		// Production optimizations and security
 		poweredByHeader: false,

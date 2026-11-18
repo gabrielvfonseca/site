@@ -30,6 +30,10 @@ export function BioGallery() {
 								fill
 								sizes="(max-width: 640px) 50vw, 33vw"
 								src={image.src}
+								width={image.width}
+								height={image.height}
+								placeholder="blur"
+								blurDataURL={image.blurDataURL}
 							/>
 						</div>
 						{image.caption && (

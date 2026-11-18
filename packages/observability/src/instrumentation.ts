@@ -9,12 +9,12 @@ const opts = {
 	dsn: keys().NEXT_PUBLIC_SENTRY_DSN,
 	// Suppress OpenTelemetry warnings
 	integrations: [],
-	// Disable automatic instrumentation to avoid warnings
+	// Enable automatic instrumentation for Next.js App Router
+	autoInstrumentNextjs: true,
+	autoInstrumentServerFunctions: true,
+	autoInstrumentMiddleware: true,
+	autoInstrumentAppDirectory: true,
 	autoInstrumentRemix: false,
-	autoInstrumentNextjs: false,
-	autoInstrumentServerFunctions: false,
-	autoInstrumentMiddleware: false,
-	autoInstrumentAppDirectory: false,
 };
 
 /**
