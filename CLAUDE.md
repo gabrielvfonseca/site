@@ -91,7 +91,7 @@ site-main/                         # Root monorepo (pnpm workspace + Turborepo)
 | **Validation** | Zod + @t3-oss/env-nextjs |
 | **Linting/Format** | Biome 2.2 via `ultracite` |
 | **Testing** | Vitest + Testing Library (unit/integration), Playwright (E2E) |
-| **Security** | Arcjet + Nosecone + Gitleaks + Snyk |
+| **Security** | Arcjet + Nosecone + Gitleaks |
 | **Observability** | Sentry + PostHog + Logtail + Vercel Analytics |
 | **Deployment** | Vercel (Bun runtime) + optional Docker |
 
@@ -222,7 +222,7 @@ Applied via middleware (in order):
 2. **Nosecone** (`@gabfon/security`) — security headers (CSP, HSTS, etc.)
 3. **Arcjet** (`@arcjet/next`) — bot detection + shield protection
 
-Plus: Gitleaks pre-commit hook, Snyk dependency scanning, pnpm overrides for vulnerability patches.
+Plus: Gitleaks pre-commit hook, dependency overrides for vulnerability patches.
 
 ## Styling (Tailwind CSS v4)
 

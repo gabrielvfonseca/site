@@ -1,4 +1,4 @@
-# gabfon — Personal Website & Portfolio
+# Gabriel Fonseca
 
 [gabfon.com](https://gabfon.com) — the personal website and portfolio of [Gabriel Fonseca](https://github.com/gabrielvfonseca), a Lisbon-based software developer, founder, and Computer Engineering student.
 
@@ -94,7 +94,7 @@ All content is file-based MDX at `apps/web/content/` — no database. Fumadocs c
 | Monorepo | Turborepo 2.9 + pnpm + Bun |
 | Linting | Biome 2.2 via ultracite |
 | Testing | Vitest + Testing Library, Playwright |
-| Security | Arcjet + Nosecone + Gitleaks + Snyk |
+| Security | Arcjet + Nosecone + Gitleaks |
 | Observability | Sentry + PostHog + Logtail + Vercel Analytics |
 | Deployment | Vercel |
 

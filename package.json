@@ -46,11 +46,9 @@
 		"prepare": "lefthook install",
 		"changeset": "changeset",
 		"version": "changeset version",
-		"release": "changeset publish",
-		"security": "snyk test --severity-threshold=high --file=package.json"
+		"release": "changeset publish"
 	},
 	"devDependencies": {
-		"@auto-it/first-time-contributor": "^11.3.0",
 		"@biomejs/biome": "2.5.5",
 		"@changesets/cli": "^2.29.6",
 		"@commitlint/cli": "^19.8.1",
