@@ -153,20 +153,11 @@ const arcjetMiddleware = async (request: NextRequest) => {
 };
 
 export default async function proxy(request: NextRequest) {
-	// Handle domain-based i18n routing first
-	const i18nResponse = handleI18n(request);
-	if (i18nResponse) {
-		return i18nResponse;
-	}
-
 	// Rate limit first (cheapest rejection).
 	const rateLimitResponse = await rateLimitMiddleware(request);
 	if (rateLimitResponse) {
 		return rateLimitResponse;
 	}
-
-	// Run security headers.
-	const headersResponse = securityHeaders();
 
 	// Run Arcjet middleware (bot/shield protection).
 	const arcjetResponse = await arcjetMiddleware(request);
@@ -174,7 +165,20 @@ export default async function proxy(request: NextRequest) {
 		return arcjetResponse;
 	}
 
+	// Handle domain-based i18n routing.
+	const i18nResponse = handleI18n(request);
+	if (i18nResponse) {
+		// Apply security headers to the i18n response without replacing its
+		// routing behavior (rewrite or redirect).
+		const headersResponse = await securityHeaders();
+		for (const [key, value] of headersResponse.headers) {
+			i18nResponse.headers.set(key, value);
+		}
+		return i18nResponse;
+	}
+
 	// Return headers response
+	const headersResponse = await securityHeaders();
 	return headersResponse;
 }
 

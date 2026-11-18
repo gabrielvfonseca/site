@@ -15,14 +15,21 @@ import { meta } from "@/config/metadata";
 import { cn } from "@/lib/utils";
 
 const geist = localFont({
+	src: [{ path: "../../assets/fonts/Geist-400.ttf", weight: "400" }],
+	variable: "--font-sans",
+	display: "swap",
+	preload: true,
+});
+
+const geistMedium = localFont({
 	src: [
-		{ path: "../../assets/fonts/Geist-400.ttf", weight: "400" },
 		{ path: "../../assets/fonts/Geist-500.ttf", weight: "500" },
 		{ path: "../../assets/fonts/Geist-600.ttf", weight: "600" },
 		{ path: "../../assets/fonts/Geist-700.ttf", weight: "700" },
 	],
-	variable: "--font-sans",
+	variable: "--font-sans-medium",
 	display: "swap",
+	preload: false,
 });
 
 /**
@@ -55,7 +62,12 @@ interface RootLayoutProps {
 export default function Layout({ children }: RootLayoutProps) {
 	return (
 		<html
-			className={cn(geist.className, "font-sans")}
+			className={cn(
+				geist.variable,
+				geistMedium.variable,
+				geist.className,
+				"font-sans",
+			)}
 			lang="en"
 			suppressHydrationWarning
 		>

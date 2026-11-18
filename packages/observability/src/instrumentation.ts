@@ -1,35 +1,32 @@
-import { init } from "@sentry/nextjs";
-import { keys } from "./keys";
+import * as Sentry from "@sentry/nextjs";
 
 /**
- * The opts for the observability.
- * @returns The opts for the observability.
+ * Server-side Sentry init for the vinext (Cloudflare Workers) runtime.
+ *
+ * The only runtime `init` options supported by @sentry/nextjs 10.78.0 are
+ * dsn/tunnel/... — the `autoInstrument*` flags removed here were only
+ * build-time (SentryBuildWebpackOptions) and are no-ops at runtime on the
+ * Workers runtime.
  */
-const opts = {
-	dsn: keys().NEXT_PUBLIC_SENTRY_DSN,
-	// Suppress OpenTelemetry warnings
-	integrations: [],
-	// Enable automatic instrumentation for Next.js App Router
-	autoInstrumentNextjs: true,
-	autoInstrumentServerFunctions: true,
-	autoInstrumentMiddleware: true,
-	autoInstrumentAppDirectory: true,
-	autoInstrumentRemix: false,
-};
+export function initializeSentry() {
+	if (!process.env.NEXT_PUBLIC_SENTRY_DSN) return;
+
+	Sentry.init({
+		dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+		environment: process.env.NODE_ENV,
+		enabled: process.env.NODE_ENV === "production",
+	});
+}
 
 /**
- * The initializeSentry function for the observability.
- * @returns The initializeSentry function.
+ * vinext `onRequestError` hook.
+ *
+ * vinext's instrumentation-runtime registers this export as
+ * `globalThis.__VINEXT_onRequestErrorHandler__` and invokes it via
+ * `reportRequestError` when an unhandled request error occurs. This is the
+ * supported integration point for server-side error capture on the Workers
+ * runtime (no `autoInstrument*` flags involved).
  */
-export const initializeSentry = () => {
-	// Only initialize in production or when explicitly enabled
-	if (process.env.NODE_ENV === "production" && keys().NEXT_PUBLIC_SENTRY_DSN) {
-		if (process.env.NEXT_RUNTIME === "nodejs") {
-			init(opts);
-		}
-
-		if (process.env.NEXT_RUNTIME === "edge") {
-			init(opts);
-		}
-	}
-};
+export function onRequestError(error: unknown) {
+	Sentry.captureException(error);
+}

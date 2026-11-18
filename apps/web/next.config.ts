@@ -58,8 +58,9 @@ let nextConfig: NextConfig = withToolbar(
 		experimental: {
 			globalNotFound: true,
 			prefetchInlining: true,
-			// cachedNavigations requires cacheComponents (PPR) which is not supported in vinext
-			// Use "use cache" directive instead for granular caching
+			// To enable file/function-level caching, set `cacheComponents: true` below.
+			// This unlocks the `"use cache"` directive and PPR (Partial Prerendering).
+			// Note: `cachedNavigations` also requires `cacheComponents` to take effect.
 			inlineCss: true,
 			turbopackFileSystemCacheForDev: true,
 		},
@@ -105,12 +106,16 @@ let nextConfig: NextConfig = withToolbar(
 					hostname: "media.graphcms.com",
 				},
 			],
-			// Custom loader for images not on supported CDNs
-			// This allows vinext to optimize remote images via Cloudflare Images
-			loader: "custom",
-			loaderFile: "./src/lib/image-loader.ts",
+			// No custom `loader`/`loaderFile` here: keep the built-in optimizer for
+			// `next dev` / `next build` / `next start`. Cloudflare Images optimization
+			// on the vinext path is registered separately via `imagesOptimizer()` in
+			// vite.config.ts and the IMAGES binding in cloudflare.config.ts (vinext
+			// ignores `images.loader`; a `loaderFile` here was dead config there and
+			// bypassed the built-in optimizer on the plain Next.js path for any host
+			// not on the loader's supported-CDN list).
 		},
-		// PPR not supported in vinext - use "use cache" directive instead
+		// Enable Cache Components + PPR for file/function-level caching via the
+		// "use cache" directive. Requires Node.js runtime.
 		// cacheComponents: true,
 		devIndicators: false,
 		// Production optimizations and security
