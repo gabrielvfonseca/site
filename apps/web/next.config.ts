@@ -38,12 +38,8 @@ let nextConfig: NextConfig = withToolbar(
 			"/projects/[slug]/opengraph-image": ["./apps/web/assets/fonts/*.ttf"],
 		},
 		pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-		// i18n configuration for path-prefix routing (vinext supports this)
-		i18n: {
-			locales: ["en", "es", "fr", "de"],
-			defaultLocale: "en",
-			localeDetection: false, // We handle locale detection in middleware
-		},
+		// i18n handled via middleware (domain-based routing)
+		// App Router doesn't support legacy i18n config
 		transpilePackages: [
 			"@gabfon/analytics",
 			"@gabfon/next-config",
