@@ -44,6 +44,7 @@ jobs:
       - name: Build packages
         run: bun run build
         env:
+          SKIP_ENV_VALIDATION: "1"
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXT_PUBLIC_WEB_URL: ${{ secrets.NEXT_PUBLIC_WEB_URL }}
           ARCJET_KEY: ${{ secrets.ARCJET_KEY }}

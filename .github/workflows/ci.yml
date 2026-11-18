@@ -40,11 +40,14 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Generate fumadocs-mdx source
+        run: cd apps/web && bunx fumadocs-mdx build
+
       - name: Lint
-        run: bun lint
+        run: bun run lint
 
       - name: Type check
-        run: bun typecheck
+        run: bun run typecheck
 
   test:
     name: Test

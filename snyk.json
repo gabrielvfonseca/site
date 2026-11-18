@@ -42,26 +42,6 @@
 			"failOn": true
 		}
 	},
-	"exclude": {
-		"paths": [
-			"node_modules/**",
-			".next/**",
-			"dist/**",
-			"build/**",
-			".turbo/**",
-			"coverage/**",
-			"*.min.js",
-			"*.bundle.js"
-		],
-		"files": [
-			"*.test.js",
-			"*.spec.js",
-			"*.test.ts",
-			"*.spec.ts",
-			"*.test.tsx",
-			"*.spec.tsx"
-		]
-	},
 	"ignore": {
 		"vulnerabilities": [],
 		"paths": []
