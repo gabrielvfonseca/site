@@ -22,16 +22,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: "actions/checkout@v5"
+        with:
           # Use fetch-depth: 0 to get full history, but don't use --unshallow
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: "actions/setup-node@v4"
+        with:
           node-version: '20'
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: "oven-sh/setup-bun@v2"
         with:
           bun-version: latest
 
@@ -49,15 +51,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: "actions/checkout@v5"
+        with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: "actions/setup-node@v4"
+        with:
           node-version: '20'
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: "oven-sh/setup-bun@v2"
         with:
           bun-version: latest
 
@@ -73,15 +77,17 @@ jobs:
     needs: [lint-and-typecheck, test]
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: "actions/checkout@v5"
+        with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: "actions/setup-node@v4"
+        with:
           node-version: '20'
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: "oven-sh/setup-bun@v2"
         with:
           bun-version: latest
 
@@ -92,7 +98,8 @@ jobs:
         run: bun build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: "actions/upload-artifact@v4"
+        with:
           name: build-artifacts
           path: |
             apps/*/dist

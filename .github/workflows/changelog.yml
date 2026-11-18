@@ -28,17 +28,19 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: "actions/checkout@v4"
+        with:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: "actions/setup-node@v4"
+        with:
           node-version: '20'
           
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: "oven-sh/setup-bun@v2"
         with:
           bun-version: latest
 
@@ -93,7 +95,8 @@ jobs:
 
       - name: Create Pull Request
         if: steps.changes.outputs.has-changes == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: "peter-evans/create-pull-request@v5"
+        with:
           token: ${{ secrets.GH_PAT }}
           branch: update-changelogs
           base: main

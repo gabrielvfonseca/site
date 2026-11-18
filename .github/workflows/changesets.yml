@@ -24,18 +24,18 @@ jobs:
       publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: "actions/checkout@v5"
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: "actions/setup-node@v4"
         with:
           node-version: '20'
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: "oven-sh/setup-bun@v1"
         with:
           bun-version: latest
 
@@ -58,7 +58,7 @@ jobs:
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: "changesets/action@v1"
         with:
           publish: bun release
           commit: 'chore: release packages'
@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub Release
-        uses: actions/create-release@v1
+        uses: "actions/create-release@v1"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
