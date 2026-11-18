@@ -41,7 +41,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Generate fumadocs-mdx source
-        run: cd apps/web && bunx fumadocs-mdx build
+        run: cd apps/web && bunx fumadocs-mdx
 
       - name: Lint
         run: bun run lint

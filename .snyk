@@ -26,13 +26,6 @@ language-settings:
     # Scan bundled dependencies
     bundled-dependencies: true
 
-# Patch settings
-patch:
-  # Automatically create patches for vulnerabilities
-  auto-patch: false
-  # Patch only high and critical severity issues
-  min-severity: medium
-
 # Test settings
 test:
   # Fail on high and critical severity issues
