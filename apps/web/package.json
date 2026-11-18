@@ -30,7 +30,7 @@
 	},
 	"scripts": {
 		"dev": "next dev",
-		"postinstall": "fumadocs-mdx build",
+		"postinstall": "fumadocs-mdx",
 		"build": "next build",
 		"start": "next start",
 		"test": "vitest run",
