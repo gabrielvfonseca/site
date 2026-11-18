@@ -3,7 +3,7 @@
 import "@/styles/main.css";
 import { fonts } from "@gabfon/design-system/lib/fonts";
 import { parseError } from "@gabfon/observability";
-import { Geist } from "next/font/google";
+import localFont from "next/font/local";
 import Link from "next/link";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,16 @@ import { cn } from "@/lib/utils";
  * layout, so the font stack must be re-applied here or it falls back to the
  * platform default.
  */
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const geist = localFont({
+	src: [
+		{ path: "../../assets/fonts/Geist-400.ttf", weight: "400" },
+		{ path: "../../assets/fonts/Geist-500.ttf", weight: "500" },
+		{ path: "../../assets/fonts/Geist-600.ttf", weight: "600" },
+		{ path: "../../assets/fonts/Geist-700.ttf", weight: "700" },
+	],
+	variable: "--font-sans",
+	display: "swap",
+});
 
 /**
  * The GlobalErrorProps for the site.
