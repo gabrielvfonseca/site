@@ -68,7 +68,11 @@ function isSupportedCDN(url: string): boolean {
  * For remote images on supported CDNs, @unpic/react handles optimization
  * For remote images NOT on supported CDNs, we route through Cloudflare Images
  */
-export default function imageLoader({ src, width, quality }: ImageLoaderProps): string {
+export default function imageLoader({
+	src,
+	width,
+	quality,
+}: ImageLoaderProps): string {
 	// Local images (relative paths) - vinext handles via /_next/image
 	if (src.startsWith("/") || src.startsWith("./") || src.startsWith("../")) {
 		// Return the URL that vinext's image optimizer will handle

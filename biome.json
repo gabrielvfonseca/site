@@ -15,7 +15,9 @@
 			"!**/coverage",
 			"!**/.claude/skills",
 			"!**/skills",
-			"!**/*.min.js"
+			"!**/*.min.js",
+			"!**/.cloudflare",
+			"!**/.vinext"
 		]
 	},
 	"formatter": {

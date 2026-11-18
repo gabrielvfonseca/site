@@ -64,7 +64,6 @@ let nextConfig: NextConfig = withToolbar(
 			prefetchInlining: true,
 			// cachedNavigations requires cacheComponents (PPR) which is not supported in vinext
 			// Use "use cache" directive instead for granular caching
-			appNewScrollHandler: true,
 			inlineCss: true,
 			turbopackFileSystemCacheForDev: true,
 		},
@@ -113,7 +112,7 @@ let nextConfig: NextConfig = withToolbar(
 			// Custom loader for images not on supported CDNs
 			// This allows vinext to optimize remote images via Cloudflare Images
 			loader: "custom",
-			loaderFile: "@/lib/image-loader",
+			loaderFile: "./src/lib/image-loader.ts",
 		},
 		// PPR not supported in vinext - use "use cache" directive instead
 		// cacheComponents: true,

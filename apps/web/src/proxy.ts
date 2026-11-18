@@ -21,7 +21,7 @@ const domainLocaleMap: Record<string, string> = {
 /**
  * Default locale when no domain matches.
  */
-const DEFAULT_LOCALE = "en";
+const _DEFAULT_LOCALE = "en";
 
 /**
  * Supported locales.
@@ -31,8 +31,10 @@ const SUPPORTED_LOCALES = ["en", "es", "fr", "de"];
 /**
  * Checks if a pathname already has a locale prefix.
  */
-function hasLocalePrefix(pathname: string): boolean {
-	return SUPPORTED_LOCALES.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
+function _hasLocalePrefix(pathname: string): boolean {
+	return SUPPORTED_LOCALES.some(
+		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+	);
 }
 
 /**
