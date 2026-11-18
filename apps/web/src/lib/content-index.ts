@@ -5,7 +5,7 @@ import type { Project } from "@/types/project";
 import {
 	posts as sourcePosts,
 	projects as sourceProjects,
-} from "../../.source";
+} from "../../.source/server";
 
 /**
  * Runtime shape of a fumadocs-mdx `doc()` entry: schema frontmatter fields are

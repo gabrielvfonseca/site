@@ -27,7 +27,7 @@ jobs:
       - name: Install Node.js
         uses: "actions/setup-node@v4"
         with:
-          node-version: 20
+          node-version: '22'
 
       - name: Setup Bun
         uses: "oven-sh/setup-bun@v2"
@@ -38,7 +38,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Build packages
-        run: bun build
+        run: bun run build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXT_PUBLIC_WEB_URL: ${{ secrets.NEXT_PUBLIC_WEB_URL }}
@@ -52,7 +52,7 @@ jobs:
           NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
 
       - name: Type check
-        run: bun typecheck
+        run: bun run typecheck
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXT_PUBLIC_WEB_URL: ${{ secrets.NEXT_PUBLIC_WEB_URL }}
