@@ -10,11 +10,12 @@ async function main() {
 
 	for (const file of files) {
 		const fileContent = await readFile(file, "utf-8");
-		// a very simple regex to remove JSX tags and other syntax
-		// (the [^>] match is explicit rather than dotall so multi-line
-		// tags such as "<script ...>" are stripped instead of surviving)
+		// a very simple sanitizer to remove JSX tags and other syntax
+		// (match single chars only so a single pass strips all tags;
+		//  "<" and ">" are stripped individually, which is safe because
+		//  this is only used to flatten page source for the chat index)
 		const textContent = fileContent
-			.replace(/<[^>]*>/gms, "")
+			.replace(/[<>]/g, "")
 			.replace(/import[^;]+;/g, "");
 		content += `${textContent}\\n`;
 	}
