@@ -98,11 +98,11 @@ describe("email index (Cloudflare Email Sending)", () => {
   });
 
   it("renders a React template when `react` is provided without `html`", async () => {
-    const { h, createElement } = await import("react");
+    const { createElement } = await import("react");
     await sendEmail({
       to: "recipient@example.com",
       subject: "Template",
-      react: createElement(h, "p", null, "Template body"),
+      react: createElement("p", null, "Template body"),
     });
 
     const payload = JSON.parse(

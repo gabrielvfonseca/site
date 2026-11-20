@@ -3,8 +3,8 @@ extend-exclude = ["packages/spotify/docs/"]
 
 [default]
 extend-ignore-identifiers-re = [
-  "CAnf",        # Spotify artist ID
+  "CAnf", # Spotify artist ID
   "unparseable", # Valid variant of unparsable
-  "GIR",         # Gala intermediate representation
-  "thet",        # theta transliteration in Gala code samples
+  "GIR", # Gala intermediate representation
+  "thet", # theta transliteration in Gala code samples
 ]
