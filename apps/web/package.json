@@ -37,7 +37,7 @@
     "typecheck": "bunx tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@arcjet/next": "1.0.0-beta.11",
+    "@arcjet/next": "1.16.0",
     "@base-ui/react": "^1.4.1",
     "@flags-sdk/posthog": "^0.2.2",
     "@gabfon/analytics": "workspace:*",
