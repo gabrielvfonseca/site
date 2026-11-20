@@ -134,7 +134,7 @@ export async function getThreadBySlug(slug: string): Promise<AmaThread | null> {
       answeredAt: head.answeredAt,
       messages: messages.map((message) => ({
         id: message.id,
-        role: message.role,
+        role: message.role as "asker" | "owner",
         body: message.body,
         createdAt: message.createdAt,
       })),
