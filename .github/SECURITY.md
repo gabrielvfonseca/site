@@ -82,6 +82,7 @@ If you discover a security vulnerability, please report it responsibly:
 ## Contact
 
 For security-related questions or concerns, please contact:
+
 - Email: [security@gabfon.com](mailto:security@gabfon.com)
 - GitHub: [@gabrielvfonseca](https://github.com/gabrielvfonseca)
 

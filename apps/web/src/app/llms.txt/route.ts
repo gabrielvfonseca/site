@@ -6,18 +6,18 @@ import { getPosts, getProjects } from "@/lib/content-index";
  * from the site config and real content.
  */
 export function GET() {
-	const posts = getPosts()
-		.map((post) => `- ${post.title}: ${post.description} (/posts/${post.slug})`)
-		.join("\n");
+  const posts = getPosts()
+    .map((post) => `- ${post.title}: ${post.description} (/posts/${post.slug})`)
+    .join("\n");
 
-	const projects = getProjects()
-		.map(
-			(project) =>
-				`- ${project.title}: ${project.description} (${project.link || `/projects/${project.slug}`})`,
-		)
-		.join("\n");
+  const projects = getProjects()
+    .map(
+      (project) =>
+        `- ${project.title}: ${project.description} (${project.link || `/projects/${project.slug}`})`
+    )
+    .join("\n");
 
-	const content = `# ${CONFIG.name} Portfolio (gabfon.com)
+  const content = `# ${CONFIG.name} Portfolio (gabfon.com)
 
 ${CONFIG.location}-based software developer, founder of Frontal Labs, and Computer Engineering student at NOVA FCT.
 
@@ -36,7 +36,7 @@ ${posts || "- No posts published yet."}
 ${projects || "- No projects published yet."}
 
 ## Site
-A personal site built with Next.js (App Router) and a design system in Tailwind. Features a contact form (server actions + Resend), and a live "activity" heatmap aggregating GitHub contributions, Strava activities and Spotify listening.
+A personal site built with Next.js (App Router) and a design system in Tailwind. Features a contact form (server actions + Cloudflare Email Sending), and a live "activity" heatmap aggregating GitHub contributions, Strava activities and Spotify listening.
 
 ## Contact
 - Email: ${CONFIG.email.replace("mailto:", "")}
@@ -45,7 +45,7 @@ A personal site built with Next.js (App Router) and a design system in Tailwind.
 - LinkedIn: ${CONFIG.social.linkedin}
 `;
 
-	return new Response(content, {
-		headers: { "content-type": "text/plain; charset=utf-8" },
-	});
+  return new Response(content, {
+    headers: { "content-type": "text/plain; charset=utf-8" },
+  });
 }

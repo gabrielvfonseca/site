@@ -10,11 +10,19 @@ pre-commit:
       skip:
         - no_staged_files
 
-    biome:
-      tags: [lint, format]
-      description: Lint and format JS/TS/CSS/JSON files with Biome
-      glob: "*.{js,jsx,ts,tsx,json,css}"
-      run: npx @biomejs/biome check --staged --diagnostic-level=error
+    oxlint:
+      tags: [lint]
+      description: Lint JS/TS files with Oxlint
+      glob: "*.{js,jsx,ts,tsx}"
+      run: bunx oxlint --fix {staged_files}
+      skip:
+        - no_staged_files
+
+    oxfmt:
+      tags: [format]
+      description: Format JS/TS/JSON files with Oxfmt
+      glob: "*.{js,jsx,ts,tsx,json}"
+      run: bunx oxfmt --write {staged_files}
       skip:
         - no_staged_files
 

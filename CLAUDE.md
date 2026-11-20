@@ -50,14 +50,14 @@ site-main/                         # Root monorepo (pnpm workspace + Turborepo)
 │       ├── vitest.config.ts, playwright.config.ts, tsconfig.json
 │
 ├── packages/                      # 16 workspace packages (@gabfon/*)
-│   ├── analytics/                 # PostHog + Vercel Analytics
-│   ├── database/                  # Neon / PostgreSQL client
+│   ├── analytics/                 # PostHog analytics
+│   ├── database/                  # Cloudflare D1 (Drizzle ORM) client
 │   ├── design-system/             # shadcn/ui source of truth (30+ components), Radix, Tailwind
 │   ├── email/                     # Email templates (contact notifications)
 │   ├── github/                    # GitHub API client (contribution graph, stats)
 │   ├── next-config/               # Shared Next.js config presets
 │   ├── observability/             # Sentry + Logtail
-│   ├── rate-limit/                # Upstash Redis / Vercel KV rate limiting
+│   ├── rate-limit/                # Upstash Redis rate limiting
 │   ├── security/                  # Arcjet + Nosecone middleware
 │   ├── seo/                       # Metadata, viewport, JSON-LD helpers
 │   ├── spotify/                   # Spotify API client (now playing, top tracks)
@@ -80,7 +80,7 @@ site-main/                         # Root monorepo (pnpm workspace + Turborepo)
 ## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
+| --- | --- |
 | **Framework** | Next.js 16.2.1 (App Router) with React 19.2.1 |
 | **Monorepo** | Turborepo 2.9 + pnpm 9.12.3 + Bun |
 | **Language** | TypeScript 5.9 (strict mode) |
@@ -89,11 +89,11 @@ site-main/                         # Root monorepo (pnpm workspace + Turborepo)
 | **Content** | Fumadocs MDX (`.mdx` files → typed collections at build time — NO database) |
 | **Client Data** | @tanstack/react-query |
 | **Validation** | Zod + @t3-oss/env-nextjs |
-| **Linting/Format** | Biome 2.2 via `ultracite` |
+| **Linting/Format** | Oxlint + Oxfmt via `ultracite` |
 | **Testing** | Vitest + Testing Library (unit/integration), Playwright (E2E) |
 | **Security** | Arcjet + Nosecone + Gitleaks |
-| **Observability** | Sentry + PostHog + Logtail + Vercel Analytics |
-| **Deployment** | Vercel (Bun runtime) + optional Docker |
+| **Observability** | Sentry + PostHog + Logtail |
+| **Deployment** | Cloudflare Workers (vinext) + optional Docker |
 
 ## Commands
 
@@ -105,8 +105,8 @@ pnpm build            # Build all packages + app
 pnpm test             # Run all tests (vitest run --run)
 pnpm test:coverage    # With coverage report
 pnpm typecheck        # TypeScript validation
-pnpm lint             # ultracite check (Biome)
-pnpm format           # ultracite fix (Biome auto-fix)
+pnpm lint             # ultracite check (Oxlint)
+pnpm format           # ultracite fix (Oxfmt)
 pnpm clean            # git clean -xdf node_modules
 
 # App-specific
@@ -130,7 +130,8 @@ pnpm bump-ui            # Re-add all shadcn/ui components
 ## Coding Conventions
 
 ### General
-- **Files**: kebab-case (enforced by Biome)
+
+- **Files**: kebab-case (enforced by Ultracite)
 - **Components**: PascalCase named function exports
 - **Utilities**: camelCase
 - **Constants**: UPPER_SNAKE_CASE or PascalCase
@@ -138,61 +139,76 @@ pnpm bump-ui            # Re-add all shadcn/ui components
 - **All functions, components, interfaces, exports require JSDoc** with `@param` and `@returns`
 
 ### Imports
+
 - Third-party imports first, then internal absolute imports
 - Absolute path alias: `@/` → `./src/`
 - Workspace packages: `@gabfon/*`
-- No barrel file restrictions (Biome rules `noBarrelFile` and `noReExportAll` are disabled)
+- No barrel file restrictions (barrel exports are allowed where useful)
 
 ### Components
+
 - **React Server Components by default** — only add `'use client'` for interactivity
 - Composition pattern: data-fetching parent (`Posts`, `Projects`) → rendering child (`PostsList`, `ProjectsList`)
 - Accessibility: semantic HTML, `aria-label`, `aria-labelledby`, skip-nav, focus management
 
 ### Types
+
 - Explicit type annotations on parameters and return types
 - `interface` for props, `type` for unions/aliases
 - Zod schemas for runtime validation with `z.infer<typeof schema>` inference
 - `readonly` modifier on props interface members
 
 ### Example Component
+
 ```tsx
 interface GreetingProps {
   readonly name: string;
-  readonly variant?: 'primary' | 'secondary';
+  readonly variant?: "primary" | "secondary";
 }
 
-export function Greeting({ name, variant = 'primary' }: GreetingProps): JSX.Element {
-  return <h2 className={cn('font-semibold', variant === 'primary' && 'text-lg')}>{name}</h2>;
+export function Greeting({
+  name,
+  variant = "primary",
+}: GreetingProps): JSX.Element {
+  return (
+    <h2 className={cn("font-semibold", variant === "primary" && "text-lg")}>
+      {name}
+    </h2>
+  );
 }
 ```
 
 ## Page + API Route Structure
 
 ### Public Routes (under `(site)` route group)
-| Path | Description |
-|------|-------------|
-| `/` | Homepage (about, activity graph, projects, posts) |
-| `/bio` | Bio page |
-| `/contact` | Contact form |
-| `/posts` | Blog listing |
-| `/posts/[slug]` | Individual post |
-| `/projects` | Projects listing |
-| `/projects/[slug]` | Project case study |
-| `/ama` | Ask Me Anything |
+
+| Path               | Description                                       |
+| ------------------ | ------------------------------------------------- |
+| `/`                | Homepage (about, activity graph, projects, posts) |
+| `/bio`             | Bio page                                          |
+| `/contact`         | Contact form                                      |
+| `/posts`           | Blog listing                                      |
+| `/posts/[slug]`    | Individual post                                   |
+| `/projects`        | Projects listing                                  |
+| `/projects/[slug]` | Project case study                                |
+| `/ama`             | Ask Me Anything                                   |
 
 ### API Routes
-| Path | Description |
-|------|-------------|
+
+| Path            | Description                             |
+| --------------- | --------------------------------------- |
 | `/api/activity` | GitHub/Spotify/Strava contribution data |
-| `/api/ama` | AMA questions (read/write) |
+| `/api/ama`      | AMA questions (read/write)              |
 
 ### Server Actions
-| Path | Description |
-|------|-------------|
+
+| Path                         | Description             |
+| ---------------------------- | ----------------------- |
 | `actions/contact/actions.ts` | Contact form submission |
-| `actions/ama/actions.ts` | AMA question submission |
+| `actions/ama/actions.ts`     | AMA question submission |
 
 ### Metadata Routes (auto-generated)
+
 `/sitemap.tsx`, `/robots.ts`, `/manifest.ts`, `/icon.tsx`, `/apple-icon.tsx`, `/opengraph-image.tsx`, `/twitter-image.tsx`, `/llms.txt`, `/llms.md`, `/llms-full.txt`, `/rss.xml`
 
 ## Content Management (Fumadocs MDX)
@@ -210,14 +226,17 @@ All content is file-based MDX in `apps/web/content/`. No database.
 All env vars are validated at startup via `@t3-oss/env-nextjs` + Zod in `apps/web/src/config/env.ts`. Each `@gabfon/*` package exposes a `keys()` factory composed via `createEnv({ extends: [...] })`.
 
 ### Required
-`DATABASE_URL`, `ARCJET_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_WEB_URL`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`, `LOGTAIL_SOURCE_TOKEN`
+
+`ARCJET_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_WEB_URL`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`, `LOGTAIL_SOURCE_TOKEN`
 
 ### Optional (with defaults)
+
 `NEXT_PUBLIC_X_URL`, `NEXT_PUBLIC_LINKEDIN_URL`, `NEXT_PUBLIC_GITHUB_URL`, `NEXT_PUBLIC_SCHEDULE_URL`, `NEXT_PUBLIC_EMAIL`, `ANALYZE`, `FLAGS_SECRET`
 
 ## Security Middleware Chain
 
 Applied via middleware (in order):
+
 1. **Rate Limiter** (`@gabfon/rate-limit`) — cheapest rejection first
 2. **Nosecone** (`@gabfon/security`) — security headers (CSP, HSTS, etc.)
 3. **Arcjet** (`@arcjet/next`) — bot detection + shield protection
@@ -239,13 +258,13 @@ Plus: Gitleaks pre-commit hook, dependency overrides for vulnerability patches.
 3. **Server-first**: Minimal client JS — only `theme-toggle`, `ContactForm`, `ContributionGraph`, `QueryProvider` are client components
 4. **Composition + delegation**: `Posts` calls `getPosts()` → delegates rendering to `PostsList`; `Projects` → `ProjectsList`
 5. **Conventional commits**: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`, `style:`, `revert:`, `ci:`, `perf:`, `build:` enforced by commitlint + husky
-6. **No barrel files**: Biome explicitly disables `noBarrelFile` and `noReExportAll` rules to allow barrel exports where useful
+6. **Barrel files allowed**: barrel exports are permitted where useful
 7. **JSDoc everywhere**: Every export — functions, components, interfaces — has a JSDoc comment
 
 ## Testing
 
 | Type | Framework | Location |
-|------|-----------|----------|
+| --- | --- | --- |
 | Unit | Vitest + Testing Library + jsdom | `src/**/*.test.{ts,tsx}`, `tests/unit/**/*` |
 | Integration | Vitest | `tests/integration/**/*` |
 | E2E | Playwright (Chromium, Firefox, WebKit, Mobile Chrome) | `tests/e2e/**/*` |
@@ -259,13 +278,13 @@ Plus: Gitleaks pre-commit hook, dependency overrides for vulnerability patches.
 ## Available AI Agent Skills
 
 Skills are loaded automatically when matching tasks arise:
+
 - `code-review` — PR/code review
 - `playwright` — Browser automation, E2E testing
 - `frontend-design` — Creative UI/UX, distinctive aesthetics
 - `next-best-practices` — Next.js 16 architecture, App Router, performance
 - `find-docs` — Fetching up-to-date library/framework documentation
+
 - `web-animation-design` — CSS/JS animations, easing, motion
-- `vercel-react-best-practices` — React/Next.js performance optimization
 - `workflow` — Durable, resumable workflows
-- `deploy-to-vercel` — Deployment automation
 - `skill-creator` — Creating/updating agent skills

@@ -6,8 +6,8 @@ import type { StravaPayload } from "./types";
  * Props for {@link RunningWidget}.
  */
 interface RunningWidgetProps {
-	/** The Strava running payload, or `null` when unavailable. */
-	readonly data: StravaPayload | null;
+  /** The Strava running payload, or `null` when unavailable. */
+  readonly data: StravaPayload | null;
 }
 
 /**
@@ -18,52 +18,52 @@ interface RunningWidgetProps {
  * @returns The RunningWidget element.
  */
 export function RunningWidget({ data }: RunningWidgetProps) {
-	if (!data) {
-		return (
-			<p className="text-muted-foreground text-sm">
-				Running data is unavailable right now.
-			</p>
-		);
-	}
+  if (!data) {
+    return (
+      <p className="text-muted-foreground text-sm">
+        Running data is unavailable right now.
+      </p>
+    );
+  }
 
-	return (
-		<div className="flex flex-col gap-4">
-			<StatTiles
-				items={[
-					{
-						value: String(data.ytdRuns.count),
-						label: "Runs",
-						hint: "This year",
-					},
-					{
-						value: formatDistance(data.ytdRuns.distanceKm),
-						label: "Distance",
-						hint: "This year",
-					},
-					{
-						value: formatDuration(data.ytdRuns.movingTimeSeconds),
-						label: "Time",
-						hint: "Moving, this year",
-					},
-				]}
-			/>
-			{data.recentRuns.length > 0 ? (
-				<ul className="flex flex-col gap-2">
-					{data.recentRuns.map((run) => (
-						<li
-							className="flex items-baseline justify-between gap-3 text-sm"
-							key={`${run.date}-${run.name}`}
-						>
-							<span className="truncate text-foreground">{run.name}</span>
-							<span className="shrink-0 text-muted-foreground tabular-nums">
-								{formatDistance(run.distanceKm)} ·{" "}
-								{formatPace(run.paceSecondsPerKm)}
-								/km
-							</span>
-						</li>
-					))}
-				</ul>
-			) : null}
-		</div>
-	);
+  return (
+    <div className="flex flex-col gap-4">
+      <StatTiles
+        items={[
+          {
+            value: String(data.ytdRuns.count),
+            label: "Runs",
+            hint: "This year",
+          },
+          {
+            value: formatDistance(data.ytdRuns.distanceKm),
+            label: "Distance",
+            hint: "This year",
+          },
+          {
+            value: formatDuration(data.ytdRuns.movingTimeSeconds),
+            label: "Time",
+            hint: "Moving, this year",
+          },
+        ]}
+      />
+      {data.recentRuns.length > 0 ? (
+        <ul className="flex flex-col gap-2">
+          {data.recentRuns.map((run) => (
+            <li
+              className="flex items-baseline justify-between gap-3 text-sm"
+              key={`${run.date}-${run.name}`}
+            >
+              <span className="text-foreground truncate">{run.name}</span>
+              <span className="text-muted-foreground shrink-0 tabular-nums">
+                {formatDistance(run.distanceKm)} ·{" "}
+                {formatPace(run.paceSecondsPerKm)}
+                /km
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
 }

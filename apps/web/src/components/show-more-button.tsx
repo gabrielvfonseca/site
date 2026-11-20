@@ -7,12 +7,12 @@ import { ChevronDownIcon } from "lucide-react";
  * The ShowMoreButtonProps for the site.
  */
 export interface ShowMoreButtonProps {
-	/** Number of items still hidden, surfaced to the user and screen readers. */
-	readonly remaining: number;
-	/** Noun for the items being revealed, e.g. `'posts'`. */
-	readonly label: string;
-	/** Reveal the next batch of items. */
-	readonly onShowMore: () => void;
+  /** Number of items still hidden, surfaced to the user and screen readers. */
+  readonly remaining: number;
+  /** Noun for the items being revealed, e.g. `'posts'`. */
+  readonly label: string;
+  /** Reveal the next batch of items. */
+  readonly onShowMore: () => void;
 }
 
 /**
@@ -21,21 +21,21 @@ export interface ShowMoreButtonProps {
  * @returns The ShowMoreButton for the site.
  */
 export function ShowMoreButton({
-	remaining,
-	label,
-	onShowMore,
+  remaining,
+  label,
+  onShowMore,
 }: ShowMoreButtonProps) {
-	return (
-		<Button
-			aria-label={`Show more ${label} (${remaining} remaining)`}
-			className="mt-2 self-start text-muted-foreground"
-			onClick={onShowMore}
-			size="sm"
-			type="button"
-			variant="ghost"
-		>
-			Show more
-			<ChevronDownIcon aria-hidden="true" />
-		</Button>
-	);
+  return (
+    <Button
+      aria-label={`Show more ${label} (${remaining} remaining)`}
+      className="text-muted-foreground mt-2 self-start"
+      onClick={onShowMore}
+      size="sm"
+      type="button"
+      variant="ghost"
+    >
+      Show more
+      <ChevronDownIcon aria-hidden="true" />
+    </Button>
+  );
 }

@@ -6,23 +6,23 @@ import { getPosts, getProjects } from "@/lib/content-index";
  * analysis, generated from the site config and real content.
  */
 export function GET() {
-	const updated = new Date().toISOString().split("T")[0];
+  const [updated] = new Date().toISOString().split("T");
 
-	const posts = getPosts()
-		.map(
-			(post) =>
-				`### ${post.title}\n${post.description}\nURL: /posts/${post.slug}${post.date ? `\nDate: ${post.date}` : ""}`,
-		)
-		.join("\n\n");
+  const posts = getPosts()
+    .map(
+      (post) =>
+        `### ${post.title}\n${post.description}\nURL: /posts/${post.slug}${post.date ? `\nDate: ${post.date}` : ""}`
+    )
+    .join("\n\n");
 
-	const projects = getProjects()
-		.map(
-			(project) =>
-				`### ${project.title}\n${project.description}\nURL: ${project.link || `/projects/${project.slug}`}`,
-		)
-		.join("\n\n");
+  const projects = getProjects()
+    .map(
+      (project) =>
+        `### ${project.title}\n${project.description}\nURL: ${project.link || `/projects/${project.slug}`}`
+    )
+    .join("\n\n");
 
-	const content = `# ${CONFIG.name} Comprehensive Portfolio (gabfon.com)
+  const content = `# ${CONFIG.name} Comprehensive Portfolio (gabfon.com)
 
 ## Personal Information
 Name: ${CONFIG.name}
@@ -45,7 +45,7 @@ ${posts || "No posts published yet."}
 ${projects || "No projects published yet."}
 
 ## About This Site
-Built with Next.js 16 (App Router) and React 19 in a Turborepo monorepo with a shared Tailwind design system. Features: MDX-powered posts and projects, a contact form (React server actions + Resend), and a live activity heatmap that aggregates GitHub contributions, Strava activities, and Spotify listening. Security via Arcjet + Nosecone headers and Upstash-backed rate limiting; analytics via PostHog + Vercel; error tracking via Sentry.
+Built with Next.js 16 (App Router) and React 19 in a Turborepo monorepo with a shared Tailwind design system. Features: MDX-powered posts and projects, a contact form (React server actions + Cloudflare Email Sending), and a live activity heatmap that aggregates GitHub contributions, Strava activities, and Spotify listening. Security via Arcjet + Nosecone headers and Upstash-backed rate limiting; analytics via PostHog; error tracking via Sentry.
 
 ## Connect
 X: ${CONFIG.social.x}
@@ -58,7 +58,7 @@ Last updated: ${updated}
 Portfolio URL: https://gabfon.com
 `;
 
-	return new Response(content, {
-		headers: { "content-type": "text/plain; charset=utf-8" },
-	});
+  return new Response(content, {
+    headers: { "content-type": "text/plain; charset=utf-8" },
+  });
 }

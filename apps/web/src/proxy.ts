@@ -1,7 +1,9 @@
 import { parseError } from "@gabfon/observability";
 import { secure } from "@gabfon/security";
 import { noseconeMiddleware, noseconeOptions } from "@gabfon/security/proxy";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
 import { env } from "@/config/env";
 import { checkRateLimit, rateLimitHeaders } from "@/lib/rate-limit";
 
@@ -12,10 +14,10 @@ const securityHeaders = noseconeMiddleware(noseconeOptions);
  * Add your domains and their corresponding locales here.
  */
 const domainLocaleMap: Record<string, string> = {
-	// Example: "es.example.com": "es",
-	// Example: "fr.example.com": "fr",
-	// Example: "de.example.com": "de",
-	// "example.com": "en", // Default locale
+  // Example: "es.example.com": "es",
+  // Example: "fr.example.com": "fr",
+  // Example: "de.example.com": "de",
+  // "example.com": "en", // Default locale
 };
 
 /**
@@ -32,36 +34,36 @@ const SUPPORTED_LOCALES = ["en", "es", "fr", "de"];
  * Checks if a pathname already has a locale prefix.
  */
 function _hasLocalePrefix(pathname: string): boolean {
-	return SUPPORTED_LOCALES.some(
-		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-	);
+  return SUPPORTED_LOCALES.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
 }
 
 /**
  * Extracts locale from pathname if present.
  */
 function getLocaleFromPathname(pathname: string): string | null {
-	for (const locale of SUPPORTED_LOCALES) {
-		if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
-			return locale;
-		}
-	}
-	return null;
+  for (const locale of SUPPORTED_LOCALES) {
+    if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
+      return locale;
+    }
+  }
+  return null;
 }
 
 /**
  * Removes locale prefix from pathname.
  */
 function removeLocalePrefix(pathname: string): string {
-	for (const locale of SUPPORTED_LOCALES) {
-		if (pathname.startsWith(`/${locale}/`)) {
-			return pathname.slice(locale.length + 1) || "/";
-		}
-		if (pathname === `/${locale}`) {
-			return "/";
-		}
-	}
-	return pathname;
+  for (const locale of SUPPORTED_LOCALES) {
+    if (pathname.startsWith(`/${locale}/`)) {
+      return pathname.slice(locale.length + 1) || "/";
+    }
+    if (pathname === `/${locale}`) {
+      return "/";
+    }
+  }
+  return pathname;
 }
 
 /**
@@ -69,121 +71,121 @@ function removeLocalePrefix(pathname: string): string {
  * Maps domains to locales and rewrites URLs to include locale prefix.
  */
 function handleI18n(request: NextRequest): NextResponse | null {
-	const { hostname, pathname } = request.nextUrl;
+  const { hostname, pathname } = request.nextUrl;
 
-	// Skip API routes, static files, and Next.js internals
-	if (
-		pathname.startsWith("/api/") ||
-		pathname.startsWith("/_next/") ||
-		pathname.startsWith("/static/") ||
-		pathname.includes(".") ||
-		pathname === "/favicon.ico"
-	) {
-		return null;
-	}
+  // Skip API routes, static files, and Next.js internals
+  if (
+    pathname.startsWith("/api/") ||
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/static/") ||
+    pathname.includes(".") ||
+    pathname === "/favicon.ico"
+  ) {
+    return null;
+  }
 
-	// Check if the hostname matches a configured domain
-	const localeFromDomain = domainLocaleMap[hostname];
+  // Check if the hostname matches a configured domain
+  const localeFromDomain = domainLocaleMap[hostname];
 
-	// If no domain mapping, continue without locale prefix (or use default)
-	if (!localeFromDomain) {
-		return null;
-	}
+  // If no domain mapping, continue without locale prefix (or use default)
+  if (!localeFromDomain) {
+    return null;
+  }
 
-	// If pathname already has a locale prefix, check if it matches the domain locale
-	const existingLocale = getLocaleFromPathname(pathname);
+  // If pathname already has a locale prefix, check if it matches the domain locale
+  const existingLocale = getLocaleFromPathname(pathname);
 
-	if (existingLocale) {
-		// If the existing locale doesn't match the domain locale, redirect
-		if (existingLocale !== localeFromDomain) {
-			const newPathname = `/${localeFromDomain}${removeLocalePrefix(pathname)}`;
-			const url = request.nextUrl.clone();
-			url.pathname = newPathname;
-			return NextResponse.redirect(url);
-		}
-		// Locale matches, continue
-		return null;
-	}
+  if (existingLocale) {
+    // If the existing locale doesn't match the domain locale, redirect
+    if (existingLocale !== localeFromDomain) {
+      const newPathname = `/${localeFromDomain}${removeLocalePrefix(pathname)}`;
+      const url = request.nextUrl.clone();
+      url.pathname = newPathname;
+      return NextResponse.redirect(url);
+    }
+    // Locale matches, continue
+    return null;
+  }
 
-	// No locale prefix, add the domain's locale
-	const newPathname = `/${localeFromDomain}${pathname}`;
-	const url = request.nextUrl.clone();
-	url.pathname = newPathname;
+  // No locale prefix, add the domain's locale
+  const newPathname = `/${localeFromDomain}${pathname}`;
+  const url = request.nextUrl.clone();
+  url.pathname = newPathname;
 
-	// Use rewrite instead of redirect to keep the domain in the URL bar
-	return NextResponse.rewrite(url);
+  // Use rewrite instead of redirect to keep the domain in the URL bar
+  return NextResponse.rewrite(url);
 }
 
-// IP-based rate limiting for all matched routes. No-ops without Vercel KV.
+// IP-based rate limiting for all matched routes. No-ops without Upstash Redis.
 const rateLimitMiddleware = async (request: NextRequest) => {
-	const result = await checkRateLimit(request, {
-		prefix: "gabfon:mw",
-		requests: 100,
-		window: "60 s",
-	});
+  const result = await checkRateLimit(request, {
+    prefix: "gabfon:mw",
+    requests: 100,
+    window: "60 s",
+  });
 
-	if (result && !result.success) {
-		return NextResponse.json(
-			{ error: "Too many requests. Please slow down." },
-			{ status: 429, headers: rateLimitHeaders(result) },
-		);
-	}
+  if (result && !result.success) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down." },
+      { status: 429, headers: rateLimitHeaders(result) }
+    );
+  }
 };
 
 // Custom middleware for Arcjet security checks
 const arcjetMiddleware = async (request: NextRequest) => {
-	if (!env.ARCJET_KEY) {
-		return;
-	}
+  if (!env.ARCJET_KEY) {
+    return;
+  }
 
-	try {
-		await secure(
-			[
-				// See https://docs.arcjet.com/bot-protection/identifying-bots
-				"CATEGORY:SEARCH_ENGINE", // Allow search engines
-				"CATEGORY:PREVIEW", // Allow preview links to show OG images
-				"CATEGORY:MONITOR", // Allow uptime monitoring services
-			],
-			request,
-		);
-	} catch (error) {
-		const message = parseError(error);
-		return NextResponse.json({ error: message }, { status: 403 });
-	}
+  try {
+    await secure(
+      [
+        // See https://docs.arcjet.com/bot-protection/identifying-bots
+        "CATEGORY:SEARCH_ENGINE", // Allow search engines
+        "CATEGORY:PREVIEW", // Allow preview links to show OG images
+        "CATEGORY:MONITOR", // Allow uptime monitoring services
+      ],
+      request
+    );
+  } catch (error) {
+    const message = parseError(error);
+    return NextResponse.json({ error: message }, { status: 403 });
+  }
 };
 
 export default async function proxy(request: NextRequest) {
-	// Rate limit first (cheapest rejection).
-	const rateLimitResponse = await rateLimitMiddleware(request);
-	if (rateLimitResponse) {
-		return rateLimitResponse;
-	}
+  // Rate limit first (cheapest rejection).
+  const rateLimitResponse = await rateLimitMiddleware(request);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
 
-	// Run Arcjet middleware (bot/shield protection).
-	const arcjetResponse = await arcjetMiddleware(request);
-	if (arcjetResponse) {
-		return arcjetResponse;
-	}
+  // Run Arcjet middleware (bot/shield protection).
+  const arcjetResponse = await arcjetMiddleware(request);
+  if (arcjetResponse) {
+    return arcjetResponse;
+  }
 
-	// Handle domain-based i18n routing.
-	const i18nResponse = handleI18n(request);
-	if (i18nResponse) {
-		// Apply security headers to the i18n response without replacing its
-		// routing behavior (rewrite or redirect).
-		const headersResponse = await securityHeaders();
-		for (const [key, value] of headersResponse.headers) {
-			i18nResponse.headers.set(key, value);
-		}
-		return i18nResponse;
-	}
+  // Handle domain-based i18n routing.
+  const i18nResponse = handleI18n(request);
+  if (i18nResponse) {
+    // Apply security headers to the i18n response without replacing its
+    // routing behavior (rewrite or redirect).
+    const headersResponse = await securityHeaders();
+    for (const [key, value] of headersResponse.headers) {
+      i18nResponse.headers.set(key, value);
+    }
+    return i18nResponse;
+  }
 
-	// Return headers response
-	const headersResponse = await securityHeaders();
-	return headersResponse;
+  // Return headers response
+  const headersResponse = await securityHeaders();
+  return headersResponse;
 }
 
 export const config = {
-	// matcher tells Next.js which routes to run the middleware on. This runs the
-	// middleware on all routes except for static assets and Posthog ingest
-	matcher: ["/((?!_next/static|_next/image|ingest|favicon.ico).*)"],
+  // matcher tells Next.js which routes to run the middleware on. This runs the
+  // middleware on all routes except for static assets and Posthog ingest
+  matcher: ["/((?!_next/static|_next/image|ingest|favicon.ico).*)"],
 };

@@ -1,16 +1,17 @@
 import { Badge } from "@gabfon/design-system/components/badge";
+
 import { cn } from "@/lib/utils";
 
 /**
  * Props for {@link TechStack}.
  */
 interface TechStackProps {
-	/** The list of technologies / tags to render as pills. */
-	readonly items: readonly string[];
-	/** Optional label rendered above the pills, e.g. `Built with`. */
-	readonly label?: string;
-	/** Optional extra class names. */
-	readonly className?: string;
+  /** The list of technologies / tags to render as pills. */
+  readonly items: readonly string[];
+  /** Optional label rendered above the pills, e.g. `Built with`. */
+  readonly label?: string;
+  /** Optional extra class names. */
+  readonly className?: string;
 }
 
 /**
@@ -20,18 +21,18 @@ interface TechStackProps {
  * @returns The TechStack element.
  */
 export function TechStack({ items, label, className }: TechStackProps) {
-	return (
-		<div className={cn("not-prose flex flex-col gap-2.5", className)}>
-			{label ? (
-				<span className="text-muted-foreground text-xs uppercase tracking-wider">
-					{label}
-				</span>
-			) : null}
-			<div className="flex flex-wrap gap-1.5">
-				{items.map((item) => (
-					<Badge key={item}>{item}</Badge>
-				))}
-			</div>
-		</div>
-	);
+  return (
+    <div className={cn("not-prose flex flex-col gap-2.5", className)}>
+      {label ? (
+        <span className="text-muted-foreground text-xs tracking-wider uppercase">
+          {label}
+        </span>
+      ) : null}
+      <div className="flex flex-wrap gap-1.5">
+        {items.map((item) => (
+          <Badge key={item}>{item}</Badge>
+        ))}
+      </div>
+    </div>
+  );
 }

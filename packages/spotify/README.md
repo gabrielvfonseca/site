@@ -32,7 +32,7 @@ SPOTIFY_ACCESS_TOKEN=your_spotify_access_token
 ### Basic Usage
 
 ```typescript
-import { spotifyClient } from '@gabfon/spotify';
+import { spotifyClient } from "@gabfon/spotify";
 
 // Get user information
 const user = await spotifyClient.getCurrentUser();
@@ -50,7 +50,7 @@ const topArtists = await spotifyClient.getTopArtists();
 const recentTracks = await spotifyClient.getRecentTracks();
 
 // Get audio features for a track
-const audioFeatures = await spotifyClient.getAudioFeatures('track_id');
+const audioFeatures = await spotifyClient.getAudioFeatures("track_id");
 ```
 
 ### React Integration
@@ -66,7 +66,7 @@ function SpotifyDashboard() {
   return (
     <div>
       <h1>Spotify Dashboard</h1>
-      
+
       {currentlyPlaying && (
         <section>
           <h2>Currently Playing</h2>
@@ -105,16 +105,19 @@ function SpotifyDashboard() {
 ### Client Methods
 
 #### User Data
+
 - `getCurrentUser()` - Get current user profile
 - `getTopTracks(options?)` - Get user's top tracks
 - `getTopArtists(options?)` - Get user's top artists
 - `getRecentTracks(options?)` - Get recently played tracks
 
 #### Playback
+
 - `getCurrentlyPlaying()` - Get currently playing track
 - `getPlaybackState()` - Get current playback state
 
 #### Track & Artist Data
+
 - `getTrack(trackId: string)` - Get track information
 - `getArtist(artistId: string)` - Get artist information
 - `getAudioFeatures(trackId: string)` - Get audio features for a track
@@ -135,11 +138,11 @@ function SpotifyDashboard() {
 
 This package uses `@t3-oss/env-nextjs` for environment validation. Required variables:
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `SPOTIFY_CLIENT_ID` | Spotify Client ID | Yes |
-| `SPOTIFY_CLIENT_SECRET` | Spotify Client Secret | Yes |
-| `SPOTIFY_ACCESS_TOKEN` | Spotify Access Token | Yes |
+| Variable                | Description           | Required |
+| ----------------------- | --------------------- | -------- |
+| `SPOTIFY_CLIENT_ID`     | Spotify Client ID     | Yes      |
+| `SPOTIFY_CLIENT_SECRET` | Spotify Client Secret | Yes      |
+| `SPOTIFY_ACCESS_TOKEN`  | Spotify Access Token  | Yes      |
 
 ## Authentication
 

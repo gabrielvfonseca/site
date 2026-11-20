@@ -1,7 +1,8 @@
 # Git Hygiene Implementation Plan
+
 **Status**: Ready for Implementation  
 **Effort**: ~4-6 hours initial setup + 1-2 hours per developer for one-time config  
-**Risk Level**: Low (all changes are additive)  
+**Risk Level**: Low (all changes are additive)
 
 ---
 
@@ -65,6 +66,7 @@
 ```
 
 **Implementation**:
+
 ```bash
 # Verify it doesn't already exist
 test -f .gitattributes && echo "File exists" || echo "Safe to create"
@@ -132,6 +134,7 @@ git commit -m "docs: add .gitattributes for cross-platform consistency"
 ```
 
 **Verification**:
+
 ```bash
 # Check that file is tracked
 git ls-files | grep gitattributes
@@ -191,6 +194,7 @@ indent_size = 2
 ```
 
 **Implementation**:
+
 ```bash
 cat > .editorconfig << 'EOF'
 root = true
@@ -273,13 +277,13 @@ Upon receipt of a vulnerability report, we commit to:
 
 ## Responsible Disclosure Timeline
 
-| Timeline | Action |
-|----------|--------|
-| Day 0 | Vulnerability reported |
-| Day 2 | Acknowledgment sent |
-| Day 7 | Severity assessment & response |
-| Day 30 | Fix release target |
-| Day 45 | Public disclosure (after patch is available) |
+| Timeline | Action                                       |
+| -------- | -------------------------------------------- |
+| Day 0    | Vulnerability reported                       |
+| Day 2    | Acknowledgment sent                          |
+| Day 7    | Severity assessment & response               |
+| Day 30   | Fix release target                           |
+| Day 45   | Public disclosure (after patch is available) |
 
 We may adjust this timeline based on severity and complexity.
 
@@ -291,11 +295,11 @@ We may adjust this timeline based on severity and complexity.
 
 ## Supported Versions
 
-| Version | Status | Supported Until |
-|---------|--------|-----------------|
-| Latest |  Supported | Ongoing |
-| Previous Major |  Supported | 12 months |
-| Older versions |  Unsupported | Not supported |
+| Version        | Status      | Supported Until |
+| -------------- | ----------- | --------------- |
+| Latest         | Supported   | Ongoing         |
+| Previous Major | Supported   | 12 months       |
+| Older versions | Unsupported | Not supported   |
 
 Only the latest and previous major versions receive security patches.
 
@@ -304,16 +308,19 @@ Only the latest and previous major versions receive security patches.
 When working with this project:
 
 ### Credentials & Secrets
+
 - Never commit credentials, API keys, or tokens
 - Use environment variables for sensitive data
 - Pre-commit hooks scan for secrets automatically
 
 ### Dependencies
+
 - Keep dependencies up-to-date
 - Review dependency updates in PRs
 - Report security issues in dependencies to maintainers first
 
 ### Code Review
+
 - All changes require peer review
 - Security-sensitive code gets additional review
 - Automated security scanning runs on all PRs
@@ -339,6 +346,7 @@ We thank security researchers who responsibly disclose vulnerabilities. If you r
 ```
 
 **Implementation**:
+
 ```bash
 cat > SECURITY.md << 'EOF'
 # Security Policy
@@ -443,24 +451,37 @@ git commit -m "docs: add SECURITY.md for vulnerability disclosure"
 
 ```javascript
 export default {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    'type-enum': [
+    "type-enum": [
       2,
-      'always',
-      ['feat', 'fix', 'docs', 'chore', 'refactor', 'test', 'style', 'revert', 'ci', 'perf', 'build']
+      "always",
+      [
+        "feat",
+        "fix",
+        "docs",
+        "chore",
+        "refactor",
+        "test",
+        "style",
+        "revert",
+        "ci",
+        "perf",
+        "build",
+      ],
     ],
-    'type-case': [2, 'always', 'lowercase'],
-    'type-empty': [2, 'never'],
-    'subject-empty': [2, 'never'],
-    'subject-full-stop': [2, 'never', '.'],
-    'subject-case': [2, 'always', 'lower-case'],
-    'scope-case': [2, 'always', 'kebab-case'],
+    "type-case": [2, "always", "lowercase"],
+    "type-empty": [2, "never"],
+    "subject-empty": [2, "never"],
+    "subject-full-stop": [2, "never", "."],
+    "subject-case": [2, "always", "lower-case"],
+    "scope-case": [2, "always", "kebab-case"],
   },
 };
 ```
 
 **Implementation**:
+
 ```bash
 cat > commitlint.config.js << 'EOF'
 export default {
@@ -494,6 +515,7 @@ git commit -m "chore: remove duplicate type definitions in commitlint config"
 Currently empty. Replace with comprehensive validation.
 
 **Implementation**:
+
 ```bash
 cat > .husky/pre-push << 'EOF'
 #!/usr/bin/env sh
@@ -535,6 +557,7 @@ git commit -m "chore(husky): implement pre-push validation hook"
 ```
 
 **Testing**:
+
 ```bash
 # Test the hook manually
 .husky/pre-push
@@ -561,33 +584,36 @@ This project follows a modified GitFlow branching model with strong enforcement 
 ## Branch Types
 
 ### `main` (Production)
+
 - **Purpose**: Production-ready, deployable code
 - **Source**: Created from, can only receive PRs
 - **Merge strategy**: Squash + rebase (1 commit per feature)
 - **Lifetime**: Permanent
 - **Protection Rules**:
-  -  Require pull request reviews (≥2 approvals)
-  -  Require status checks pass (lint, test, build)
-  -  Require branches up-to-date before merge
-  -  Require CODEOWNERS review
-  -  Dismiss stale PR approvals
-  -  Require commit signatures (recommended)
-  -  Allow force pushes
-  -  Allow deletions
+  - Require pull request reviews (≥2 approvals)
+  - Require status checks pass (lint, test, build)
+  - Require branches up-to-date before merge
+  - Require CODEOWNERS review
+  - Dismiss stale PR approvals
+  - Require commit signatures (recommended)
+  - Allow force pushes
+  - Allow deletions
 
 ### `develop` (Integration)
+
 - **Purpose**: Integration branch for features, staging area
 - **Source**: Created from `main`
 - **Merge strategy**: Squash or rebase
 - **Lifetime**: Permanent
 - **Protection Rules**:
-  -  Require pull request reviews (≥1 approval)
-  -  Require status checks pass
-  -  Require branches up-to-date
-  -  Allow force pushes
-  -  Allow deletions
+  - Require pull request reviews (≥1 approval)
+  - Require status checks pass
+  - Require branches up-to-date
+  - Allow force pushes
+  - Allow deletions
 
 ### Feature Branches
+
 - **Naming**: `feature/TICKET-XXX-short-description`
   - Example: `feature/TICKET-123-add-user-auth`
   - Keep names short and descriptive
@@ -598,6 +624,7 @@ This project follows a modified GitFlow branching model with strong enforcement 
 - **Commits**: Can be messy; will be squashed on merge
 
 ### Bugfix Branches
+
 - **Naming**: `fix/TICKET-XXX-issue-description`
   - Example: `fix/TICKET-456-handle-null-error`
 - **Source**: Branch from `develop`
@@ -605,6 +632,7 @@ This project follows a modified GitFlow branching model with strong enforcement 
 - **Lifetime**: Delete after merge
 
 ### Hotfix Branches
+
 - **Naming**: `hotfix/TICKET-XXX-urgent-fix`
   - Example: `hotfix/TICKET-789-production-outage`
 - **Source**: Branch from `main`
@@ -613,6 +641,7 @@ This project follows a modified GitFlow branching model with strong enforcement 
 - **Priority**: Emergency fixes only; requires immediate review
 
 ### Release Branches
+
 - **Naming**: `release/v1.2.3`
   - Example: `release/v2.0.0`
   - Follow semantic versioning
@@ -627,6 +656,7 @@ All commits MUST follow Conventional Commits format. Enforced by commitlint.
 
 ### Format
 ```
+
 <type>(<scope>): <subject>
 
 <body>
@@ -635,28 +665,35 @@ All commits MUST follow Conventional Commits format. Enforced by commitlint.
 ```
 
 ### Type (Required)
+
 One of: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `style`, `revert`, `ci`, `perf`, `build`
 
 ### Scope (Optional)
+
 Component or package affected (lowercase, kebab-case):
+
 - `api`, `ui`, `database`, `auth`, `payment`, etc.
 
 ### Subject (Required)
+
 - Imperative mood: "add" not "added" or "adds"
 - Don't capitalize first letter
 - No period at end
 - Max 50 characters
 
 ### Body (Optional)
+
 - Wrap at 72 characters
 - Explain WHAT and WHY, not HOW
 - Separate from subject with blank line
 
 ### Footer (Optional)
+
 - Link issues: `Closes #123`, `Fixes #456`
 - Breaking changes: `BREAKING CHANGE: description`
 
 ### Examples
+
 ```
 feat(auth): add two-factor authentication
 
@@ -694,10 +731,10 @@ git push origin feature/TICKET-123-my-feature
 ### Merging a Feature
 
 1. **Ensure PR requirements are met**:
-   -  2 approvals (from `main` branch rules)
-   -  CI passing (lint, test, build)
-   -  Branch is up-to-date with develop
-   -  No merge conflicts
+   - 2 approvals (from `main` branch rules)
+   - CI passing (lint, test, build)
+   - Branch is up-to-date with develop
+   - No merge conflicts
 
 2. **Merge with GitHub UI**:
    - Select "Squash and merge"
@@ -756,32 +793,37 @@ git config fetch.prune true
 ## Local Pre-commit Checks
 
 Husky automatically runs these before commit:
--  commitlint validates message format
--  Biome lints and formats code
--  Secrets scanning (if Gitleaks installed)
+
+- commitlint validates message format
+- Biome lints and formats code
+- Secrets scanning (if Gitleaks installed)
 
 No manual action needed; hooks run automatically.
 
 ## Protected Branches Overview
 
-| Branch | Protection Level | Review Required | CI Required | Force Push |
-|--------|------------------|-----------------|-------------|-----------|
-| main | **Maximum** | 2 approvals | Yes |  No |
-| develop | **High** | 1 approval | Yes |  No |
-| feature/* | None | None | No |  Yes |
-| fix/* | None | None | No |  Yes |
-| hotfix/* | None | None | No |  Yes |
+| Branch    | Protection Level | Review Required | CI Required | Force Push |
+| --------- | ---------------- | --------------- | ----------- | ---------- |
+| main      | **Maximum**      | 2 approvals     | Yes         | No         |
+| develop   | **High**         | 1 approval      | Yes         | No         |
+| feature/* | None             | None            | No          | Yes        |
+| fix/*     | None             | None            | No          | Yes        |
+| hotfix/*  | None             | None            | No          | Yes        |
 
 ## Troubleshooting
 
 ### "Cannot force push to main"
+
 This is intentional. Use a feature branch instead.
 
 ### "PR requires 2 approvals"
+
 Two different reviewers must approve. Code owner approval required.
 
 ### "Branch is out of date"
+
 Click "Update branch" on GitHub, or:
+
 ```bash
 git checkout develop && git pull
 git rebase develop
@@ -789,6 +831,7 @@ git push origin feature/... --force-with-lease
 ```
 
 ### Merge conflicts
+
 ```bash
 # Update from develop
 git fetch origin
@@ -805,7 +848,8 @@ git push --force-with-lease
 - [Conventional Commits](https://www.conventionalcommits.org/)
 - [Semantic Versioning](https://semver.org/)
 - [GitFlow](https://nvie.com/posts/a-successful-git-branching-model/)
-```
+
+````
 
 **Implementation**:
 ```bash
@@ -815,7 +859,7 @@ EOF
 
 git add .github/BRANCH_POLICY.md
 git commit -m "docs: add branching strategy and workflow documentation"
-```
+````
 
 ---
 
@@ -842,29 +886,33 @@ git commit -m "docs: add branching strategy and workflow documentation"
 ## Related Issues
 
 <!-- Link issues this PR addresses -->
+
 Closes #123
 
 ## Changes Made
 
 <!-- List the key changes -->
-- 
-- 
-- 
+
+-
+-
+-
 
 ## Testing
 
 <!-- How was this tested? Include specific test cases -->
 
 ### Test Cases
+
 - [ ] Unit tests added/updated
 - [ ] Integration tests added/updated
 - [ ] Manual testing completed
 - [ ] E2E tests passing
 
 ### Testing Steps
-1. 
-2. 
-3. 
+
+1.
+2.
+3.
 
 ## Screenshots / Demos
 
@@ -893,9 +941,10 @@ Closes #123
 ## Performance Impact
 
 <!-- Document any performance implications -->
-- Load time impact: 
-- Bundle size impact: 
-- Memory usage: 
+
+- Load time impact:
+- Bundle size impact:
+- Memory usage:
 
 ## Security Considerations
 
@@ -908,6 +957,7 @@ Closes #123
 ```
 
 **Implementation**:
+
 ```bash
 cat > .github/pull_request_template.md << 'EOF'
 [Paste the content from above]
@@ -924,6 +974,7 @@ git commit -m "docs: add pull request template for standardized reviews"
 **File**: Update `package.json` lint-staged section
 
 **Current**:
+
 ```json
 "lint-staged": {
   "*.{js,jsx,ts,tsx}": ["ultracite lint", "ultracite format"]
@@ -931,6 +982,7 @@ git commit -m "docs: add pull request template for standardized reviews"
 ```
 
 **Updated**:
+
 ```json
 "lint-staged": {
   "*.{js,jsx,ts,tsx}": ["ultracite lint", "ultracite format"],
@@ -942,6 +994,7 @@ git commit -m "docs: add pull request template for standardized reviews"
 ```
 
 **Implementation**:
+
 ```bash
 # Use sed to update the lint-staged section
 sed -i '' 's/"lint-staged": {$/&\n    "lint-staged": {/' package.json
@@ -972,6 +1025,7 @@ git commit -m "chore: extend lint-staged to cover all file types"
 ### Task 2.4: Add Gitleaks Secret Scanning (Optional for Phase 2)
 
 **Installation & Setup**:
+
 ```bash
 # Install Gitleaks
 brew install gitleaks  # macOS
@@ -1004,6 +1058,7 @@ git commit -m "test: verify gitleaks hook"
 Navigate to: `Settings → Branches → Add rule`
 
 **For `main` branch**:
+
 ```
 Branch name pattern: main
 
@@ -1026,6 +1081,7 @@ Branch name pattern: main
 ```
 
 **For `develop` branch**:
+
 ```
 Branch name pattern: develop
 
@@ -1046,7 +1102,7 @@ Branch name pattern: develop
 
 **File**: `.github/DEVELOPMENT.md`
 
-```markdown
+````markdown
 # Development Guide
 
 ## Prerequisites
@@ -1075,10 +1131,12 @@ npx husky install
 git config user.name "Your Name"
 git config user.email "your.email@company.com"
 ```
+````
 
 ## Common Commands
 
 ### Development
+
 ```bash
 pnpm dev        # Start dev server
 pnpm build      # Build for production
@@ -1086,6 +1144,7 @@ pnpm start      # Run production build
 ```
 
 ### Code Quality
+
 ```bash
 pnpm lint       # Check code style
 pnpm format     # Auto-format code
@@ -1096,6 +1155,7 @@ pnpm test:coverage # Coverage report
 ```
 
 ### Security
+
 ```bash
 pnpm security       # Basic security scan
 pnpm security:all   # Comprehensive scan
@@ -1107,6 +1167,7 @@ pnpm security:detailed # Verbose output
 See [BRANCH_POLICY.md](.github/BRANCH_POLICY.md) for detailed branching workflow.
 
 ### Quick Start
+
 ```bash
 # Create feature branch
 git checkout develop
@@ -1124,15 +1185,17 @@ git push origin feature/TICKET-123-my-feature
 ## Pre-commit Hooks
 
 The following run automatically before commit:
--  commitlint - validates commit message format
--  Biome linter - catches code style issues
--  Secret scanning - prevents committing credentials
+
+- commitlint - validates commit message format
+- Biome linter - catches code style issues
+- Secret scanning - prevents committing credentials
 
 If a check fails, fix the issue and try committing again.
 
 ## Testing Strategy
 
 ### Unit Tests
+
 ```bash
 pnpm test                 # Run all tests once
 pnpm test:watch         # Watch mode for development
@@ -1142,11 +1205,13 @@ pnpm test:coverage      # Generate coverage report
 Targets: ≥80% coverage for new code
 
 ### E2E Tests
+
 ```bash
 pnpm test:e2e           # Run Playwright tests
 ```
 
 ### Before Pushing
+
 ```bash
 pnpm typecheck && pnpm test && pnpm lint
 ```
@@ -1154,23 +1219,27 @@ pnpm typecheck && pnpm test && pnpm lint
 ## Code Standards
 
 ### TypeScript
+
 - Strict mode enabled (`"strict": true`)
 - No `any` types
 - Explicit typing for function parameters and returns
 - Use discriminated unions for type safety
 
 ### Components
+
 - Functional components only
 - PascalCase for component files
 - Props interface required
 - PropTypes or similar validation
 
 ### Imports
+
 - Absolute paths with `@/` prefix
 - Group imports: externals, then internals
 - Organize alphabetically within groups
 
 ### Naming
+
 - camelCase for variables/functions
 - PascalCase for classes/components
 - CONSTANT_CASE for constants
@@ -1179,32 +1248,38 @@ pnpm typecheck && pnpm test && pnpm lint
 ## Performance Optimization
 
 ### Images
+
 - Use Next.js Image component
 - Optimize with external tools
 - Lazy load non-critical images
 
 ### Bundles
+
 ```bash
 pnpm analyze              # Check bundle size
 pnpm build --profile      # Profile build times
 ```
 
 ### Code Splitting
+
 - Use dynamic imports for large components
 - Keep bundle size under control
 
 ## Debugging
 
 ### VS Code
+
 - Install extensions from `.vscode/extensions.json`
 - Use launch configurations in `.vscode/launch.json`
 
 ### Browser DevTools
+
 - React DevTools extension
 - Network tab for API debugging
 - Lighthouse for performance
 
 ### Logs
+
 ```bash
 # Debug output in development
 DEBUG=* pnpm dev
@@ -1213,12 +1288,14 @@ DEBUG=* pnpm dev
 ## Troubleshooting
 
 ### Node modules issues
+
 ```bash
 pnpm clean              # Clean build artifacts
 pnpm install           # Reinstall dependencies
 ```
 
 ### Git hook failures
+
 ```bash
 # See hook output
 cat .husky/pre-commit
@@ -1230,6 +1307,7 @@ pnpm test
 ```
 
 ### Build failures
+
 ```bash
 pnpm clean
 pnpm install
@@ -1255,7 +1333,8 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for more details.
 - [React Docs](https://react.dev)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Tailwind CSS](https://tailwindcss.com/docs)
-```
+
+````
 
 **Implementation**:
 ```bash
@@ -1265,7 +1344,7 @@ EOF
 
 git add .github/DEVELOPMENT.md
 git commit -m "docs: add comprehensive development guide"
-```
+````
 
 ---
 
@@ -1283,7 +1362,7 @@ on:
   pull_request:
     branches: [main, develop]
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: "0 0 * * 0"
 
 jobs:
   analyze:
@@ -1296,7 +1375,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: github/codeql-action/init@v2
         with:
-          languages: ['typescript']
+          languages: ["typescript"]
       - uses: github/codeql-action/autobuild@v2
       - uses: github/codeql-action/analyze@v2
 ```
@@ -1333,13 +1412,13 @@ git status
 
 ## TIMELINE & EFFORT ESTIMATE
 
-| Phase | Tasks | Duration | Effort | Risk |
-|-------|-------|----------|--------|------|
-| 1 (Critical) | 5 | 1-2 days | 2-3 hours | **Low** |
-| 2 (High) | 4 | 3-7 days | 3-4 hours | **Low** |
-| 3 (Medium) | 2 | 1 week | 2-3 hours | **Low** |
-| 4 (Ongoing) | 1+ | Continuous | Varies | **Low** |
-| **Total** | **12+** | **2-3 weeks** | **~10 hours** | **Low** |
+| Phase        | Tasks   | Duration      | Effort        | Risk    |
+| ------------ | ------- | ------------- | ------------- | ------- |
+| 1 (Critical) | 5       | 1-2 days      | 2-3 hours     | **Low** |
+| 2 (High)     | 4       | 3-7 days      | 3-4 hours     | **Low** |
+| 3 (Medium)   | 2       | 1 week        | 2-3 hours     | **Low** |
+| 4 (Ongoing)  | 1+      | Continuous    | Varies        | **Low** |
+| **Total**    | **12+** | **2-3 weeks** | **~10 hours** | **Low** |
 
 ---
 

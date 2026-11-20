@@ -55,7 +55,7 @@ Foundation TypeScript configuration with modern standards and strict type checki
 ##### Compiler Options
 
 | Option | Value | Description |
-|--------|-------|-------------|
+| --- | --- | --- |
 | `declaration` | `true` | Generate declaration files |
 | `declarationMap` | `true` | Generate source maps for declarations |
 | `esModuleInterop` | `true` | Enable ES module interop |
@@ -116,7 +116,7 @@ Specialized configuration for Next.js applications with path aliases and Next.js
 ##### Next.js Specific Options
 
 | Option | Value | Description |
-|--------|-------|-------------|
+| --- | --- | --- |
 | `plugins` | `[{ "name": "next" }]` | Next.js TypeScript plugin |
 | `module` | `ESNext` | Use ESNext module system |
 | `moduleResolution` | `Bundler` | Use bundler module resolution |
@@ -163,7 +163,7 @@ Configuration for React component libraries with modern JSX transform and bundle
 ##### React Library Options
 
 | Option | Value | Description |
-|--------|-------|-------------|
+| --- | --- | --- |
 | `jsx` | `react-jsx` | Use modern JSX transform |
 | `lib` | `["es2022", "DOM", "DOM.Iterable"]` | Include ES2022 and DOM libraries |
 | `module` | `ESNext` | Use ESNext module system |
@@ -203,10 +203,10 @@ Configuration for Turbo build system with incremental compilation support.
 
 ##### Turbo Options
 
-| Option | Value | Description |
-|--------|-------|-------------|
-| `incremental` | `true` | Enable incremental compilation |
-| `tsBuildInfoFile` | `".tsbuildinfo"` | TypeScript build info file |
+| Option            | Value            | Description                    |
+| ----------------- | ---------------- | ------------------------------ |
+| `incremental`     | `true`           | Enable incremental compilation |
+| `tsBuildInfoFile` | `".tsbuildinfo"` | TypeScript build info file     |
 
 ## Usage Examples
 
@@ -225,17 +225,8 @@ Configuration for Turbo build system with incremental compilation support.
       "@/styles/*": ["./styles/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".next",
-    "dist"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", ".next", "dist"]
 }
 ```
 
@@ -252,9 +243,7 @@ Configuration for Turbo build system with incremental compilation support.
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",
@@ -279,15 +268,8 @@ Configuration for Turbo build system with incremental compilation support.
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "__tests__",
-    "**/*.test.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "__tests__", "**/*.test.ts"]
 }
 ```
 
@@ -303,15 +285,8 @@ Configuration for Turbo build system with incremental compilation support.
       "@gabfon/*": ["./packages/*"]
     }
   },
-  "include": [
-    "packages/**/*",
-    "apps/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    ".next"
-  ]
+  "include": ["packages/**/*", "apps/**/*"],
+  "exclude": ["node_modules", "dist", ".next"]
 }
 ```
 
@@ -326,10 +301,10 @@ Configuration for Turbo build system with incremental compilation support.
   "compilerOptions": {
     // Custom target
     "target": "ES2021",
-    
+
     // Custom module resolution
     "moduleResolution": "node",
-    
+
     // Custom path aliases
     "baseUrl": ".",
     "paths": {
@@ -337,21 +312,13 @@ Configuration for Turbo build system with incremental compilation support.
       "@/lib/*": ["./src/lib/*"],
       "@/components/*": ["./src/components/*"]
     },
-    
+
     // Custom output
     "outDir": "./build",
     "rootDir": "./src"
   },
-  "include": [
-    "src/**/*",
-    "types/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ]
+  "include": ["src/**/*", "types/**/*"],
+  "exclude": ["node_modules", "build", "**/*.test.ts", "**/*.test.tsx"]
 }
 ```
 
@@ -365,10 +332,7 @@ Configuration for Turbo build system with incremental compilation support.
     "sourceMap": true,
     "inlineSourceMap": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }
 ```
 
@@ -382,11 +346,7 @@ Configuration for Turbo build system with incremental compilation support.
     "noEmit": false,
     "outDir": "./dist"
   },
-  "exclude": [
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.stories.tsx"
-  ]
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/*.stories.tsx"]
 }
 ```
 
@@ -409,14 +369,8 @@ Configuration for Turbo build system with incremental compilation support.
 // tsconfig.eslint.json (for ESLint)
 {
   "extends": "./tsconfig.json",
-  "include": [
-    "src/**/*",
-    "tests/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
 ```
 
@@ -429,11 +383,7 @@ Configuration for Turbo build system with incremental compilation support.
     "allowJs": true,
     "esModuleInterop": true
   },
-  "include": [
-    "src/**/*",
-    "tests/**/*",
-    "__tests__/**/*"
-  ]
+  "include": ["src/**/*", "tests/**/*", "__tests__/**/*"]
 }
 ```
 
@@ -568,9 +518,9 @@ Configuration for Turbo build system with incremental compilation support.
 {
   "extends": "@gabfon/typescript-config/nextjs.json",
   "compilerOptions": {
-    "baseUrl": ".",  // Add baseUrl for relative paths
+    "baseUrl": ".", // Add baseUrl for relative paths
     "paths": {
-      "@/*": ["./*"]  // Ensure correct path mapping
+      "@/*": ["./*"] // Ensure correct path mapping
     }
   }
 }
@@ -583,7 +533,7 @@ Configuration for Turbo build system with incremental compilation support.
 {
   "extends": "@gabfon/typescript-config/base.json",
   "compilerOptions": {
-    "moduleResolution": "NodeNext",  // Use NodeNext for modern projects
+    "moduleResolution": "NodeNext", // Use NodeNext for modern projects
     "module": "NodeNext",
     "esModuleInterop": true
   }
@@ -597,9 +547,9 @@ Configuration for Turbo build system with incremental compilation support.
 {
   "extends": "@gabfon/typescript-config/react-library.json",
   "compilerOptions": {
-    "declaration": true,           // Enable declarations
-    "declarationMap": true,        // Enable declaration maps
-    "outDir": "./dist"              // Specify output directory
+    "declaration": true, // Enable declarations
+    "declarationMap": true, // Enable declaration maps
+    "outDir": "./dist" // Specify output directory
   }
 }
 ```
@@ -611,9 +561,9 @@ Configuration for Turbo build system with incremental compilation support.
 {
   "extends": "@gabfon/typescript-config/base.json",
   "compilerOptions": {
-    "incremental": true,            // Enable incremental builds
-    "skipLibCheck": true,           // Skip library checking
-    "tsBuildInfoFile": ".tsbuildinfo"  // Build info file
+    "incremental": true, // Enable incremental builds
+    "skipLibCheck": true, // Skip library checking
+    "tsBuildInfoFile": ".tsbuildinfo" // Build info file
   }
 }
 ```

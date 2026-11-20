@@ -7,7 +7,7 @@
 #   - local-neon-http-proxy  -> exposes a Neon HTTP endpoint over Postgres
 #   - serverless-redis-http   -> exposes an Upstash-compatible REST API over Redis
 #
-# Cloud-only integrations (Sentry, PostHog, Arcjet, Resend, Logtail) degrade
+# Cloud-only integrations (Sentry, PostHog, Arcjet, Cloudflare Email, Logtail) degrade
 # gracefully when unset; drop real values into `.env.docker` to enable them.
 #
 #   docker compose up --build
@@ -21,7 +21,7 @@ services:
       args:
         NEXT_PUBLIC_WEB_URL: http://localhost:3001
     ports:
-      - '3001:3000'
+      - "3001:3000"
     environment:
       NODE_ENV: production
       NEXT_PUBLIC_WEB_URL: http://localhost:3001
@@ -50,12 +50,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres -d main']
+      test: ["CMD-SHELL", "pg_isready -U postgres -d main"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -67,7 +67,7 @@ services:
     environment:
       PG_CONNECTION_STRING: postgres://postgres:postgres@postgres:5432/main
     ports:
-      - '4444:4444'
+      - "4444:4444"
     depends_on:
       postgres:
         condition: service_healthy
@@ -81,11 +81,11 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - '6379:6379'
+      - "6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ['CMD', 'redis-cli', 'ping']
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -99,7 +99,7 @@ services:
       SRH_TOKEN: local_dev_token
       SRH_CONNECTION_STRING: redis://redis:6379
     ports:
-      - '8079:80'
+      - "8079:80"
     depends_on:
       redis:
         condition: service_healthy

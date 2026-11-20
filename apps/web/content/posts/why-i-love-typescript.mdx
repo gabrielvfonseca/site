@@ -14,7 +14,7 @@ Here's why, and where I'd rather use something else.
 
 **The ecosystem is unbeatable**
 
-Every library has types. Every framework is built for it. Every tool understands it. When I `npm install` something, it *just works* with my editor. No `@types/` hunting, no declaration file wrangling, no "this library doesn't export types."
+Every library has types. Every framework is built for it. Every tool understands it. When I `npm install` something, it _just works_ with my editor. No `@types/` hunting, no declaration file wrangling, no "this library doesn't export types."
 
 That matters more than the type system itself.
 
@@ -90,13 +90,14 @@ My monorepo takes ~8s for a full typecheck. That's fast for 16 packages, but I'v
 
 ```typescript
 // TypeScript: verbose, error-prone
-type Result<T, E> = 
-  | { ok: true; value: T }
-  | { ok: false; error: E };
+type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 
 function handle(result: Result<User, Error>) {
-  if (result.ok) { /* use result.value */ }
-  else { /* use result.error */ }
+  if (result.ok) {
+    /* use result.value */
+  } else {
+    /* use result.error */
+  }
 }
 ```
 
@@ -107,17 +108,18 @@ Rust's `match` on `Result<T, E>` is so much cleaner. Discriminated unions work b
 If I love TypeScript, why build my own language?
 
 Because Gala explores a different point in the design space:
+
 - **Errors as values, not exceptions** — baked into the type system
 - **No `null`, no `undefined`, no `any`** — by design, not convention
 - **Readability over expressiveness** — fewer ways to do the same thing
 - **Ahead-of-time compilation** — no JIT, predictable performance
 
-Gala isn't "better TypeScript." It's a different philosophy. Building it taught me what TypeScript *does* well—and why those trade-offs exist.
+Gala isn't "better TypeScript." It's a different philosophy. Building it taught me what TypeScript _does_ well—and why those trade-offs exist.
 
 ## When I Don't Use TypeScript
 
 | Domain | Language | Why |
-|--------|----------|-----|
+| --- | --- | --- |
 | CLI tools, formatters, linters | Rust | Performance, single binary, memory safety |
 | High-throughput services | Rust/Go | Latency, throughput, concurrency |
 | Embedded/systems | Rust | No runtime, deterministic memory |
@@ -126,13 +128,12 @@ Gala isn't "better TypeScript." It's a different philosophy. Building it taught 
 
 ## The Honest Summary
 
-TypeScript is the best *pragmatic* choice for application development in 2026.
+TypeScript is the best _pragmatic_ choice for application development in 2026.
 
-Not because its type system is the most sound (it's not).
-Not because it's the fastest (it's not).
-Not because it's the most elegant (it's not).
+Not because its type system is the most sound (it's not). Not because it's the fastest (it's not). Not because it's the most elegant (it's not).
 
 Because it meets the real constraints of building software that ships:
+
 - Runs everywhere JavaScript runs
 - Has types for everything
 - Lets you adopt gradually

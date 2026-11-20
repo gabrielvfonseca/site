@@ -5,6 +5,7 @@ description: "Development workflow for Next.js 16 with TypeScript, Tailwind CSS,
 # Development Workflow
 
 ## 1. Project Setup
+
 - Use Bun as package manager
 - Follow established file structure
 - Configure environment variables in `@/config/env`
@@ -12,6 +13,7 @@ description: "Development workflow for Next.js 16 with TypeScript, Tailwind CSS,
 - Configure ESLint and Prettier
 
 ## 2. Component Development
+
 - Create functional components with React hooks
 - Use TypeScript interfaces for props
 - Follow shadcn/ui patterns when available
@@ -19,6 +21,7 @@ description: "Development workflow for Next.js 16 with TypeScript, Tailwind CSS,
 - Include loading states and accessibility features
 
 ## 3. Styling Guidelines
+
 - Use Tailwind CSS classes exclusively
 - Follow mobile-first responsive design
 - Implement dark mode with `next-themes`
@@ -26,6 +29,7 @@ description: "Development workflow for Next.js 16 with TypeScript, Tailwind CSS,
 - Avoid inline styles except for dynamic values
 
 ## 4. Data Management
+
 - Use Next.js data fetching patterns
 - Implement Sanity CMS integration
 - Use GROQ queries with proper optimization
@@ -33,6 +37,7 @@ description: "Development workflow for Next.js 16 with TypeScript, Tailwind CSS,
 - Implement proper caching strategies
 
 ## 5. Code Quality
+
 - Maintain TypeScript strict mode
 - Use absolute imports with `@/` prefix
 - Follow established naming conventions
@@ -40,6 +45,7 @@ description: "Development workflow for Next.js 16 with TypeScript, Tailwind CSS,
 - Document complex logic
 
 ## 6. Performance Optimization
+
 - Use Next.js Image component
 - Implement code splitting
 - Optimize bundle size
@@ -47,6 +53,7 @@ description: "Development workflow for Next.js 16 with TypeScript, Tailwind CSS,
 - Implement proper caching
 
 ## Development Commands
+
 ```bash
 bun install              # Install dependencies
 bun run dev             # Start development server
@@ -58,6 +65,7 @@ bun run test:coverage   # Coverage report
 ```
 
 ## File Organization
+
 ```
 src/
 ├── app/              # Next.js App Router pages
@@ -68,6 +76,7 @@ src/
 ```
 
 ## Best Practices
+
 - Test components alongside implementation
 - Use semantic HTML5 elements
 - Implement proper error handling

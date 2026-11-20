@@ -1,4 +1,6 @@
-import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit";
+import { Ratelimit } from "@upstash/ratelimit";
+import type { RatelimitConfig } from "@upstash/ratelimit";
+
 import { redis } from "./redis";
 
 /**
@@ -8,16 +10,16 @@ import { redis } from "./redis";
  * @returns The rate limiter.
  */
 export const createRateLimiter = (props: Omit<RatelimitConfig, "redis">) => {
-	if (!redis) {
-		throw new Error(
-			"Rate limiting requires UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars.",
-		);
-	}
-	return new Ratelimit({
-		redis,
-		limiter: props.limiter ?? Ratelimit.slidingWindow(10, "10 s"),
-		prefix: props.prefix ?? "gabfon",
-	});
+  if (!redis) {
+    throw new Error(
+      "Rate limiting requires UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars."
+    );
+  }
+  return new Ratelimit({
+    redis,
+    limiter: props.limiter ?? Ratelimit.slidingWindow(10, "10 s"),
+    prefix: props.prefix ?? "gabfon",
+  });
 };
 
 /**

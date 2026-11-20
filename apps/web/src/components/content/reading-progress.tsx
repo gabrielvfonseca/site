@@ -12,34 +12,34 @@ const PERCENT = 100;
  * @returns The progress bar element.
  */
 export function ReadingProgress() {
-	const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
 
-	useEffect(() => {
-		const update = (): void => {
-			const { scrollTop, scrollHeight, clientHeight } =
-				document.documentElement;
-			const scrollable = scrollHeight - clientHeight;
-			setProgress(scrollable > 0 ? (scrollTop / scrollable) * PERCENT : 0);
-		};
+  useEffect(() => {
+    const update = (): void => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      const scrollable = scrollHeight - clientHeight;
+      setProgress(scrollable > 0 ? (scrollTop / scrollable) * PERCENT : 0);
+    };
 
-		update();
-		window.addEventListener("scroll", update, { passive: true });
-		window.addEventListener("resize", update);
-		return () => {
-			window.removeEventListener("scroll", update);
-			window.removeEventListener("resize", update);
-		};
-	}, []);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
-	return (
-		<div
-			aria-hidden="true"
-			className="fixed inset-x-0 top-0 z-50 h-0.5 bg-transparent"
-		>
-			<div
-				className="h-full origin-left bg-foreground transition-transform duration-150 ease-out"
-				style={{ transform: `scaleX(${progress / PERCENT})` }}
-			/>
-		</div>
-	);
+  return (
+    <div
+      aria-hidden="true"
+      className="fixed inset-x-0 top-0 z-50 h-0.5 bg-transparent"
+    >
+      <div
+        className="bg-foreground h-full origin-left transition-transform duration-150 ease-out"
+        style={{ transform: `scaleX(${progress / PERCENT})` }}
+      />
+    </div>
+  );
 }

@@ -7,5 +7,5 @@ import { getProjects } from "@/lib/content-index";
 export const hasProjects = (): boolean => getProjects().length > 0;
 
 export const projects = {
-	hasProjects,
+  hasProjects,
 };

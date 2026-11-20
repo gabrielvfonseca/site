@@ -110,30 +110,35 @@ apps/web/
 ## Key Features
 
 ### Modern Web Development
+
 - **Next.js 16** with App Router for optimal performance
 - **React 19** with Server Components by default
 - **TypeScript** for type-safe development
 - **Tailwind CSS 4** for utility-first styling
 
 ### Design System
+
 - **@gabfon/design-system** - Comprehensive component library
 - **Consistent theming** with CSS variables
 - **Dark mode** support
 - **Responsive design** for all screen sizes
 
 ### Content Management
+
 - **MDX support** with Fumadocs integration
 - **Content management** with Contentlayer
 - **SEO optimization** with structured data
 - **Syntax highlighting** with Shiki
 
 ### AI Integration
+
 - **OpenAI API** integration for AI features
 - **AI chat** functionality with streaming responses
 - **Content generation** capabilities
 - **Smart automation** features
 
 ### Security
+
 - **Arcjet** integration for API protection
 - **Rate limiting** and abuse prevention
 - **Input validation** with Zod schemas
@@ -144,35 +149,38 @@ apps/web/
 The application seamlessly integrates all `@gabfon/*` packages:
 
 ### Core Infrastructure
+
 ```typescript
 // AI integration
-import { openai } from '@ai-sdk/openai';
-import { generateText } from 'ai';
-
-// Analytics
-import { AnalyticsProvider } from '@gabfon/analytics';
-
+import { openai } from "@ai-sdk/openai";
 // Security
-import arcjet from '@arcjet/next';
+import arcjet from "@arcjet/next";
+// Analytics
+import { AnalyticsProvider } from "@gabfon/analytics";
+import { generateText } from "ai";
 ```
 
 ### UI Components
+
 ```typescript
 // Design system components
-import { Button, Card, Input } from '@gabfon/design-system/components';
-
+import { Button, Card, Input } from "@gabfon/design-system/components";
 // Icons
-import { Search, User, Settings } from 'lucide-react';
+import { Search, User, Settings } from "lucide-react";
 ```
 
 ### API Integration
+
 ```typescript
 // Spotify API
 export async function GET() {
   const token = await getSpotifyToken();
-  const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  const response = await fetch(
+    "https://api.spotify.com/v1/me/player/currently-playing",
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
   return NextResponse.json(await response.json());
 }
 ```
@@ -180,11 +188,13 @@ export async function GET() {
 ## Development Guidelines
 
 ### Code Style
+
 - **TypeScript** for all new code
 - **Biome Configuration** - Code quality enforcement
 - **Conventional commits** for git messages
 
 ### Component Development
+
 ```typescript
 // Example component structure
 import { Button } from '@gabfon/design-system/components';
@@ -199,7 +209,7 @@ export function MyComponent({ title, onAction }: MyComponentProps) {
   const [search, setSearch] = useQueryState('q', {
     defaultValue: '',
   });
-  
+
   return (
     <Card>
       <CardHeader>
@@ -217,11 +227,12 @@ export function MyComponent({ title, onAction }: MyComponentProps) {
 ```
 
 ### API Routes
+
 ```typescript
+import arcjet from "@arcjet/next";
 // Example API route
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import arcjet from '@arcjet/next';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 const aj = arcjet({
   key: process.env.ARCJET_KEY!,
@@ -234,24 +245,21 @@ const chatSchema = z.object({
 
 export async function POST(request: NextRequest) {
   const decision = await aj.protect(request);
-  
+
   if (decision.isDenied()) {
-    return NextResponse.json({ error: 'Request denied' }, { status: 403 });
+    return NextResponse.json({ error: "Request denied" }, { status: 403 });
   }
-  
+
   try {
     const body = await request.json();
     const validated = chatSchema.parse(body);
-    
+
     // Process chat message
     const response = await processChatMessage(validated.message);
-    
+
     return NextResponse.json({ response });
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Invalid request' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 }
 ```
@@ -259,6 +267,7 @@ export async function POST(request: NextRequest) {
 ## Testing
 
 ### Running Tests
+
 ```bash
 # All tests
 bun run test
@@ -274,6 +283,7 @@ bun run test:e2e
 ```
 
 ### Test Structure
+
 ```
 tests/
 ├── unit/              # Unit tests
@@ -283,6 +293,7 @@ tests/
 ```
 
 ### Example Test
+
 ```typescript
 // Example unit test
 import { render, screen } from '@testing-library/react';
@@ -292,16 +303,16 @@ import { MyComponent } from '@/components/MyComponent';
 describe('MyComponent', () => {
   it('renders title correctly', () => {
     render(<MyComponent title="Test Title" />);
-    
+
     expect(screen.getByText('Test Title')).toBeInTheDocument();
   });
-  
+
   it('calls onAction when button is clicked', () => {
     const onAction = jest.fn();
     render(<MyComponent title="Test" onAction={onAction} />);
-    
+
     screen.getByRole('button').click();
-    
+
     expect(onAction).toHaveBeenCalled();
   });
 });
@@ -337,16 +348,17 @@ SENTRY_DSN=your-sentry-dsn
 
 ### Deployment Options
 
-#### Vercel (Recommended)
-```bash
-# Install Vercel CLI
-bun add -D vercel
+#### Cloudflare Workers (vinext) (Recommended)
 
-# Deploy
-bunx vercel --prod
+```bash
+# Build
+cd apps/web && npx cf build
+
+# Deploy (see docs/DEPLOYMENT.md)
 ```
 
 #### Docker
+
 ```bash
 # Build Docker image
 docker build -t my-app .
@@ -356,6 +368,7 @@ docker-compose up -d
 ```
 
 #### Static Export
+
 ```bash
 # Build static files
 bun run build
@@ -369,6 +382,7 @@ bunx netlify deploy --prod --dir=out
 ### Common Issues
 
 #### Build Failures
+
 ```bash
 # Clear build cache
 rm -rf .next
@@ -385,6 +399,7 @@ bun run clean
 ```
 
 #### Development Issues
+
 ```bash
 # Check port availability
 lsof -i :3000
@@ -400,6 +415,7 @@ cat .env.local
 ```
 
 #### Database Issues
+
 ```bash
 # Reset API connections (development only)
 # Remove any cached tokens or sessions
@@ -475,14 +491,14 @@ The application provides several API endpoints:
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_SITE_URL` | Yes | Site URL |
-| `OPENAI_API_KEY` | Optional | OpenAI API key for AI features |
-| `SPOTIFY_CLIENT_ID` | Optional | Spotify client ID |
-| `SPOTIFY_CLIENT_SECRET` | Optional | Spotify client secret |
-| `STRAVA_CLIENT_ID` | Optional | Strava client ID |
-| `STRAVA_CLIENT_SECRET` | Optional | Strava client secret |
-| `ARCJET_KEY` | Optional | Arcjet API key for security |
-| `NEXT_PUBLIC_GA_ID` | Optional | Google Analytics ID |
-| `SENTRY_DSN` | Optional | Sentry DSN for error tracking |
+| Variable                | Required | Description                    |
+| ----------------------- | -------- | ------------------------------ |
+| `NEXT_PUBLIC_SITE_URL`  | Yes      | Site URL                       |
+| `OPENAI_API_KEY`        | Optional | OpenAI API key for AI features |
+| `SPOTIFY_CLIENT_ID`     | Optional | Spotify client ID              |
+| `SPOTIFY_CLIENT_SECRET` | Optional | Spotify client secret          |
+| `STRAVA_CLIENT_ID`      | Optional | Strava client ID               |
+| `STRAVA_CLIENT_SECRET`  | Optional | Strava client secret           |
+| `ARCJET_KEY`            | Optional | Arcjet API key for security    |
+| `NEXT_PUBLIC_GA_ID`     | Optional | Google Analytics ID            |
+| `SENTRY_DSN`            | Optional | Sentry DSN for error tracking  |

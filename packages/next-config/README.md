@@ -22,7 +22,7 @@ pnpm add @gabfon/next-config
 ## Usage
 
 ```typescript
-import { withAnalyzer } from '@gabfon/next-config';
+import { withAnalyzer } from "@gabfon/next-config";
 
 const nextConfig = withAnalyzer({
   // your Next.js config

@@ -7,5 +7,5 @@ import { getPosts } from "@/lib/content-index";
 export const hasPublishedPosts = (): boolean => getPosts().length > 0;
 
 export const posts = {
-	hasPublishedPosts,
+  hasPublishedPosts,
 };

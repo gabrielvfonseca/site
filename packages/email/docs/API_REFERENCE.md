@@ -8,75 +8,126 @@ npm install @gabfon/email
 
 ## Environment Setup
 
-Create environment variables for Resend email service:
+Configure the Cloudflare Email Sending service:
 
 ```env
-RESEND_FROM=your-email@example.com
-RESEND_TOKEN=re_your_resend_api_token
+EMAIL_ACCOUNT_ID=your-cloudflare-account-id
+EMAIL_API_TOKEN=your-cloudflare-api-token
+EMAIL_FROM=your-email@example.com
 ```
+
+- `EMAIL_ACCOUNT_ID` — your Cloudflare account ID (Dashboard → My Profile).
+- `EMAIL_API_TOKEN` — a Cloudflare API token with the **Email Sending – Send** permission.
+- `EMAIL_FROM` — a verified sending address on a domain verified in Cloudflare Email.
+
+All three are required for sending. When any is missing, `sendEmail` rejects with an `EmailSendError` of code `0` instead of crashing at import time.
 
 ## Exports
 
-### Main Client
 ```typescript
-export { resend } from './index';
-```
+// Main
+export {
+  sendEmail,
+  sendTemplateEmail,
+  isEmailConfigured,
+  EmailSendError,
+} from "./index";
 
-### Templates
-```typescript
-export { ContactTemplate } from './templates/contact';
-```
+// Templates
+export { ContactTemplate } from "./templates/contact";
 
-### Environment Keys
-```typescript
-export { keys } from './keys';
+// Environment keys
+export { keys } from "./keys";
 ```
 
 ## Client
 
-### resend
+### sendEmail
 
-Pre-configured Resend client for sending emails.
-
-#### Usage
+Send a single email through the Cloudflare Email Sending REST API (`POST /accounts/{account_id}/email/sending/send`).
 
 ```typescript
-import { resend } from '@gabfon/email';
+import { sendEmail } from "@gabfon/email";
 
-async function sendEmail() {
-  const { data, error } = await resend.emails.send({
-    from: 'onboarding@resend.dev',
-    to: 'delivered@resend.dev',
-    subject: 'Hello World',
-    html: '<strong>Hello World</strong>',
-  });
+const result = await sendEmail({
+  to: "delivered@example.com",
+  subject: "Hello World",
+  text: "Hello World",
+  html: "<strong>Hello World</strong>",
+});
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+console.log(result.messageId); // RFC 5322 Message-ID
+console.log(result.delivered); // ['delivered@example.com']
+```
 
-  console.log(data);
+#### Options (`SendEmailOptions`)
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `to` | `string \| string[]` | Recipient address(es). **Required.** |
+| `from` | `string` | Sender; defaults to `EMAIL_FROM`. |
+| `cc` | `string \| string[]` | CC recipients. |
+| `bcc` | `string \| string[]` | BCC recipients. |
+| `subject` | `string` | Subject line. **Required.** |
+| `text` | `string` | Plain-text body. |
+| `html` | `string` | HTML body. Wins over `react` when both are given. |
+| `replyTo` | `string` | Reply-To address. |
+| `headers` | `Record<string,string>` | Custom headers (threading, tracking, …). |
+| `react` | `ReactNode` | A React Email template to render as the HTML body. |
+
+#### Return (`SendEmailResult`)
+
+```typescript
+interface SendEmailResult {
+  messageId: string; // RFC 5322 Message-ID
+  delivered: string[]; // recipients delivered
+  queued: string[]; // recipients queued
+  permanentBounces: string[]; // recipients that hard-bounced
+  suppressedRecipients: string[]; // recipients on a suppression list
 }
 ```
 
-#### Available Methods
+### sendTemplateEmail
+
+Convenience wrapper for call sites that pass a React Email template; renders it to HTML and sends with the default From address.
 
 ```typescript
-// Send email
-resend.emails.send(options: EmailSendOptions)
+import { sendTemplateEmail } from '@gabfon/email';
+import { ContactTemplate } from '@gabfon/email/templates/contact';
 
-// Get email
-resend.emails.get(emailId: string)
+await sendTemplateEmail({
+  to: 'admin@example.com',
+  subject: 'New Contact Form Submission',
+  react: <ContactTemplate data={{ name: 'John', email: 'john@example.com', message: 'Hi!' }} />,
+});
+```
 
-// List emails
-resend.emails.list(options?: EmailListOptions)
+### isEmailConfigured
 
-// Update email
-resend.emails.update(emailId: string, options: EmailUpdateOptions)
+```typescript
+import { isEmailConfigured } from "@gabfon/email";
 
-// Cancel email
-resend.emails.cancel(emailId: string)
+if (isEmailConfigured()) {
+  // EMAIL_ACCOUNT_ID, EMAIL_API_TOKEN, and EMAIL_FROM are all present.
+}
+```
+
+### EmailSendError
+
+Thrown when the Cloudflare Email Sending API rejects a send, or when the service is not configured.
+
+```typescript
+import { EmailSendError } from "@gabfon/email";
+
+try {
+  await sendEmail({ to: "a@b.com", subject: "x" });
+} catch (error) {
+  if (error instanceof EmailSendError) {
+    console.error(error.status); // HTTP status code (0 when unconfigured)
+    console.error(error.codes); // machine-readable API error codes
+    console.error(error.message);
+  }
+}
 ```
 
 ## Templates
@@ -84,8 +135,6 @@ resend.emails.cancel(emailId: string)
 ### ContactTemplate
 
 Template for contact form submissions.
-
-#### Props
 
 ```typescript
 interface ContactTemplateProps {
@@ -102,34 +151,19 @@ interface ContactTemplateProps {
 #### Usage
 
 ```typescript
-import { ContactTemplate } from '@gabfon/email/templates';
-import { render } from '@react-email/render';
+import { sendEmail } from '@gabfon/email';
+import { ContactTemplate } from '@gabfon/email/templates/contact';
 
-async function sendContactEmail(formData: ContactData) {
-  const html = render(<ContactTemplate data={formData} />);
-  
-  const { data, error } = await resend.emails.send({
-    from: 'noreply@yourdomain.com',
-    to: 'admin@yourdomain.com',
-    subject: 'New Contact Form Submission',
-    html,
-  });
-
-  return { data, error };
-}
+await sendEmail({
+  to: 'admin@yourdomain.com',
+  subject: 'New Contact Form Submission',
+  react: <ContactTemplate data={{ name: 'John', email: 'john@example.com', message: 'Hi' }} />,
+});
 ```
 
-#### Template Structure
-
-The ContactTemplate includes:
-- Professional email layout
-- Contact information display
-- Responsive design
-- Brand-friendly styling
+The template is rendered to HTML by `@react-email/render` at send time.
 
 ## Creating Custom Templates
-
-### Template Structure
 
 ```typescript
 import { Html, Head, Preview, Body, Container, Section, Text } from '@react-email/components';
@@ -158,7 +192,6 @@ export function CustomTemplate({ data }: CustomTemplateProps) {
   );
 }
 
-// Styles
 const main = {
   backgroundColor: '#f6f9fc',
   fontFamily: 'Arial, sans-serif',
@@ -173,435 +206,155 @@ const container = {
 
 ### Template Best Practices
 
-#### 1. Responsive Design
-```typescript
-const main = {
-  backgroundColor: '#f6f9fc',
-  fontFamily: 'Arial, sans-serif',
-  maxWidth: '600px',
-  margin: '0 auto',
-  padding: '20px',
-};
+- **Responsive design** — design mobile-first and keep layouts narrow (~600px).
+- **Inline styles** — email clients strip `<style>` blocks; rely on inline CSS.
+- **Brand consistency** — reuse a shared palette and typography across templates.
+- **Accessibility** — sufficient contrast and a plain-text alternative.
 
-const section = {
-  padding: '20px 0',
-};
-
-const text = {
-  fontSize: '16px',
-  lineHeight: '24px',
-  color: '#333333',
-};
-```
-
-#### 2. Brand Consistency
-```typescript
-const brandColors = {
-  primary: '#007bff',
-  secondary: '#6c757d',
-  accent: '#28a745',
-};
-
-const button = {
-  backgroundColor: brandColors.primary,
-  color: '#ffffff',
-  padding: '12px 24px',
-  borderRadius: '4px',
-  textDecoration: 'none',
-};
-```
-
-#### 3. Accessibility
-```typescript
-const accessibleText = {
-  fontSize: '16px',
-  lineHeight: '1.5',
-  color: '#000000',
-  backgroundColor: '#ffffff',
-};
-```
-
-## Environment Variables
-
-### Required Variables
-
-| Variable | Description | Type | Required |
-|----------|-------------|------|----------|
-| `RESEND_FROM` | Default from email address | email | Yes |
-| `RESEND_TOKEN` | Resend API token | string | Yes |
-
-### Environment Validation
+## Environment Validation
 
 ```typescript
-import { keys } from '@gabfon/email';
+import { keys } from "@gabfon/email/keys";
 
-// Validates environment variables and returns typed object
+// Validates environment variables and returns a typed object.
 const env = keys();
-console.log(env.RESEND_FROM);
-console.log(env.RESEND_TOKEN);
+console.log(env.EMAIL_FROM);
 ```
 
-### Validation Rules
+Validation rules:
 
-- `RESEND_FROM`: Must be valid email format
-- `RESEND_TOKEN`: Must start with 're_' prefix
-- All variables are server-side only
+- `EMAIL_FROM`: must be a valid email address.
+- `EMAIL_API_TOKEN`: must be a non-empty string.
+- All variables are server-side only.
 
 ## Usage Examples
 
 ### Basic Email Sending
 
 ```typescript
-import { resend } from '@gabfon/email';
+import { sendEmail } from "@gabfon/email";
 
 export async function sendBasicEmail() {
-  const { data, error } = await resend.emails.send({
-    from: 'noreply@yourdomain.com',
-    to: 'user@example.com',
-    subject: 'Welcome to our service',
-    html: '<h1>Welcome!</h1><p>Thank you for signing up.</p>',
+  const result = await sendEmail({
+    to: "user@example.com",
+    subject: "Welcome to our service",
+    html: "<h1>Welcome!</h1><p>Thank you for signing up.</p>",
   });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-}
-```
-
-### Template-Based Email
-
-```typescript
-import { resend } from '@gabfon/email';
-import { ContactTemplate } from '@gabfon/email/templates';
-import { render } from '@react-email/render';
-
-export async function sendContactEmail(formData: ContactData) {
-  const html = render(<ContactTemplate data={formData} />);
-  
-  const { data, error } = await resend.emails.send({
-    from: process.env.RESEND_FROM,
-    to: 'admin@yourdomain.com',
-    subject: 'New Contact Form Submission',
-    html,
-  });
-
-  return { data, error };
-}
-```
-
-### API Route Integration
-
-```typescript
-// app/api/contact/route.ts
-import { resend } from '@gabfon/email';
-import { ContactTemplate } from '@gabfon/email/templates';
-import { render } from '@react-email/render';
-import { NextRequest, NextResponse } from 'next/server';
-
-export async function POST(request: NextRequest) {
-  try {
-    const formData = await request.json();
-    
-    const html = render(<ContactTemplate data={formData} />);
-    
-    const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM!,
-      to: 'admin@yourdomain.com',
-      subject: 'New Contact Form Submission',
-      html,
-    });
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-
-    return NextResponse.json({ success: true, data });
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+  return result.messageId;
 }
 ```
 
 ### Server Action Integration
 
 ```typescript
-// actions/contact.ts
-'use server';
+"use server";
 
-import { resend } from '@gabfon/email';
-import { ContactTemplate } from '@gabfon/email/templates';
-import { render } from '@react-email/render';
-import { z } from 'zod';
+import { sendEmail } from "@gabfon/email";
 
-const contactSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  message: z.string().min(10),
-});
+import { contactSchema } from "@/types/contact";
 
 export async function sendContactEmail(formData: unknown) {
-  try {
-    const validatedData = contactSchema.parse(formData);
-    
-    const html = render(<ContactTemplate data={validatedData} />);
-    
-    const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM!,
-      to: 'admin@yourdomain.com',
-      subject: 'New Contact Form Submission',
-      html,
-    });
+  const validatedData = contactSchema.parse(formData);
 
-    if (error) {
-      return { success: false, error: error.message };
-    }
-
-    return { success: true, data };
-  } catch (error) {
-    return { success: false, error: 'Validation failed' };
-  }
+  await sendEmail({
+    to: "admin@yourdomain.com",
+    subject: `New message from ${validatedData.name}`,
+    text: `Name: ${validatedData.name}\nEmail: ${validatedData.email}\n\nMessage:\n${validatedData.message}`,
+    replyTo: validatedData.email,
+  });
 }
 ```
 
 ### Bulk Email Sending
 
 ```typescript
-import { resend } from '@gabfon/email';
+import { sendEmail } from "@gabfon/email";
 
-export async function sendBulkEmails(recipients: string[], subject: string, html: string) {
-  const promises = recipients.map(recipient =>
-    resend.emails.send({
-      from: process.env.RESEND_FROM!,
-      to: recipient,
-      subject,
-      html,
-    })
+export async function sendBulkEmails(
+  recipients: string[],
+  subject: string,
+  text: string
+) {
+  const results = await Promise.allSettled(
+    recipients.map((recipient) => sendEmail({ to: recipient, subject, text }))
   );
 
-  const results = await Promise.allSettled(promises);
-  
   return results.map((result, index) => ({
     recipient: recipients[index],
-    success: result.status === 'fulfilled',
-    data: result.status === 'fulfilled' ? result.value.data : null,
-    error: result.status === 'rejected' ? result.reason : null,
+    success: result.status === "fulfilled",
+    messageId: result.status === "fulfilled" ? result.value.messageId : null,
+    error: result.status === "rejected" ? result.reason : null,
   }));
 }
 ```
 
 ## Error Handling
 
-### Environment Validation Errors
+### Environment / configuration
 
 ```typescript
-import { keys } from '@gabfon/email';
+import { sendEmail, EmailSendError } from "@gabfon/email";
 
 try {
-  const env = keys();
-  // Use environment variables
+  await sendEmail({ to: "a@b.com", subject: "x" });
 } catch (error) {
-  console.error('Email configuration error:', error);
-  // Handle missing or invalid environment variables
-  throw new Error('Email service not properly configured');
+  if (error instanceof EmailSendError && error.status === 0) {
+    // Not configured (missing EMAIL_* vars) — degrade gracefully.
+  }
+  throw error;
 }
 ```
 
-### Email Sending Errors
+### API errors
+
+`EmailSendError.status` is the HTTP status code and `EmailSendError.codes` carries the Cloudflare API error codes.
 
 ```typescript
-import { resend } from '@gabfon/email';
+import { sendEmail, EmailSendError } from "@gabfon/email";
 
-async function sendEmailWithErrorHandling(emailData: EmailSendOptions) {
-  try {
-    const { data, error } = await resend.emails.send(emailData);
-    
-    if (error) {
-      // Handle specific error types
-      if (error.message.includes('rate limit')) {
-        throw new Error('Email sending rate limit exceeded');
-      }
-      
-      if (error.message.includes('invalid')) {
-        throw new Error('Invalid email configuration');
-      }
-      
-      throw new Error(`Email sending failed: ${error.message}`);
-    }
-    
-    return data;
-  } catch (error) {
-    console.error('Email sending error:', error);
-    throw error;
+try {
+  await sendEmail({ to: "a@b.com", subject: "x" });
+} catch (error) {
+  if (error instanceof EmailSendError) {
+    // e.g. 400 with a validation code, 429 when rate-limited.
+    throw new Error(`Email sending failed (${error.status}): ${error.message}`);
   }
-}
-```
-
-### Template Rendering Errors
-
-```typescript
-import { render } from '@react-email/render';
-
-async function renderTemplateWithErrorHandling(template: React.ReactElement) {
-  try {
-    const html = render(template);
-    return html;
-  } catch (error) {
-    console.error('Template rendering error:', error);
-    throw new Error('Failed to render email template');
-  }
-}
-```
-
-## Advanced Features
-
-### Email Analytics
-
-```typescript
-import { resend } from '@gabfon/email';
-
-export async function getEmailAnalytics(emailId: string) {
-  const { data, error } = await resend.emails.get(emailId);
-  
-  if (error) {
-    throw new Error(error.message);
-  }
-  
-  return {
-    id: data.id,
-    status: data.created_at,
-    delivered: data.delivered_at,
-    opened: data.opened_at,
-    clicked: data.clicked_at,
-  };
-}
-```
-
-### Email Updates
-
-```typescript
-import { resend } from '@gabfon/email';
-
-export async function updateEmail(emailId: string, scheduledAt: string) {
-  const { data, error } = await resend.emails.update(emailId, {
-    scheduled_at: scheduledAt,
-  });
-  
-  if (error) {
-    throw new Error(error.message);
-  }
-  
-  return data;
-}
-```
-
-### Email Cancellation
-
-```typescript
-import { resend } from '@gabfon/email';
-
-export async function cancelEmail(emailId: string) {
-  const { data, error } = await resend.emails.cancel(emailId);
-  
-  if (error) {
-    throw new Error(error.message);
-  }
-  
-  return data;
+  throw error;
 }
 ```
 
 ## Best Practices
 
-### 1. Environment Management
-- Use environment-specific configuration
-- Validate environment variables at startup
-- Never expose email tokens to client-side code
-
-### 2. Template Design
-- Design for mobile-first email clients
-- Use inline CSS for maximum compatibility
-- Include plain text alternatives
-
-### 3. Error Handling
-- Implement comprehensive error handling
-- Log errors for debugging
-- Provide user-friendly error messages
-
-### 4. Performance
-- Cache rendered templates when possible
-- Use batch sending for bulk emails
-- Implement rate limiting
-
-### 5. Security
-- Validate all user input
-- Use secure email headers
-- Implement SPF/DKIM records
+1. **Environment management** — keep `EMAIL_API_TOKEN` server-only; validate at startup; use per-environment values.
+2. **Template design** — mobile-first, inline CSS, plain-text alternatives.
+3. **Error handling** — catch `EmailSendError`, log codes, and fail soft where the send is best-effort.
+4. **Deliverability** — verify your sending domain in Cloudflare Email (SPF/DKIM/DMARC) before relying on sends.
+5. **Performance** — batch with `Promise.allSettled` for bulk sends; respect the API rate limits.
 
 ## Integration with Other Packages
 
-### Analytics Integration
+### Security Integration (rate limiting)
 
 ```typescript
-import { resend } from '@gabfon/email';
-import { analytics } from '@gabfon/analytics/lib/server';
+import { sendEmail } from "@gabfon/email";
+import { rateLimit } from "@gabfon/rate-limit";
 
-export async function sendTrackedEmail(emailData: EmailSendOptions) {
-  // Track email send attempt
-  analytics.capture('email_send_attempted', {
-    recipient: emailData.to,
-    subject: emailData.subject,
-  });
-
-  try {
-    const { data, error } = await resend.emails.send(emailData);
-    
-    if (error) {
-      analytics.capture('email_send_failed', {
-        recipient: emailData.to,
-        error: error.message,
-      });
-      throw error;
-    }
-
-    analytics.capture('email_send_success', {
-      recipient: emailData.to,
-      emailId: data.id,
-    });
-
-    return data;
-  } catch (error) {
-    analytics.capture('email_send_error', {
-      recipient: emailData.to,
-      error: error.message,
-    });
-    throw error;
-  }
-}
-```
-
-### Security Integration
-
-```typescript
-import { resend } from '@gabfon/email';
-import { rateLimit } from '@gabfon/rate-limit';
-
-export async function sendRateLimitedEmail(emailData: EmailSendOptions) {
+export async function sendRateLimitedEmail(
+  to: string,
+  subject: string,
+  text: string
+) {
   const { success } = await rateLimit.limit({
-    key: `email:${emailData.to}`,
+    key: `email:${to}`,
     requests: 10,
-    window: '1h',
+    window: "1h",
   });
 
   if (!success) {
-    throw new Error('Rate limit exceeded for email sending');
+    throw new Error("Rate limit exceeded for email sending");
   }
 
-  return resend.emails.send(emailData);
+  return sendEmail({ to, subject, text });
 }
 ```
 
@@ -611,7 +364,7 @@ export async function sendRateLimitedEmail(emailData: EmailSendOptions) {
 
 ```typescript
 import { render } from '@react-email/render';
-import { ContactTemplate } from '@gabfon/email/templates';
+import { ContactTemplate } from '@gabfon/email/templates/contact';
 
 test('renders contact template correctly', () => {
   const data = {
@@ -621,7 +374,7 @@ test('renders contact template correctly', () => {
   };
 
   const html = render(<ContactTemplate data={data} />);
-  
+
   expect(html).toContain('John Doe');
   expect(html).toContain('john@example.com');
   expect(html).toContain('Hello, this is a test message.');
@@ -630,26 +383,30 @@ test('renders contact template correctly', () => {
 
 ### Email Sending Testing
 
+`sendEmail` uses `fetch`, so stub it in tests:
+
 ```typescript
-import { resend } from '@gabfon/email';
+import { sendEmail } from "@gabfon/email";
 
-// Mock Resend for testing
-jest.mock('resend', () => ({
-  Resend: jest.fn().mockImplementation(() => ({
-    emails: {
-      send: jest.fn().mockResolvedValue({ data: { id: 'test-id' } }),
+globalThis.fetch = (async () =>
+  Response.json({
+    success: true,
+    result: {
+      message_id: "<test@example.com>",
+      delivered: ["recipient@example.com"],
+      queued: [],
+      permanent_bounces: [],
+      suppressed_recipients: [],
     },
-  })),
-}));
+  })) as unknown as typeof fetch;
 
-test('sends email successfully', async () => {
-  const result = await resend.emails.send({
-    from: 'test@example.com',
-    to: 'recipient@example.com',
-    subject: 'Test',
-    html: '<p>Test</p>',
+test("sends email successfully", async () => {
+  const result = await sendEmail({
+    to: "recipient@example.com",
+    subject: "Test",
+    text: "Test",
   });
 
-  expect(result.data.id).toBe('test-id');
+  expect(result.messageId).toBe("<test@example.com>");
 });
 ```

@@ -7,21 +7,25 @@ The `@gabfon/testing` package provides a comprehensive testing setup for the mon
 ## Architectural Decisions
 
 ### 1. Vitest-Based Testing Framework
+
 - **Decision**: Use Vitest as the primary testing framework
 - **Rationale**: Fast, modern testing with excellent TypeScript support and Vite integration
 - **Implementation**: Pre-configured Vitest setup with React support
 
 ### 2. Browser Environment Simulation
+
 - **Decision**: Use jsdom for browser-like testing environment
 - **Rationale**: Enables DOM testing without actual browser overhead
 - **Implementation**: Global jsdom environment with necessary Web API mocks
 
 ### 3. Monorepo-Aware Configuration
+
 - **Decision**: Implement path aliases for easy package imports
 - **Rationale**: Simplifies testing across monorepo packages
 - **Implementation**: Configured aliases for @ and @gabfon imports
 
 ### 4. Global Test Setup
+
 - **Decision**: Provide comprehensive global test utilities
 - **Rationale**: Reduces boilerplate and ensures consistent test environment
 - **Implementation**: Mocked Web APIs and environment handling
@@ -43,16 +47,16 @@ graph TD
     B --> C[React Plugin]
     B --> D[jsdom Environment]
     B --> E[Path Aliases]
-    
+
     F[Global Setup] --> G[Web API Mocks]
     G --> H[ResizeObserver]
     G --> I[matchMedia]
     G --> J[IntersectionObserver]
-    
+
     K[Test Files] --> L[Import Aliases]
     L --> M[Monorepo Packages]
     L --> N[Local Package Files]
-    
+
     O[Environment Reset] --> P[Before/After Hooks]
     P --> Q[Clean Test State]
 ```
@@ -60,15 +64,18 @@ graph TD
 ## Key Dependencies
 
 ### Testing Framework
+
 - **`vitest`**: Modern testing framework
 - **`@vitejs/plugin-react`**: React support for Vite/Vitest
 - **`jsdom`**: DOM environment simulation
 
 ### Testing Utilities
+
 - **`@testing-library/react`**: React testing utilities
 - **`@testing-library/jest-dom`**: DOM testing matchers
 
 ### Development Dependencies
+
 - **`typescript`**: TypeScript support
 - **`vite`**: Build tool and development server
 
@@ -82,12 +89,12 @@ The package provides a comprehensive Vitest configuration:
 export const testingConfig = defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
+    environment: "jsdom",
   },
   resolve: {
     alias: {
-      '@': path.resolve(Dirname, './'),
-      '@gabfon': path.resolve(Dirname, '../../packages'),
+      "@": path.resolve(Dirname, "./"),
+      "@gabfon": path.resolve(Dirname, "../../packages"),
     },
   },
 });
@@ -113,7 +120,7 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
 }));
 
 // matchMedia mock
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
@@ -168,7 +175,7 @@ describe('Integration Test', () => {
         <Button>Click me</Button>
       </AnalyticsProvider>
     );
-    
+
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 });
@@ -178,7 +185,7 @@ describe('Integration Test', () => {
 
 ```typescript
 // vitest.config.ts
-import { testingConfig } from '@gabfon/testing';
+import { testingConfig } from "@gabfon/testing";
 
 export default testingConfig;
 ```
@@ -190,16 +197,19 @@ export default testingConfig;
 The package provides comprehensive mocking for modern Web APIs:
 
 #### ResizeObserver
+
 - **Purpose**: Mocks element resize observation
 - **Implementation**: No-op functions with proper interface
 - **Use Case**: Testing responsive components
 
 #### matchMedia
+
 - **Purpose**: Mocks media query matching
 - **Implementation**: Returns false for all queries by default
 - **Use Case**: Testing responsive behavior
 
 #### IntersectionObserver
+
 - **Purpose**: Mocks element intersection observation
 - **Implementation**: No-op functions with proper interface
 - **Use Case**: Testing scroll-based components
@@ -220,23 +230,24 @@ afterEach(() => {
 });
 ```
 
-**Purpose**: Ensures clean environment for each test
-**Implementation**: Reset modules and environment variables
-**Use Case**: Testing environment-dependent code
+**Purpose**: Ensures clean environment for each test **Implementation**: Reset modules and environment variables **Use Case**: Testing environment-dependent code
 
 ## Performance Considerations
 
 ### 1. Test Execution Speed
+
 - **Vitest**: Fast test runner with intelligent caching
 - **jsdom**: Lightweight DOM simulation
 - **Mocked APIs**: Minimal overhead from Web API mocks
 
 ### 2. Memory Usage
+
 - **Module Reset**: Prevents memory leaks between tests
 - **Mock Functions**: Efficient function mocking
 - **Environment Cleanup**: Proper resource cleanup
 
 ### 3. Development Experience
+
 - **Hot Reloading**: Fast test re-execution
 - **TypeScript**: Immediate type feedback
 - **Path Aliases**: Simplified imports
@@ -244,16 +255,19 @@ afterEach(() => {
 ## Testing Strategy
 
 ### 1. Unit Testing
+
 - Component isolation
 - Function testing
 - Utility function testing
 
 ### 2. Integration Testing
+
 - Package integration
 - Component composition
 - API integration
 
 ### 3. End-to-End Testing
+
 - User flows
 - Cross-package workflows
 - Browser behavior simulation
@@ -261,16 +275,19 @@ afterEach(() => {
 ## Best Practices
 
 ### 1. Test Organization
+
 - **File Structure**: `__tests__` directories
 - **Naming Convention**: `*.test.ts` or `*.test.tsx`
 - **Test Groups**: Logical grouping with `describe`
 
 ### 2. Test Writing
+
 - **AAA Pattern**: Arrange, Act, Assert
 - **Descriptive Tests**: Clear test descriptions
 - **Focused Tests**: Single assertion per test
 
 ### 3. Mock Management
+
 - **Global Mocks**: Common Web API mocks
 - **Local Mocks**: Test-specific mocks
 - **Mock Cleanup**: Proper cleanup after tests
@@ -278,6 +295,7 @@ afterEach(() => {
 ## Future Extensibility
 
 The architecture supports:
+
 - Additional testing utilities
 - Custom matchers
 - Test environment extensions
@@ -288,6 +306,7 @@ The architecture supports:
 ## Migration Path
 
 The package is designed to support:
+
 - Easy adoption in existing projects
 - Gradual test migration
 - Framework switching support
@@ -342,7 +361,7 @@ describe('AnalyticsProvider', () => {
         <div>Test Content</div>
       </AnalyticsProvider>
     );
-    
+
     expect(screen.getByText('Test Content')).toBeInTheDocument();
   });
 });
@@ -352,20 +371,21 @@ describe('AnalyticsProvider', () => {
 
 ```typescript
 // packages/github/__tests__/client.test.ts
-import { describe, it, expect, vi } from 'vitest';
-import { githubClient } from '@/client';
+import { describe, it, expect, vi } from "vitest";
+
+import { githubClient } from "@/client";
 
 // Mock fetch
 global.fetch = vi.fn();
 
-describe('GitHub Client', () => {
-  it('fetches user data', async () => {
-    const mockUser = { id: 1, name: 'Test User' };
+describe("GitHub Client", () => {
+  it("fetches user data", async () => {
+    const mockUser = { id: 1, name: "Test User" };
     (fetch as any).mockResolvedValueOnce({
       json: () => Promise.resolve(mockUser),
     });
 
-    const user = await githubClient.getUser('testuser');
+    const user = await githubClient.getUser("testuser");
     expect(user).toEqual(mockUser);
   });
 });
@@ -382,13 +402,13 @@ import { describe, it, expect } from 'vitest';
 describe('Performance Tests', () => {
   it('renders component within performance budget', async () => {
     const startTime = performance.now();
-    
+
     // Component rendering test
     render(<ExpensiveComponent />);
-    
+
     const endTime = performance.now();
     const renderTime = endTime - startTime;
-    
+
     expect(renderTime).toBeLessThan(100); // 100ms budget
   });
 });
@@ -418,20 +438,15 @@ jobs:
 
 ```typescript
 // vitest.config.ts
-import { testingConfig } from '@gabfon/testing';
+import { testingConfig } from "@gabfon/testing";
 
 export default {
   ...testingConfig,
   test: {
     ...testingConfig.test,
     coverage: {
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        '__tests__/',
-        '**/*.test.ts',
-        '**/*.test.tsx',
-      ],
+      reporter: ["text", "json", "html"],
+      exclude: ["node_modules/", "__tests__/", "**/*.test.ts", "**/*.test.tsx"],
     },
   },
 };

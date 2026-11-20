@@ -5,6 +5,7 @@ This document provides an in-depth overview of the project's architecture, desig
 ## Overview
 
 This is a modern monorepo application built with:
+
 - **Next.js 15** - React framework for the web application
 - **Turbo** - Monorepo management and build orchestration
 - **TypeScript** - Type safety and developer experience
@@ -48,6 +49,7 @@ site/
 ### Core Application (`apps/www`)
 
 The main web application depends on:
+
 - `@gabfon/mdx` - Custom MDX processing package
 - `@gabfon/ui` - UI components
 - `@gabfon/analytics` - Analytics integration
@@ -56,18 +58,21 @@ The main web application depends on:
 ### Shared Packages
 
 #### `@gabfon/mdx`
+
 - **Purpose**: MDX content processing and collections
 - **Technology**: Fumadocs MDX
 - **Exports**: MDX components, collections, Next.js plugin
 
 #### `@gabfon/ui`
+
 - **Purpose**: Reusable UI components
 - **Technology**: React, Tailwind CSS
 - **Exports**: Components, utilities, styling
 
 #### `@gabfon/analytics`
+
 - **Purpose**: Analytics integration
-- **Technology**: Vercel Analytics, PostHog
+- **Technology**: PostHog
 - **Exports**: Analytics providers, utilities
 
 ## Content Management
@@ -78,14 +83,14 @@ The project uses Fumadocs MDX for content management:
 
 ```typescript
 // source.config.ts - Root configuration
-import { defineConfig, defineDocs } from 'fumadocs-mdx/config';
+import { defineConfig, defineDocs } from "fumadocs-mdx/config";
 
 export const docs = defineDocs({
-  dir: 'content/docs',
+  dir: "content/docs",
 });
 
 export const blog = defineDocs({
-  dir: 'content/blog',
+  dir: "content/blog",
 });
 
 export default defineConfig();
@@ -138,32 +143,32 @@ TypeScript Generation → Type Safety → Developer Experience
 
 ### 1. Monorepo with Turbo
 
-**Why**: Simplifies dependency management and build orchestration
-**Benefits**: 
+**Why**: Simplifies dependency management and build orchestration **Benefits**:
+
 - Shared packages reduce code duplication
 - Consistent tooling across packages
 - Efficient caching and incremental builds
 
 ### 2. Fumadocs MDX
 
-**Why**: Type-safe content management with excellent DX
-**Benefits**:
+**Why**: Type-safe content management with excellent DX **Benefits**:
+
 - Auto-generated TypeScript types
 - Fast compilation and caching
 - Rich content features (collections, frontmatter)
 
 ### 3. Tailwind CSS 4
 
-**Why**: Modern utility-first CSS with excellent performance
-**Benefits**:
+**Why**: Modern utility-first CSS with excellent performance **Benefits**:
+
 - Consistent design system
 - Highly optimized CSS
 - Excellent developer experience
 
 ### 4. TypeScript Everywhere
 
-**Why**: Type safety and better developer experience
-**Benefits**:
+**Why**: Type safety and better developer experience **Benefits**:
+
 - Catch errors at compile time
 - Better IDE support
 - Self-documenting code
@@ -198,11 +203,11 @@ TypeScript Generation → Type Safety → Developer Experience
 
 ## Deployment Architecture
 
-### Vercel Integration
+### Cloudflare Workers (vinext)
 
-- **Automatic Deployments**: Git-based deployment
+- **Worker-based deployment**: Next.js on the Workers runtime
 - **Environment Management**: Proper env var handling
-- **Edge Functions**: Serverless functions for dynamic content
+- **Assets + D1**: Static assets and D1 database bindings
 
 ### Docker Support
 
@@ -224,7 +229,6 @@ FROM node:20-alpine AS runner
 
 ### Analytics
 
-- **Vercel Analytics**: Core web analytics
 - **PostHog**: Product analytics and user behavior
 - **Custom Events**: Business metrics tracking
 
@@ -244,4 +248,4 @@ FROM node:20-alpine AS runner
 
 ---
 
-*This architecture document evolves with the project. Last updated: 2025-03-23*
+_This architecture document evolves with the project. Last updated: 2025-03-23_

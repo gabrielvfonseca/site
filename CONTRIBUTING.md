@@ -181,20 +181,24 @@ git push origin develop
 
 ```markdown
 ## Description
+
 Brief description of the change.
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 - [ ] Unit tests pass
 - [ ] Integration tests pass
 - [ ] Manual testing completed
 
 ## Checklist
+
 - [ ] Code follows project standards
 - [ ] Self-review completed
 - [ ] Documentation updated
@@ -215,8 +219,8 @@ interface User {
 
 // Bad - Implicit any
 const user = {
-  id: '123',
-  name: 'John'
+  id: "123",
+  name: "John",
 };
 ```
 
@@ -224,13 +228,13 @@ const user = {
 
 ```typescript
 // Good - Functional component
-export const Button: React.FC<ButtonProps> = ({ 
-  children, 
-  variant, 
-  onClick 
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  variant,
+  onClick
 }) => {
   return (
-    <button 
+    <button
       className={`btn btn-${variant}`}
       onClick={onClick}
     >
@@ -288,7 +292,7 @@ describe('Button', () => {
   it('handles click events', () => {
     const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     fireEvent.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -320,7 +324,7 @@ open coverage/lcov-report/index.html
 
 ### Documentation Standards
 
-```markdown
+````markdown
 # Good - Clear structure
 
 ## Feature Name
@@ -336,6 +340,7 @@ const App = () => {
   return <Feature />;
 };
 ```
+````
 
 ### API
 
@@ -350,7 +355,8 @@ const feature = (options: FeatureOptions): void;
 ### Examples
 
 Show common use cases.
-```
+
+````
 
 ### Where to Document
 
@@ -382,7 +388,7 @@ pnpm changeset version
 
 # Release
 pnpm changeset publish
-```
+````
 
 ### Release Checklist
 
@@ -424,6 +430,7 @@ When reporting issues, include:
 ## Thank You!
 
 We appreciate all contributions, whether:
+
 - Bug reports
 - Feature suggestions
 - Documentation improvements
@@ -434,4 +441,4 @@ Every contribution helps make this project better for everyone.
 
 ---
 
-*This contributing guide evolves with the project. Last updated: 2025-03-23*
+_This contributing guide evolves with the project. Last updated: 2025-03-23_

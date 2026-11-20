@@ -11,8 +11,7 @@ migrations/
 └── functions/    Views and stored procedures
 ```
 
-Files follow a `{number}__{description}.sql` naming convention and run in
-numeric order within each directory.
+Files follow a `{number}__{description}.sql` naming convention and run in numeric order within each directory.
 
 ## How to run
 
@@ -24,13 +23,10 @@ psql "$DATABASE_URL" -f infrastructure/migrations/schema/001__initial_schema.sql
 psql "$DATABASE_URL" -f infrastructure/migrations/seed/001__ama_seed.sql
 ```
 
-For Docker Compose, volume-mount the relevant directory to
-`/docker-entrypoint-initdb.d/`.
+For Docker Compose, volume-mount the relevant directory to `/docker-entrypoint-initdb.d/`.
 
 ## Convention
 
-- **Idempotent**: every file uses `IF NOT EXISTS` / `CREATE OR REPLACE` so it
-  can be safely re-run.
-- **One concern per directory**: schema changes, then seed data, then
-  functions.
+- **Idempotent**: every file uses `IF NOT EXISTS` / `CREATE OR REPLACE` so it can be safely re-run.
+- **One concern per directory**: schema changes, then seed data, then functions.
 - **No down migrations**: rollback by reverting the Git commit.

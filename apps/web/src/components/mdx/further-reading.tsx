@@ -7,12 +7,12 @@ const DEFAULT_COUNT = 3;
 
 /** Props for {@link FurtherReading}. */
 interface FurtherReadingProps {
-	/** Curated post slugs to link, in order. Falls back to recent posts. */
-	readonly slugs?: readonly string[];
-	/** Section heading. Defaults to "Further reading". */
-	readonly title?: string;
-	/** Optional extra class names. */
-	readonly className?: string;
+  /** Curated post slugs to link, in order. Falls back to recent posts. */
+  readonly slugs?: readonly string[];
+  /** Section heading. Defaults to "Further reading". */
+  readonly title?: string;
+  /** Optional extra class names. */
+  readonly className?: string;
 }
 
 /**
@@ -23,35 +23,35 @@ interface FurtherReadingProps {
  * @returns The FurtherReading element, or `null` when there is nothing to show.
  */
 export function FurtherReading({
-	slugs,
-	title = "Further reading",
-	className,
+  slugs,
+  title = "Further reading",
+  className,
 }: FurtherReadingProps) {
-	const posts = getPosts();
-	const selected = slugs
-		? slugs
-				.map((slug) => posts.find((post) => post.slug === slug))
-				.filter((post): post is NonNullable<typeof post> => post !== undefined)
-		: posts.slice(0, DEFAULT_COUNT);
+  const posts = getPosts();
+  const selected = slugs
+    ? slugs
+        .map((slug) => posts.find((post) => post.slug === slug))
+        .filter((post): post is NonNullable<typeof post> => post !== undefined)
+    : posts.slice(0, DEFAULT_COUNT);
 
-	if (selected.length === 0) {
-		return null;
-	}
+  if (selected.length === 0) {
+    return null;
+  }
 
-	return (
-		<section className={cn("not-prose my-8 flex flex-col gap-4", className)}>
-			<h2 className="text-foreground text-lg">{title}</h2>
-			<div className="flex flex-col gap-3">
-				{selected.map((post) => (
-					<LinkCard
-						description={post.description}
-						eyebrow="Writing"
-						href={`/posts/${post.slug}`}
-						key={post.slug}
-						title={post.title}
-					/>
-				))}
-			</div>
-		</section>
-	);
+  return (
+    <section className={cn("not-prose my-8 flex flex-col gap-4", className)}>
+      <h2 className="text-foreground text-lg">{title}</h2>
+      <div className="flex flex-col gap-3">
+        {selected.map((post) => (
+          <LinkCard
+            description={post.description}
+            eyebrow="Writing"
+            href={`/posts/${post.slug}`}
+            key={post.slug}
+            title={post.title}
+          />
+        ))}
+      </div>
+    </section>
+  );
 }

@@ -26,7 +26,7 @@ pnpm add @gabfon/security
 ### Basic Security Setup
 
 ```typescript
-import { withSecurity } from '@gabfon/security';
+import { withSecurity } from "@gabfon/security";
 
 // Next.js configuration
 const nextConfig = withSecurity({
@@ -38,23 +38,21 @@ const nextConfig = withSecurity({
 
 ```typescript
 // middleware.ts
-import { securityMiddleware } from '@gabfon/security/middleware';
+import { securityMiddleware } from "@gabfon/security/middleware";
 
 export default securityMiddleware({
   // security configuration
 });
 
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
 
 ### Security Headers
 
 ```typescript
-import { securityHeaders } from '@gabfon/security';
+import { securityHeaders } from "@gabfon/security";
 
 // Apply security headers
 const headers = securityHeaders({
@@ -70,13 +68,13 @@ const headers = securityHeaders({
 ### Bot Protection
 
 ```typescript
-import { botProtection } from '@gabfon/security';
+import { botProtection } from "@gabfon/security";
 
 // Check if request is from a bot
 const isBot = await botProtection.check(request);
 
 if (isBot) {
-  return new Response('Bot detected', { status: 403 });
+  return new Response("Bot detected", { status: 403 });
 }
 ```
 
@@ -106,18 +104,21 @@ DDOS_PROTECTION_ENABLED=true
 ## Security Features
 
 ### Bot Protection
+
 - **Advanced Detection**: Machine learning-based bot detection
 - **Behavioral Analysis**: Analyzes request patterns and behavior
 - **CAPTCHA Integration**: Optional CAPTCHA challenges
 - **Whitelist Support**: Allow trusted bots and crawlers
 
 ### DDoS Protection
+
 - **Traffic Analysis**: Real-time traffic pattern analysis
 - **Automatic Mitigation**: Automatic blocking of suspicious traffic
 - **Rate Limiting**: Built-in rate limiting for API endpoints
 - **Geographic Filtering**: Block traffic from specific regions
 
 ### Security Headers
+
 - **Content Security Policy**: Prevent XSS attacks
 - **Strict Transport Security**: Enforce HTTPS
 - **X-Frame-Options**: Prevent clickjacking
@@ -130,7 +131,7 @@ DDOS_PROTECTION_ENABLED=true
 interface SecurityConfig {
   botProtection: {
     enabled: boolean;
-    mode: 'monitor' | 'block';
+    mode: "monitor" | "block";
     whitelist?: string[];
   };
   ddosProtection: {
@@ -176,16 +177,16 @@ pnpm clean
 ```typescript
 try {
   const result = await securityMiddleware(request);
-  
+
   if (result.blocked) {
-    return new Response('Request blocked', { 
+    return new Response("Request blocked", {
       status: result.status,
-      headers: result.headers 
+      headers: result.headers,
     });
   }
 } catch (error) {
   // Handle security service errors
-  console.error('Security error:', error);
+  console.error("Security error:", error);
   // Optionally allow request to proceed
 }
 ```

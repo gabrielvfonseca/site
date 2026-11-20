@@ -1,6 +1,7 @@
 import { createMetadata } from "@gabfon/seo/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
 import { ArticleFooter } from "@/components/content/article-footer";
 import { BackLink } from "@/components/content/back-link";
 import { BackToTop } from "@/components/content/back-to-top";
@@ -17,15 +18,15 @@ import { getToc } from "@/lib/toc";
  * The PostPageProps for the site.
  */
 interface PostPageProps {
-	/**
-	 * The params for the site.
-	 */
-	readonly params: Promise<{
-		/**
-		 * The slug for the site.
-		 */
-		slug: string;
-	}>;
+  /**
+   * The params for the site.
+   */
+  readonly params: Promise<{
+    /**
+     * The slug for the site.
+     */
+    slug: string;
+  }>;
 }
 
 /**
@@ -34,37 +35,88 @@ interface PostPageProps {
  * @returns The generateMetadata for the site.
  */
 export async function generateMetadata({
-	params,
+  params,
 }: PostPageProps): Promise<Metadata> {
-	const { slug } = await params;
-	const posts = getPosts();
-	const post = posts.find((p) => p.slug === slug);
+  const { slug } = await params;
+  const posts = getPosts();
+  const post = posts.find((p) => p.slug === slug);
 
-	if (!post) {
-		notFound();
-	}
+  if (!post) {
+    notFound();
+  }
 
-	return createMetadata({
-		title: post.title,
-		description: post.description,
-		pathname: `/posts/${slug}`,
-		// Defer to the per-post file-based opengraph-image card.
-		image: null,
-		authors: [
-			{
-				name: CONFIG.name,
-				url: "https://gabfon.com/",
-			},
-		],
-		openGraph: {
-			title: post.title,
-			description: post.description,
-			type: "article",
-			publishedTime: toIsoDate(post.date),
-			section: "Blog",
-			authors: [CONFIG.name],
-		},
-	});
+  return createMetadata({
+    title: post.title,
+    description: post.description,
+    pathname: `/posts/${slug}`,
+    // Defer to the per-post file-based opengraph-image card.
+    image: null,
+    authors: [
+      {
+        name: CONFIG.name,
+        url: "https://gabfon.com/",
+      },
+    ],
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: toIsoDate(post.date),
+      section: "Blog",
+      authors: [CONFIG.name],
+    },
+  });
+}
+
+/**
+ * The PostPage body (non-async so hooks can be called at the top level).
+ * @param post - The resolved post.
+ * @param entry - The resolved MDX entry.
+ * @returns The article element.
+ */
+function PostPageBody({
+  post,
+  entry,
+}: {
+  readonly post: (typeof getPosts)[number];
+  readonly entry: NonNullable<ReturnType<typeof getPostEntry>>;
+}) {
+  const MdxContent = entry.body;
+  const components = useMDXComponents({});
+  const readingTime = getReadingTime("posts", entry._file.path);
+  const toc = getToc("posts", entry._file.path);
+
+  return (
+    <article className="relative flex flex-col gap-8">
+      <ReadingProgress />
+      <BackToTop />
+      {toc.length >= 2 ? (
+        <aside className="absolute top-0 left-full hidden h-full pl-10 xl:block">
+          <div className="sticky top-28 w-56">
+            <TableOfContents entries={toc} />
+          </div>
+        </aside>
+      ) : null}
+      <header className="flex flex-col gap-4">
+        <BackLink href="/posts" label="Writing" />
+        <div className="flex flex-col gap-1">
+          <h1 className="text-lg">{post.title}</h1>
+          <p className="text-muted-foreground text-sm">
+            {post.date ? (
+              <time dateTime={post.date}>{formatDisplayDate(post.date)}</time>
+            ) : null}
+            {post.date ? " · " : null}
+            {readingTime} min read
+          </p>
+        </div>
+        <p className="text-muted-foreground">{post.description}</p>
+      </header>
+      <div className="prose max-w-none">
+        <MdxContent components={components} />
+      </div>
+      <ArticleFooter backHref="/posts" backLabel="All writing" />
+    </article>
+  );
 }
 
 /**
@@ -73,47 +125,13 @@ export async function generateMetadata({
  * @returns The PostPage for the site.
  */
 export default async function PostPage({ params }: PostPageProps) {
-	const { slug } = await params;
-	const post = getPosts().find((p) => p.slug === slug);
-	const entry = getPostEntry(slug);
+  const { slug } = await params;
+  const post = getPosts().find((p) => p.slug === slug);
+  const entry = getPostEntry(slug);
 
-	if (!post || !entry) {
-		notFound();
-	}
+  if (!post || !entry) {
+    notFound();
+  }
 
-	const MdxContent = entry.body;
-	const readingTime = getReadingTime("posts", entry._file.path);
-	const toc = getToc("posts", entry._file.path);
-
-	return (
-		<article className="relative flex flex-col gap-8">
-			<ReadingProgress />
-			<BackToTop />
-			{toc.length >= 2 ? (
-				<aside className="absolute top-0 left-full hidden h-full pl-10 xl:block">
-					<div className="sticky top-28 w-56">
-						<TableOfContents entries={toc} />
-					</div>
-				</aside>
-			) : null}
-			<header className="flex flex-col gap-4">
-				<BackLink href="/posts" label="Writing" />
-				<div className="flex flex-col gap-1">
-					<h1 className="text-lg">{post.title}</h1>
-					<p className="text-muted-foreground text-sm">
-						{post.date ? (
-							<time dateTime={post.date}>{formatDisplayDate(post.date)}</time>
-						) : null}
-						{post.date ? " · " : null}
-						{readingTime} min read
-					</p>
-				</div>
-				<p className="text-muted-foreground">{post.description}</p>
-			</header>
-			<div className="prose max-w-none">
-				<MdxContent components={useMDXComponents({})} />
-			</div>
-			<ArticleFooter backHref="/posts" backLabel="All writing" />
-		</article>
-	);
+  return <PostPageBody post={post} entry={entry} />;
 }

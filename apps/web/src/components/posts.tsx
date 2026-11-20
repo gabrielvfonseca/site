@@ -1,13 +1,14 @@
 import { getPosts } from "@/lib/content-index";
 import type { Post } from "@/types/post";
+
 import { PostsList } from "./posts-list";
 
 /**
  * The PostsProps for the site.
  */
 export interface PostsProps {
-	/** When true, renders every post without the "Show more" button. */
-	readonly showAll?: boolean;
+  /** When true, renders every post without the "Show more" button. */
+  readonly showAll?: boolean;
 }
 
 /**
@@ -16,14 +17,14 @@ export interface PostsProps {
  * @returns The Posts for the site.
  */
 export function Posts({ showAll = false }: PostsProps = {}) {
-	const posts: Post[] = getPosts();
+  const posts: Post[] = getPosts();
 
-	return (
-		<div className="-mx-3">
-			<PostsList
-				initialCount={showAll ? posts.length : undefined}
-				items={posts}
-			/>
-		</div>
-	);
+  return (
+    <div className="-mx-3">
+      <PostsList
+        initialCount={showAll ? posts.length : undefined}
+        items={posts}
+      />
+    </div>
+  );
 }

@@ -6,13 +6,14 @@ date: 2026-07-23
 
 I want Frontal to exist in 2126.
 
-Not the same code. Not the same product. But the *company*—the mission, the standards, the people who carry it forward.
+Not the same code. Not the same product. But the _company_—the mission, the standards, the people who carry it forward.
 
 That changes every decision I make today.
 
 ## The 100-Year Lens
 
 When you optimize for next quarter, you:
+
 - Cut corners on testing
 - Skip documentation
 - Hire fast, fire slow
@@ -20,22 +21,23 @@ When you optimize for next quarter, you:
 - Choose vendors on price, not stability
 
 When you optimize for 100 years, you:
+
 - Write tests that survive rewrites
-- Document *why*, not just *what*
+- Document _why_, not just _what_
 - Hire for values, train for skills
 - Pay down debt before it compounds
 - Choose boring, stable dependencies
 
 The irony: **long-term thinking makes you faster in the short term.**
 
-Code that's easy to change *is* fast to change. Teams that trust each other *move* faster. Systems that don't break *don't* need midnight firefighting.
+Code that's easy to change _is_ fast to change. Teams that trust each other _move_ faster. Systems that don't break _don't_ need midnight firefighting.
 
 ## Technical Decisions for Longevity
 
 ### 1. Choose Technologies That Outlive Hype
 
 | Category | Choice | Why It Lasts |
-|----------|--------|--------------|
+| --- | --- | --- |
 | Language | TypeScript / Rust | Industry standards, massive ecosystems, backed by giants |
 | Runtime | Node.js / Bun | 15+ year track record, not going away |
 | Database | PostgreSQL | 30 years, ACID, extensible, runs everywhere |
@@ -85,10 +87,10 @@ No magic. No "convention over configuration" that becomes "configuration over co
 ```typescript
 // Explicit: obvious what happens
 const client = createGitHubClient({ token: env.GITHUB_TOKEN });
-const repos = await client.getUserRepos('gabrielvfonseca');
+const repos = await client.getUserRepos("gabrielvfonseca");
 
 // Implicit: where does token come from? What client? What errors?
-const repos = await github.getRepos('gabrielvfonseca');
+const repos = await github.getRepos("gabrielvfonseca");
 ```
 
 Explicit code survives team turnover. Implicit code becomes tribal knowledge that evaporates.
@@ -97,15 +99,15 @@ Explicit code survives team turnover. Implicit code becomes tribal knowledge tha
 
 ```typescript
 // This test documents: "We retry 3x with exponential backoff on 5xx"
-it('retries on server error with exponential backoff', async () => {
+it("retries on server error with exponential backoff", async () => {
   const server = createMockServer()
-    .get('/repos', { status: 500 })  // attempt 1
-    .get('/repos', { status: 500 })  // attempt 2
-    .get('/repos', { status: 200, body: repos }); // attempt 3
-  
-  const result = await client.getUserRepos('user');
+    .get("/repos", { status: 500 }) // attempt 1
+    .get("/repos", { status: 500 }) // attempt 2
+    .get("/repos", { status: 200, body: repos }); // attempt 3
+
+  const result = await client.getUserRepos("user");
   expect(result).toEqual(repos);
-  
+
   // Verify timing: 100ms, 200ms, 400ms
   expect(server.requestTimings).toMatchInlineSnapshot(`
     [100, 300, 700]
@@ -113,7 +115,7 @@ it('retries on server error with exponential backoff', async () => {
 });
 ```
 
-A new engineer reads this test and *knows* the behavior. No README stays this accurate.
+A new engineer reads this test and _knows_ the behavior. No README stays this accurate.
 
 ## Organizational Decisions for Longevity
 
@@ -122,6 +124,7 @@ A new engineer reads this test and *knows* the behavior. No README stays this ac
 Skills expire in 2-3 years. Values don't.
 
 Our interview weighs:
+
 - **Ownership** (40%): "Tell me about a mistake you made and fixed."
 - **Clarity** (30%): "Explain a complex system to me in 2 minutes."
 - **Curiosity** (20%): "What did you learn last month?"
@@ -137,17 +140,21 @@ Every architectural choice gets an ADR (Architecture Decision Record):
 # ADR-004: Use PostgreSQL over MongoDB
 
 ## Context
+
 Need durable, relational storage for agent memory.
 
 ## Decision
+
 PostgreSQL with JSONB for flexible fields.
 
 ## Consequences
-+ ACID transactions for memory consistency
-+ Mature tooling, hiring pool
-+ JSONB gives document flexibility when needed
-- More schema migration work than schemaless
-- Slightly more complex local dev (Docker required)
+
+- ACID transactions for memory consistency
+- Mature tooling, hiring pool
+- JSONB gives document flexibility when needed
+
+* More schema migration work than schemaless
+* Slightly more complex local dev (Docker required)
 ```
 
 Six months later, when someone asks "why not Mongo?", the answer is in the repo. Not in someone's head.
@@ -155,12 +162,13 @@ Six months later, when someone asks "why not Mongo?", the answer is in the repo.
 ### Make Boring Things Easy, Hard Things Possible
 
 Our internal tooling optimizes for the 90% case:
+
 - `pnpm new:package` scaffolds a complete `@gabfon/*` package
 - `pnpm changeset` handles versioning + changelog
 - `pnpm deploy` deploys to preview/production
 - CI runs typecheck, lint, test, build in parallel
 
-The hard things (custom deployment, weird integration) are *possible* because we didn't hardcode assumptions. But they're manual—and that's fine, they're rare.
+The hard things (custom deployment, weird integration) are _possible_ because we didn't hardcode assumptions. But they're manual—and that's fine, they're rare.
 
 ## Financial Discipline for Longevity
 
@@ -173,17 +181,18 @@ This lets us say no to bad deals, bad hires, bad features. The freedom to be lon
 ## Cultural Artifacts
 
 **Weekly "State of the Union" (15 min):**
+
 - Metrics: revenue, churn, usage, team health
 - Decisions: what we chose, what we rejected
 - Risks: what keeps us up at night
 
 **Quarterly "Pre-Mortem":**
+
 > "It's 2 years from now. Frontal failed. What killed it?"
-> 
+>
 > Write 5 scenarios. Assign owners to prevent each.
 
-**Annual "Founder Letter":**
-Written to the team (and future team). State of mission, mistakes, direction. Archived forever.
+**Annual "Founder Letter":** Written to the team (and future team). State of mission, mistakes, direction. Archived forever.
 
 ## The Compounding Loop
 
@@ -204,17 +213,17 @@ Each turn makes the next easier. The opposite—short-term thinking—creates a 
 - I spend 20% of my time on "tax": docs, tests, ADRs, tooling
 - We reject features that don't fit the 5-year vision
 - We over-communicate: weekly updates, public roadmap, open issues
-- We celebrate *deleting* code more than adding it
+- We celebrate _deleting_ code more than adding it
 - We optimize for the maintainer, not the author
 
 ## The Honest Answer
 
 I don't know if Frontal lasts 100 years. Most companies don't.
 
-But I know this: **every decision above makes us better *today*, regardless of tomorrow.**
+But I know this: **every decision above makes us better _today_, regardless of tomorrow.**
 
 If we fail, it won't be because we wrote clean code, hired well, documented decisions, or chose boring tech.
 
-It'll be because we built something nobody wanted. And long-term thinking helps there too—by forcing us to talk to customers *now*, not "after launch."
+It'll be because we built something nobody wanted. And long-term thinking helps there too—by forcing us to talk to customers _now_, not "after launch."
 
 Build for the long term because it's the only way to build well for the short term.

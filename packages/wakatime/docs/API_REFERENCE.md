@@ -20,10 +20,10 @@ Get your API key from [wakatime.com/settings/api-key](https://wakatime.com/setti
 
 ```typescript
 // Client
-export { WakaTimeClient, wakatimeClient } from './client';
+export { WakaTimeClient, wakatimeClient } from "./client";
 
 // Environment
-export { keys } from './keys';
+export { keys } from "./keys";
 
 // Types
 export type {
@@ -31,11 +31,11 @@ export type {
   WakaTimeApiStats,
   WakaTimeLanguage,
   WakaTimeStats,
-} from './types';
+} from "./types";
 ```
 
 | Export | Kind | Description |
-|--------|------|-------------|
+| --- | --- | --- |
 | `WakaTimeClient` | class | The client class |
 | `wakatimeClient` | instance | Shared singleton client |
 | `keys` | function | `@t3-oss/env-nextjs` factory for this package's env |
@@ -51,7 +51,7 @@ export type {
 A ready-to-use singleton. Construct your own `WakaTimeClient` only if you need isolated state.
 
 ```typescript
-import { wakatimeClient, WakaTimeClient } from '@gabfon/wakatime';
+import { wakatimeClient, WakaTimeClient } from "@gabfon/wakatime";
 
 const client = wakatimeClient; // shared singleton
 const own = new WakaTimeClient(); // independent instance
@@ -110,14 +110,14 @@ interface WakaTimeApiStats {
 
 ## Environment Variables
 
-| Variable | Type | Default | Required |
-|----------|------|---------|----------|
-| `WAKATIME_API_KEY` | `string` | — | No |
+| Variable           | Type     | Default | Required |
+| ------------------ | -------- | ------- | -------- |
+| `WAKATIME_API_KEY` | `string` | —       | No       |
 
 Access the validated value via `keys()`:
 
 ```typescript
-import { keys } from '@gabfon/wakatime/keys';
+import { keys } from "@gabfon/wakatime/keys";
 
 const env = keys();
 env.WAKATIME_API_KEY;
@@ -128,7 +128,7 @@ env.WAKATIME_API_KEY;
 ### Rendering a coding-time summary
 
 ```typescript
-import { wakatimeClient } from '@gabfon/wakatime';
+import { wakatimeClient } from "@gabfon/wakatime";
 
 const stats = await wakatimeClient.getLast7Days();
 render(`${stats.humanReadableTotal} in the last 7 days`);
@@ -139,7 +139,7 @@ render(`${stats.humanReadableTotal} in the last 7 days`);
 ```typescript
 async function loadWakatime() {
   try {
-    const { wakatimeClient } = await import('@gabfon/wakatime');
+    const { wakatimeClient } = await import("@gabfon/wakatime");
     return await wakatimeClient.getLast7Days();
   } catch {
     return null; // missing key or API error → omit the widget

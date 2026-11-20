@@ -14,7 +14,7 @@ Import the global CSS file in your application:
 
 ```typescript
 // app/layout.tsx
-import '@gabfon/design-system/styles/globals.css';
+import "@gabfon/design-system/styles/globals.css";
 ```
 
 ### Provider Setup
@@ -86,8 +86,14 @@ Primary button component with multiple variants.
 
 ```typescript
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-  size?: 'default' | 'sm' | 'lg' | 'icon';
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
   asChild?: boolean;
 }
 ```
@@ -187,7 +193,9 @@ Checkbox component with label support.
 #### Props
 
 ```typescript
-interface CheckboxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+interface CheckboxProps extends React.ComponentPropsWithoutRef<
+  typeof CheckboxPrimitive.Root
+> {
   id?: string;
 }
 ```
@@ -214,9 +222,13 @@ Radio button group component.
 #### Props
 
 ```typescript
-interface RadioGroupProps extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> {}
+interface RadioGroupProps extends React.ComponentPropsWithoutRef<
+  typeof RadioGroupPrimitive.Root
+> {}
 
-interface RadioGroupItemProps extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> {
+interface RadioGroupItemProps extends React.ComponentPropsWithoutRef<
+  typeof RadioGroupPrimitive.Item
+> {
   value: string;
 }
 ```
@@ -249,7 +261,9 @@ Toggle switch component.
 #### Props
 
 ```typescript
-interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> {
+interface SwitchProps extends React.ComponentPropsWithoutRef<
+  typeof SwitchPrimitive.Root
+> {
   id?: string;
 }
 ```
@@ -276,13 +290,21 @@ Dropdown select component.
 #### Props
 
 ```typescript
-interface SelectProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> {}
+interface SelectProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Root
+> {}
 
-interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {}
+interface SelectTriggerProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Trigger
+> {}
 
-interface SelectContentProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {}
+interface SelectContentProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Content
+> {}
 
-interface SelectItemProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {
+interface SelectItemProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Item
+> {
   value: string;
 }
 ```
@@ -316,15 +338,23 @@ Tab navigation component.
 #### Props
 
 ```typescript
-interface TabsProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root> {}
+interface TabsProps extends React.ComponentPropsWithoutRef<
+  typeof TabsPrimitive.Root
+> {}
 
-interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {}
+interface TabsListProps extends React.ComponentPropsWithoutRef<
+  typeof TabsPrimitive.List
+> {}
 
-interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {
+interface TabsTriggerProps extends React.ComponentPropsWithoutRef<
+  typeof TabsPrimitive.Trigger
+> {
   value: string;
 }
 
-interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {
+interface TabsContentProps extends React.ComponentPropsWithoutRef<
+  typeof TabsPrimitive.Content
+> {
   value: string;
 }
 ```
@@ -355,15 +385,25 @@ Dropdown navigation menu component.
 #### Props
 
 ```typescript
-interface NavigationMenuProps extends React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root> {}
+interface NavigationMenuProps extends React.ComponentPropsWithoutRef<
+  typeof NavigationMenuPrimitive.Root
+> {}
 
-interface NavigationMenuListProps extends React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List> {}
+interface NavigationMenuListProps extends React.ComponentPropsWithoutRef<
+  typeof NavigationMenuPrimitive.List
+> {}
 
-interface NavigationMenuItemProps extends React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item> {}
+interface NavigationMenuItemProps extends React.ComponentPropsWithoutRef<
+  typeof NavigationMenuPrimitive.Item
+> {}
 
-interface NavigationMenuTriggerProps extends React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> {}
+interface NavigationMenuTriggerProps extends React.ComponentPropsWithoutRef<
+  typeof NavigationMenuPrimitive.Trigger
+> {}
 
-interface NavigationMenuContentProps extends React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content> {}
+interface NavigationMenuContentProps extends React.ComponentPropsWithoutRef<
+  typeof NavigationMenuPrimitive.Content
+> {}
 ```
 
 #### Usage
@@ -418,7 +458,7 @@ Alert component for important messages.
 
 ```typescript
 interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'destructive';
+  variant?: "default" | "destructive";
 }
 ```
 
@@ -445,7 +485,7 @@ Small indicator component.
 
 ```typescript
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline';
+  variant?: "default" | "secondary" | "destructive" | "outline";
 }
 ```
 
@@ -468,17 +508,27 @@ Modal dialog component.
 #### Props
 
 ```typescript
-interface DialogProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {}
+interface DialogProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Root
+> {}
 
-interface DialogTriggerProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger> {}
+interface DialogTriggerProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Trigger
+> {}
 
-interface DialogContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {}
+interface DialogContentProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Content
+> {}
 
 interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-interface DialogTitleProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> {}
+interface DialogTitleProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Title
+> {}
 
-interface DialogDescriptionProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> {}
+interface DialogDescriptionProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Description
+> {}
 ```
 
 #### Usage
@@ -511,17 +561,27 @@ Side sheet/drawer component.
 #### Props
 
 ```typescript
-interface SheetProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Root> {}
+interface SheetProps extends React.ComponentPropsWithoutRef<
+  typeof SheetPrimitive.Root
+> {}
 
-interface SheetTriggerProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Trigger> {}
+interface SheetTriggerProps extends React.ComponentPropsWithoutRef<
+  typeof SheetPrimitive.Trigger
+> {}
 
-interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {}
+interface SheetContentProps extends React.ComponentPropsWithoutRef<
+  typeof SheetPrimitive.Content
+> {}
 
 interface SheetHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-interface SheetTitleProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title> {}
+interface SheetTitleProps extends React.ComponentPropsWithoutRef<
+  typeof SheetPrimitive.Title
+> {}
 
-interface SheetDescriptionProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description> {}
+interface SheetDescriptionProps extends React.ComponentPropsWithoutRef<
+  typeof SheetPrimitive.Description
+> {}
 ```
 
 #### Usage
@@ -556,7 +616,7 @@ Debounce hook for delaying function execution.
 #### Props
 
 ```typescript
-function useDebounce<T>(value: T, delay?: number): T
+function useDebounce<T>(value: T, delay?: number): T;
 ```
 
 #### Usage
@@ -753,24 +813,28 @@ function Component({ className, ...props }) {
 ## Best Practices
 
 ### 1. Component Usage
+
 - Always wrap forms with proper providers
 - Use semantic HTML elements
 - Provide proper accessibility attributes
 - Handle loading and error states
 
 ### 2. Styling
+
 - Use Tailwind utility classes for custom styles
 - Leverage component variants for consistency
 - Avoid inline styles
 - Use responsive design patterns
 
 ### 3. Form Handling
+
 - Use react-hook-form for complex forms
 - Implement proper validation
 - Handle form submission states
 - Provide clear error messages
 
 ### 4. Accessibility
+
 - Test with screen readers
 - Ensure keyboard navigation
 - Use proper ARIA labels

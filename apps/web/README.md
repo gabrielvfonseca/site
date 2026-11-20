@@ -4,41 +4,41 @@ The main website of Gabriel Fonseca — home page, blog, projects, bio, contact 
 
 ## Routes
 
-| Path | Description |
-|------|-------------|
-| `/` | Homepage (about, activity graph, projects, posts) |
-| `/bio` | Bio page |
-| `/contact` | Contact form |
-| `/posts` | Blog listing (30 posts) |
-| `/posts/[slug]` | Individual blog post |
-| `/projects` | Projects listing (7 projects) |
-| `/projects/[slug]` | Project case study |
-| `/ama` | Ask Me Anything |
-| `/now` | Now page (live activity) |
+| Path               | Description                                       |
+| ------------------ | ------------------------------------------------- |
+| `/`                | Homepage (about, activity graph, projects, posts) |
+| `/bio`             | Bio page                                          |
+| `/contact`         | Contact form                                      |
+| `/posts`           | Blog listing (30 posts)                           |
+| `/posts/[slug]`    | Individual blog post                              |
+| `/projects`        | Projects listing (7 projects)                     |
+| `/projects/[slug]` | Project case study                                |
+| `/ama`             | Ask Me Anything                                   |
+| `/now`             | Now page (live activity)                          |
 
 ### API Routes
 
-| Path | Description |
-|------|-------------|
+| Path            | Description                             |
+| --------------- | --------------------------------------- |
 | `/api/activity` | GitHub/Spotify/Strava contribution data |
-| `/api/ama` | AMA questions (read/write) |
-| `/api/now` | Now page live data |
+| `/api/ama`      | AMA questions (read/write)              |
+| `/api/now`      | Now page live data                      |
 
 ## Content
 
 All content is file-based MDX at `apps/web/content/`. Fumadocs compiles it at build time via `source.config.ts`.
 
-| Collection | Path | Files |
-|------------|------|-------|
-| Posts | `content/posts/*` | 30 `.mdx` files |
-| Projects | `content/projects/*` | 7 `.mdx` files |
+| Collection | Path                 | Files           |
+| ---------- | -------------------- | --------------- |
+| Posts      | `content/posts/*`    | 30 `.mdx` files |
+| Projects   | `content/projects/*` | 7 `.mdx` files  |
 
 Content is edited through the **Keystatic CMS** at [`apps/cms/`](../cms/README.md) (local dev) or [`cms.gabfon.com`](https://cms.gabfon.com) (production).
 
 ## Key Dependencies
 
 | Package | Purpose |
-|---------|---------|
+| --- | --- |
 | `next@16`, `react@19` | Framework |
 | `fumadocs-mdx`, `fumadocs-core` | MDX content compilation |
 | `tailwindcss@4` | Styling |
@@ -79,12 +79,12 @@ See the [CLAUDE.md](../../CLAUDE.md) for the full environment variable reference
 
 ## Testing
 
-| Type | Framework | Location |
-|------|-----------|----------|
-| Unit | Vitest + Testing Library | `src/**/*.test.*`, `tests/unit/` |
-| Integration | Vitest | `tests/integration/` |
-| E2E | Playwright | `tests/e2e/` |
-| Load | k6 | `tests/load/` |
+| Type        | Framework                | Location                         |
+| ----------- | ------------------------ | -------------------------------- |
+| Unit        | Vitest + Testing Library | `src/**/*.test.*`, `tests/unit/` |
+| Integration | Vitest                   | `tests/integration/`             |
+| E2E         | Playwright               | `tests/e2e/`                     |
+| Load        | k6                       | `tests/load/`                    |
 
 ## Documentation
 

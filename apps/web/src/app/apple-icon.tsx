@@ -2,8 +2,8 @@ import { ImageResponse } from "next/og";
 
 /** Apple touch icon size (px). */
 export const size = {
-	width: 180,
-	height: 180,
+  width: 180,
+  height: 180,
 };
 
 export const contentType = "image/png";
@@ -16,24 +16,23 @@ const AVATAR_URL = "https://github.com/gabrielvfonseca.png";
  * @returns An ImageResponse with the avatar.
  */
 export default function AppleIcon(): ImageResponse {
-	return new ImageResponse(
-		<div
-			style={{
-				display: "flex",
-				width: "100%",
-				height: "100%",
-				background: "black",
-			}}
-		>
-			{/* biome-ignore lint/performance/noImgElement: ImageResponse (satori) renders raw <img>, not next/image */}
-			<img
-				alt=""
-				height={size.height}
-				src={AVATAR_URL}
-				style={{ objectFit: "cover" }}
-				width={size.width}
-			/>
-		</div>,
-		{ ...size },
-	);
+  return new ImageResponse(
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        background: "black",
+      }}
+    >
+      <img
+        alt=""
+        height={size.height}
+        src={AVATAR_URL}
+        style={{ objectFit: "cover" }}
+        width={size.width}
+      />
+    </div>,
+    { ...size }
+  );
 }

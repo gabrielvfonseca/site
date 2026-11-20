@@ -21,8 +21,9 @@ When you're building agentic systems at scale, you spend more time managing cont
 ## What Context Actually Means
 
 Context isn't just the prompt string. It's:
+
 - Knowledge base content
-- User history and preferences  
+- User history and preferences
 - Task state and constraints
 - Available tools and their schemas
 - Previous decisions and their outcomes
@@ -44,7 +45,7 @@ const context = createContext({
   goal: "Find customer invoice and send follow-up",
   tools: { emailClient, crm, accounting },
   history: [...previousActions],
-  constraints: { timeZone: "Europe/Lisbon" }
+  constraints: { timeZone: "Europe/Lisbon" },
 });
 
 // Context can be queried, modified, and versioned
@@ -57,32 +58,41 @@ This changes everything. Instead of hoping the prompt captures context, you **ma
 ## The Four Context Layers
 
 ### 1. System Context
+
 The immutable facts about your system:
+
 - Available APIs and their behaviors
 - Time zone and configuration
 - User's role and permissions
 
-### 2. Task Context  
+### 2. Task Context
+
 What the AI is currently trying to accomplish:
+
 - Goal definition
 - Success criteria
 - Current step in execution plan
 - Available tools for this task
 
 ### 3. Historical Context
+
 What happened before that matters:
+
 - Previous decisions and their outcomes
 - User corrections and preferences
 - Error recovery attempts
 - Domain-specific context (customer history, etc.)
 
 ### 4. Environmental Context
+
 What's happening in the world:
+
 - Current date/time
 - API rate limits
 - System load
 
 Each layer has explicit controls for:
+
 - **Relevance scoring** - what matters right now
 - **Expiration policies** - when it becomes stale
 - **Audit trails** - what was used when
@@ -90,11 +100,13 @@ Each layer has explicit controls for:
 ## Context Decay is Real
 
 Most AI systems fail because context decays. The AI loses track of:
+
 - What it already tried
 - Why that didn't work
 - What the user actually cares about
 
 We built explicit mechanisms in Vibe to prevent this:
+
 - Automatic context summarization
 - Explicit memory checkpoints
 - Relevance-weighted retrieval
@@ -105,6 +117,7 @@ We built explicit mechanisms in Vibe to prevent this:
 When you treat context as a runtime primitive, you stop thinking in prompts.
 
 You start thinking in:
+
 - **Context providers** - where information comes from
 - **Context consumers** - what uses what information
 - **Context boundaries** - what information is shared between agents
@@ -115,20 +128,25 @@ This is why Vibe isn't another agent framework. It's a **context operating syste
 ## Real Lessons
 
 ### Context Size Isn't Everything
+
 It's about context quality. 10 accurate facts beat 1000 noisy ones.
 
 ### Context Ownership Matters
+
 Every piece of context should have a clear owner. Who updates customer preferences? The system? The user?
 
 ### Context Validation
+
 Poor context leads to poor decisions. We validate context before execution and after updates.
 
 ### Context Partitioning
+
 Agents shouldn't share raw context. We partition by security boundaries and relevance.
 
 ## The Future
 
 I think we'll see:
+
 - Context stores as infrastructure services
 - Context versioning and audit as table stakes
 - Multi-agent context negotiation protocols

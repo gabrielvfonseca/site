@@ -8,19 +8,19 @@ on:
   workflow_dispatch:
     inputs:
       fix_issues:
-        description: 'Automatically fix linting issues where possible'
+        description: "Automatically fix linting issues where possible"
         required: false
         default: false
         type: boolean
       check_all:
-        description: 'Check all files, not just changed ones'
+        description: "Check all files, not just changed ones"
         required: false
         default: false
         type: boolean
       severity_threshold:
-        description: 'Minimum severity threshold (error, warning, info)'
+        description: "Minimum severity threshold (error, warning, info)"
         required: false
-        default: 'error'
+        default: "error"
         type: choice
         options:
           - error
@@ -35,19 +35,19 @@ permissions:
   actions: read
 
 env:
-  NODE_VERSION: '20'
-  BUN_VERSION: 'latest'
+  NODE_VERSION: "20"
+  BUN_VERSION: "latest"
 
 jobs:
   lint-check:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci') }}
-    
+
     steps:
       - name: Checkout
         uses: "actions/checkout@v5"
         with:
-          fetch-depth: 0  # Fetch all history for better diff analysis
+          fetch-depth: 0 # Fetch all history for better diff analysis
 
       - name: Prepare repository
         run: git fetch --tags
@@ -84,79 +84,57 @@ jobs:
           dir_names: false
           dir_names_max_depth: 2
 
-      - name: Run Biome Lint Check
-        id: biome-lint
+      - name: Run Oxlint Lint Check
+        id: oxlint-check
         run: |
-          echo "Running Biome lint check..."
-          
-          # Determine which files to check
+          echo "Running Ultracite (Oxlint + Oxfmt) check..."
+
+          # Ultracite runs the project's Oxfmt formatter (format) and Oxlint
+          # linter (lint) using the root oxlint.config.ts / oxfmt.config.ts.
+          # Only pass changed files when checking (a Markdown-only change has
+          # no lintable files and ultracite skips cleanly); auto-fix always
+          # runs across the whole repo.
+          TARGETS=""
           if [ "${{ github.event.inputs.check_all }}" = "true" ]; then
             echo "Checking all files"
-            FILES_TO_CHECK=""
           else
-            # Get changed files from the previous step
             CHANGED_FILES="${{ steps.changed-files.outputs.all_changed_files }}"
-            if [ -z "$CHANGED_FILES" ]; then
-              echo "No changed files detected, checking all files"
-              FILES_TO_CHECK=""
-            else
-              # Biome does not lint Markdown files; filter them out so a
-              # docs-only change doesn't make Biome fail with
-              # "No files were processed" (exit 123).
-              FILES_TO_CHECK="$(echo "$CHANGED_FILES" | tr ' ' '\n' | grep -v '\.md$' | tr '\n' ' ')"
-              if [ -n "$FILES_TO_CHECK" ]; then
-                echo "Checking changed files: $FILES_TO_CHECK"
-              else
-                echo "No lintable changed files (Markdown-only change), skipping Biome"
-              fi
+            LINTABLE_FILES="$(echo "$CHANGED_FILES" | tr ' ' '\n' | grep -vE '\.md$|\.d\.ts$' | tr '\n' ' ')"
+            if [ -n "$CHANGED_FILES" ] && [ -z "$LINTABLE_FILES" ]; then
+              echo "No lintable changed files (Markdown/types-only change), skipping"
+              echo "oxlint_exit_code=0" >> $GITHUB_OUTPUT
+              echo "oxlint_status=success" >> $GITHUB_OUTPUT
+              echo "✔ Oxlint lint check passed (skipped)"
+              exit 0
             fi
+            TARGETS="$LINTABLE_FILES"
           fi
-          
-          # Run Biome check with appropriate options.
-          # When FILES_TO_CHECK is set, only lint those files. When it is empty,
-          # either check all files (explicit request / no changed files detected)
-          # or skip (changed files existed but were all Markdown).
-          if [ -z "$CHANGED_FILES" ]; then
-            echo "No changed files detected, checking all files"
-            if [ "${{ github.event.inputs.fix_issues }}" = "true" ]; then
-              echo "Running Biome with auto-fix enabled"
-              npx biome check --write --unsafe
-            else
-              echo "Running Biome check-only mode"
-              npx biome check
-            fi
-          elif [ -z "$FILES_TO_CHECK" ]; then
-            echo "Skipping Biome: no lintable changed files (Markdown-only change)"
-            BIOME_EXIT_CODE=0
-            echo "biome_exit_code=$BIOME_EXIT_CODE" >> $GITHUB_OUTPUT
-            echo "biome_status=success" >> $GITHUB_OUTPUT
-            echo " Biome lint check passed (skipped)"
-            exit 0
-          elif [ "${{ github.event.inputs.fix_issues }}" = "true" ]; then
-            echo "Running Biome with auto-fix enabled"
-            echo "$FILES_TO_CHECK" | tr ' ' '\n' | xargs npx biome check --write --unsafe
+
+          if [ "${{ github.event.inputs.fix_issues }}" = "true" ]; then
+            echo "Running with auto-fix enabled"
+            bun run format
           else
-            echo "Running Biome check-only mode"
-            echo "$FILES_TO_CHECK" | tr ' ' '\n' | xargs npx biome check
+            echo "Running check-only mode"
+            bun run lint -- $TARGETS
           fi
-          
+
           # Capture exit code
-          BIOME_EXIT_CODE=$?
-          echo "biome_exit_code=$BIOME_EXIT_CODE" >> $GITHUB_OUTPUT
-          
-          if [ $BIOME_EXIT_CODE -eq 0 ]; then
-            echo "biome_status=success" >> $GITHUB_OUTPUT
-            echo " Biome lint check passed"
+          OXLINT_EXIT_CODE=$?
+          echo "oxlint_exit_code=$OXLINT_EXIT_CODE" >> $GITHUB_OUTPUT
+
+          if [ $OXLINT_EXIT_CODE -eq 0 ]; then
+            echo "oxlint_status=success" >> $GITHUB_OUTPUT
+            echo " Oxlint lint check passed"
           else
-            echo "biome_status=failure" >> $GITHUB_OUTPUT
-            echo " Biome lint check failed"
+            echo "oxlint_status=failure" >> $GITHUB_OUTPUT
+            echo " Oxlint lint check failed"
           fi
 
       - name: Run TypeScript Type Check
         id: typescript-check
         run: |
           echo "Running TypeScript type check..."
-          
+
           # Run type check across all packages
           if bun run turbo typecheck; then
             echo "typescript_status=success" >> $GITHUB_OUTPUT
@@ -170,7 +148,7 @@ jobs:
         id: test-check
         run: |
           echo "Running tests..."
-          
+
           # Run tests across all packages
           if bun run turbo test --no-watch; then
             echo "test_status=success" >> $GITHUB_OUTPUT
@@ -182,7 +160,7 @@ jobs:
 
       - name: Check for uncommitted changes
         id: check-changes
-        if: steps.biome-lint.outputs.biome_status == 'success' && github.event.inputs.fix_issues == 'true'
+        if: steps.oxlint-check.outputs.oxlint_status == 'success' && github.event.inputs.fix_issues == 'true'
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
@@ -198,15 +176,15 @@ jobs:
         uses: "peter-evans/create-pull-request@v5"
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'style: fix linting issues automatically'
-          title: 'style: fix linting issues automatically'
+          commit-message: "style: fix linting issues automatically"
+          title: "style: fix linting issues automatically"
           body: |
-            This PR automatically fixes linting issues found by Biome.
-            
+            This PR automatically fixes linting issues found by Oxlint/Oxfmt.
+
             **Auto-fix enabled:** ${{ github.event.inputs.fix_issues }}
             **Files checked:** ${{ github.event.inputs.check_all == 'true' && 'All files' || 'Changed files only' }}
             **Severity threshold:** ${{ github.event.inputs.severity_threshold || 'error' }}
-            
+
             The following changes were made automatically:
             - Code formatting fixes
             - Import organization
@@ -224,36 +202,36 @@ jobs:
         uses: "actions/github-script@v7"
         with:
           script: |
-            const biomeStatus = '${{ steps.biome-lint.outputs.biome_status }}';
+            const oxlintStatus = '${{ steps.oxlint-check.outputs.oxlint_status }}';
             const typescriptStatus = '${{ steps.typescript-check.outputs.typescript_status }}';
             const testStatus = '${{ steps.test-check.outputs.test_status }}';
             const fixIssues = '${{ github.event.inputs.fix_issues }}';
             const checkAll = '${{ github.event.inputs.check_all }}';
             const severityThreshold = '${{ github.event.inputs.severity_threshold || 'error' }}';
-            
+
             // Determine overall status
-            const allPassed = biomeStatus === 'success' && typescriptStatus === 'success' && testStatus === 'success';
-            
+            const allPassed = oxlintStatus === 'success' && typescriptStatus === 'success' && testStatus === 'success';
+
             let statusEmoji = allPassed ? '' : '';
             let statusText = allPassed ? 'All checks passed!' : 'Some checks failed';
-            
+
             const commentBody = `##  Lint Check Results ${statusEmoji}
-            
+
             **Overall Status:** ${statusText}
-            
+
             | Check | Status | Details |
             |-------|--------|---------|
-            | Biome Lint | ${biomeStatus === 'success' ? ' Passed' : ' Failed'} | Code style, formatting, and best practices |
+            | Oxlint Lint | ${oxlintStatus === 'success' ? ' Passed' : ' Failed'} | Code style, formatting, and best practices |
             | TypeScript | ${typescriptStatus === 'success' ? ' Passed' : ' Failed'} | Type checking and definitions |
             | Tests | ${testStatus === 'success' ? ' Passed' : ' Failed'} | Unit and integration tests |
-            
+
             **Configuration:**
             - **Auto-fix:** ${fixIssues === 'true' ? 'Enabled' : 'Disabled'}
             - **Check scope:** ${checkAll === 'true' ? 'All files' : 'Changed files only'}
             - **Severity threshold:** ${severityThreshold}
-            
+
             ${!allPassed ? ' **Please review the failed checks and fix any issues before merging.**' : ' **All checks passed! This PR is ready for review.**'}`;
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -267,9 +245,12 @@ jobs:
         with:
           name: lint-results
           path: |
-            biome.json
-            **/biome.json
-            **/.biomejs.json
+            oxlint.config.ts
+            oxfmt.config.ts
+            **/oxlint.config.ts
+            **/oxfmt.config.ts
+            **/.oxlintrc.json
+            **/.oxfmtrc.json
           retention-days: 7
 
       - name: Lint Check Summary
@@ -279,17 +260,17 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Biome Lint | ${{ steps.biome-lint.outputs.biome_status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Oxlint Lint | ${{ steps.oxlint-check.outputs.oxlint_status }} |" >> $GITHUB_STEP_SUMMARY
           echo "| TypeScript | ${{ steps.typescript-check.outputs.typescript_status }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Tests | ${{ steps.test-check.outputs.test_status }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
-          if [ "${{ steps.biome-lint.outputs.biome_status }}" = "failure" ] || [ "${{ steps.typescript-check.outputs.typescript_status }}" = "failure" ] || [ "${{ steps.test-check.outputs.test_status }}" = "failure" ]; then
+
+          if [ "${{ steps.oxlint-check.outputs.oxlint_status }}" = "failure" ] || [ "${{ steps.typescript-check.outputs.typescript_status }}" = "failure" ] || [ "${{ steps.test-check.outputs.test_status }}" = "failure" ]; then
             echo " **Some checks failed!** Please review the results and fix any issues." >> $GITHUB_STEP_SUMMARY
           else
             echo " **All checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           if [ "${{ steps.check-changes.outputs.has_changes }}" = "true" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
             echo " **Auto-fix made changes to files.** A PR will be created with the fixes." >> $GITHUB_STEP_SUMMARY
@@ -299,7 +280,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lint-check]
     if: always()
-    
+
     steps:
       - name: Lint Summary
         run: |
@@ -310,7 +291,7 @@ jobs:
           echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ needs.lint-check.result }}" = "success" ]; then
             echo " **All lint checks passed successfully!**" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY

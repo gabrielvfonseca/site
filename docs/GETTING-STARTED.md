@@ -26,6 +26,7 @@ pnpm install
 ```
 
 This will install all dependencies for the monorepo, including:
+
 - Core dependencies for all packages
 - Development dependencies
 - Tool dependencies (TypeScript, Biome, etc.)
@@ -39,6 +40,7 @@ cp apps/www/.env.example apps/www/.env.local
 ```
 
 Configure the necessary environment variables:
+
 - Database connection
 - API keys
 - Third-party service credentials
@@ -135,6 +137,7 @@ Write your content here using MDX syntax.
 ### Common Issues
 
 **Dependency Installation Issues**
+
 ```bash
 # Clear cache and reinstall
 rm -rf node_modules pnpm-lock.yaml
@@ -142,12 +145,14 @@ pnpm install
 ```
 
 **TypeScript Errors**
+
 ```bash
 # Rebuild all packages
 pnpm build
 ```
 
 **Development Server Issues**
+
 ```bash
 # Clear Next.js cache
 rm -rf .next
@@ -171,4 +176,4 @@ Once you have the project running:
 
 ---
 
-*Need help? Check our [FAQ](./faq.md) or open an issue.*
+_Need help? Check our [FAQ](./faq.md) or open an issue._

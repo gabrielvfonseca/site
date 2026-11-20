@@ -32,7 +32,7 @@ X_USERNAME=gabfon_
 ### Basic Usage
 
 ```typescript
-import { xClient } from '@gabfon/x';
+import { xClient } from "@gabfon/x";
 
 // Get the latest original post (excludes retweets and replies)
 const post = await xClient.getLatestPost();
@@ -59,7 +59,7 @@ if (post) {
 This package uses `@t3-oss/env-nextjs` for environment validation.
 
 | Variable | Description | Required |
-|----------|-------------|----------|
+| --- | --- | --- |
 | `X_API_BEARER_TOKEN` | X API v2 app-only Bearer token | No (client throws at call time if absent) |
 | `X_USERNAME` | X handle without the `@` (default `gabfon_`) | No |
 

@@ -7,21 +7,25 @@ The `@gabfon/observability` package provides comprehensive error tracking, loggi
 ## Architectural Decisions
 
 ### 1. Dual Logging Strategy
+
 - **Decision**: Combine Sentry for error tracking with Logtail for structured logging
 - **Rationale**: Provides comprehensive observability with different strengths for each service
 - **Implementation**: Sentry for exceptions, Logtail for application logs
 
 ### 2. Client/Server Separation
+
 - **Decision**: Separate configurations for client and server environments
 - **Rationale**: Optimizes for different execution contexts and privacy requirements
 - **Implementation**: Client-side Sentry with session replay, server-side error capture
 
 ### 3. Automatic Error Handling
+
 - **Decision**: Provide automatic error parsing and capture utilities
 - **Rationale**: Reduces boilerplate and ensures consistent error handling
 - **Implementation**: `parseError` function with automatic Sentry capture
 
 ### 4. Environment-Driven Configuration
+
 - **Decision**: Use `@t3-oss/env-nextjs` for type-safe environment configuration
 - **Rationale**: Ensures observability services are properly configured
 - **Implementation**: Centralized key management with validation
@@ -46,17 +50,17 @@ graph TD
     B --> C[Sentry Capture]
     B --> D[Logtail Logging]
     B --> E[Error Message Return]
-    
+
     F[Client-Side Error] --> G[Client Sentry]
     G --> H[Session Replay]
     G --> I[Error Tracking]
-    
+
     J[Server-Side Error] --> K[Server Sentry]
     K --> L[Performance Monitoring]
-    
+
     M[Application Logs] --> N[Logtail]
     N --> O[Structured Logging]
-    
+
     P[Environment Variables] --> Q[Keys Validation]
     Q --> G
     Q --> K
@@ -66,15 +70,18 @@ graph TD
 ## Key Dependencies
 
 ### Error Tracking
+
 - **`@sentry/nextjs`**: Sentry integration for Next.js applications
 - **`@logtail/next`**: Logtail logging for Next.js
 
 ### Configuration Dependencies
+
 - **`@t3-oss/env-nextjs`**: Environment variable validation
 - **`zod`**: Runtime type validation
 - **`server-only`**: Server-side code isolation
 
 ### React Dependencies
+
 - **`react`**: React integration for client-side error handling
 
 ## Client-Side Architecture
@@ -110,11 +117,12 @@ export const initializeSentry = (): ReturnType<typeof init> =>
 ### Instrumentation Setup
 
 ```typescript
-import * as Sentry from '@sentry/nextjs';
-import { log } from './log';
+import * as Sentry from "@sentry/nextjs";
+
+import { log } from "./log";
 
 export function register() {
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
+  if (process.env.NEXT_RUNTIME === "nodejs") {
     Sentry.init({
       dsn: keys().SENTRY_DSN,
       tracesSampleRate: 1,
@@ -126,7 +134,7 @@ export function register() {
 ### Server-Side Logging
 
 ```typescript
-import { Logtail } from '@logtail/next';
+import { Logtail } from "@logtail/next";
 
 export const log = new Logtail(keys().LOGTAIL_SOURCE_TOKEN);
 ```
@@ -139,11 +147,11 @@ Centralized error parsing with automatic capture:
 
 ```typescript
 export const parseError = (error: unknown): string => {
-  let message = 'An error occurred';
+  let message = "An error occurred";
 
   if (error instanceof Error) {
     message = error.message;
-  } else if (error && typeof error === 'object' && 'message' in error) {
+  } else if (error && typeof error === "object" && "message" in error) {
     message = error.message as string;
   } else {
     message = String(error);
@@ -153,7 +161,7 @@ export const parseError = (error: unknown): string => {
     captureException(error);
     log.error(`Parsing error: ${message}`);
   } catch (newError) {
-    console.error('Error parsing error:', newError);
+    console.error("Error parsing error:", newError);
   }
 
   return message;
@@ -186,7 +194,7 @@ export default function RootLayout({ children }) {
 
 ```typescript
 // instrumentation.ts
-import { register } from '@gabfon/observability/instrumentation';
+import { register } from "@gabfon/observability/instrumentation";
 
 export function register() {
   // Register observability
@@ -197,7 +205,7 @@ export function register() {
 
 ```typescript
 // components/ErrorBoundary.tsx
-import { parseError } from '@gabfon/observability';
+import { parseError } from "@gabfon/observability";
 
 class ErrorBoundary extends React.Component {
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
@@ -211,7 +219,7 @@ class ErrorBoundary extends React.Component {
 
 ```typescript
 // app/api/example/route.ts
-import { parseError } from '@gabfon/observability';
+import { parseError } from "@gabfon/observability";
 
 export async function POST(request: Request) {
   try {
@@ -228,7 +236,7 @@ export async function POST(request: Request) {
 ### Required Variables
 
 | Variable | Description | Type | Environment | Required |
-|----------|-------------|------|-------------|----------|
+| --- | --- | --- | --- | --- |
 | `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN for client-side | string | Client | Yes |
 | `SENTRY_DSN` | Sentry DSN for server-side | string | Server | Yes |
 | `LOGTAIL_SOURCE_TOKEN` | Logtail source token | string | Server | Yes |
@@ -290,18 +298,21 @@ export const keys = () =>
 ## Testing Strategy
 
 ### 1. Error Handling Testing
+
 - Test error parsing with various error types
 - Verify Sentry capture functionality
 - Test Logtail logging integration
 - Validate error message formatting
 
 ### 2. Performance Testing
+
 - Test performance monitoring overhead
 - Verify session replay functionality
 - Test trace sampling accuracy
 - Validate performance metrics
 
 ### 3. Integration Testing
+
 - Test client-side initialization
 - Test server-side instrumentation
 - Verify environment variable validation
@@ -310,6 +321,7 @@ export const keys = () =>
 ## Future Extensibility
 
 The architecture supports:
+
 - Additional observability providers (DataDog, New Relic, etc.)
 - Custom error handling patterns
 - Advanced performance monitoring
@@ -320,6 +332,7 @@ The architecture supports:
 ## Migration Path
 
 The package is designed to support:
+
 - Easy provider switching
 - Gradual adoption of features
 - Backward compatibility maintenance
@@ -329,24 +342,28 @@ The package is designed to support:
 ## Best Practices
 
 ### 1. Error Handling
+
 - Use `parseError` for consistent error handling
 - Implement proper error boundaries
 - Log errors with appropriate context
 - Monitor error rates and patterns
 
 ### 2. Performance Monitoring
+
 - Monitor application performance metrics
 - Set up appropriate alerting thresholds
 - Regular review of performance data
 - Optimize based on insights
 
 ### 3. Privacy & Security
+
 - Respect user privacy preferences
 - Implement proper data retention
 - Secure observability configuration
 - Regular security audits
 
 ### 4. Configuration Management
+
 - Use environment-specific configurations
 - Validate environment variables
 - Secure sensitive configuration

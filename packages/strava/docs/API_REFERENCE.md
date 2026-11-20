@@ -20,23 +20,27 @@ NEXT_PUBLIC_STRAVA_CLIENT_ID=your_strava_client_id
 ## Exports
 
 ### Main Client
+
 ```typescript
-export { StravaClient, stravaClient } from './index';
+export { StravaClient, stravaClient } from "./index";
 ```
 
 ### Types
+
 ```typescript
-export * from './types';
+export * from "./types";
 ```
 
 ### Hooks
+
 ```typescript
-export * from './hooks';
+export * from "./hooks";
 ```
 
 ### Environment Keys
+
 ```typescript
-export { keys } from './keys';
+export { keys } from "./keys";
 ```
 
 ## Client
@@ -49,7 +53,7 @@ Main Strava API client class for interacting with Strava's API.
 
 ```typescript
 class StravaClient {
-  constructor(tokens: StravaTokens)
+  constructor(tokens: StravaTokens);
 }
 
 interface StravaTokens {
@@ -64,13 +68,13 @@ interface StravaTokens {
 #### Usage
 
 ```typescript
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
 const client = new StravaClient({
-  token_type: 'Bearer',
-  access_token: 'your_access_token',
+  token_type: "Bearer",
+  access_token: "your_access_token",
   expires_at: 1234567890,
-  refresh_token: 'your_refresh_token',
+  refresh_token: "your_refresh_token",
   athlete: athleteObject,
 });
 ```
@@ -78,7 +82,7 @@ const client = new StravaClient({
 #### Default Client
 
 ```typescript
-import { stravaClient } from '@gabfon/strava';
+import { stravaClient } from "@gabfon/strava";
 
 // Pre-configured client with environment tokens
 const athlete = await stravaClient.getCurrentAthlete();
@@ -97,9 +101,11 @@ async getCurrentAthlete(): Promise<StravaAthlete>
 ```
 
 **Returns**
+
 - `Promise<StravaAthlete>` - Athlete profile information
 
 **Example**
+
 ```typescript
 const athlete = await client.getCurrentAthlete();
 console.log(athlete.firstname, athlete.lastname);
@@ -116,14 +122,17 @@ async getAthleteStats(athleteId: string): Promise<AthleteStats>
 ```
 
 **Parameters**
+
 - `athleteId: string` - Strava athlete ID
 
 **Returns**
+
 - `Promise<AthleteStats>` - Athlete statistics
 
 **Example**
+
 ```typescript
-const stats = await client.getAthleteStats('123456');
+const stats = await client.getAthleteStats("123456");
 console.log(`Biggest ride: ${stats.biggest_ride_distance}m`);
 console.log(`YTD ride total: ${stats.ytd_ride_totals.distance}m`);
 ```
@@ -137,17 +146,20 @@ async getAthleteActivities(athleteId: string, options?: ActivityOptions): Promis
 ```
 
 **Parameters**
+
 - `athleteId: string` - Strava athlete ID
 - `options?: ActivityOptions` - Query options
 
 **Returns**
+
 - `Promise<StravaActivity[]>` - Array of activities
 
 **Example**
+
 ```typescript
-const activities = await client.getAthleteActivities('123456', {
-  before: '2023-12-31T23:59:59Z',
-  after: '2023-01-01T00:00:00Z',
+const activities = await client.getAthleteActivities("123456", {
+  before: "2023-12-31T23:59:59Z",
+  after: "2023-01-01T00:00:00Z",
   limit: 50,
   page: 1,
 });
@@ -164,14 +176,17 @@ async getActivity(activityId: string): Promise<StravaActivity>
 ```
 
 **Parameters**
+
 - `activityId: string` - Strava activity ID
 
 **Returns**
+
 - `Promise<StravaActivity>` - Activity information
 
 **Example**
+
 ```typescript
-const activity = await client.getActivity('789012');
+const activity = await client.getActivity("789012");
 console.log(activity.name);
 console.log(activity.type);
 console.log(activity.distance);
@@ -187,23 +202,26 @@ async getActivityStreams(activityId: string, types: StreamType[], resolution?: S
 ```
 
 **Parameters**
+
 - `activityId: string` - Strava activity ID
 - `types: StreamType[]` - Types of streams to fetch
 - `resolution?: StreamResolution` - Stream resolution
 
 **Returns**
+
 - `Promise<ActivityStreams>` - Activity streams
 
 **Example**
+
 ```typescript
-const streams = await client.getActivityStreams('789012', [
-  'time',
-  'latlng',
-  'distance',
-  'altitude',
-  'heartrate',
-  'cadence',
-  'watts',
+const streams = await client.getActivityStreams("789012", [
+  "time",
+  "latlng",
+  "distance",
+  "altitude",
+  "heartrate",
+  "cadence",
+  "watts",
 ]);
 ```
 
@@ -218,15 +236,18 @@ async getAthleteAchievements(athleteId: string): Promise<Achievement[]>
 ```
 
 **Parameters**
+
 - `athleteId: string` - Strava athlete ID
 
 **Returns**
+
 - `Promise<Achievement[]>` - Array of achievements
 
 **Example**
+
 ```typescript
-const achievements = await client.getAthleteAchievements('123456');
-achievements.forEach(achievement => {
+const achievements = await client.getAthleteAchievements("123456");
+achievements.forEach((achievement) => {
   console.log(`${achievement.type}: ${achievement.rank}`);
 });
 ```
@@ -242,14 +263,17 @@ async getClub(clubId: string): Promise<Club>
 ```
 
 **Parameters**
+
 - `clubId: string` - Strava club ID
 
 **Returns**
+
 - `Promise<Club>` - Club information
 
 **Example**
+
 ```typescript
-const club = await client.getClub('12345');
+const club = await client.getClub("12345");
 console.log(club.name);
 console.log(club.member_count);
 ```
@@ -263,15 +287,18 @@ async getClubMembers(clubId: string, options?: ClubMembersOptions): Promise<Club
 ```
 
 **Parameters**
+
 - `clubId: string` - Strava club ID
 - `options?: ClubMembersOptions` - Query options
 
 **Returns**
+
 - `Promise<ClubMember[]>` - Array of club members
 
 **Example**
+
 ```typescript
-const members = await client.getClubMembers('12345', {
+const members = await client.getClubMembers("12345", {
   limit: 50,
   page: 1,
 });
@@ -420,7 +447,7 @@ function useStravaAthlete(athleteId: string): {
   data: StravaAthlete | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -453,11 +480,14 @@ React hook for fetching athlete activities.
 #### Signature
 
 ```typescript
-function useStravaActivities(athleteId: string, options?: ActivityOptions): {
+function useStravaActivities(
+  athleteId: string,
+  options?: ActivityOptions
+): {
   data: StravaActivity[] | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -503,7 +533,7 @@ function useStravaActivity(activityId: string): {
   data: StravaActivity | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -543,7 +573,7 @@ function useStravaAthleteStats(athleteId: string): {
   data: AthleteStats | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -582,7 +612,7 @@ function AthleteStats({ athleteId }: { athleteId: string }) {
 ### Required Variables
 
 | Variable | Description | Type | Environment | Required |
-|----------|-------------|------|-------------|----------|
+| --- | --- | --- | --- | --- |
 | `STRAVA_CLIENT_ID` | Strava Client ID | string | Server | Yes |
 | `STRAVA_CLIENT_SECRET` | Strava Client Secret | string | Server | Yes |
 | `STRAVA_REDIRECT_URI` | OAuth redirect URI | string | Server | Yes |
@@ -591,7 +621,7 @@ function AthleteStats({ athleteId }: { athleteId: string }) {
 ### Environment Validation
 
 ```typescript
-import { keys } from '@gabfon/strava';
+import { keys } from "@gabfon/strava";
 
 // Validates environment variables and returns typed object
 const env = keys();
@@ -603,6 +633,7 @@ console.log(env.STRAVA_REDIRECT_URI);
 ### OAuth Scopes
 
 Common Strava OAuth scopes:
+
 - `read` - Read public activities, profile data, and posts
 - `read_all` - Read all data including private activities and segments
 - `profile:read_all` - Read all profile data even if private
@@ -615,13 +646,13 @@ Common Strava OAuth scopes:
 ### Basic Client Usage
 
 ```typescript
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
 const client = new StravaClient({
-  token_type: 'Bearer',
-  access_token: 'your_access_token',
+  token_type: "Bearer",
+  access_token: "your_access_token",
   expires_at: 1234567890,
-  refresh_token: 'your_refresh_token',
+  refresh_token: "your_refresh_token",
   athlete: athleteObject,
 });
 
@@ -630,14 +661,14 @@ async function getAthleteInfo(athleteId: string) {
     const athlete = await client.getCurrentAthlete();
     const stats = await client.getAthleteStats(athlete.id);
     const activities = await client.getAthleteActivities(athlete.id);
-    
+
     return {
       athlete,
       stats,
       activities,
     };
   } catch (error) {
-    console.error('Error fetching athlete data:', error);
+    console.error("Error fetching athlete data:", error);
     throw error;
   }
 }
@@ -647,7 +678,7 @@ async function getAthleteInfo(athleteId: string) {
 
 ```typescript
 // app/api/strava/athlete/[id]/route.ts
-import { stravaClient } from '@gabfon/strava';
+import { stravaClient } from "@gabfon/strava";
 
 export async function GET(
   request: Request,
@@ -656,23 +687,17 @@ export async function GET(
   try {
     const athlete = await stravaClient.getAthlete(params.id);
     const stats = await stravaClient.getAthleteStats(params.id);
-    
+
     return Response.json({
       athlete,
       stats,
     });
   } catch (error) {
-    if (error.message === 'Athlete not found') {
-      return Response.json(
-        { error: 'Athlete not found' },
-        { status: 404 }
-      );
+    if (error.message === "Athlete not found") {
+      return Response.json({ error: "Athlete not found" }, { status: 404 });
     }
-    
-    return Response.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 ```
@@ -717,7 +742,7 @@ function formatTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const secs = seconds % 60;
-  
+
   if (hours > 0) {
     return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
@@ -728,28 +753,28 @@ function formatTime(seconds: number): string {
 ### Error Handling
 
 ```typescript
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
-const client = new StravaClient({ access_token: 'token' });
+const client = new StravaClient({ access_token: "token" });
 
 async function safeGetActivity(activityId: string) {
   try {
     const activity = await client.getActivity(activityId);
     return { success: true, data: activity };
   } catch (error) {
-    if (error.message === 'Activity not found') {
-      return { success: false, error: 'Activity not found' };
+    if (error.message === "Activity not found") {
+      return { success: false, error: "Activity not found" };
     }
-    
-    if (error.message === 'Unauthorized - check access token') {
-      return { success: false, error: 'Access denied - check token' };
+
+    if (error.message === "Unauthorized - check access token") {
+      return { success: false, error: "Access denied - check token" };
     }
-    
-    if (error.message.includes('Rate limit exceeded')) {
-      return { success: false, error: 'Rate limit exceeded' };
+
+    if (error.message.includes("Rate limit exceeded")) {
+      return { success: false, error: "Rate limit exceeded" };
     }
-    
-    return { success: false, error: 'Unknown error occurred' };
+
+    return { success: false, error: "Unknown error occurred" };
   }
 }
 ```
@@ -757,7 +782,7 @@ async function safeGetActivity(activityId: string) {
 ### Token Refresh
 
 ```typescript
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
 class AutoRefreshStravaClient extends StravaClient {
   constructor(tokens: StravaTokens) {
@@ -770,14 +795,14 @@ class AutoRefreshStravaClient extends StravaClient {
     const now = Date.now() / 1000;
     const refreshTime = (this.expires_at - 300) * 1000;
     const timeUntilRefresh = refreshTime - Date.now();
-    
+
     if (timeUntilRefresh > 0) {
       setTimeout(async () => {
         try {
           await this.refreshToken();
           this.setupTokenRefresh(); // Schedule next refresh
         } catch (error) {
-          console.error('Token refresh failed:', error);
+          console.error("Token refresh failed:", error);
         }
       }, timeUntilRefresh);
     }
@@ -790,13 +815,13 @@ class AutoRefreshStravaClient extends StravaClient {
 ### Custom Client Configuration
 
 ```typescript
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
 const customClient = new StravaClient({
-  token_type: 'Bearer',
-  access_token: 'your_access_token',
+  token_type: "Bearer",
+  access_token: "your_access_token",
   expires_at: 1234567890,
-  refresh_token: 'your_refresh_token',
+  refresh_token: "your_refresh_token",
   athlete: athleteObject,
 });
 
@@ -804,10 +829,10 @@ const customClient = new StravaClient({
 class ExtendedStravaClient extends StravaClient {
   async getSegmentEffort(segmentId: string): Promise<SegmentEffort> {
     const url = `${this.baseUrl}/v3/segment_efforts/${segmentId}`;
-    
+
     const response = await fetch(url, {
       headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${this.accessToken}`,
       },
     });
 
@@ -817,10 +842,10 @@ class ExtendedStravaClient extends StravaClient {
 
   async getStarredSegments(): Promise<Segment[]> {
     const url = `${this.baseUrl}/v3/segments/starred`;
-    
+
     const response = await fetch(url, {
       headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${this.accessToken}`,
       },
     });
 
@@ -833,21 +858,25 @@ class ExtendedStravaClient extends StravaClient {
 ### Batch Operations
 
 ```typescript
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
 class BatchStravaClient extends StravaClient {
-  async getMultipleActivities(activityIds: string[]): Promise<StravaActivity[]> {
-    const promises = activityIds.map(id => this.getActivity(id));
+  async getMultipleActivities(
+    activityIds: string[]
+  ): Promise<StravaActivity[]> {
+    const promises = activityIds.map((id) => this.getActivity(id));
     const activities = await Promise.all(promises);
     return activities;
   }
 
-  async getAthleteWithStats(athleteId: string): Promise<{ athlete: StravaAthlete; stats: AthleteStats }> {
+  async getAthleteWithStats(
+    athleteId: string
+  ): Promise<{ athlete: StravaAthlete; stats: AthleteStats }> {
     const [athlete, stats] = await Promise.all([
       this.getAthlete(athleteId),
       this.getAthleteStats(athleteId),
     ]);
-    
+
     return { athlete, stats };
   }
 }
@@ -857,7 +886,7 @@ class BatchStravaClient extends StravaClient {
 
 ```typescript
 // utils/stravaCache.ts
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
 class CachedStravaClient extends StravaClient {
   private cache = new Map<string, { data: any; timestamp: number }>();
@@ -866,28 +895,28 @@ class CachedStravaClient extends StravaClient {
   async getActivity(activityId: string): Promise<StravaActivity> {
     const cacheKey = `activity:${activityId}`;
     const cached = this.cache.get(cacheKey);
-    
+
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
       return cached.data;
     }
 
     const activity = await super.getActivity(activityId);
     this.cache.set(cacheKey, { data: activity, timestamp: Date.now() });
-    
+
     return activity;
   }
 
   async getAthleteStats(athleteId: string): Promise<AthleteStats> {
     const cacheKey = `stats:${athleteId}`;
     const cached = this.cache.get(cacheKey);
-    
+
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
       return cached.data;
     }
 
     const stats = await super.getAthleteStats(athleteId);
     this.cache.set(cacheKey, { data: stats, timestamp: Date.now() });
-    
+
     return stats;
   }
 }
@@ -906,21 +935,21 @@ class StravaApiError extends Error {
     public response?: any
   ) {
     super(message);
-    this.name = 'StravaApiError';
+    this.name = "StravaApiError";
   }
 }
 
 class StravaRateLimitError extends StravaApiError {
   constructor(public rateLimit?: number) {
-    super('Rate limit exceeded');
-    this.name = 'StravaRateLimitError';
+    super("Rate limit exceeded");
+    this.name = "StravaRateLimitError";
   }
 }
 
 class StravaAuthenticationError extends StravaApiError {
   constructor() {
-    super('Authentication failed - check access token');
-    this.name = 'StravaAuthenticationError';
+    super("Authentication failed - check access token");
+    this.name = "StravaAuthenticationError";
   }
 }
 ```
@@ -936,13 +965,13 @@ async function handleStravaRequest<T>(
     return { data };
   } catch (error) {
     if (error instanceof StravaRateLimitError) {
-      console.log('Rate limited, limit:', error.rateLimit);
+      console.log("Rate limited, limit:", error.rateLimit);
     } else if (error instanceof StravaAuthenticationError) {
-      console.log('Authentication failed, refresh token');
+      console.log("Authentication failed, refresh token");
     } else {
-      console.error('Strava API error:', error);
+      console.error("Strava API error:", error);
     }
-    
+
     return { error: error as Error };
   }
 }
@@ -960,7 +989,7 @@ const client = new StravaClient({
 
 // Bad: Hardcode tokens
 const client = new StravaClient({
-  access_token: 'hardcoded_token',
+  access_token: "hardcoded_token",
 });
 ```
 
@@ -972,9 +1001,9 @@ try {
   const activity = await client.getActivity(activityId);
   // Process activity data
 } catch (error) {
-  if (error.message === 'Activity not found') {
+  if (error.message === "Activity not found") {
     // Handle not found
-  } else if (error.message === 'Unauthorized') {
+  } else if (error.message === "Unauthorized") {
     // Handle authentication
   } else {
     // Handle other errors
@@ -1013,28 +1042,28 @@ const activity: any = await client.getActivity(activityId);
 ### With Analytics Package
 
 ```typescript
-import { stravaClient } from '@gabfon/strava';
-import { analytics } from '@gabfon/analytics/lib/server';
+import { analytics } from "@gabfon/analytics/lib/server";
+import { stravaClient } from "@gabfon/strava";
 
 async function getActivityWithTracking(activityId: string) {
   try {
     const activity = await stravaClient.getActivity(activityId);
-    
-    analytics.capture('strava_activity_fetched', {
+
+    analytics.capture("strava_activity_fetched", {
       activityId,
       activityName: activity.name,
       activityType: activity.type,
       distance: activity.distance,
       movingTime: activity.moving_time,
     });
-    
+
     return activity;
   } catch (error) {
-    analytics.capture('strava_api_error', {
+    analytics.capture("strava_api_error", {
       activityId,
       error: error.message,
     });
-    
+
     throw error;
   }
 }
@@ -1062,7 +1091,7 @@ function StravaActivityCard({ activityId }: { activityId: string }) {
           <Text variant="small">
             {new Date(activity.start_date_local).toLocaleDateString()}
           </Text>
-          
+
           <div className="grid grid-cols-2 gap-2 mt-2">
             <div>
               <Text variant="small">Distance</Text>
@@ -1081,7 +1110,7 @@ function StravaActivityCard({ activityId }: { activityId: string }) {
               <Text>{activity.total_elevation_gain}m</Text>
             </div>
           </div>
-          
+
           <div className="flex space-x-2 mt-2">
             <Badge>{activity.type}</Badge>
             <Badge>{activity.sport_type}</Badge>
@@ -1098,25 +1127,25 @@ function StravaActivityCard({ activityId }: { activityId: string }) {
 ### With Security Package
 
 ```typescript
-import { stravaClient } from '@gabfon/strava';
-import { secure } from '@gabfon/security';
+import { secure } from "@gabfon/security";
+import { stravaClient } from "@gabfon/strava";
 
 export async function GET(request: Request) {
   // Protect against bots
-  await secure(['CATEGORY:SEARCH_ENGINE'], request);
-  
+  await secure(["CATEGORY:SEARCH_ENGINE"], request);
+
   const { searchParams } = new URL(request.url);
-  const activityId = searchParams.get('activityId');
-  
+  const activityId = searchParams.get("activityId");
+
   if (!activityId) {
-    return Response.json({ error: 'Activity ID required' }, { status: 400 });
+    return Response.json({ error: "Activity ID required" }, { status: 400 });
   }
-  
+
   try {
     const activity = await stravaClient.getActivity(activityId);
     return Response.json(activity);
   } catch (error) {
-    return Response.json({ error: 'Activity not found' }, { status: 404 });
+    return Response.json({ error: "Activity not found" }, { status: 404 });
   }
 }
 ```

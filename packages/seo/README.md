@@ -26,34 +26,34 @@ pnpm add @gabfon/seo
 ### Basic Metadata
 
 ```typescript
-import { createMetadata } from '@gabfon/seo/metadata';
+import { createMetadata } from "@gabfon/seo/metadata";
 
 export const metadata = createMetadata({
-  title: 'My Page Title',
-  description: 'Page description for SEO',
-  keywords: ['keyword1', 'keyword2'],
+  title: "My Page Title",
+  description: "Page description for SEO",
+  keywords: ["keyword1", "keyword2"],
 });
 ```
 
 ### Advanced Metadata
 
 ```typescript
-import { createMetadata } from '@gabfon/seo/metadata';
+import { createMetadata } from "@gabfon/seo/metadata";
 
 export const metadata = createMetadata({
-  title: 'My Page Title',
-  description: 'Page description for SEO',
+  title: "My Page Title",
+  description: "Page description for SEO",
   openGraph: {
-    title: 'Social Media Title',
-    description: 'Social Media Description',
-    images: ['/og-image.jpg'],
-    type: 'website',
+    title: "Social Media Title",
+    description: "Social Media Description",
+    images: ["/og-image.jpg"],
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'X Title',
-    description: 'X Description',
-    images: ['/x-image.jpg'],
+    card: "summary_large_image",
+    title: "X Title",
+    description: "X Description",
+    images: ["/x-image.jpg"],
   },
 });
 ```
@@ -89,10 +89,10 @@ function BlogPost({ post }) {
 ### Viewport Configuration
 
 ```typescript
-import { createViewport } from '@gabfon/seo/viewport';
+import { createViewport } from "@gabfon/seo/viewport";
 
 export const viewport = createViewport({
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
@@ -108,6 +108,7 @@ export const viewport = createViewport({
 ## Metadata Features
 
 ### Basic Metadata
+
 - **Title**: Page titles with fallbacks
 - **Description**: Meta descriptions
 - **Keywords**: Meta keywords
@@ -115,6 +116,7 @@ export const viewport = createViewport({
 - **Robots**: Robot directives
 
 ### Open Graph
+
 - **Title**: OG title
 - **Description**: OG description
 - **Images**: OG images
@@ -130,6 +132,7 @@ export const viewport = createViewport({
 - **Creator**: X creator
 
 ### Additional Features
+
 - **Alternate Languages**: Hreflang tags
 - **Manifest**: Web app manifest
 - **Theme Color**: Browser theme color
@@ -160,14 +163,14 @@ export const metadata = createMetadata({
     title: post.title,
     description: post.excerpt,
     images: [post.featuredImage],
-    type: 'article',
+    type: "article",
     publishedTime: post.publishedAt,
     modifiedTime: post.updatedAt,
     authors: [post.author],
     tags: post.tags,
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: post.title,
     description: post.excerpt,
     images: [post.featuredImage],

@@ -9,13 +9,15 @@ npm install @gabfon/testing
 ## Exports
 
 ### Configuration
+
 ```typescript
-export { testingConfig, default } from './index.mjs';
+export { testingConfig, default } from "./index.mjs";
 ```
 
 ### Global Setup
+
 ```typescript
-export * from './setup';
+export * from "./setup";
 ```
 
 ## Configuration
@@ -28,7 +30,7 @@ Pre-configured Vitest configuration for monorepo testing with React support and 
 
 ```typescript
 // vitest.config.ts
-import { testingConfig } from '@gabfon/testing';
+import { testingConfig } from "@gabfon/testing";
 
 export default testingConfig;
 ```
@@ -37,14 +39,14 @@ export default testingConfig;
 
 ```typescript
 export const testingConfig = defineConfig({
-  plugins: [react()],                    // React JSX support
+  plugins: [react()], // React JSX support
   test: {
-    environment: 'jsdom',                // Browser-like environment
+    environment: "jsdom", // Browser-like environment
   },
   resolve: {
     alias: {
-      '@': path.resolve(Dirname, './'),           // Current package root
-      '@gabfon': path.resolve(Dirname, '../../packages'), // Monorepo packages
+      "@": path.resolve(Dirname, "./"), // Current package root
+      "@gabfon": path.resolve(Dirname, "../../packages"), // Monorepo packages
     },
   },
 });
@@ -61,17 +63,17 @@ export const testingConfig = defineConfig({
 
 ```typescript
 // vitest.config.ts
-import { testingConfig } from '@gabfon/testing';
-import { defineConfig } from 'vitest/config';
+import { testingConfig } from "@gabfon/testing";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   ...testingConfig,
   test: {
     ...testingConfig.test,
-    globals: true,                    // Enable global test functions
+    globals: true, // Enable global test functions
     coverage: {
-      reporter: ['text', 'json'],
-      exclude: ['node_modules/', '__tests__/'],
+      reporter: ["text", "json"],
+      exclude: ["node_modules/", "__tests__/"],
     },
   },
 });
@@ -102,7 +104,7 @@ Mock for window.matchMedia used in responsive design testing.
 
 ```typescript
 // Automatically available in tests
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
@@ -168,7 +170,7 @@ describe('Button Component', () => {
   it('handles click events', async () => {
     const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     await userEvent.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -191,7 +193,7 @@ describe('Cross-Package Integration', () => {
         <Button>Test Button</Button>
       </AnalyticsProvider>
     );
-    
+
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 });
@@ -201,35 +203,36 @@ describe('Cross-Package Integration', () => {
 
 ```typescript
 // packages/github/__tests__/client.test.ts
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { githubClient } from '@/client';
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
-describe('GitHub Client', () => {
+import { githubClient } from "@/client";
+
+describe("GitHub Client", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
 
-  it('fetches user data', async () => {
-    const mockUser = { id: 1, name: 'Test User', login: 'testuser' };
+  it("fetches user data", async () => {
+    const mockUser = { id: 1, name: "Test User", login: "testuser" };
     global.fetch = vi.fn().mockResolvedValueOnce({
       json: () => Promise.resolve(mockUser),
       ok: true,
     });
 
-    const user = await githubClient.getUser('testuser');
+    const user = await githubClient.getUser("testuser");
     expect(user).toEqual(mockUser);
     expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining('/users/testuser')
+      expect.stringContaining("/users/testuser")
     );
   });
 
-  it('handles API errors', async () => {
+  it("handles API errors", async () => {
     global.fetch = vi.fn().mockResolvedValueOnce({
       ok: false,
       status: 404,
     });
 
-    await expect(githubClient.getUser('nonexistent')).rejects.toThrow();
+    await expect(githubClient.getUser("nonexistent")).rejects.toThrow();
   });
 });
 ```
@@ -283,33 +286,34 @@ describe('ResponsiveComponent', () => {
 
 ```typescript
 // packages/design-system/__tests__/useDebounce.test.ts
-import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { useDebounce } from '@/hooks/useDebounce';
+import { renderHook, act } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
 
-describe('useDebounce Hook', () => {
-  it('debounces value changes', async () => {
+import { useDebounce } from "@/hooks/useDebounce";
+
+describe("useDebounce Hook", () => {
+  it("debounces value changes", async () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
       {
-        initialProps: { value: 'initial', delay: 100 }
+        initialProps: { value: "initial", delay: 100 },
       }
     );
 
-    expect(result.current).toBe('initial');
+    expect(result.current).toBe("initial");
 
     // Update value
-    rerender({ value: 'updated', delay: 100 });
-    
+    rerender({ value: "updated", delay: 100 });
+
     // Should still be initial due to debounce
-    expect(result.current).toBe('initial');
+    expect(result.current).toBe("initial");
 
     // Wait for debounce
     await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 150));
+      await new Promise((resolve) => setTimeout(resolve, 150));
     });
 
-    expect(result.current).toBe('updated');
+    expect(result.current).toBe("updated");
   });
 });
 ```
@@ -318,24 +322,25 @@ describe('useDebounce Hook', () => {
 
 ```typescript
 // packages/analytics/__tests__/keys.test.ts
-import { describe, it, expect, beforeEach } from 'vitest';
-import { keys } from '@/keys';
+import { describe, it, expect, beforeEach } from "vitest";
 
-describe('Environment Keys', () => {
+import { keys } from "@/keys";
+
+describe("Environment Keys", () => {
   beforeEach(() => {
     // Environment is reset automatically by global setup
   });
 
-  it('validates required environment variables', () => {
-    process.env.NEXT_PUBLIC_POSTHOG_KEY = 'test-key';
-    process.env.NEXT_PUBLIC_POSTHOG_HOST = 'https://test.posthog.com';
+  it("validates required environment variables", () => {
+    process.env.NEXT_PUBLIC_POSTHOG_KEY = "test-key";
+    process.env.NEXT_PUBLIC_POSTHOG_HOST = "https://test.posthog.com";
 
     const env = keys();
-    expect(env.NEXT_PUBLIC_POSTHOG_KEY).toBe('test-key');
-    expect(env.NEXT_PUBLIC_POSTHOG_HOST).toBe('https://test.posthog.com');
+    expect(env.NEXT_PUBLIC_POSTHOG_KEY).toBe("test-key");
+    expect(env.NEXT_PUBLIC_POSTHOG_HOST).toBe("https://test.posthog.com");
   });
 
-  it('throws error for missing variables', () => {
+  it("throws error for missing variables", () => {
     // Variables are reset, so validation should fail
     expect(() => keys()).toThrow();
   });
@@ -346,21 +351,22 @@ describe('Environment Keys', () => {
 
 ```typescript
 // packages/spotify/__tests__/client.test.ts
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { spotifyClient } from '@/client';
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
-describe('Spotify Client', () => {
+import { spotifyClient } from "@/client";
+
+describe("Spotify Client", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
 
-  it('fetches currently playing track', async () => {
+  it("fetches currently playing track", async () => {
     const mockTrack = {
       item: {
-        id: 'track-id',
-        name: 'Test Song',
-        artists: [{ name: 'Test Artist' }],
-        album: { name: 'Test Album' },
+        id: "track-id",
+        name: "Test Song",
+        artists: [{ name: "Test Artist" }],
+        album: { name: "Test Album" },
       },
       is_playing: true,
     };
@@ -374,11 +380,11 @@ describe('Spotify Client', () => {
     expect(currentlyPlaying).toEqual(mockTrack);
   });
 
-  it('handles API rate limiting', async () => {
+  it("handles API rate limiting", async () => {
     global.fetch = vi.fn().mockResolvedValueOnce({
       ok: false,
       status: 429,
-      headers: new Headers({ 'Retry-After': '60' }),
+      headers: new Headers({ "Retry-After": "60" }),
     });
 
     await expect(spotifyClient.getCurrentlyPlaying()).rejects.toThrow();
@@ -419,22 +425,24 @@ export { customRender as render };
 
 ```typescript
 // __tests__/mocks/factory.ts
-import type { GitHubUser } from '@gabfon/github/types';
+import type { GitHubUser } from "@gabfon/github/types";
 
-export const createMockGitHubUser = (overrides: Partial<GitHubUser> = {}): GitHubUser => ({
+export const createMockGitHubUser = (
+  overrides: Partial<GitHubUser> = {}
+): GitHubUser => ({
   id: 1,
-  login: 'testuser',
-  name: 'Test User',
-  email: 'test@example.com',
-  bio: 'Test bio',
+  login: "testuser",
+  name: "Test User",
+  email: "test@example.com",
+  bio: "Test bio",
   ...overrides,
 });
 
 export const createMockSpotifyTrack = (overrides = {}) => ({
-  id: 'track-id',
-  name: 'Test Track',
-  artists: [{ name: 'Test Artist' }],
-  album: { name: 'Test Album' },
+  id: "track-id",
+  name: "Test Track",
+  artists: [{ name: "Test Artist" }],
+  album: { name: "Test Album" },
   duration_ms: 180000,
   ...overrides,
 });
@@ -444,7 +452,7 @@ export const createMockSpotifyTrack = (overrides = {}) => ({
 
 ```typescript
 // __tests__/builders/userBuilder.ts
-import type { GitHubUser } from '@gabfon/github/types';
+import type { GitHubUser } from "@gabfon/github/types";
 
 class UserBuilder {
   private user: Partial<GitHubUser> = {};
@@ -471,8 +479,8 @@ class UserBuilder {
   build(): GitHubUser {
     return {
       id: 1,
-      login: 'testuser',
-      name: 'Test User',
+      login: "testuser",
+      name: "Test User",
       ...this.user,
     } as GitHubUser;
   }
@@ -523,22 +531,22 @@ describe('User Flow Integration', () => {
 
 ```typescript
 // vitest.config.ts
-import { testingConfig } from '@gabfon/testing';
-import { defineConfig } from 'vitest/config';
+import { testingConfig } from "@gabfon/testing";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   ...testingConfig,
   test: {
     ...testingConfig.test,
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      reporter: ["text", "json", "html"],
       exclude: [
-        'node_modules/',
-        '__tests__/',
-        '**/*.test.ts',
-        '**/*.test.tsx',
-        '**/*.config.*',
-        '**/dist/**',
+        "node_modules/",
+        "__tests__/",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.config.*",
+        "**/dist/**",
       ],
       thresholds: {
         global: {
@@ -557,18 +565,18 @@ export default defineConfig({
 
 ```typescript
 // vitest.config.ts
-import { testingConfig } from '@gabfon/testing';
-import { defineConfig } from 'vitest/config';
+import { testingConfig } from "@gabfon/testing";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   ...testingConfig,
   test: {
     ...testingConfig.test,
-    setupFiles: ['./src/test/setup.ts'],
+    setupFiles: ["./src/test/setup.ts"],
     environmentOptions: {
       jsdom: {
-        resources: 'usable',
-        url: 'http://localhost:3000',
+        resources: "usable",
+        url: "http://localhost:3000",
       },
     },
   },
@@ -581,23 +589,23 @@ export default defineConfig({
 
 ```typescript
 // Good: Descriptive test names and grouping
-describe('Button Component', () => {
-  describe('Rendering', () => {
-    it('renders with correct text', () => {
+describe("Button Component", () => {
+  describe("Rendering", () => {
+    it("renders with correct text", () => {
       // Test implementation
     });
   });
 
-  describe('Interactions', () => {
-    it('handles click events', () => {
+  describe("Interactions", () => {
+    it("handles click events", () => {
       // Test implementation
     });
   });
 });
 
 // Bad: Poor organization
-describe('Button', () => {
-  it('works', () => {
+describe("Button", () => {
+  it("works", () => {
     // Unclear what this tests
   });
 });
@@ -607,14 +615,14 @@ describe('Button', () => {
 
 ```typescript
 // Good: Proper mock setup and cleanup
-describe('Component with API', () => {
+describe("Component with API", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('handles API response', async () => {
+  it("handles API response", async () => {
     global.fetch = vi.fn().mockResolvedValueOnce({
-      json: () => Promise.resolve({ data: 'test' }),
+      json: () => Promise.resolve({ data: "test" }),
     });
 
     // Test implementation
@@ -629,8 +637,8 @@ global.fetch = vi.fn(); // Global setup
 
 ```typescript
 // Good: Specific and meaningful assertions
-expect(screen.getByRole('button')).toBeInTheDocument();
-expect(screen.getByRole('button')).toBeDisabled();
+expect(screen.getByRole("button")).toBeInTheDocument();
+expect(screen.getByRole("button")).toBeDisabled();
 expect(mockFunction).toHaveBeenCalledWith(expectedArgs);
 
 // Bad: Generic assertions
@@ -642,10 +650,10 @@ expect(result).toBeDefined();
 
 ```typescript
 // Good: Use test factories or builders
-const user = createMockUser({ name: 'Test User' });
+const user = createMockUser({ name: "Test User" });
 
 // Bad: Hardcoded test data
-const user = { id: 1, name: 'Test User', email: 'test@example.com' };
+const user = { id: 1, name: "Test User", email: "test@example.com" };
 ```
 
 ## Integration Examples
@@ -662,7 +670,7 @@ describe('Button', () => {
   it('renders with default variant', () => {
     render(<Button>Default Button</Button>);
     const button = screen.getByRole('button');
-    
+
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('bg-primary');
   });
@@ -670,7 +678,7 @@ describe('Button', () => {
   it('applies destructive variant', () => {
     render(<Button variant="destructive">Delete</Button>);
     const button = screen.getByRole('button');
-    
+
     expect(button).toHaveClass('bg-destructive');
   });
 });
@@ -700,7 +708,7 @@ describe('AnalyticsProvider', () => {
         <div>Test Content</div>
       </AnalyticsProvider>
     );
-    
+
     expect(screen.getByText('Test Content')).toBeInTheDocument();
   });
 });
@@ -710,19 +718,20 @@ describe('AnalyticsProvider', () => {
 
 ```typescript
 // packages/github/__tests__/integration.test.ts
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { githubClient } from '@/client';
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
-describe('GitHub Integration', () => {
+import { githubClient } from "@/client";
+
+describe("GitHub Integration", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
 
-  it('fetches and processes user data', async () => {
+  it("fetches and processes user data", async () => {
     const mockUser = {
       id: 1,
-      login: 'testuser',
-      name: 'Test User',
+      login: "testuser",
+      name: "Test User",
       public_repos: 10,
       followers: 100,
     };
@@ -732,11 +741,11 @@ describe('GitHub Integration', () => {
       ok: true,
     });
 
-    const user = await githubClient.getUser('testuser');
-    
+    const user = await githubClient.getUser("testuser");
+
     expect(user).toEqual(mockUser);
     expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining('/users/testuser')
+      expect.stringContaining("/users/testuser")
     );
   });
 });
@@ -755,12 +764,12 @@ import { HeavyComponent } from '@/components/HeavyComponent';
 describe('Performance Tests', () => {
   it('renders within performance budget', () => {
     const startTime = performance.now();
-    
+
     render(<HeavyComponent />);
-    
+
     const endTime = performance.now();
     const renderTime = endTime - startTime;
-    
+
     expect(renderTime).toBeLessThan(100); // 100ms budget
   });
 });
@@ -770,27 +779,27 @@ describe('Performance Tests', () => {
 
 ```typescript
 // __tests__/memory.test.ts
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from "vitest";
 
-describe('Memory Tests', () => {
-  it('does not leak memory on repeated operations', () => {
+describe("Memory Tests", () => {
+  it("does not leak memory on repeated operations", () => {
     const initialMemory = process.memoryUsage().heapUsed;
-    
+
     // Perform operation multiple times
     for (let i = 0; i < 1000; i++) {
       // Some operation that might leak memory
       const data = new Array(1000).fill(null);
       data.length = 0; // Clear array
     }
-    
+
     // Force garbage collection if available
     if (global.gc) {
       global.gc();
     }
-    
+
     const finalMemory = process.memoryUsage().heapUsed;
     const memoryIncrease = finalMemory - initialMemory;
-    
+
     // Allow some memory increase but not excessive
     expect(memoryIncrease).toBeLessThan(1024 * 1024); // 1MB
   });

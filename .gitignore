@@ -34,9 +34,6 @@ test-results
 # Turbo
 .turbo
 
-# Vercel
-.vercel
-
 # Sentry Config File
 .env.sentry-build-plugin
 

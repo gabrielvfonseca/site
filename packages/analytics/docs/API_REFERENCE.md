@@ -18,35 +18,34 @@ NEXT_PUBLIC_POSTHOG_HOST=your_posthog_instance_host
 ## Exports
 
 ### Main Provider
+
 ```typescript
-export { AnalyticsProvider } from './index';
+export { AnalyticsProvider } from "./index";
 ```
 
 ### Client-Side Analytics
+
 ```typescript
-export { PostHogProvider, useAnalytics } from './lib/client';
+export { PostHogProvider, useAnalytics } from "./lib/client";
 ```
 
 ### Server-Side Analytics
-```typescript
-export { analytics } from './lib/server';
-```
 
-### Vercel Analytics
 ```typescript
-export { VercelAnalytics } from './vercel';
+export { analytics } from "./lib/server";
 ```
 
 ### Environment Keys
+
 ```typescript
-export { keys } from './keys';
+export { keys } from "./keys";
 ```
 
 ## Components
 
 ### AnalyticsProvider
 
-The main provider component that wraps both PostHog and Vercel Analytics.
+The main provider component that wraps PostHog.
 
 #### Props
 
@@ -72,29 +71,9 @@ function App() {
 
 #### Features
 
-- **Dual Integration**: Combines PostHog and Vercel Analytics
 - **Conditional Initialization**: Only initializes when keys are available
 - **Environment Validation**: Validates environment variables at runtime
 - **Type Safety**: Full TypeScript support
-
-### VercelAnalytics
-
-Vercel Analytics component for performance metrics.
-
-#### Usage
-
-```typescript
-import { VercelAnalytics } from '@gabfon/analytics';
-
-function Layout() {
-  return (
-    <>
-      <YourContent />
-      <VercelAnalytics />
-    </>
-  );
-}
-```
 
 ## Hooks
 
@@ -105,7 +84,7 @@ React hook for accessing PostHog analytics functionality.
 #### Returns
 
 ```typescript
-import { usePostHog } from 'posthog-js/react';
+import { usePostHog } from "posthog-js/react";
 
 // Returns PostHog instance
 const analytics = useAnalytics();
@@ -134,22 +113,22 @@ function ButtonComponent() {
 
 ```typescript
 // Event tracking
-analytics.track('event_name', properties);
+analytics.track("event_name", properties);
 
 // User identification
-analytics.identify('user_id', userProperties);
+analytics.identify("user_id", userProperties);
 
 // Page tracking
-analytics.page('page_name', properties);
+analytics.page("page_name", properties);
 
 // Group tracking
-analytics.group('group_id', groupProperties);
+analytics.group("group_id", groupProperties);
 
 // Feature flags
-analytics.isFeatureEnabled('feature_name');
+analytics.isFeatureEnabled("feature_name");
 
 // Experiments
-analytics.getVariant('experiment_name');
+analytics.getVariant("experiment_name");
 ```
 
 ## Server-Side Analytics
@@ -161,15 +140,15 @@ Server-side PostHog instance for Node.js environments.
 #### Usage
 
 ```typescript
-import { analytics } from '@gabfon/analytics/lib/server';
+import { analytics } from "@gabfon/analytics/lib/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  
+
   // Track server-side events
-  analytics.capture('api_call', {
-    endpoint: '/api/submit',
-    method: 'POST',
+  analytics.capture("api_call", {
+    endpoint: "/api/submit",
+    method: "POST",
     user_id: body.userId,
   });
 
@@ -184,19 +163,23 @@ export async function POST(request: Request) {
 
 ```typescript
 // Event capture
-analytics.capture('event_name', properties);
+analytics.capture("event_name", properties);
 
 // User identification
-analytics.identify({ distinctId: 'user_id', properties: userProperties });
+analytics.identify({ distinctId: "user_id", properties: userProperties });
 
 // Alias creation
-analytics.alias('new_id', 'previous_id');
+analytics.alias("new_id", "previous_id");
 
 // Group identification
-analytics.groupIdentify({ groupType: 'company', groupKey: 'company_id', properties: companyProperties });
+analytics.groupIdentify({
+  groupType: "company",
+  groupKey: "company_id",
+  properties: companyProperties,
+});
 
 // Feature flags
-analytics.isFeatureEnabled('feature_name', 'user_id');
+analytics.isFeatureEnabled("feature_name", "user_id");
 
 // Event flushing
 await analytics.flush();
@@ -206,15 +189,15 @@ await analytics.flush();
 
 ### Required Variables
 
-| Variable | Description | Type | Required |
-|----------|-------------|------|----------|
-| `NEXT_PUBLIC_POSTHOG_KEY` | PostHog project API key | string | Yes |
-| `NEXT_PUBLIC_POSTHOG_HOST` | PostHog instance host URL | string | Yes |
+| Variable                   | Description               | Type   | Required |
+| -------------------------- | ------------------------- | ------ | -------- |
+| `NEXT_PUBLIC_POSTHOG_KEY`  | PostHog project API key   | string | Yes      |
+| `NEXT_PUBLIC_POSTHOG_HOST` | PostHog instance host URL | string | Yes      |
 
 ### Environment Validation
 
 ```typescript
-import { keys } from '@gabfon/analytics/keys';
+import { keys } from "@gabfon/analytics/keys";
 
 // Validates environment variables and returns typed object
 const env = keys();
@@ -302,13 +285,13 @@ export function UserProfile({ user }: { user: User }) {
 
 ```typescript
 // app/api/user/route.ts
-import { analytics } from '@gabfon/analytics/lib/server';
+import { analytics } from "@gabfon/analytics/lib/server";
 
 export async function POST(request: Request) {
   const { userId, action } = await request.json();
 
   // Track server-side events
-  analytics.capture('user_action', {
+  analytics.capture("user_action", {
     distinctId: userId,
     action,
     timestamp: new Date().toISOString(),
@@ -366,7 +349,7 @@ export function PricingPage() {
 
   const getVariant = () => {
     const variant = analytics.getVariant('pricing_test');
-    
+
     // Track experiment exposure
     analytics.track('experiment_exposed', {
       experiment_name: 'pricing_test',
@@ -395,13 +378,13 @@ export function PricingPage() {
 ### Environment Validation Errors
 
 ```typescript
-import { keys } from '@gabfon/analytics/keys';
+import { keys } from "@gabfon/analytics/keys";
 
 try {
   const env = keys();
   // Use environment variables
 } catch (error) {
-  console.error('Analytics configuration error:', error);
+  console.error("Analytics configuration error:", error);
   // Handle missing or invalid environment variables
 }
 ```
@@ -430,26 +413,31 @@ function SafeTracking() {
 ## Best Practices
 
 ### 1. Event Naming
+
 - Use consistent naming conventions (snake_case)
 - Include relevant context in event names
 - Avoid overly generic names
 
 ### 2. User Identification
+
 - Identify users as early as possible
 - Include relevant user properties
 - Handle anonymous users appropriately
 
 ### 3. Privacy Compliance
+
 - Respect user privacy preferences
 - Implement data retention policies
 - Provide opt-out mechanisms
 
 ### 4. Performance
+
 - Use server-side tracking for sensitive data
 - Batch events when possible
 - Avoid blocking operations
 
 ### 5. Testing
+
 - Test analytics in development environments
 - Verify event properties are correct
 - Test error handling scenarios
@@ -526,12 +514,12 @@ test('AnalyticsProvider renders children', () => {
 ### Hook Testing
 
 ```typescript
-import { renderHook } from '@testing-library/react';
-import { useAnalytics } from '@gabfon/analytics/lib/client';
+import { useAnalytics } from "@gabfon/analytics/lib/client";
+import { renderHook } from "@testing-library/react";
 
-test('useAnalytics returns PostHog instance', () => {
+test("useAnalytics returns PostHog instance", () => {
   const { result } = renderHook(() => useAnalytics());
-  
+
   expect(result.current.track).toBeDefined();
   expect(result.current.identify).toBeDefined();
 });

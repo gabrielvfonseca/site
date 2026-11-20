@@ -7,21 +7,25 @@ The `@gabfon/strava` package provides a comprehensive Strava API client built on
 ## Architectural Decisions
 
 ### 1. REST API Client Pattern
+
 - **Decision**: Implement a REST API client using native fetch
 - **Rationale**: Leverages modern browser APIs with no external dependencies
 - **Implementation**: Type-safe client with comprehensive error handling
 
 ### 2. OAuth 2.0 Authentication
+
 - **Decision**: Implement Strava's OAuth 2.0 authorization flow
 - **Rationale**: Secure authentication with proper token management
 - **Implementation**: Authorization code flow with refresh token support
 
 ### 3. Type-First Development
+
 - **Decision**: Use TypeScript interfaces for all API responses
 - **Rationale**: Ensures type safety and better developer experience
 - **Implementation**: Comprehensive type definitions for Strava API objects
 
 ### 4. Modular Client Architecture
+
 - **Decision**: Organize client methods by Strava API categories
 - **Rationale**: Provides clear separation of concerns and maintainability
 - **Implementation**: Grouped methods for athletes, activities, etc.
@@ -55,7 +59,7 @@ graph TD
     E --> F[API Response]
     F --> G[Type Validation]
     G --> H[Typed Response]
-    
+
     I[React Hooks] --> B
     J[Type Definitions] --> G
     K[Environment Variables] --> C
@@ -65,10 +69,12 @@ graph TD
 ## Key Dependencies
 
 ### Core Dependencies
+
 - **`react`**: React hooks support
 - **`zod`**: Runtime type validation
 
 ### Configuration Dependencies
+
 - **`@t3-oss/env-nextjs`**: Environment variable validation
 - **`@gabfon/analytics`**: Optional analytics integration
 - **`@gabfon/testing`**: Testing utilities
@@ -120,15 +126,21 @@ class StravaClient {
   // Athlete methods
   async getCurrentAthlete(): Promise<StravaAthlete>;
   async getAthleteStats(athleteId: string): Promise<AthleteStats>;
-  async getAthleteActivities(athleteId: string, options?: ActivityOptions): Promise<StravaActivity[]>;
-  
+  async getAthleteActivities(
+    athleteId: string,
+    options?: ActivityOptions
+  ): Promise<StravaActivity[]>;
+
   // Activity methods
   async getActivity(activityId: string): Promise<StravaActivity>;
-  async getActivityStreams(activityId: string, types: StreamType[]): Promise<ActivityStreams>;
-  
+  async getActivityStreams(
+    activityId: string,
+    types: StreamType[]
+  ): Promise<ActivityStreams>;
+
   // Achievement methods
   async getAthleteAchievements(athleteId: string): Promise<Achievement[]>;
-  
+
   // Club methods
   async getClub(clubId: string): Promise<Club>;
   async getClubMembers(clubId: string): Promise<ClubMember[]>;
@@ -266,11 +278,11 @@ interface AthleteStats {
 ### 1. Basic Client Usage
 
 ```typescript
-import { StravaClient } from '@gabfon/strava';
+import { StravaClient } from "@gabfon/strava";
 
 const client = new StravaClient({
-  access_token: 'your_access_token',
-  refresh_token: 'your_refresh_token',
+  access_token: "your_access_token",
+  refresh_token: "your_refresh_token",
 });
 
 const athlete = await client.getCurrentAthlete();
@@ -303,7 +315,7 @@ function AthleteProfile({ athleteId }: { athleteId: string }) {
 
 ```typescript
 // app/api/strava/athlete/[id]/route.ts
-import { stravaClient } from '@gabfon/strava';
+import { stravaClient } from "@gabfon/strava";
 
 export async function GET(
   request: Request,
@@ -313,10 +325,7 @@ export async function GET(
     const athlete = await stravaClient.getAthlete(params.id);
     return Response.json(athlete);
   } catch (error) {
-    return Response.json(
-      { error: 'Athlete not found' },
-      { status: 404 }
-    );
+    return Response.json({ error: "Athlete not found" }, { status: 404 });
   }
 }
 ```
@@ -332,13 +341,13 @@ class StravaClient {
   private async handleResponse<T>(response: Response): Promise<T> {
     if (!response.ok) {
       if (response.status === 401) {
-        throw new Error('Unauthorized - check access token');
+        throw new Error("Unauthorized - check access token");
       }
       if (response.status === 403) {
-        throw new Error('Forbidden - insufficient permissions');
+        throw new Error("Forbidden - insufficient permissions");
       }
       if (response.status === 429) {
-        const rateLimit = response.headers.get('X-RateLimit-Limit');
+        const rateLimit = response.headers.get("X-RateLimit-Limit");
         throw new Error(`Rate limit exceeded: ${rateLimit}`);
       }
       throw new Error(`Strava API error: ${response.status}`);
@@ -359,7 +368,7 @@ class StravaClient {
         const tokens = await this.refreshToken(this.refreshToken);
         this.updateTokens(tokens);
       } else {
-        throw new Error('No refresh token available');
+        throw new Error("No refresh token available");
       }
     }
   }
@@ -369,17 +378,20 @@ class StravaClient {
 ## Performance Considerations
 
 ### 1. Request Optimization
+
 - **Conditional Requests**: Use ETags for caching
 - **Pagination**: Implement proper pagination for large datasets
 - **Rate Limiting**: Respect Strava's rate limits (200 requests per 15 minutes)
 - **Batching**: Combine multiple requests when possible
 
 ### 2. Memory Management
+
 - **Stream Processing**: Use streaming for large responses
 - **Response Caching**: Implement client-side caching
 - **Lazy Loading**: Load data only when needed
 
 ### 3. React Integration
+
 - **Memoization**: Cache API responses in hooks
 - **Suspense**: Use React Suspense for data fetching
 - **Error Boundaries**: Handle errors gracefully
@@ -387,17 +399,20 @@ class StravaClient {
 ## Security Considerations
 
 ### 1. Token Management
+
 - **Server-Side Tokens**: Store tokens securely on server
 - **Client-Side Tokens**: Use short-lived tokens on client
 - **Token Rotation**: Regularly refresh access tokens
 - **Scope Limitation**: Use minimal required scopes
 
 ### 2. Data Protection
+
 - **Input Validation**: Validate all user inputs
 - **Output Sanitization**: Sanitize API responses
 - **Error Information**: Avoid exposing sensitive information in errors
 
 ### 3. API Security
+
 - **HTTPS Only**: Use HTTPS for all API requests
 - **CORS Handling**: Proper CORS configuration
 - **Rate Limiting**: Implement client-side throttling
@@ -405,16 +420,19 @@ class StravaClient {
 ## Testing Strategy
 
 ### 1. Unit Testing
+
 - Test client methods with mocked responses
 - Test error handling scenarios
 - Test type validation
 
 ### 2. Integration Testing
+
 - Test with actual Strava API (using test tokens)
 - Test React hooks with test components
 - Test authentication flows
 
 ### 3. Performance Testing
+
 - Test response times
 - Test memory usage
 - Test rate limiting behavior
@@ -422,6 +440,7 @@ class StravaClient {
 ## Future Extensibility
 
 The architecture supports:
+
 - Additional Strava API endpoints
 - Real-time activity tracking
 - Advanced analytics features
@@ -433,6 +452,7 @@ The architecture supports:
 ## Migration Path
 
 The package is designed to support:
+
 - Easy adoption in existing projects
 - Gradual feature implementation
 - Backward compatibility maintenance
@@ -442,24 +462,28 @@ The package is designed to support:
 ## Best Practices
 
 ### 1. Client Usage
+
 - Use appropriate error handling
 - Implement proper caching
 - Respect rate limits
 - Use TypeScript for type safety
 
 ### 2. React Integration
+
 - Use provided hooks for consistency
 - Implement loading states
 - Handle errors gracefully
 - Use Suspense for better UX
 
 ### 3. Authentication
+
 - Never expose client secret on client-side
 - Use secure token storage
 - Implement proper token refresh
 - Use minimal required scopes
 
 ### 4. Performance
+
 - Cache responses when appropriate
 - Use pagination for large datasets
 - Implement lazy loading

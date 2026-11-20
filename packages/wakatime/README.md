@@ -31,7 +31,7 @@ WAKATIME_API_KEY=your_wakatime_api_key
 ### Basic Usage
 
 ```typescript
-import { wakatimeClient } from '@gabfon/wakatime';
+import { wakatimeClient } from "@gabfon/wakatime";
 
 // Get the last 7 days of coding time
 const stats = await wakatimeClient.getLast7Days();
@@ -60,7 +60,7 @@ for (const language of stats.languages) {
 This package uses `@t3-oss/env-nextjs` for environment validation.
 
 | Variable | Description | Required |
-|----------|-------------|----------|
+| --- | --- | --- |
 | `WAKATIME_API_KEY` | WakaTime API key | No (client throws at call time if absent) |
 
 ## Development

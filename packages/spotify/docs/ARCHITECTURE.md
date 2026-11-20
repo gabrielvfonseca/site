@@ -7,21 +7,25 @@ The `@gabfon/spotify` package provides a comprehensive Spotify Web API client bu
 ## Architectural Decisions
 
 ### 1. REST API Client Pattern
+
 - **Decision**: Implement a REST API client using native fetch
 - **Rationale**: Leverages modern browser APIs with no external dependencies
 - **Implementation**: Type-safe client with comprehensive error handling
 
 ### 2. OAuth 2.0 Authentication
+
 - **Decision**: Implement Spotify's OAuth 2.0 authorization flow
 - **Rationale**: Secure authentication with proper token management
 - **Implementation**: Authorization code flow with refresh token support
 
 ### 3. Type-First Development
+
 - **Decision**: Use TypeScript interfaces for all API responses
 - **Rationale**: Ensures type safety and better developer experience
 - **Implementation**: Comprehensive type definitions for Spotify API objects
 
 ### 4. Modular Client Architecture
+
 - **Decision**: Organize client methods by Spotify API categories
 - **Rationale**: Provides clear separation of concerns and maintainability
 - **Implementation**: Grouped methods for artists, tracks, users, etc.
@@ -57,7 +61,7 @@ graph TD
     E --> F[API Response]
     F --> G[Type Validation]
     G --> H[Typed Response]
-    
+
     I[React Hooks] --> B
     J[Type Definitions] --> G
     K[Environment Variables] --> C
@@ -67,10 +71,12 @@ graph TD
 ## Key Dependencies
 
 ### Core Dependencies
+
 - **`react`**: React hooks support
 - **`zod`**: Runtime type validation
 
 ### Configuration Dependencies
+
 - **`@t3-oss/env-nextjs`**: Environment variable validation
 - **`@gabfon/analytics`**: Optional analytics integration
 - **`@gabfon/testing`**: Testing utilities
@@ -122,17 +128,17 @@ class SpotifyClient {
   async getArtist(artistId: string): Promise<SpotifyArtist>;
   async getArtistAlbums(artistId: string): Promise<SpotifyAlbum[]>;
   async getArtistTopTracks(artistId: string): Promise<SpotifyTrack[]>;
-  
+
   // Track methods
   async getTrack(trackId: string): Promise<SpotifyTrack>;
   async getAudioFeatures(trackId: string): Promise<AudioFeatures>;
   async getAudioAnalysis(trackId: string): Promise<AudioAnalysis>;
-  
+
   // User methods
   async getCurrentUser(): Promise<SpotifyUser>;
   async getUserTopTracks(timeRange?: TimeRange): Promise<SpotifyTrack[]>;
   async getUserTopArtists(timeRange?: TimeRange): Promise<SpotifyArtist[]>;
-  
+
   // Playback methods
   async getCurrentlyPlaying(): Promise<CurrentlyPlaying>;
   async getRecentlyPlayed(): Promise<PlayHistory[]>;
@@ -174,7 +180,7 @@ Comprehensive TypeScript interfaces for Spotify API responses:
 interface SpotifyArtist {
   id: string;
   name: string;
-  type: 'artist';
+  type: "artist";
   uri: string;
   href: string;
   external_urls: ExternalUrls;
@@ -187,7 +193,7 @@ interface SpotifyArtist {
 interface SpotifyTrack {
   id: string;
   name: string;
-  type: 'track';
+  type: "track";
   uri: string;
   href: string;
   external_urls: ExternalUrls;
@@ -221,15 +227,15 @@ interface AudioFeatures {
 ### 1. Basic Client Usage
 
 ```typescript
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
 const client = new SpotifyClient({
-  access_token: 'your_access_token',
-  refresh_token: 'your_refresh_token',
+  access_token: "your_access_token",
+  refresh_token: "your_refresh_token",
 });
 
-const artist = await client.getArtist('artist-id');
-const tracks = await client.getArtistTopTracks('artist-id');
+const artist = await client.getArtist("artist-id");
+const tracks = await client.getArtistTopTracks("artist-id");
 ```
 
 ### 2. React Hook Integration
@@ -258,7 +264,7 @@ function ArtistProfile({ artistId }: { artistId: string }) {
 
 ```typescript
 // app/api/spotify/artist/[id]/route.ts
-import { spotifyClient } from '@gabfon/spotify';
+import { spotifyClient } from "@gabfon/spotify";
 
 export async function GET(
   request: Request,
@@ -268,10 +274,7 @@ export async function GET(
     const artist = await spotifyClient.getArtist(params.id);
     return Response.json(artist);
   } catch (error) {
-    return Response.json(
-      { error: 'Artist not found' },
-      { status: 404 }
-    );
+    return Response.json({ error: "Artist not found" }, { status: 404 });
   }
 }
 ```
@@ -287,13 +290,13 @@ class SpotifyClient {
   private async handleResponse<T>(response: Response): Promise<T> {
     if (!response.ok) {
       if (response.status === 401) {
-        throw new Error('Unauthorized - check access token');
+        throw new Error("Unauthorized - check access token");
       }
       if (response.status === 403) {
-        throw new Error('Forbidden - insufficient permissions');
+        throw new Error("Forbidden - insufficient permissions");
       }
       if (response.status === 429) {
-        const retryAfter = response.headers.get('Retry-After');
+        const retryAfter = response.headers.get("Retry-After");
         throw new Error(`Rate limit exceeded - retry after ${retryAfter}s`);
       }
       throw new Error(`Spotify API error: ${response.status}`);
@@ -314,7 +317,7 @@ class SpotifyClient {
         const tokens = await this.refreshToken(this.refreshToken);
         this.updateTokens(tokens);
       } else {
-        throw new Error('No refresh token available');
+        throw new Error("No refresh token available");
       }
     }
   }
@@ -324,17 +327,20 @@ class SpotifyClient {
 ## Performance Considerations
 
 ### 1. Request Optimization
+
 - **Conditional Requests**: Use ETags for caching
 - **Pagination**: Implement proper pagination for large datasets
 - **Rate Limiting**: Respect Spotify's rate limits
 - **Batching**: Combine multiple requests when possible
 
 ### 2. Memory Management
+
 - **Stream Processing**: Use streaming for large responses
 - **Response Caching**: Implement client-side caching
 - **Lazy Loading**: Load data only when needed
 
 ### 3. React Integration
+
 - **Memoization**: Cache API responses in hooks
 - **Suspense**: Use React Suspense for data fetching
 - **Error Boundaries**: Handle errors gracefully
@@ -342,17 +348,20 @@ class SpotifyClient {
 ## Security Considerations
 
 ### 1. Token Management
+
 - **Server-Side Tokens**: Store tokens securely on server
 - **Client-Side Tokens**: Use short-lived tokens on client
 - **Token Rotation**: Regularly refresh access tokens
 - **Scope Limitation**: Use minimal required scopes
 
 ### 2. Data Protection
+
 - **Input Validation**: Validate all user inputs
 - **Output Sanitization**: Sanitize API responses
 - **Error Information**: Avoid exposing sensitive information in errors
 
 ### 3. API Security
+
 - **HTTPS Only**: Use HTTPS for all API requests
 - **CORS Handling**: Proper CORS configuration
 - **Rate Limiting**: Implement client-side throttling
@@ -360,16 +369,19 @@ class SpotifyClient {
 ## Testing Strategy
 
 ### 1. Unit Testing
+
 - Test client methods with mocked responses
 - Test error handling scenarios
 - Test type validation
 
 ### 2. Integration Testing
+
 - Test with actual Spotify API (using test tokens)
 - Test React hooks with test components
 - Test authentication flows
 
 ### 3. Performance Testing
+
 - Test response times
 - Test memory usage
 - Test rate limiting behavior
@@ -377,6 +389,7 @@ class SpotifyClient {
 ## Future Extensibility
 
 The architecture supports:
+
 - Additional Spotify API endpoints
 - GraphQL API integration
 - Real-time playback controls
@@ -388,6 +401,7 @@ The architecture supports:
 ## Migration Path
 
 The package is designed to support:
+
 - Easy adoption in existing projects
 - Gradual feature implementation
 - Backward compatibility maintenance
@@ -397,24 +411,28 @@ The package is designed to support:
 ## Best Practices
 
 ### 1. Client Usage
+
 - Use appropriate error handling
 - Implement proper caching
 - Respect rate limits
 - Use TypeScript for type safety
 
 ### 2. React Integration
+
 - Use provided hooks for consistency
 - Implement loading states
 - Handle errors gracefully
 - Use Suspense for better UX
 
 ### 3. Authentication
+
 - Never expose client secret on client-side
 - Use secure token storage
 - Implement proper token refresh
 - Use minimal required scopes
 
 ### 4. Performance
+
 - Cache responses when appropriate
 - Use pagination for large datasets
 - Implement lazy loading

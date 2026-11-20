@@ -9,13 +9,15 @@ import * as Sentry from "@sentry/nextjs";
  * Workers runtime.
  */
 export function initializeSentry() {
-	if (!process.env.NEXT_PUBLIC_SENTRY_DSN) return;
+  if (!process.env.NEXT_PUBLIC_SENTRY_DSN) {
+    return;
+  }
 
-	Sentry.init({
-		dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-		environment: process.env.NODE_ENV,
-		enabled: process.env.NODE_ENV === "production",
-	});
+  Sentry.init({
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    environment: process.env.NODE_ENV,
+    enabled: process.env.NODE_ENV === "production",
+  });
 }
 
 /**
@@ -28,5 +30,5 @@ export function initializeSentry() {
  * runtime (no `autoInstrument*` flags involved).
  */
 export function onRequestError(error: unknown) {
-	Sentry.captureException(error);
+  Sentry.captureException(error);
 }

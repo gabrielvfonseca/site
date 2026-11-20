@@ -1,15 +1,14 @@
 # @gabfon/analytics
 
-Analytics integration package providing PostHog and Vercel Analytics support.
+Analytics integration package providing PostHog support.
 
 ## Overview
 
-This package provides a unified analytics solution combining PostHog for product analytics and Vercel Analytics for web vitals and performance metrics.
+This package provides a unified analytics solution built on PostHog for product analytics, feature flags, and user tracking.
 
 ## Features
 
 - **PostHog Integration**: Product analytics, feature flags, and user tracking
-- **Vercel Analytics**: Web vitals and performance monitoring
 - **React Components**: Pre-built React components for analytics
 - **Server/Client Support**: Both server-side and client-side analytics
 - **Type Safety**: Full TypeScript support with environment validation
@@ -17,7 +16,7 @@ This package provides a unified analytics solution combining PostHog for product
 ## Installation
 
 ```bash
-pnpm add @gabfon/analytics
+bun add @gabfon/analytics
 ```
 
 ## Usage
@@ -39,26 +38,25 @@ function App() {
 ### Client-side Analytics
 
 ```typescript
-import { trackEvent } from '@gabfon/analytics/lib/client';
+import { trackEvent } from "@gabfon/analytics/lib/client";
 
 // Track custom events
-trackEvent('button_clicked', { button: 'signup' });
+trackEvent("button_clicked", { button: "signup" });
 ```
 
 ### Server-side Analytics
 
 ```typescript
-import { trackServerEvent } from '@gabfon/analytics/lib/server';
+import { trackServerEvent } from "@gabfon/analytics/lib/server";
 
 // Track server events
-trackServerEvent('user_signup', { userId: '123' });
+trackServerEvent("user_signup", { userId: "123" });
 ```
 
 ## Exports
 
 - `./src/index.tsx` - Main analytics provider and components
 - `./src/keys.ts` - Environment variable keys
-- `./src/vercel.ts` - Vercel Analytics integration
 - `./src/lib/client.tsx` - Client-side analytics utilities
 - `./src/lib/server.ts` - Server-side analytics utilities
 
@@ -67,12 +65,10 @@ trackServerEvent('user_signup', { userId: '123' });
 ```env
 NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key
 NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
-NEXT_PUBLIC_VERCEL_ANALYTICS=true
 ```
 
 ## Dependencies
 
-- `@vercel/analytics` - Vercel Analytics
 - `posthog-js` - PostHog client library
 - `posthog-node` - PostHog server library
 - `@t3-oss/env-nextjs` - Environment validation
@@ -84,8 +80,8 @@ NEXT_PUBLIC_VERCEL_ANALYTICS=true
 
 ```bash
 # Type checking
-pnpm typecheck
+bun typecheck
 
 # Clean build artifacts
-pnpm clean
+bun clean
 ```

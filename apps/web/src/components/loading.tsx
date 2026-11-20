@@ -5,36 +5,36 @@ import { Skeleton } from "@gabfon/design-system/components/skeleton";
  * @returns The Loading for the site.
  */
 export default function Loading() {
-	// Minimum number of skeletons to show
-	const minCount = 4;
-	const maxCount = 10;
+  // Minimum number of skeletons to show
+  const minCount = 4;
+  const maxCount = 10;
 
-	// Get a random number between minCount and maxCount (inclusive)
-	const randomCount =
-		Math.floor(Math.random() * (maxCount - minCount + 1)) + minCount;
+  // Get a random number between minCount and maxCount (inclusive)
+  const randomCount =
+    Math.floor(Math.random() * (maxCount - minCount + 1)) + minCount;
 
-	// Minimum width percentage for a skeleton (e.g., never below 40%)
-	const minWidth = 40;
-	const maxWidth = 100;
+  // Minimum width percentage for a skeleton (e.g., never below 40%)
+  const minWidth = 40;
+  const maxWidth = 100;
 
-	return (
-		<output
-			aria-label="Loading content"
-			className="flex flex-col gap-4"
-			data-testid="loading"
-		>
-			{Array.from({ length: randomCount }, (_, index) => {
-				const width =
-					Math.floor(Math.random() * (maxWidth - minWidth + 1)) + minWidth;
+  return (
+    <output
+      aria-label="Loading content"
+      className="flex flex-col gap-4"
+      data-testid="loading"
+    >
+      {Array.from({ length: randomCount }, (_, index) => {
+        const width =
+          Math.floor(Math.random() * (maxWidth - minWidth + 1)) + minWidth;
 
-				return (
-					<Skeleton
-						className="h-10"
-						key={index}
-						style={{ width: `${width}%` }}
-					/>
-				);
-			})}
-		</output>
-	);
+        return (
+          <Skeleton
+            className="h-10"
+            key={index}
+            style={{ width: `${width}%` }}
+          />
+        );
+      })}
+    </output>
+  );
 }

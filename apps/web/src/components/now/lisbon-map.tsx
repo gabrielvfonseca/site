@@ -7,8 +7,8 @@ import dynamic from "next/dynamic";
  * client-side only. A muted placeholder holds the layout while it loads.
  */
 const LisbonMapCanvas = dynamic(() => import("./lisbon-map-canvas"), {
-	ssr: false,
-	loading: () => <div className="h-80 w-full animate-pulse bg-muted" />,
+  ssr: false,
+  loading: () => <div className="bg-muted h-80 w-full animate-pulse" />,
 });
 
 /**
@@ -17,9 +17,9 @@ const LisbonMapCanvas = dynamic(() => import("./lisbon-map-canvas"), {
  * @returns The Lisbon spots map.
  */
 export function LisbonMap() {
-	return (
-		<div className="overflow-hidden rounded-xl border bg-muted shadow-sm">
-			<LisbonMapCanvas />
-		</div>
-	);
+  return (
+    <div className="bg-muted overflow-hidden rounded-xl border shadow-sm">
+      <LisbonMapCanvas />
+    </div>
+  );
 }

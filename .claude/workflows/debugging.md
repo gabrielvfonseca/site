@@ -5,6 +5,7 @@ description: "Systematic debugging workflow for issue resolution and performance
 # Debugging Workflow
 
 ## 1. Issue Identification
+
 - Reproduce the issue consistently
 - Gather error messages and stack traces
 - Check Sentry for related error patterns
@@ -12,6 +13,7 @@ description: "Systematic debugging workflow for issue resolution and performance
 - Document steps to reproduce
 
 ## 2. Root Cause Analysis
+
 - Examine recent code changes
 - Check environment configuration
 - Review network requests and responses
@@ -19,6 +21,7 @@ description: "Systematic debugging workflow for issue resolution and performance
 - Verify data flow and transformations
 
 ## 3. Debugging Tools
+
 - Use browser dev tools for frontend issues
 - Check Next.js dev server logs
 - Review Sentry error tracking
@@ -26,6 +29,7 @@ description: "Systematic debugging workflow for issue resolution and performance
 - Test with different user roles and permissions
 
 ## 4. Common Issue Categories
+
 - **TypeScript errors**: Check types and interfaces
 - **Styling issues**: Verify Tailwind classes and responsive design
 - **Data fetching**: Check API endpoints and error handling
@@ -33,6 +37,7 @@ description: "Systematic debugging workflow for issue resolution and performance
 - **Accessibility**: Test with screen readers and keyboard navigation
 
 ## 5. Debugging Commands
+
 ```bash
 # Development debugging
 bun run dev:inspect
@@ -48,6 +53,7 @@ bun run build && bun run start
 ```
 
 ## 6. Verification Steps
+
 - Test fix across different browsers
 - Verify responsive design
 - Check accessibility compliance
@@ -55,12 +61,14 @@ bun run build && bun run start
 - Validate error handling and edge cases
 
 ## 7. Documentation
+
 - Document root cause and solution
 - Add preventive measures if applicable
 - Update test cases to cover the scenario
 - Share learnings with team
 
 ## Performance Debugging
+
 - Use Lighthouse for performance audits
 - Analyze Core Web Vitals
 - Check bundle size with webpack-bundle-analyzer
@@ -68,6 +76,7 @@ bun run build && bun run start
 - Test on different network conditions
 
 ## Error Handling Patterns
+
 - Implement proper error boundaries
 - Use Sentry for error tracking
 - Provide meaningful error messages
@@ -75,6 +84,7 @@ bun run build && bun run start
 - Handle edge cases gracefully
 
 ## Testing Fixes
+
 - Write regression tests for fixed issues
 - Test across different environments
 - Verify fix doesn't break other functionality
@@ -82,6 +92,7 @@ bun run build && bun run start
 - Check performance impact
 
 ## Common Debugging Scenarios
+
 - **Component not rendering**: Check imports, exports, and dependencies
 - **State not updating**: Verify React hooks and dependencies
 - **API errors**: Check endpoints, headers, and error handling

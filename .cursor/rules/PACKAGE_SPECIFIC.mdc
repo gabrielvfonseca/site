@@ -15,7 +15,7 @@ alwaysApply: true
 # Package-Specific Rules
 
 ## Analytics Package (`@gabfon/analytics`)
-- Integrate Vercel Analytics and PostHog
+- Integrate PostHog
 - Provide both client and server-side tracking
 - Use proper privacy-compliant tracking
 - Export tracking utilities and hooks

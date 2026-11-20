@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import path from "node:path";
+
 import { slugifyText } from "@/lib/slugify";
 
 /** Frontmatter block delimited by leading/trailing `---` lines. */
@@ -13,12 +14,12 @@ const INLINE_MARKS = /[*_`]/g;
 
 /** A single table-of-contents entry. */
 export interface TocEntry {
-	/** Heading depth: 2 (`##`), 3 (`###`) or 4 (`####`). */
-	readonly depth: number;
-	/** The rendered heading label. */
-	readonly text: string;
-	/** The anchor id, matching the rendered heading's `id`. */
-	readonly id: string;
+  /** Heading depth: 2 (`##`), 3 (`###`) or 4 (`####`). */
+  readonly depth: number;
+  /** The rendered heading label. */
+  readonly text: string;
+  /** The anchor id, matching the rendered heading's `id`. */
+  readonly id: string;
 }
 
 /**
@@ -31,30 +32,30 @@ export interface TocEntry {
  * @returns The ordered list of heading entries (may be empty).
  */
 export function getToc(
-	collection: "posts" | "projects",
-	filePath: string,
+  collection: "posts" | "projects",
+  filePath: string
 ): TocEntry[] {
-	try {
-		const raw = readFileSync(
-			join(process.cwd(), "content", collection, filePath),
-			"utf8",
-		);
-		const body = raw.replace(FRONTMATTER, "").replace(CODE_FENCE, "");
-		const entries: TocEntry[] = [];
-		for (const line of body.split("\n")) {
-			const match = HEADING.exec(line);
-			if (!match) {
-				continue;
-			}
-			const text = match[2].replace(INLINE_MARKS, "").trim();
-			entries.push({
-				depth: match[1].length,
-				text,
-				id: slugifyText(text),
-			});
-		}
-		return entries;
-	} catch {
-		return [];
-	}
+  try {
+    const raw = readFileSync(
+      path.join(process.cwd(), "content", collection, filePath),
+      "utf-8"
+    );
+    const body = raw.replace(FRONTMATTER, "").replaceAll(CODE_FENCE, "");
+    const entries: TocEntry[] = [];
+    for (const line of body.split("\n")) {
+      const match = HEADING.exec(line);
+      if (!match) {
+        continue;
+      }
+      const text = match[2].replaceAll(INLINE_MARKS, "").trim();
+      entries.push({
+        depth: match[1].length,
+        text,
+        id: slugifyText(text),
+      });
+    }
+    return entries;
+  } catch {
+    return [];
+  }
 }

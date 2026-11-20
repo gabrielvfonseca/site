@@ -1,43 +1,31 @@
-import { neon, neonConfig } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
+import type { D1Database } from "@cloudflare/workers-types";
+import { drizzle } from "drizzle-orm/d1";
+
 import * as schema from "./schema";
 
-/** The Drizzle client type backed by Neon's HTTP driver. */
+/** The Drizzle client type backed by Cloudflare D1. */
 export type Database = ReturnType<typeof drizzle<typeof schema>>;
 
 let cached: Database | null = null;
 
 /**
- * Point the Neon HTTP driver at a local proxy when `DATABASE_HTTP_ENDPOINT` is
- * set (e.g. `local-neon-http-proxy` in Docker Compose). This lets the same
- * serverless driver run against a plain Postgres container in development while
- * production continues to hit Neon's managed endpoint unchanged.
+ * Lazily construct the Drizzle/D1 client from a D1 binding. Returns `null` when
+ * no binding is injected so that importing this package never throws — callers
+ * degrade gracefully in environments without a database (e.g. local `next dev`
+ * or the worker before the D1 binding is attached), mirroring the rate-limit
+ * package's optional behavior.
+ *
+ * The binding is injected by the runtime: on Workers, `env.DB` (declared in the
+ * root `cloudflare.config.ts`); in tests, a D1 stub or miniflare instance.
+ * @param d1 - The D1 namespace binding, or `undefined` when unavailable.
+ * @returns The Drizzle client, or `null` when no binding was injected.
  */
-function configureLocalNeonProxy(): void {
-	const endpoint = process.env.DATABASE_HTTP_ENDPOINT;
-	if (!endpoint) {
-		return;
-	}
-	neonConfig.fetchEndpoint = endpoint;
-	neonConfig.useSecureWebSocket = false;
-	neonConfig.poolQueryViaFetch = true;
-}
-
-/**
- * Lazily construct the Drizzle/Neon client. Returns `null` when `DATABASE_URL`
- * is not configured so that importing this package never throws — callers
- * degrade gracefully in environments without a database, mirroring the
- * rate-limit package's optional behavior.
- * @returns The Drizzle client, or `null` when no database is configured.
- */
-export function getDatabase(): Database | null {
-	const url = process.env.DATABASE_URL;
-	if (!url) {
-		return null;
-	}
-	if (!cached) {
-		configureLocalNeonProxy();
-		cached = drizzle(neon(url), { schema });
-	}
-	return cached;
+export function getDatabase(d1?: D1Database | null): Database | null {
+  if (!d1) {
+    return null;
+  }
+  if (!cached) {
+    cached = drizzle(d1, { schema });
+  }
+  return cached;
 }

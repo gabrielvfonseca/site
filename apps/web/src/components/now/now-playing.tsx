@@ -1,5 +1,7 @@
 import Link from "next/link";
+
 import { cn } from "@/lib/utils";
+
 import type { SpotifyPayload } from "./types";
 
 /** Number of animated equalizer bars. */
@@ -12,8 +14,8 @@ const EQ_BARS = Array.from({ length: EQ_BAR_COUNT }, (_, index) => index);
  * Props for {@link NowPlaying}.
  */
 interface NowPlayingProps {
-	/** The now/last-playing track, or `null` when unavailable. */
-	readonly track: SpotifyPayload["nowPlaying"];
+  /** The now/last-playing track, or `null` when unavailable. */
+  readonly track: SpotifyPayload["nowPlaying"];
 }
 
 /**
@@ -24,56 +26,54 @@ interface NowPlayingProps {
  * @returns The NowPlaying element.
  */
 export function NowPlaying({ track }: NowPlayingProps) {
-	if (!track) {
-		return (
-			<p className="text-muted-foreground text-sm">
-				Nothing playing right now.
-			</p>
-		);
-	}
+  if (!track) {
+    return (
+      <p className="text-muted-foreground text-sm">
+        Nothing playing right now.
+      </p>
+    );
+  }
 
-	return (
-		<Link
-			className="group flex items-center gap-3 rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-			href={track.url}
-			rel="noopener noreferrer"
-			target="_blank"
-		>
-			{track.albumImage ? (
-				// biome-ignore lint/performance/noImgElement: remote album art, no known dimensions
-				// biome-ignore lint/correctness/useImageSize: intrinsic size is unknown
-				<img
-					alt=""
-					className="size-11 shrink-0 rounded-md border border-border object-cover"
-					loading="lazy"
-					src={track.albumImage}
-				/>
-			) : (
-				<span className="size-11 shrink-0 rounded-md border border-border bg-muted" />
-			)}
-			<span className="flex min-w-0 flex-col gap-0.5">
-				<span className="flex items-center gap-2 text-muted-foreground text-xs uppercase tracking-wider">
-					{track.isPlaying ? (
-						<span aria-hidden="true" className="flex h-3 items-end gap-0.5">
-							{EQ_BARS.map((bar) => (
-								<span
-									className="now-eq-bar w-0.5 origin-bottom bg-foreground"
-									key={bar}
-									style={{
-										animationDelay: `${bar * EQ_STAGGER_SECONDS}s`,
-										height: "100%",
-									}}
-								/>
-							))}
-						</span>
-					) : null}
-					{track.isPlaying ? "Now playing" : "Last played"}
-				</span>
-				<span className="truncate text-foreground text-sm">{track.name}</span>
-				<span className={cn("truncate text-muted-foreground text-sm")}>
-					{track.artist}
-				</span>
-			</span>
-		</Link>
-	);
+  return (
+    <Link
+      className="group focus-visible:ring-ring flex items-center gap-3 rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      href={track.url}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      {track.albumImage ? (
+        <img
+          alt=""
+          className="border-border size-11 shrink-0 rounded-md border object-cover"
+          loading="lazy"
+          src={track.albumImage}
+        />
+      ) : (
+        <span className="border-border bg-muted size-11 shrink-0 rounded-md border" />
+      )}
+      <span className="flex min-w-0 flex-col gap-0.5">
+        <span className="text-muted-foreground flex items-center gap-2 text-xs tracking-wider uppercase">
+          {track.isPlaying ? (
+            <span aria-hidden="true" className="flex h-3 items-end gap-0.5">
+              {EQ_BARS.map((bar) => (
+                <span
+                  className="now-eq-bar bg-foreground w-0.5 origin-bottom"
+                  key={bar}
+                  style={{
+                    animationDelay: `${bar * EQ_STAGGER_SECONDS}s`,
+                    height: "100%",
+                  }}
+                />
+              ))}
+            </span>
+          ) : null}
+          {track.isPlaying ? "Now playing" : "Last played"}
+        </span>
+        <span className="text-foreground truncate text-sm">{track.name}</span>
+        <span className={cn("text-muted-foreground truncate text-sm")}>
+          {track.artist}
+        </span>
+      </span>
+    </Link>
+  );
 }

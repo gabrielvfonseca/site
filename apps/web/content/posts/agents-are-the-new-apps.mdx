@@ -17,6 +17,7 @@ Here's why **Agentic workflows are the new runtime primitives** - and why you ne
 Chat interfaces like GPT made AI accessible. But they're just interfaces - single-purpose models that respond to prompts.
 
 Agentic workflows take this further. They combine:
+
 - Planning
 - Tool use
 - Memory
@@ -27,6 +28,7 @@ This isn't just 'talking to AI.' It's **AI that actively solves problems**.
 ## Why We Stopped With Chatbots
 
 They have fundamental limitations:
+
 - No persistent memory of context
 - No multi-step planning
 - Can't call external tools
@@ -39,6 +41,7 @@ We needed something deeper.
 ## What Are Agentic Workflows
 
 Agentic workflows are systems that:
+
 1. **Plan** solutions based on goals
 2. **Execute** steps to implement those plans
 3. **Remember** context across interactions
@@ -53,19 +56,24 @@ They're not 'asking an AI a question.' They're **running a distributed system** 
 Operator is our runtime for agentic workflows. It provides:
 
 ### Planning Primitives
+
 Agents can generate task trees using predefined patterns:
+
 - Linear execution
 - Conditional branches
 - Parallel paths
 - Optimized loops
 
 ### Execution Engine
+
 When you call `agent.executeTask()`, it doesn't just plan - it actually runs code and orchestrates tools to achieve the goal.
 
 ### Memory System
+
 Persistent context that survives across steps. Not just token buffers, but structured memory primitives.
 
 ### Validation Layer
+
 Built-in mechanisms to check that outputs meet success criteria before moving on.
 
 We built Operator because existing frameworks were fragmented. Some handled memory but not tool use. Some excelled at planning but lacked validation.
@@ -75,7 +83,9 @@ Operator consolidates these primitives into a single runtime.
 ## Real-World Use Cases
 
 ### Customer Support Automation
+
 Instead of building chatbots, we let operators:
+
 1. Identify customer intent from email
 2. Pull relevant support policies from the knowledge base
 3. Check order and billing history
@@ -84,7 +94,9 @@ Instead of building chatbots, we let operators:
 6. Escalate complex cases automatically
 
 ### Data Migration
+
 An operator can:
+
 1. Connect to source and target databases
 2. Analyze schema differences
 3. Generate migration scripts
@@ -93,7 +105,9 @@ An operator can:
 6. Report failure modes
 
 ### Internal Tool Configuration
+
 Operators can:
+
 1. Scan existing configuration files
 2. Identify deprecated patterns
 3. Suggest modern replacements
@@ -104,6 +118,7 @@ Operators can:
 ## The Key Shift
 
 Agentic workflows change everything:
+
 - **Power shifts** from linear code to adaptive planning
 - **Error handling** becomes probabilistic but traceable
 - **Logic** becomes dynamic but constrained
@@ -131,6 +146,7 @@ It's not about building AI that's 'smarter.' It's about building systems that ar
 ## The Operating System of AI
 
 We're building Operator not as a framework, but as **the operating system for agentic workflows**. It handles:
+
 - Context management
 - Execution orchestration
 - Memory persistence

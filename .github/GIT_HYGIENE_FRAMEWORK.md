@@ -1,13 +1,15 @@
 # Organization-Wide Git Hygiene Framework
+
 **Version**: 1.0  
 **Purpose**: Standardized audit and implementation across all organization repositories  
-**Audience**: Repository maintainers, platform engineers, team leads  
+**Audience**: Repository maintainers, platform engineers, team leads
 
 ---
 
 ## Overview
 
 This framework provides a **production-grade Git standardization system** applicable to any repository type. It defines:
+
 - Audit criteria and scoring methodology
 - Implementation requirements for each category
 - Enforcement mechanisms and automation
@@ -20,25 +22,25 @@ This framework provides a **production-grade Git standardization system** applic
 ### Category Weights
 
 | Category | Weight | Critical? | Impact |
-|----------|--------|-----------|--------|
-| Git Configuration | 10% |  High | Cross-platform consistency |
-| Branching Model | 15% |  Critical | Team workflow, deployment safety |
-| Conventional Commits | 10% |  Critical | Changelog, bisect, blame readability |
-| Pre-commit Automation | 15% |  Critical | Prevent bad commits from being made |
-| CI/CD Pipeline | 20% |  Critical | Deployment safety, quality gates |
-| Security Controls | 15% |  Critical | Prevent breaches, compliance |
-| Documentation | 10% |  High | Onboarding, knowledge sharing |
-| **TOTAL** | **100%** | | |
+| --- | --- | --- | --- |
+| Git Configuration | 10% | High | Cross-platform consistency |
+| Branching Model | 15% | Critical | Team workflow, deployment safety |
+| Conventional Commits | 10% | Critical | Changelog, bisect, blame readability |
+| Pre-commit Automation | 15% | Critical | Prevent bad commits from being made |
+| CI/CD Pipeline | 20% | Critical | Deployment safety, quality gates |
+| Security Controls | 15% | Critical | Prevent breaches, compliance |
+| Documentation | 10% | High | Onboarding, knowledge sharing |
+| **TOTAL** | **100%** |  |  |
 
 ### Grade Scale
 
-| Score | Grade | Status | Action Required |
-|-------|-------|--------|-----------------|
-| 90-100% | A |  Excellent | Maintain; minor improvements |
-| 80-89% | B |  Good | Address medium-priority gaps |
-| 70-79% | C |  Partial | Implement high-priority items |
-| 60-69% | D |  Poor | Major work needed; escalate |
-| <60% | F |  Failing | Immediate remediation required |
+| Score   | Grade | Status    | Action Required                |
+| ------- | ----- | --------- | ------------------------------ |
+| 90-100% | A     | Excellent | Maintain; minor improvements   |
+| 80-89%  | B     | Good      | Address medium-priority gaps   |
+| 70-79%  | C     | Partial   | Implement high-priority items  |
+| 60-69%  | D     | Poor      | Major work needed; escalate    |
+| <60%    | F     | Failing   | Immediate remediation required |
 
 ---
 
@@ -47,6 +49,7 @@ This framework provides a **production-grade Git standardization system** applic
 ### 1. GIT CONFIGURATION (10%)
 
 #### 1.1 .gitattributes (2%)
+
 **Requirement**: File must exist with LF normalization rules
 
 ```bash
@@ -55,6 +58,7 @@ grep -q "text eol=lf" .gitattributes && echo "PASS" || echo "FAIL"
 ```
 
 **Minimum viable config**:
+
 ```
 * text=auto
 *.ts text eol=lf
@@ -65,11 +69,13 @@ grep -q "text eol=lf" .gitattributes && echo "PASS" || echo "FAIL"
 ```
 
 **Score**:
--  2%: File exists with LF rules for key file types
--  1%: File exists but incomplete
--  0%: Missing
+
+- 2%: File exists with LF rules for key file types
+- 1%: File exists but incomplete
+- 0%: Missing
 
 #### 1.2 .editorconfig (2%)
+
 **Requirement**: File must exist with editor consistency rules
 
 ```bash
@@ -78,6 +84,7 @@ grep -q "indent_size" .editorconfig && echo "PASS" || echo "FAIL"
 ```
 
 **Minimum viable config**:
+
 ```
 root = true
 [*]
@@ -87,11 +94,13 @@ indent_size = 2
 ```
 
 **Score**:
--  2%: File exists with indent, EOL, charset settings
--  1%: File exists but incomplete
--  0%: Missing
+
+- 2%: File exists with indent, EOL, charset settings
+- 1%: File exists but incomplete
+- 0%: Missing
 
 #### 1.3 Global Git Configuration (3%)
+
 **Requirement**: Developers have user.name, user.email configured
 
 ```bash
@@ -100,6 +109,7 @@ git config --global user.email > /dev/null && echo "PASS" || echo "FAIL"
 ```
 
 **Verification per developer**:
+
 ```bash
 # Each team member should have:
 git config user.name "Developer Name"
@@ -107,12 +117,14 @@ git config user.email "developer@company.com"
 ```
 
 **Score**:
--  3%: All developers have proper config
--  2%: ≥75% of developers configured
--  1%: ≥50% of developers configured
--  0%: <50% or undocumented
+
+- 3%: All developers have proper config
+- 2%: ≥75% of developers configured
+- 1%: ≥50% of developers configured
+- 0%: <50% or undocumented
 
 #### 1.4 Repo-Specific Git Config (3%)
+
 **Requirement**: Safe defaults configured
 
 ```bash
@@ -122,6 +134,7 @@ git config fetch.prune | grep -q "true" && echo "PASS" || echo "FAIL"
 ```
 
 **Required settings**:
+
 ```bash
 git config core.safecrlf true
 git config core.autocrlf false  # Since we use .gitattributes
@@ -131,16 +144,18 @@ git config rebase.autosquash true
 ```
 
 **Score**:
--  3%: All settings configured
--  2%: ≥60% configured
--  1%: ≥30% configured
--  0%: None or missing
+
+- 3%: All settings configured
+- 2%: ≥60% configured
+- 1%: ≥30% configured
+- 0%: None or missing
 
 ---
 
 ### 2. BRANCHING MODEL (15%)
 
 #### 2.1 Documentation (3%)
+
 **Requirement**: BRANCH_POLICY.md or equivalent exists
 
 ```bash
@@ -148,12 +163,14 @@ git config rebase.autosquash true
 ```
 
 **Score**:
--  3%: Documented branching model with examples
--  2%: Basic documentation present
--  1%: Mentioned in README
--  0%: No documentation
+
+- 3%: Documented branching model with examples
+- 2%: Basic documentation present
+- 1%: Mentioned in README
+- 0%: No documentation
 
 #### 2.2 Main Branch Protection (5%)
+
 **Requirement**: `main` branch has protection rules at GitHub level
 
 **Verification**: Manual check in GitHub Settings
@@ -168,16 +185,19 @@ Allow:    Deletions
 ```
 
 **Score**:
--  5%: All protections enabled
--  4%: ≥5 of 6 protections
--  3%: ≥4 of 6 protections
--  2%: ≥2 of 6 protections
--  0%: No protections
+
+- 5%: All protections enabled
+- 4%: ≥5 of 6 protections
+- 3%: ≥4 of 6 protections
+- 2%: ≥2 of 6 protections
+- 0%: No protections
 
 #### 2.3 Branch Naming Convention (4%)
+
 **Requirement**: Feature/fix/hotfix branches follow naming pattern
 
 **Pattern validation** (automated check):
+
 ```bash
 # Should enforce pattern like:
 # feature/TICKET-XXX-description
@@ -189,32 +209,37 @@ git for-each-ref --format='%(refname:short)' refs/heads/ | \
 ```
 
 **Score**:
--  4%: Enforced via pre-commit or branch protection
--  3%: Consistently followed (≥90% of branches)
--  2%: Mostly followed (≥70% of branches)
--  1%: Loosely followed (≥50% of branches)
--  0%: No naming convention
+
+- 4%: Enforced via pre-commit or branch protection
+- 3%: Consistently followed (≥90% of branches)
+- 2%: Mostly followed (≥70% of branches)
+- 1%: Loosely followed (≥50% of branches)
+- 0%: No naming convention
 
 #### 2.4 Merge Strategy (3%)
+
 **Requirement**: Squash or rebase merges (not merge commits)
 
 **Verification**: Check Git history
+
 ```bash
 # Should show linear history, not merge commits
 git log --oneline --graph --all | head -20
 ```
 
 **Score**:
--  3%: Enforced at GitHub (squash/rebase required)
--  2%: Mostly followed (≥80% of merges)
--  1%: Inconsistently applied
--  0%: Merge commits present
+
+- 3%: Enforced at GitHub (squash/rebase required)
+- 2%: Mostly followed (≥80% of merges)
+- 1%: Inconsistently applied
+- 0%: Merge commits present
 
 ---
 
 ### 3. CONVENTIONAL COMMITS (10%)
 
 #### 3.1 Commitlint Configuration (3%)
+
 **Requirement**: commitlint enforces Conventional Commits
 
 ```bash
@@ -223,22 +248,41 @@ grep -q "type-enum" commitlint.config.js && echo "PASS" || echo "FAIL"
 ```
 
 **Minimum viable config**:
+
 ```javascript
 export default {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'chore', 'refactor', 'test', 'style', 'revert', 'ci', 'perf', 'build']],
+    "type-enum": [
+      2,
+      "always",
+      [
+        "feat",
+        "fix",
+        "docs",
+        "chore",
+        "refactor",
+        "test",
+        "style",
+        "revert",
+        "ci",
+        "perf",
+        "build",
+      ],
+    ],
   },
 };
 ```
 
 **Score**:
--  3%: commitlint installed and enforced
--  2%: commitlint configured but not enforced
--  1%: Custom validation present
--  0%: No validation
+
+- 3%: commitlint installed and enforced
+- 2%: commitlint configured but not enforced
+- 1%: Custom validation present
+- 0%: No validation
 
 #### 3.2 Commit-msg Hook (4%)
+
 **Requirement**: Pre-commit hook validates message format
 
 ```bash
@@ -247,15 +291,18 @@ test -x .husky/commit-msg && echo "PASS" || echo "FAIL"
 ```
 
 **Score**:
--  4%: Husky hook enforces commitlint
--  3%: Hook exists but not enforced
--  2%: Manual validation only
--  0%: No enforcement
+
+- 4%: Husky hook enforces commitlint
+- 3%: Hook exists but not enforced
+- 2%: Manual validation only
+- 0%: No enforcement
 
 #### 3.3 Format Compliance (3%)
+
 **Requirement**: Recent commits follow format
 
 **Verification**:
+
 ```bash
 # Check last 20 commits
 git log --oneline -20 | grep -E "^[a-f0-9]+ (feat|fix|docs|chore|refactor|test|style|revert|ci|perf|build)(\(.+\))?:" | wc -l
@@ -263,6 +310,7 @@ git log --oneline -20 | grep -E "^[a-f0-9]+ (feat|fix|docs|chore|refactor|test|s
 ```
 
 **Scoring**:
+
 ```
  3%: ≥90% compliance (18/20)
  2%: ≥75% compliance (15/20)
@@ -275,6 +323,7 @@ git log --oneline -20 | grep -E "^[a-f0-9]+ (feat|fix|docs|chore|refactor|test|s
 ### 4. PRE-COMMIT AUTOMATION (15%)
 
 #### 4.1 Husky Installation (2%)
+
 **Requirement**: Husky hooks manager is installed
 
 ```bash
@@ -283,14 +332,17 @@ grep -q "husky" package.json && echo "PASS" || echo "FAIL"
 ```
 
 **Score**:
--  2%: Husky installed and configured
--  1%: Husky installed but hooks missing
--  0%: Not installed
+
+- 2%: Husky installed and configured
+- 1%: Husky installed but hooks missing
+- 0%: Not installed
 
 #### 4.2 Pre-commit Hook (4%)
+
 **Requirement**: Comprehensive pre-commit validation
 
 **Verification**:
+
 ```bash
 test -x .husky/pre-commit && echo "PASS" || echo "FAIL"
 # Check contents
@@ -298,18 +350,21 @@ cat .husky/pre-commit | wc -l  # Should be >10 lines
 ```
 
 **Must run**:
--  Linting (Biome, ESLint, Prettier)
--  Format checking
--  Secret scanning (optional but recommended)
+
+- Linting (Biome, ESLint, Prettier)
+- Format checking
+- Secret scanning (optional but recommended)
 
 **Score**:
--  4%: Comprehensive checks (lint + format + secrets)
--  3%: Lint and format only
--  2%: Lint only
--  1%: Hook exists but minimal
--  0%: Missing
+
+- 4%: Comprehensive checks (lint + format + secrets)
+- 3%: Lint and format only
+- 2%: Lint only
+- 1%: Hook exists but minimal
+- 0%: Missing
 
 #### 4.3 Lint-staged Configuration (3%)
+
 **Requirement**: Targeted linting via lint-staged
 
 ```bash
@@ -319,6 +374,7 @@ grep -q "\.{js,jsx,ts,tsx}" package.json && echo "PASS" || echo "FAIL"
 ```
 
 **Minimum coverage**:
+
 ```json
 "lint-staged": {
   "*.{js,jsx,ts,tsx}": ["eslint", "prettier"],
@@ -327,12 +383,14 @@ grep -q "\.{js,jsx,ts,tsx}" package.json && echo "PASS" || echo "FAIL"
 ```
 
 **Score**:
--  3%: Covers ≥4 file types
--  2%: Covers 2-3 file types
--  1%: Covers 1 file type
--  0%: Not configured
+
+- 3%: Covers ≥4 file types
+- 2%: Covers 2-3 file types
+- 1%: Covers 1 file type
+- 0%: Not configured
 
 #### 4.4 Pre-push Hook (3%)
+
 **Requirement**: Pre-push validation prevents bad pushes
 
 ```bash
@@ -342,17 +400,20 @@ wc -l .husky/pre-push | awk '{print $1}' | grep -qv "^1$" && echo "PASS" || echo
 ```
 
 **Must check before push**:
--  TypeScript compilation (pnpm typecheck)
--  Unit tests (pnpm test)
--  Merge conflicts detection
+
+- TypeScript compilation (pnpm typecheck)
+- Unit tests (pnpm test)
+- Merge conflicts detection
 
 **Score**:
--  3%: Comprehensive pre-push checks (≥2)
--  2%: Basic checks present
--  1%: Hook exists but minimal
--  0%: Missing or empty
+
+- 3%: Comprehensive pre-push checks (≥2)
+- 2%: Basic checks present
+- 1%: Hook exists but minimal
+- 0%: Missing or empty
 
 #### 4.5 Commit-msg Hook (3%)
+
 **Requirement**: Message format validation (Conventional Commits)
 
 ```bash
@@ -360,15 +421,17 @@ test -x .husky/commit-msg && echo "PASS" || echo "FAIL"
 ```
 
 **Score**:
--  3%: Enforced via commitlint
--  2%: Hook exists
--  0%: Missing
+
+- 3%: Enforced via commitlint
+- 2%: Hook exists
+- 0%: Missing
 
 ---
 
 ### 5. CI/CD PIPELINE (20%)
 
 #### 5.1 Lint Workflow (3%)
+
 **Requirement**: GitHub Actions lint workflow exists
 
 ```bash
@@ -377,17 +440,20 @@ grep -q "run:" .github/workflows/lint.yml && echo "PASS" || echo "FAIL"
 ```
 
 **Must include**:
+
 - Code linting (Biome, ESLint, etc.)
 - Format checking
 - Type checking (if TypeScript)
 
 **Score**:
--  3%: Complete lint workflow
--  2%: Basic lint workflow
--  1%: Partial
--  0%: Missing
+
+- 3%: Complete lint workflow
+- 2%: Basic lint workflow
+- 1%: Partial
+- 0%: Missing
 
 #### 5.2 Test Workflow (3%)
+
 **Requirement**: Unit and E2E tests run in CI
 
 ```bash
@@ -396,17 +462,20 @@ grep -q "test" .github/workflows/test.yml && echo "PASS" || echo "FAIL"
 ```
 
 **Must include**:
+
 - Unit tests execution
 - Coverage reporting
 - E2E tests (if applicable)
 
 **Score**:
--  3%: Complete test workflow with coverage
--  2%: Test workflow present
--  1%: Partial
--  0%: Missing
+
+- 3%: Complete test workflow with coverage
+- 2%: Test workflow present
+- 1%: Partial
+- 0%: Missing
 
 #### 5.3 Build Workflow (3%)
+
 **Requirement**: Build process automated in CI
 
 ```bash
@@ -415,17 +484,20 @@ grep -q "build\|compile" .github/workflows/*.yml && echo "PASS" || echo "FAIL"
 ```
 
 **Must verify**:
+
 - Build succeeds
 - Artifacts generated
 - No build warnings treated as errors
 
 **Score**:
--  3%: Complete build workflow
--  2%: Build included in main workflow
--  1%: Build process incomplete
--  0%: Missing
+
+- 3%: Complete build workflow
+- 2%: Build included in main workflow
+- 1%: Build process incomplete
+- 0%: Missing
 
 #### 5.4 Security Scanning (3%)
+
 **Requirement**: Dependency and code security scanning
 
 ```bash
@@ -434,18 +506,21 @@ grep -q "snyk\|dependabot\|codeql" .github/workflows/*.yml && echo "PASS" || ech
 ```
 
 **Must include at least one**:
+
 - Snyk (dependency vulnerabilities)
 - Dependabot (automated updates)
 - CodeQL (code analysis)
 - OWASP Dependency-Check
 
 **Score**:
--  3%: Multiple security tools (≥2)
--  2%: One security tool
--  1%: Partial setup
--  0%: Missing
+
+- 3%: Multiple security tools (≥2)
+- 2%: One security tool
+- 1%: Partial setup
+- 0%: Missing
 
 #### 5.5 Status Checks (3%)
+
 **Requirement**: Branch protection requires CI status checks
 
 ```bash
@@ -457,12 +532,14 @@ grep -q "snyk\|dependabot\|codeql" .github/workflows/*.yml && echo "PASS" || ech
 ```
 
 **Score**:
--  3%: All CI checks required
--  2%: ≥2 checks required
--  1%: ≥1 check required
--  0%: Not required
+
+- 3%: All CI checks required
+- 2%: ≥2 checks required
+- 1%: ≥1 check required
+- 0%: Not required
 
 #### 5.6 PR Status Reporting (2%)
+
 **Requirement**: CI reports back to PRs with status
 
 ```bash
@@ -471,15 +548,17 @@ grep -q "snyk\|dependabot\|codeql" .github/workflows/*.yml && echo "PASS" || ech
 ```
 
 **Score**:
--  2%: Comprehensive status reporting
--  1%: Basic status reporting
--  0%: Missing
+
+- 2%: Comprehensive status reporting
+- 1%: Basic status reporting
+- 0%: Missing
 
 ---
 
 ### 6. SECURITY CONTROLS (15%)
 
 #### 6.1 SECURITY.md Documentation (2%)
+
 **Requirement**: Vulnerability disclosure policy documented
 
 ```bash
@@ -488,17 +567,20 @@ grep -q "vulnerability\|security" SECURITY.md && echo "PASS" || echo "FAIL"
 ```
 
 **Must include**:
+
 - How to report vulnerabilities
 - Response timeline
 - Supported versions
 - Contact information
 
 **Score**:
--  2%: Complete SECURITY.md
--  1%: Basic information
--  0%: Missing
+
+- 2%: Complete SECURITY.md
+- 1%: Basic information
+- 0%: Missing
 
 #### 6.2 Secret Scanning (3%)
+
 **Requirement**: Gitleaks or equivalent prevents secrets
 
 ```bash
@@ -509,12 +591,14 @@ grep -r "gitleaks" .husky/ && echo "PASS" || echo "FAIL"
 ```
 
 **Score**:
--  3%: Gitleaks enforced in pre-commit
--  2%: Gitleaks configured but not enforced
--  1%: Secret scanning in CI only
--  0%: No secret scanning
+
+- 3%: Gitleaks enforced in pre-commit
+- 2%: Gitleaks configured but not enforced
+- 1%: Secret scanning in CI only
+- 0%: No secret scanning
 
 #### 6.3 Dependabot/Renovate (4%)
+
 **Requirement**: Automated dependency updates
 
 ```bash
@@ -523,17 +607,20 @@ grep -q "schedule" renovate.json || grep -q "schedule" .github/dependabot.yml &&
 ```
 
 **Must include**:
+
 - Dependency updates enabled
 - Security fixes prioritized
 - Schedule defined (e.g., weekly)
 
 **Score**:
--  4%: Full Renovate/Dependabot setup
--  3%: Basic setup
--  2%: Partially configured
--  0%: Missing
+
+- 4%: Full Renovate/Dependabot setup
+- 3%: Basic setup
+- 2%: Partially configured
+- 0%: Missing
 
 #### 6.4 Dependency Lock Files (3%)
+
 **Requirement**: Lock files checked in for reproducibility
 
 ```bash
@@ -542,12 +629,14 @@ git ls-files | grep -E "lock\.yaml|lock\.json" && echo "PASS" || echo "FAIL"
 ```
 
 **Scoring**:
--  3%: Lock file committed, single package manager
--  2%: Lock file present
--  1%: Partially tracked
--  0%: Missing or ignored
+
+- 3%: Lock file committed, single package manager
+- 2%: Lock file present
+- 1%: Partially tracked
+- 0%: Missing or ignored
 
 #### 6.5 Signed Commits (2%)
+
 **Requirement**: Commit signing enforced or recommended
 
 ```bash
@@ -556,11 +645,13 @@ git config commit.gpgsign || echo "Not required (but recommended)"
 ```
 
 **Score**:
--  2%: GPG signing required at repo level
--  1%: Signing recommended
--  0%: No signing
+
+- 2%: GPG signing required at repo level
+- 1%: Signing recommended
+- 0%: No signing
 
 #### 6.6 Code Review Requirement (1%)
+
 **Requirement**: No direct commits to main
 
 ```bash
@@ -569,15 +660,17 @@ git config commit.gpgsign || echo "Not required (but recommended)"
 ```
 
 **Score**:
--  1%: Code owner review required
--  0.5%: Review recommended
--  0%: Not enforced
+
+- 1%: Code owner review required
+- 0.5%: Review recommended
+- 0%: Not enforced
 
 ---
 
 ### 7. DOCUMENTATION (10%)
 
 #### 7.1 README.md (2%)
+
 **Requirement**: Project README exists with setup instructions
 
 ```bash
@@ -586,6 +679,7 @@ grep -q -i "installation\|setup\|getting started" README.md && echo "PASS" || ec
 ```
 
 **Must include**:
+
 - Project description
 - Prerequisites
 - Installation steps
@@ -593,11 +687,13 @@ grep -q -i "installation\|setup\|getting started" README.md && echo "PASS" || ec
 - Contributing link
 
 **Score**:
--  2%: Comprehensive README
--  1%: Basic README
--  0%: Missing
+
+- 2%: Comprehensive README
+- 1%: Basic README
+- 0%: Missing
 
 #### 7.2 CONTRIBUTING.md (2%)
+
 **Requirement**: Developer contribution guide exists
 
 ```bash
@@ -606,6 +702,7 @@ grep -q "pull request\|development" CONTRIBUTING.md && echo "PASS" || echo "FAIL
 ```
 
 **Must include**:
+
 - Setup instructions
 - Development workflow
 - Code standards
@@ -613,11 +710,13 @@ grep -q "pull request\|development" CONTRIBUTING.md && echo "PASS" || echo "FAIL
 - Testing requirements
 
 **Score**:
--  2%: Comprehensive guide
--  1%: Basic guide
--  0%: Missing
+
+- 2%: Comprehensive guide
+- 1%: Basic guide
+- 0%: Missing
 
 #### 7.3 Branch Policy Documentation (2%)
+
 **Requirement**: Branching strategy documented
 
 ```bash
@@ -625,17 +724,20 @@ grep -q "pull request\|development" CONTRIBUTING.md && echo "PASS" || echo "FAIL
 ```
 
 **Must cover**:
+
 - Branch types and naming
 - Merge strategy
 - Protection rules
 - Workflow examples
 
 **Score**:
--  2%: Dedicated documentation
--  1%: Mentioned in CONTRIBUTING
--  0%: Not documented
+
+- 2%: Dedicated documentation
+- 1%: Mentioned in CONTRIBUTING
+- 0%: Not documented
 
 #### 7.4 Development Guide (2%)
+
 **Requirement**: Setup and development workflow documented
 
 ```bash
@@ -643,6 +745,7 @@ test -f .github/DEVELOPMENT.md && echo "PASS" || echo "FAIL"
 ```
 
 **Must include**:
+
 - Prerequisites
 - Setup steps
 - Common commands
@@ -650,17 +753,20 @@ test -f .github/DEVELOPMENT.md && echo "PASS" || echo "FAIL"
 - Testing strategy
 
 **Score**:
--  2%: Comprehensive guide
--  1%: Basic information in README
--  0%: Missing
+
+- 2%: Comprehensive guide
+- 1%: Basic information in README
+- 0%: Missing
 
 #### 7.5 API/Architecture Documentation (2%)
+
 **Requirement**: Key components documented
 
 **Scoring**:
--  2%: Architecture documented (README or ARCHITECTURE.md)
--  1%: Comments in code
--  0%: No documentation
+
+- 2%: Architecture documented (README or ARCHITECTURE.md)
+- 1%: Comments in code
+- 0%: No documentation
 
 ---
 
@@ -728,6 +834,7 @@ echo "=== End Audit ==="
 ```
 
 **Usage**:
+
 ```bash
 chmod +x git-hygiene-audit.sh
 ./git-hygiene-audit.sh
@@ -738,24 +845,28 @@ chmod +x git-hygiene-audit.sh
 ## ORG-WIDE ROLLOUT STRATEGY
 
 ### Phase 1: Pilot (Week 1)
+
 1. Apply to 1-2 critical repositories
 2. Gather feedback from developers
 3. Refine framework based on learnings
 4. Document exceptions and deviations
 
 ### Phase 2: Early Adopters (Week 2-3)
+
 1. Identify teams willing to adopt early
 2. Provide hands-on support
 3. Capture success metrics
 4. Address team-specific needs
 
 ### Phase 3: Broad Rollout (Week 4-6)
+
 1. Apply to all repositories
 2. Provide training sessions
 3. Document common issues
 4. Support lagging repositories
 
 ### Phase 4: Enforcement (Week 7+)
+
 1. Audit all repositories quarterly
 2. Report compliance metrics
 3. Escalate non-compliant repos
@@ -766,6 +877,7 @@ chmod +x git-hygiene-audit.sh
 ## SUCCESS METRICS
 
 ### Quantitative
+
 - % of repositories at grade B or higher
 - % of developers with Git configured
 - % of commits following Conventional Commits format
@@ -774,6 +886,7 @@ chmod +x git-hygiene-audit.sh
 - Reduction in failed deployments
 
 ### Qualitative
+
 - Developer satisfaction with Git workflow
 - Time saved through automation
 - Reduction in review cycles
@@ -781,6 +894,7 @@ chmod +x git-hygiene-audit.sh
 - Better security posture
 
 ### Reporting
+
 ```bash
 # Quarterly audit report
 for repo in repos/*; do
@@ -794,6 +908,7 @@ done
 ## CUSTOMIZATION PER REPO TYPE
 
 ### JavaScript/Node.js Repositories
+
 ```
 + Lint.js files with ESLint/Biome
 + Test with Jest/Vitest/Mocha
@@ -803,6 +918,7 @@ done
 ```
 
 ### Python Repositories
+
 ```
 + Lint with Ruff/Flake8
 + Format with Black/Autopep8
@@ -813,6 +929,7 @@ done
 ```
 
 ### Go Repositories
+
 ```
 + Lint with golangci-lint
 + Test with Go test
@@ -822,6 +939,7 @@ done
 ```
 
 ### Monorepos
+
 ```
 + Enforce single package manager
 + Shared config for hooks/linting
@@ -835,24 +953,30 @@ done
 ## TROUBLESHOOTING COMMON ISSUES
 
 ### Issue: Developers bypassing pre-commit hooks
+
 **Root Cause**: Hooks are too strict or slow  
 **Solution**:
+
 1. Profile hook execution time
 2. Optimize slow checks
 3. Allow skipping with --no-verify (with approval)
 4. Provide clear error messages
 
 ### Issue: CI builds failing for committed secrets
+
 **Root Cause**: Gitleaks not installed locally  
 **Solution**:
+
 1. Add Gitleaks to onboarding checklist
 2. Provide installation scripts
 3. Add pre-push hook enforcement
 4. Document secret reporting process
 
 ### Issue: Merge conflicts in lock files
+
 **Root Cause**: Multiple developers updating simultaneously  
 **Solution**:
+
 1. Add pre-merge script to auto-resolve
 2. Use Renovate for atomic lock file updates
 3. Educate on branch coordination
@@ -862,6 +986,7 @@ done
 ## MAINTENANCE & EVOLUTION
 
 ### Quarterly Reviews
+
 - Audit all repositories
 - Collect feedback from developers
 - Update documentation
@@ -869,6 +994,7 @@ done
 - Address pain points
 
 ### Annual Updates
+
 - Review industry best practices
 - Update tool versions
 - Incorporate new security tools
@@ -876,6 +1002,7 @@ done
 - Plan improvements
 
 ### Escalation Path
+
 ```
 Individual → Team Lead → Platform Engineering → CTO
     (local issues) → (team adoption) → (org policy) → (strategic)

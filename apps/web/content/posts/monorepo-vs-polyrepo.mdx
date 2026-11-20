@@ -20,44 +20,37 @@ In a polyrepo, those questions are optional. In a monorepo, they're mandatory.
 
 ## When Monorepo Wins
 
-**Shared types and tooling**
-My `@gabfon/typescript-config` and `@gabfon/testing` packages are used by every other package. In a polyrepo, I'd copy-paste config or publish to npm. In a monorepo, it's `workspace:*`.
+**Shared types and tooling** My `@gabfon/typescript-config` and `@gabfon/testing` packages are used by every other package. In a polyrepo, I'd copy-paste config or publish to npm. In a monorepo, it's `workspace:*`.
 
-**Atomic commits**
-I can change the GitHub API client and the web app in one commit. No "update submodule" dance. No version mismatch between packages.
+**Atomic commits** I can change the GitHub API client and the web app in one commit. No "update submodule" dance. No version mismatch between packages.
 
-**Single CI pipeline**
-One `pnpm test` runs everything. One `pnpm lint` catches cross-package issues. No "repo A passed but repo B broke because of a dep update."
+**Single CI pipeline** One `pnpm test` runs everything. One `pnpm lint` catches cross-package issues. No "repo A passed but repo B broke because of a dep update."
 
-**Refactoring confidence**
-When I rename an export in `@gabfon/github`, my IDE finds every usage across all 16 packages. Try that with polyrepo.
+**Refactoring confidence** When I rename an export in `@gabfon/github`, my IDE finds every usage across all 16 packages. Try that with polyrepo.
 
-**Dependency deduplication**
-One `node_modules`. One lockfile. No "why does repo A have lodash 4.17.21 and repo B have 4.17.20?"
+**Dependency deduplication** One `node_modules`. One lockfile. No "why does repo A have lodash 4.17.21 and repo B have 4.17.20?"
 
 ## When Polyrepo Wins
 
-**Independent deployments**
-If `@gabfon/analytics` needs a hotfix, I don't want to rebuild and redeploy the whole monorepo. In a polyrepo, each package deploys independently.
+**Independent deployments** If `@gabfon/analytics` needs a hotfix, I don't want to rebuild and redeploy the whole monorepo. In a polyrepo, each package deploys independently.
 
-**Team autonomy**
-When you have 50 engineers, monorepos become political. "Why did team A break team B's build?" Polyrepo isolates blast radius.
+**Team autonomy** When you have 50 engineers, monorepos become political. "Why did team A break team B's build?" Polyrepo isolates blast radius.
 
-**Open source publishing**
-If I wanted to publish `@gabfon/github` to npm for others to use, a polyrepo makes that cleaner. No "how do I publish just one package from a monorepo?"
+**Open source publishing** If I wanted to publish `@gabfon/github` to npm for others to use, a polyrepo makes that cleaner. No "how do I publish just one package from a monorepo?"
 
-**Security isolation**
-A vulnerability in `strava` doesn't automatically mean `database` is compromised. Separate repos = separate supply chains.
+**Security isolation** A vulnerability in `strava` doesn't automatically mean `database` is compromised. Separate repos = separate supply chains.
 
 ## The Real Trade-offs Nobody Talks About
 
 ### Monorepo Tax
+
 - Tooling complexity (Turborepo, pnpm workspaces, changesets)
 - CI time grows with package count
 - "Why is my change triggering 15 package builds?"
 - Onboarding new contributors is harder
 
 ### Polyrepo Tax
+
 - Version coordination hell
 - Copy-pasted configs
 - "Works in my repo" integration surprises
@@ -66,11 +59,13 @@ A vulnerability in `strava` doesn't automatically mean `database` is compromised
 ## My Decision Framework
 
 **Use monorepo when:**
+
 - Packages are tightly coupled (shared types, same team, same deploy)
 - You have < 20 packages
 - You value refactoring speed over deployment independence
 
 **Use polyrepo when:**
+
 - Packages are genuinely independent (different teams, different release cycles)
 - You have > 30 packages
 - You need to open source individual packages
@@ -80,20 +75,22 @@ A vulnerability in `strava` doesn't automatically mean `database` is compromised
 
 You don't have to choose one.
 
-My monorepo *could* publish packages to npm. The `@gabfon/*` packages are designed to be consumable independently. If Frontal grows and we need `@gabfon/github` in another repo, I'll publish it.
+My monorepo _could_ publish packages to npm. The `@gabfon/*` packages are designed to be consumable independently. If Frontal grows and we need `@gabfon/github` in another repo, I'll publish it.
 
-The monorepo is the *development* model. The registry is the *distribution* model.
+The monorepo is the _development_ model. The registry is the _distribution_ model.
 
 They're not mutually exclusive.
 
 ## What I'd Tell My Past Self
 
 Don't start with a monorepo. Start with a single package. Split when:
+
 - You feel pain from coupling
 - You have a clear boundary that wants to be independent
 - You have a reason to deploy separately
 
 My site started as one Next.js app. The monorepo emerged when:
+
 1. I wanted to share TypeScript config → `@gabfon/typescript-config`
 2. I wanted to test GitHub client in isolation → `@gabfon/github`
 3. I needed env validation composition → `@t3-oss/env-nextjs` with `extends`
@@ -106,7 +103,7 @@ Architecture should follow pain, not dogma.
 
 If you're building a side project, a monorepo is procrastination disguised as engineering. Build the thing.
 
-If you're building a platform where boundaries matter, a monorepo makes boundaries *visible*. That visibility is worth the tax.
+If you're building a platform where boundaries matter, a monorepo makes boundaries _visible_. That visibility is worth the tax.
 
 I pay the tax because I'm practicing for when it matters. You probably don't need to.
 

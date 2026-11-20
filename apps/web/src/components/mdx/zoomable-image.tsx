@@ -2,6 +2,7 @@
 
 import type { ComponentProps } from "react";
 import Zoom from "react-medium-image-zoom";
+
 import "react-medium-image-zoom/dist/styles.css";
 import { cn } from "@/lib/utils";
 
@@ -19,20 +20,18 @@ type ZoomableImageProps = ComponentProps<"img">;
  * @returns The zoomable image element.
  */
 export function ZoomableImage({
-	className,
-	alt,
-	...props
+  className,
+  alt,
+  ...props
 }: ZoomableImageProps) {
-	return (
-		<Zoom zoomMargin={ZOOM_MARGIN}>
-			{/* biome-ignore lint/performance/noImgElement: authored images have no known dimensions */}
-			{/* biome-ignore lint/correctness/useImageSize: intrinsic size is unknown for authored MDX */}
-			<img
-				alt={alt ?? ""}
-				className={cn("w-full", className)}
-				loading="lazy"
-				{...props}
-			/>
-		</Zoom>
-	);
+  return (
+    <Zoom zoomMargin={ZOOM_MARGIN}>
+      <img
+        alt={alt ?? ""}
+        className={cn("w-full", className)}
+        loading="lazy"
+        {...props}
+      />
+    </Zoom>
+  );
 }

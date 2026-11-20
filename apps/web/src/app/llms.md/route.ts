@@ -6,22 +6,22 @@ import { getPosts, getProjects } from "@/lib/content-index";
  * from the site config and real content.
  */
 export function GET() {
-	const updated = new Date().toISOString().split("T")[0];
+  const [updated] = new Date().toISOString().split("T");
 
-	const posts = getPosts()
-		.map(
-			(post) => `### [${post.title}](/posts/${post.slug})\n${post.description}`,
-		)
-		.join("\n\n");
+  const posts = getPosts()
+    .map(
+      (post) => `### [${post.title}](/posts/${post.slug})\n${post.description}`
+    )
+    .join("\n\n");
 
-	const projects = getProjects()
-		.map(
-			(project) =>
-				`### [${project.title}](${project.link || `/projects/${project.slug}`})\n${project.description}`,
-		)
-		.join("\n\n");
+  const projects = getProjects()
+    .map(
+      (project) =>
+        `### [${project.title}](${project.link || `/projects/${project.slug}`})\n${project.description}`
+    )
+    .join("\n\n");
 
-	const content = `# ${CONFIG.name}
+  const content = `# ${CONFIG.name}
 
 > ${CONFIG.title} • [gabfon.com](https://gabfon.com)
 
@@ -60,7 +60,7 @@ ${projects || "No projects published yet."}
 *Last updated: ${updated} · [gabfon.com](https://gabfon.com)*
 `;
 
-	return new Response(content, {
-		headers: { "content-type": "text/markdown; charset=utf-8" },
-	});
+  return new Response(content, {
+    headers: { "content-type": "text/markdown; charset=utf-8" },
+  });
 }

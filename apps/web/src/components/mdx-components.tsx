@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import type { ComponentProps } from "react";
+
 import { Accordion, AccordionItem } from "@/components/mdx/accordion";
 import { Bookmark } from "@/components/mdx/bookmark";
 import { Callout } from "@/components/mdx/callout";
@@ -41,22 +42,23 @@ const EXTERNAL_URL = /^https?:\/\//;
  * a hover-revealed `#` link so readers can grab a permalink to any section.
  */
 function anchoredHeading(Tag: "h2" | "h3" | "h4") {
-	const AnchoredHeading = ({ children, ...props }: ComponentProps<"h2">) => {
-		const id = slugifyNode(children);
-		return (
-			<Tag className="group scroll-mt-24" id={id} {...props}>
-				<a
-					aria-label="Link to this section"
-					className="-ml-5 pr-1 text-muted-foreground no-underline opacity-0 transition-opacity duration-150 focus:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-40"
-					href={`#${id}`}
-				>
-					#
-				</a>
-				{children}
-			</Tag>
-		);
-	};
-	return AnchoredHeading;
+  // oxlint-disable-next-line unicorn/consistent-function-scoping -- factory-scoped on purpose so each heading level (h2/h3/h4) renders its own component with the correct `Tag`; hoisting would force a shared component that loses the per-level JSX type.
+  function AnchoredHeading({ children, ...props }: ComponentProps<"h2">) {
+    const id = slugifyNode(children);
+    return (
+      <Tag className="group scroll-mt-24" id={id} {...props}>
+        <a
+          aria-label="Link to this section"
+          className="text-muted-foreground -ml-5 pr-1 no-underline opacity-0 transition-opacity duration-150 group-hover:opacity-100 focus:opacity-100 [@media(hover:none)]:opacity-40"
+          href={`#${id}`}
+        >
+          #
+        </a>
+        {children}
+      </Tag>
+    );
+  }
+  return AnchoredHeading;
 }
 
 /**
@@ -67,76 +69,74 @@ function anchoredHeading(Tag: "h2" | "h3" | "h4") {
  * @returns The merged MDX component map.
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
-	return {
-		...components,
-		Callout,
-		Accordion,
-		AccordionItem,
-		Divider,
-		Details,
-		Epigraph,
-		Figure,
-		Highlight,
-		Kbd,
-		Lead,
-		LinkCard,
-		PullQuote,
-		Sidenote,
-		CodeGroup,
-		Terminal,
-		Mermaid,
-		Gallery,
-		Tweet,
-		Embed,
-		Gist,
-		Bookmark,
-		Newsletter,
-		FurtherReading,
-		Share,
-		Stat,
-		StatGrid,
-		Step,
-		Steps,
-		Tabbed,
-		TechStack,
-		Video,
-		pre: CodeBlock,
-		h2: anchoredHeading("h2"),
-		h3: anchoredHeading("h3"),
-		h4: anchoredHeading("h4"),
-		a: ({ href, children, ...props }: ComponentProps<"a">) => {
-			const url = href ?? "#";
-			const external = EXTERNAL_URL.test(url);
-			return (
-				<Link
-					className={external ? "link-external" : "link-default"}
-					href={url}
-					{...(external
-						? { target: "_blank", rel: "noopener noreferrer" }
-						: {})}
-					{...props}
-				>
-					{children}
-				</Link>
-			);
-		},
-		img: ({ className, alt, ...props }: ComponentProps<"img">) => (
-			// biome-ignore lint/performance/noImgElement: MDX authors provide plain markdown images without dimensions
-			// biome-ignore lint/correctness/useImageSize: intrinsic size is unknown for authored markdown
-			<img
-				alt={alt ?? ""}
-				className={cn("rounded-lg border border-border", className)}
-				loading="lazy"
-				{...props}
-			/>
-		),
-		table: ({ className, ...props }: ComponentProps<"table">) => (
-			<div className="w-full overflow-x-auto">
-				<table
-					className={cn("w-full border-collapse text-sm", className)}
-					{...props}
-				/>
-			</div>
-		),
-	};
+  return {
+    ...components,
+    Callout,
+    Accordion,
+    AccordionItem,
+    Divider,
+    Details,
+    Epigraph,
+    Figure,
+    Highlight,
+    Kbd,
+    Lead,
+    LinkCard,
+    PullQuote,
+    Sidenote,
+    CodeGroup,
+    Terminal,
+    Mermaid,
+    Gallery,
+    Tweet,
+    Embed,
+    Gist,
+    Bookmark,
+    Newsletter,
+    FurtherReading,
+    Share,
+    Stat,
+    StatGrid,
+    Step,
+    Steps,
+    Tabbed,
+    TechStack,
+    Video,
+    pre: CodeBlock,
+    h2: anchoredHeading("h2"),
+    h3: anchoredHeading("h3"),
+    h4: anchoredHeading("h4"),
+    a: ({ href, children, ...props }: ComponentProps<"a">) => {
+      const url = href ?? "#";
+      const external = EXTERNAL_URL.test(url);
+      return (
+        <Link
+          className={external ? "link-external" : "link-default"}
+          href={url}
+          {...(external
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
+          {...props}
+        >
+          {children}
+        </Link>
+      );
+    },
+    img: ({ className, alt, ...props }: ComponentProps<"img">) => (
+      <img
+        alt={alt ?? ""}
+        className={cn("border-border rounded-lg border", className)}
+        loading="lazy"
+        {...props}
+      />
+    ),
+    table: ({ className, ...props }: ComponentProps<"table">) => (
+      <div className="w-full overflow-x-auto">
+        <table
+          className={cn("w-full border-collapse text-sm", className)}
+          {...props}
+        />
+      </div>
+    ),
+  };
 }

@@ -12,7 +12,7 @@ Keystatic-powered headless CMS for [gabfon.com](https://gabfon.com). Edits and c
 ### Collections
 
 | Collection | Path | Entries | Schema |
-|-----------|------|---------|--------|
+| --- | --- | --- | --- |
 | Posts | `apps/web/content/posts/*` | 30 | title, description, date, author, content (MDX) |
 | Projects | `apps/web/content/projects/*` | 7 | title, description, date, link, content (MDX) |
 
@@ -21,7 +21,7 @@ Keystatic-powered headless CMS for [gabfon.com](https://gabfon.com). Edits and c
 Two modes, controlled by environment variables:
 
 | Mode | Trigger | Behavior |
-|------|---------|----------|
+| --- | --- | --- |
 | **Local** | `KEYSTATIC_GITHUB_CLIENT_ID` unset (default dev) | Edits files directly on disk |
 | **GitHub** | `KEYSTATIC_GITHUB_CLIENT_ID` set (production) | Creates PRs via OAuth |
 
@@ -29,10 +29,10 @@ In local mode, files are resolved relative to the monorepo root via `localBaseDi
 
 ## Routes
 
-| Path | Handler |
-|------|---------|
-| `/` | Redirects to `/keystatic` |
-| `/keystatic/[[...params]]` | Keystatic admin UI (`makePage`) |
+| Path                         | Handler                            |
+| ---------------------------- | ---------------------------------- |
+| `/`                          | Redirects to `/keystatic`          |
+| `/keystatic/[[...params]]`   | Keystatic admin UI (`makePage`)    |
 | `/api/keystatic/[...params]` | Keystatic API (tree, blob, update) |
 
 ## Development
@@ -46,20 +46,20 @@ bun --filter cms typecheck    # TypeScript check
 
 ## Deployment
 
-Deployed to Vercel at `cms.gabfon.com` with `vercel.json` config. The production build outputs to `standalone` mode.
+Deployed at `cms.gabfon.com`. The production build outputs to `standalone` mode.
 
 ### Required env vars (production)
 
-| Variable | Purpose |
-|----------|---------|
-| `KEYSTATIC_GITHUB_CLIENT_ID` | GitHub OAuth app ID |
+| Variable                         | Purpose                 |
+| -------------------------------- | ----------------------- |
+| `KEYSTATIC_GITHUB_CLIENT_ID`     | GitHub OAuth app ID     |
 | `KEYSTATIC_GITHUB_CLIENT_SECRET` | GitHub OAuth app secret |
-| `KEYSTATIC_SECRET` | Session encryption key |
+| `KEYSTATIC_SECRET`               | Session encryption key  |
 
 ## Key Files
 
 | File | Purpose |
-|------|---------|
+| --- | --- |
 | `src/keystatic.config.ts` | Collection definitions and storage config |
 | `src/app/api/keystatic/[...params]/route.ts` | API route handler with `localBaseDirectory` |
 | `src/app/keystatic/[[...params]]/page.tsx` | Keystatic admin UI page |

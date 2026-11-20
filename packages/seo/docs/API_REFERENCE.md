@@ -9,19 +9,22 @@ npm install @gabfon/seo
 ## Exports
 
 ### Metadata Generation
+
 ```typescript
-export { createMetadata } from './metadata';
+export { createMetadata } from "./metadata";
 ```
 
 ### Components
+
 ```typescript
-export { JsonLd } from './json-ld';
-export { Viewport } from './viewport';
+export { JsonLd } from "./json-ld";
+export { Viewport } from "./viewport";
 ```
 
 ### Schema Types
+
 ```typescript
-export * from 'schema-dts';
+export * from "schema-dts";
 ```
 
 ## Core Functions
@@ -38,7 +41,7 @@ function createMetadata({
   description,
   image,
   ...properties
-}: MetadataGenerator): Metadata
+}: MetadataGenerator): Metadata;
 ```
 
 #### Parameters
@@ -151,26 +154,26 @@ The component supports any Schema.org type:
 ```typescript
 // Organization
 const organizationData = {
-  '@type': 'Organization',
-  name: 'Gabriel Fonseca',
-  url: 'https://gabfon.com/',
-  logo: 'https://gabfon.com/logo.png',
+  "@type": "Organization",
+  name: "Gabriel Fonseca",
+  url: "https://gabfon.com/",
+  logo: "https://gabfon.com/logo.png",
 };
 
 // Person
 const personData = {
-  '@type': 'Person',
-  name: 'Gabriel Fonseca',
-  jobTitle: 'Web Developer',
-  url: 'https://gabfon.com/',
+  "@type": "Person",
+  name: "Gabriel Fonseca",
+  jobTitle: "Web Developer",
+  url: "https://gabfon.com/",
 };
 
 // Product
 const productData = {
-  '@type': 'Product',
-  name: 'SEO Package',
-  description: 'Comprehensive SEO utilities for Next.js',
-  brand: 'Gabriel Fonseca',
+  "@type": "Product",
+  name: "SEO Package",
+  description: "Comprehensive SEO utilities for Next.js",
+  brand: "Gabriel Fonseca",
 };
 ```
 
@@ -215,12 +218,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```typescript
 // Custom viewport settings
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#000000',
-  colorScheme: 'dark light',
+  themeColor: "#000000",
+  colorScheme: "dark light",
 };
 ```
 
@@ -245,7 +248,7 @@ import type {
   LocalBusiness,
   WebSite,
   WebPage,
-} from 'schema-dts';
+} from "schema-dts";
 ```
 
 ### Type Safety
@@ -255,14 +258,14 @@ All schema types are fully typed with TypeScript:
 ```typescript
 // Type-safe structured data creation
 const article: Article = {
-  '@type': 'Article',
-  headline: 'Article Title',
+  "@type": "Article",
+  headline: "Article Title",
   // TypeScript will validate required properties
   author: {
-    '@type': 'Person',
-    name: 'Author Name',
+    "@type": "Person",
+    name: "Author Name",
   },
-  datePublished: '2023-01-01',
+  datePublished: "2023-01-01",
 };
 ```
 
@@ -299,7 +302,7 @@ interface BlogPostPageProps {
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getBlogPost(params.slug);
-  
+
   const structuredData: BlogPosting = {
     '@type': 'BlogPosting',
     headline: post.title,
@@ -343,7 +346,7 @@ import type { Product } from 'schema-dts';
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const product = getProduct(params.id);
-  
+
   const structuredData: Product = {
     '@type': 'Product',
     name: product.name,
@@ -415,7 +418,7 @@ import type { Event } from 'schema-dts';
 
 export default function EventPage({ params }: { params: { id: string } }) {
   const event = getEvent(params.id);
-  
+
   const eventData: Event = {
     '@type': 'Event',
     name: event.name,
@@ -496,7 +499,7 @@ interface CategoryPageProps {
 
 export async function generateMetadata({ params }: CategoryPageProps) {
   const category = await getCategory(params.category);
-  
+
   return createMetadata({
     title: `${category.name} Posts | Gabriel Fonseca`,
     description: `Browse all posts in ${category.name} category`,
@@ -597,14 +600,14 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
 ```typescript
 // Good: Descriptive and keyword-rich
 createMetadata({
-  title: 'Next.js SEO Guide | Gabriel Fonseca',
-  description: 'Complete guide to implementing SEO in Next.js applications',
+  title: "Next.js SEO Guide | Gabriel Fonseca",
+  description: "Complete guide to implementing SEO in Next.js applications",
 });
 
 // Bad: Generic and unhelpful
 createMetadata({
-  title: 'Home',
-  description: 'Welcome to my website',
+  title: "Home",
+  description: "Welcome to my website",
 });
 ```
 
@@ -613,15 +616,15 @@ createMetadata({
 ```typescript
 // Good: Properly sized and described
 createMetadata({
-  title: 'About Page',
-  description: 'Learn about Gabriel Fonseca',
-  image: '/images/about-og.jpg', // 1200x630 recommended
+  title: "About Page",
+  description: "Learn about Gabriel Fonseca",
+  image: "/images/about-og.jpg", // 1200x630 recommended
 });
 
 // Bad: Missing or poor quality images
 createMetadata({
-  title: 'About Page',
-  description: 'Learn about Gabriel Fonseca',
+  title: "About Page",
+  description: "Learn about Gabriel Fonseca",
   // No image specified
 });
 ```
@@ -631,22 +634,22 @@ createMetadata({
 ```typescript
 // Good: Comprehensive and accurate
 const structuredData: BlogPosting = {
-  '@type': 'BlogPosting',
-  headline: 'Complete Guide to Next.js SEO',
-  description: 'Learn how to implement SEO best practices',
+  "@type": "BlogPosting",
+  headline: "Complete Guide to Next.js SEO",
+  description: "Learn how to implement SEO best practices",
   author: {
-    '@type': 'Person',
-    name: 'Gabriel Fonseca',
+    "@type": "Person",
+    name: "Gabriel Fonseca",
   },
-  datePublished: '2023-01-01',
-  dateModified: '2023-01-02',
-  image: 'https://example.com/image.jpg',
+  datePublished: "2023-01-01",
+  dateModified: "2023-01-02",
+  image: "https://example.com/image.jpg",
 };
 
 // Bad: Incomplete or inaccurate
 const structuredData = {
-  '@type': 'BlogPosting',
-  headline: 'SEO Guide',
+  "@type": "BlogPosting",
+  headline: "SEO Guide",
   // Missing required properties
 };
 ```
@@ -656,16 +659,16 @@ const structuredData = {
 ```typescript
 // Good: Comprehensive viewport settings
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#000000',
+  themeColor: "#000000",
 };
 
 // Bad: Minimal or no viewport settings
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
 };
 ```
 
@@ -674,18 +677,18 @@ export const viewport = {
 ### With Analytics Package
 
 ```typescript
-import { createMetadata } from '@gabfon/seo/metadata';
-import { analytics } from '@gabfon/analytics/lib/server';
+import { analytics } from "@gabfon/analytics/lib/server";
+import { createMetadata } from "@gabfon/seo/metadata";
 
 export async function generateMetadata({ params }) {
   const pageData = await getPageData(params);
-  
+
   // Track page metadata generation
-  analytics.capture('metadata_generated', {
+  analytics.capture("metadata_generated", {
     page: params.slug,
     title: pageData.title,
   });
-  
+
   return createMetadata({
     title: pageData.title,
     description: pageData.description,
@@ -725,31 +728,31 @@ export default function BlogPost({ post }) {
 
 ```typescript
 // __tests__/metadata.test.ts
-import { createMetadata } from '@gabfon/seo/metadata';
+import { createMetadata } from "@gabfon/seo/metadata";
 
-describe('createMetadata', () => {
-  test('generates correct metadata structure', () => {
+describe("createMetadata", () => {
+  test("generates correct metadata structure", () => {
     const metadata = createMetadata({
-      title: 'Test Title',
-      description: 'Test Description',
-      image: '/test-image.jpg',
+      title: "Test Title",
+      description: "Test Description",
+      image: "/test-image.jpg",
     });
 
-    expect(metadata.title).toBe('Test Title');
-    expect(metadata.description).toBe('Test Description');
+    expect(metadata.title).toBe("Test Title");
+    expect(metadata.description).toBe("Test Description");
     expect(metadata.openGraph).toBeDefined();
     expect(metadata.twitter).toBeDefined();
   });
 
-  test('includes Open Graph image', () => {
+  test("includes Open Graph image", () => {
     const metadata = createMetadata({
-      title: 'Test Title',
-      description: 'Test Description',
-      image: '/test-image.jpg',
+      title: "Test Title",
+      description: "Test Description",
+      image: "/test-image.jpg",
     });
 
     expect(metadata.openGraph?.images).toHaveLength(1);
-    expect(metadata.openGraph?.images[0].url).toBe('/test-image.jpg');
+    expect(metadata.openGraph?.images[0].url).toBe("/test-image.jpg");
   });
 });
 ```
@@ -769,10 +772,10 @@ describe('JsonLd', () => {
     };
 
     const { container } = render(<JsonLd code={structuredData} />);
-    
+
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script).toBeInTheDocument();
-    
+
     const content = script?.textContent;
     expect(content).toContain('"@type": "Person"');
     expect(content).toContain('"name": "Test Person"');

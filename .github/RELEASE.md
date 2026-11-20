@@ -215,51 +215,61 @@ pnpm deploy:monitor
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### Added
+
 - New features that were added
 
 ### Changed
+
 - Changes in existing functionality
 
 ### Deprecated
+
 - Features that will be removed
 
 ### Removed
+
 - Features that were removed
 
 ### Fixed
+
 - Bug fixes
 
 ### Security
+
 - Security vulnerability fixes
 
 ## [2.0.0] - 2024-01-15
 
 ### Added
+
 - OAuth2 authentication support
 - User profile management
 - Advanced analytics dashboard
 
 ### Changed
+
 - Breaking: Updated authentication API
 - Improved performance by 40%
 
 ### Fixed
+
 - Resolved memory leak in cache
 - Fixed database connection issues
 
 ### Security
+
 - Patched SQL injection vulnerability
 - Updated security headers
 
 ## [1.2.3] - 2024-01-01
 
 ### Fixed
+
 - Minor bug fixes and improvements
 ```
 
@@ -368,28 +378,28 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Install dependencies
         run: pnpm install
-        
+
       - name: Build packages
         run: pnpm build
-        
+
       - name: Run tests
         run: pnpm test
-        
+
       - name: Create Release
         uses: actions/create-release@v1
         env:
@@ -420,16 +430,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        
+
       - name: Install dependencies
         run: pnpm install
-        
+
       - name: Check for version bump
         run: pnpm version:check
-        
+
       - name: Auto-version if needed
         run: pnpm version:auto
 ```

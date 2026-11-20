@@ -10,7 +10,7 @@ This package provides rate limiting functionality using Upstash Redis for distri
 
 - **Redis-based Rate Limiting**: Distributed rate limiting using Upstash Redis
 - **Multiple Algorithms**: Support for various rate limiting algorithms
-- **Edge Runtime Support**: Compatible with Vercel Edge Runtime
+- **Edge Runtime Support**: Compatible with Cloudflare Workers Edge Runtime
 - **Type Safety**: Full TypeScript support with environment validation
 - **Flexible Configuration**: Configurable rate limits and time windows
 
@@ -25,37 +25,37 @@ pnpm add @gabfon/rate-limit
 ### Basic Rate Limiting
 
 ```typescript
-import { rateLimit } from '@gabfon/rate-limit';
+import { rateLimit } from "@gabfon/rate-limit";
 
 // Create a rate limiter
 const limiter = rateLimit({
-  window: '1 m', // 1 minute window
-  limit: 10,     // 10 requests per window
+  window: "1 m", // 1 minute window
+  limit: 10, // 10 requests per window
 });
 
 // Check rate limit
-const { success, limit, remaining, reset } = await limiter.limit('user-123');
+const { success, limit, remaining, reset } = await limiter.limit("user-123");
 ```
 
 ### API Route Protection
 
 ```typescript
-import { rateLimit } from '@gabfon/rate-limit';
+import { rateLimit } from "@gabfon/rate-limit";
 
 const limiter = rateLimit({
-  window: '1 m',
+  window: "1 m",
   limit: 5,
 });
 
 export async function POST(request: Request) {
-  const ip = request.headers.get('x-forwarded-for') || 'unknown';
-  
+  const ip = request.headers.get("x-forwarded-for") || "unknown";
+
   const { success } = await limiter.limit(ip);
-  
+
   if (!success) {
-    return new Response('Rate limit exceeded', { status: 429 });
+    return new Response("Rate limit exceeded", { status: 429 });
   }
-  
+
   // Process request
 }
 ```
@@ -63,26 +63,26 @@ export async function POST(request: Request) {
 ### Different Rate Limiting Strategies
 
 ```typescript
-import { rateLimit } from '@gabfon/rate-limit';
+import { rateLimit } from "@gabfon/rate-limit";
 
 // Fixed window
 const fixedWindow = rateLimit({
-  window: '1 m',
+  window: "1 m",
   limit: 100,
 });
 
 // Sliding window
 const slidingWindow = rateLimit({
-  window: '1 m',
+  window: "1 m",
   limit: 100,
-  algorithm: 'sliding-window',
+  algorithm: "sliding-window",
 });
 
 // Token bucket
 const tokenBucket = rateLimit({
-  window: '1 m',
+  window: "1 m",
   limit: 100,
-  algorithm: 'token-bucket',
+  algorithm: "token-bucket",
 });
 ```
 
@@ -101,16 +101,19 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 ## Rate Limiting Algorithms
 
 ### Fixed Window
+
 - Simple time-based windows
 - Good for basic rate limiting
 - May allow bursts at window boundaries
 
 ### Sliding Window
+
 - More accurate rate limiting
 - Prevents burst traffic
 - Higher computational overhead
 
 ### Token Bucket
+
 - Allows burst traffic up to bucket size
 - Good for variable rate applications
 - Configurable refill rate
@@ -119,9 +122,9 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 
 ```typescript
 interface RateLimitConfig {
-  window: string;           // Time window (e.g., '1 m', '1 h', '1 d')
-  limit: number;           // Maximum requests per window
-  algorithm?: 'fixed-window' | 'sliding-window' | 'token-bucket';
+  window: string; // Time window (e.g., '1 m', '1 h', '1 d')
+  limit: number; // Maximum requests per window
+  algorithm?: "fixed-window" | "sliding-window" | "token-bucket";
   keyGenerator?: (request: Request) => string; // Custom key generation
 }
 ```
@@ -156,20 +159,20 @@ pnpm clean
 ```typescript
 try {
   const { success, limit, remaining, reset } = await limiter.limit(key);
-  
+
   if (!success) {
-    return new Response('Rate limit exceeded', {
+    return new Response("Rate limit exceeded", {
       status: 429,
       headers: {
-        'X-RateLimit-Limit': limit.toString(),
-        'X-RateLimit-Remaining': remaining.toString(),
-        'X-RateLimit-Reset': reset.toString(),
+        "X-RateLimit-Limit": limit.toString(),
+        "X-RateLimit-Remaining": remaining.toString(),
+        "X-RateLimit-Reset": reset.toString(),
       },
     });
   }
 } catch (error) {
   // Handle Redis connection errors
-  console.error('Rate limiting error:', error);
+  console.error("Rate limiting error:", error);
   // Optionally allow request to proceed
 }
 ```

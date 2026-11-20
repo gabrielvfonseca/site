@@ -23,13 +23,13 @@ Upon receipt of a vulnerability report, we commit to:
 
 ## Responsible Disclosure Timeline
 
-| Timeline | Action |
-|----------|--------|
-| Day 0 | Vulnerability reported |
-| Day 2 | Acknowledgment sent |
-| Day 7 | Severity assessment & response |
-| Day 30 | Fix release target |
-| Day 45 | Public disclosure (after patch is available) |
+| Timeline | Action                                       |
+| -------- | -------------------------------------------- |
+| Day 0    | Vulnerability reported                       |
+| Day 2    | Acknowledgment sent                          |
+| Day 7    | Severity assessment & response               |
+| Day 30   | Fix release target                           |
+| Day 45   | Public disclosure (after patch is available) |
 
 We may adjust this timeline based on security and complexity.
 
@@ -41,27 +41,30 @@ We may adjust this timeline based on security and complexity.
 
 ## Supported Versions
 
-| Version | Status | Supported Until |
-|---------|--------|-----------------|
-| Latest |  Supported | Ongoing |
-| Previous Major |  Supported | 12 months |
-| Older versions |  Unsupported | Not supported |
+| Version        | Status      | Supported Until |
+| -------------- | ----------- | --------------- |
+| Latest         | Supported   | Ongoing         |
+| Previous Major | Supported   | 12 months       |
+| Older versions | Unsupported | Not supported   |
 
 Only the latest and previous major versions receive security patches.
 
 ## Security Best Practices
 
 ### Credentials & Secrets
+
 - Never commit credentials, API keys, or tokens.
 - Use environment variables for sensitive data.
 - Pre-commit hooks scan for secrets automatically using Gitleaks (if installed).
 
 ### Dependencies
+
 - Keep dependencies up-to-date.
 - Review dependency updates in PRs.
 - Report security issues in dependencies to maintainers first.
 
 ### Code Review
+
 - All changes require peer review before merging.
 - Security-sensitive code gets additional review.
 - Automated security scanning runs on all PRs in CI/CD.

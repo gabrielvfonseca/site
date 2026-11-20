@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+
 import { nodeToText } from "@/lib/node-text";
 
 /** Characters stripped when slugifying heading text. */
@@ -14,11 +15,11 @@ const WHITESPACE = /\s+/g;
  * @returns The slugified anchor id.
  */
 export function slugifyText(text: string): string {
-	return text
-		.toLowerCase()
-		.trim()
-		.replace(NON_SLUG_CHARS, "")
-		.replace(WHITESPACE, "-");
+  return text
+    .toLowerCase()
+    .trim()
+    .replaceAll(NON_SLUG_CHARS, "")
+    .replaceAll(WHITESPACE, "-");
 }
 
 /**
@@ -27,5 +28,5 @@ export function slugifyText(text: string): string {
  * @returns The slugified anchor id.
  */
 export function slugifyNode(node: ReactNode): string {
-	return slugifyText(nodeToText(node));
+  return slugifyText(nodeToText(node));
 }

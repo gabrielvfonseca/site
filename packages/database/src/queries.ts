@@ -1,12 +1,18 @@
 import { and, asc, desc, eq, isNotNull } from "drizzle-orm";
+
 import { getDatabase } from "./client";
-import {
-	type AmaMessage,
-	type AmaQuestion,
-	amaMessages,
-	amaQuestions,
-	type NewAmaQuestion,
-} from "./schema";
+import { amaMessages, amaQuestions } from "./schema";
+import type { AmaMessage, AmaQuestion, NewAmaQuestion } from "./schema";
+
+/**
+ * The D1 binding as exposed by the Workers runtime (`env.DB`). In non-Workers
+ * contexts (unit tests, local tooling) this resolves to `undefined` and the
+ * queries degrade to empty results.
+ */
+function binding(): Parameters<typeof getDatabase>[0] {
+  const env = globalThis.process?.env as Record<string, unknown> | undefined;
+  return (env?.DB as Parameters<typeof getDatabase>[0]) ?? undefined;
+}
 
 /**
  * Fetch published AMA questions (answered + made public), pinned first and then
@@ -14,17 +20,17 @@ import {
  * @returns The published AMA questions.
  */
 export async function getPublishedAmaQuestions(): Promise<AmaQuestion[]> {
-	const database = getDatabase();
-	if (!database) {
-		return [];
-	}
-	return await database
-		.select()
-		.from(amaQuestions)
-		.where(
-			and(eq(amaQuestions.status, "published"), isNotNull(amaQuestions.answer)),
-		)
-		.orderBy(desc(amaQuestions.pinned), desc(amaQuestions.answeredAt));
+  const database = getDatabase(binding());
+  if (!database) {
+    return [];
+  }
+  return await database
+    .select()
+    .from(amaQuestions)
+    .where(
+      and(eq(amaQuestions.status, "published"), isNotNull(amaQuestions.answer))
+    )
+    .orderBy(desc(amaQuestions.pinned), desc(amaQuestions.answeredAt));
 }
 
 /**
@@ -34,24 +40,24 @@ export async function getPublishedAmaQuestions(): Promise<AmaQuestion[]> {
  * @returns The published thread head, or `null`.
  */
 export async function getPublishedAmaQuestionBySlug(
-	slug: string,
+  slug: string
 ): Promise<AmaQuestion | null> {
-	const database = getDatabase();
-	if (!database) {
-		return null;
-	}
-	const rows = await database
-		.select()
-		.from(amaQuestions)
-		.where(
-			and(
-				eq(amaQuestions.slug, slug),
-				eq(amaQuestions.status, "published"),
-				isNotNull(amaQuestions.answer),
-			),
-		)
-		.limit(1);
-	return rows[0] ?? null;
+  const database = getDatabase(binding());
+  if (!database) {
+    return null;
+  }
+  const rows = await database
+    .select()
+    .from(amaQuestions)
+    .where(
+      and(
+        eq(amaQuestions.slug, slug),
+        eq(amaQuestions.status, "published"),
+        isNotNull(amaQuestions.answer)
+      )
+    )
+    .limit(1);
+  return rows[0] ?? null;
 }
 
 /**
@@ -61,17 +67,17 @@ export async function getPublishedAmaQuestionBySlug(
  * @returns The ordered thread messages.
  */
 export async function getAmaThreadMessages(
-	questionId: string,
+  questionId: string
 ): Promise<AmaMessage[]> {
-	const database = getDatabase();
-	if (!database) {
-		return [];
-	}
-	return await database
-		.select()
-		.from(amaMessages)
-		.where(eq(amaMessages.questionId, questionId))
-		.orderBy(asc(amaMessages.createdAt));
+  const database = getDatabase(binding());
+  if (!database) {
+    return [];
+  }
+  return await database
+    .select()
+    .from(amaMessages)
+    .where(eq(amaMessages.questionId, questionId))
+    .orderBy(asc(amaMessages.createdAt));
 }
 
 /**
@@ -80,12 +86,12 @@ export async function getAmaThreadMessages(
  * @returns Whether the row was persisted.
  */
 export async function insertAmaQuestion(
-	input: NewAmaQuestion,
+  input: NewAmaQuestion
 ): Promise<boolean> {
-	const database = getDatabase();
-	if (!database) {
-		return false;
-	}
-	await database.insert(amaQuestions).values(input);
-	return true;
+  const database = getDatabase(binding());
+  if (!database) {
+    return false;
+  }
+  await database.insert(amaQuestions).values(input);
+  return true;
 }

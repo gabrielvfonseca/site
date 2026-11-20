@@ -7,6 +7,7 @@ The `site` application includes a comprehensive testing infrastructure built wit
 ## Testing Stack
 
 ### Core Testing Frameworks
+
 - **Vitest 3.2.4** - Fast unit testing framework with TypeScript support
 - **React Testing Library** - Component testing utilities
 - **Playwright** - E2E testing with multi-browser support
@@ -100,7 +101,7 @@ describe('Button Component', () => {
 
   it('renders with correct text', () => {
     render(<Button>Click me</Button>);
-    
+
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByText('Click me')).toBeInTheDocument();
   });
@@ -108,18 +109,18 @@ describe('Button Component', () => {
   it('handles click events', async () => {
     const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     const button = screen.getByRole('button');
     await fireEvent.click(button);
-    
+
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
   it('applies correct styles for variants', () => {
     const { rerender } = render(<Button variant="destructive">Delete</Button>);
-    
+
     expect(screen.getByRole('button')).toHaveClass('bg-destructive');
-    
+
     rerender(<Button variant="outline">Cancel</Button>);
     expect(screen.getByRole('button')).toHaveClass('border-input');
   });
@@ -130,7 +131,7 @@ describe('Button Component', () => {
         Submit
       </Button>
     );
-    
+
     const button = screen.getByRole('button');
     expect(button).toBeDisabled();
     expect(button).toHaveAttribute('aria-label', 'Submit form');
@@ -144,36 +145,36 @@ Example test for a custom hook:
 
 ```typescript
 // tests/unit/hooks/useQueryState.test.ts
-import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { useQueryState } from 'nuqs';
+import { renderHook, act } from "@testing-library/react";
+import { useQueryState } from "nuqs";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 
 // Mock Next.js navigation
-vi.mock('next/navigation', () => ({
+vi.mock("next/navigation", () => ({
   useSearchParams: vi.fn(),
   useRouter: vi.fn(),
 }));
 
-describe('useQueryState Hook', () => {
+describe("useQueryState Hook", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('returns initial state', () => {
-    const { result } = renderHook(() => useQueryState('q'));
-    
-    expect(result.current[0]).toBe('');
-    expect(typeof result.current[1]).toBe('function');
+  it("returns initial state", () => {
+    const { result } = renderHook(() => useQueryState("q"));
+
+    expect(result.current[0]).toBe("");
+    expect(typeof result.current[1]).toBe("function");
   });
 
-  it('updates URL state correctly', async () => {
-    const { result } = renderHook(() => useQueryState('q'));
-    
+  it("updates URL state correctly", async () => {
+    const { result } = renderHook(() => useQueryState("q"));
+
     await act(async () => {
-      result.current[1]('test');
+      result.current[1]("test");
     });
-    
-    expect(result.current[0]).toBe('test');
+
+    expect(result.current[0]).toBe("test");
   });
 });
 ```
@@ -186,22 +187,23 @@ Example integration test for API routes:
 
 ```typescript
 // tests/integration/api/chat.test.ts
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { POST } from '@/app/api/chat/route';
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+
+import { POST } from "@/app/api/chat/route";
 
 // Mock OpenAI
-vi.mock('@ai-sdk/openai', () => ({
+vi.mock("@ai-sdk/openai", () => ({
   openai: vi.fn(),
 }));
 
 // Mock Arcjet
-vi.mock('@arcjet/next', () => ({
+vi.mock("@arcjet/next", () => ({
   arcjet: vi.fn(() => ({
     protect: vi.fn().mockResolvedValue({ isDenied: false }),
   })),
 }));
 
-describe('POST /api/chat', () => {
+describe("POST /api/chat", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -210,64 +212,64 @@ describe('POST /api/chat', () => {
     vi.restoreAllMocks();
   });
 
-  it('processes chat message successfully', async () => {
+  it("processes chat message successfully", async () => {
     const requestData = {
-      message: 'Hello, AI!'
+      message: "Hello, AI!",
     };
 
-    const request = new Request('http://localhost:3000/api/chat', {
-      method: 'POST',
+    const request = new Request("http://localhost:3000/api/chat", {
+      method: "POST",
       body: JSON.stringify(requestData),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     const response = await POST(request);
-    
+
     expect(response.status).toBe(200);
     const data = await response.json();
-    expect(data).toHaveProperty('response');
+    expect(data).toHaveProperty("response");
   });
 
-  it('validates required fields', async () => {
+  it("validates required fields", async () => {
     const invalidData = {
-      message: ''
+      message: "",
     };
 
-    const request = new Request('http://localhost:3000/api/chat', {
-      method: 'POST',
+    const request = new Request("http://localhost:3000/api/chat", {
+      method: "POST",
       body: JSON.stringify(invalidData),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     const response = await POST(request);
-    
+
     expect(response.status).toBe(400);
     const data = await response.json();
-    expect(data).toHaveProperty('error');
+    expect(data).toHaveProperty("error");
   });
 
-  it('handles Arcjet protection correctly', async () => {
+  it("handles Arcjet protection correctly", async () => {
     // Mock Arcjet to deny request
-    const { arcjet } = require('@arcjet/next');
+    const { arcjet } = require("@arcjet/next");
     arcjet.mockReturnValue({
       protect: vi.fn().mockResolvedValue({ isDenied: true }),
     });
 
     const requestData = {
-      message: 'Test message'
+      message: "Test message",
     };
 
-    const request = new Request('http://localhost:3000/api/chat', {
-      method: 'POST',
+    const request = new Request("http://localhost:3000/api/chat", {
+      method: "POST",
       body: JSON.stringify(requestData),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     const response = await POST(request);
-    
+
     expect(response.status).toBe(403);
     const data = await response.json();
-    expect(data.error).toBe('Request denied');
+    expect(data.error).toBe("Request denied");
   });
 });
 ```
@@ -278,23 +280,24 @@ Example database integration test:
 
 ```typescript
 // tests/integration/services/spotify.test.ts
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { getNowPlaying, getTopTracks } from '@/lib/spotify';
+import { describe, it, expect, beforeEach, vi } from "vitest";
+
+import { getNowPlaying, getTopTracks } from "@/lib/spotify";
 
 // Mock fetch globally
-vi.mock('global/fetch', () => vi.fn());
+vi.mock("global/fetch", () => vi.fn());
 
-describe('Spotify Service Integration', () => {
+describe("Spotify Service Integration", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('fetches now playing data correctly', async () => {
+  it("fetches now playing data correctly", async () => {
     const mockResponse = {
       item: {
-        name: 'Test Song',
-        artists: [{ name: 'Test Artist' }],
-        album: { name: 'Test Album', images: [{ url: 'test.jpg' }] },
+        name: "Test Song",
+        artists: [{ name: "Test Artist" }],
+        album: { name: "Test Album", images: [{ url: "test.jpg" }] },
       },
       is_playing: true,
     };
@@ -304,24 +307,24 @@ describe('Spotify Service Integration', () => {
       json: () => Promise.resolve(mockResponse),
     });
 
-    const result = await getNowPlaying('test-token');
-    
+    const result = await getNowPlaying("test-token");
+
     expect(result).toEqual(mockResponse);
     expect(global.fetch).toHaveBeenCalledWith(
-      'https://api.spotify.com/v1/me/player/currently-playing',
+      "https://api.spotify.com/v1/me/player/currently-playing",
       {
-        headers: { Authorization: 'Bearer test-token' },
+        headers: { Authorization: "Bearer test-token" },
       }
     );
   });
 
-  it('handles API errors gracefully', async () => {
+  it("handles API errors gracefully", async () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: false,
       status: 401,
     });
 
-    await expect(getNowPlaying('invalid-token')).rejects.toThrow();
+    await expect(getNowPlaying("invalid-token")).rejects.toThrow();
   });
 });
 ```
@@ -334,46 +337,51 @@ Example E2E test for user authentication:
 
 ```typescript
 // tests/e2e/api/chat-api.test.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Chat API E2E', () => {
-  test('can send chat message and receive response', async ({ page, request }) => {
-    const response = await request.post('/api/chat', {
+test.describe("Chat API E2E", () => {
+  test("can send chat message and receive response", async ({
+    page,
+    request,
+  }) => {
+    const response = await request.post("/api/chat", {
       data: {
-        message: 'Hello, AI!'
-      }
+        message: "Hello, AI!",
+      },
     });
 
     expect(response.status()).toBe(200);
     const data = await response.json();
-    expect(data).toHaveProperty('response');
-    expect(typeof data.response).toBe('string');
+    expect(data).toHaveProperty("response");
+    expect(typeof data.response).toBe("string");
   });
 
-  test('handles invalid requests', async ({ request }) => {
-    const response = await request.post('/api/chat', {
+  test("handles invalid requests", async ({ request }) => {
+    const response = await request.post("/api/chat", {
       data: {
-        message: ''
-      }
+        message: "",
+      },
     });
 
     expect(response.status()).toBe(400);
     const data = await response.json();
-    expect(data).toHaveProperty('error');
+    expect(data).toHaveProperty("error");
   });
 
-  test('rate limits excessive requests', async ({ request }) => {
+  test("rate limits excessive requests", async ({ request }) => {
     // Make multiple rapid requests
-    const requests = Array(10).fill(null).map(() => 
-      request.post('/api/chat', {
-        data: { message: 'Test message' }
-      })
-    );
+    const requests = Array(10)
+      .fill(null)
+      .map(() =>
+        request.post("/api/chat", {
+          data: { message: "Test message" },
+        })
+      );
 
     const responses = await Promise.all(requests);
-    
+
     // At least one should be rate limited
-    const rateLimited = responses.some(r => r.status() === 429);
+    const rateLimited = responses.some((r) => r.status() === 429);
     expect(rateLimited).toBeTruthy();
   });
 });
@@ -385,28 +393,28 @@ Example E2E test for navigation:
 
 ```typescript
 // tests/e2e/navigation/site-navigation.test.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Site Navigation', () => {
+test.describe("Site Navigation", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto("/");
   });
 
-  test('navigation menu is accessible', async ({ page }) => {
-    const nav = page.locator('nav');
-    
+  test("navigation menu is accessible", async ({ page }) => {
+    const nav = page.locator("nav");
+
     await expect(nav).toBeVisible();
-    await expect(nav.getByRole('link', { name: /home/i })).toBeVisible();
-    await expect(nav.getByRole('link', { name: /about/i })).toBeVisible();
+    await expect(nav.getByRole("link", { name: /home/i })).toBeVisible();
+    await expect(nav.getByRole("link", { name: /about/i })).toBeVisible();
   });
 
-  test('API endpoints are accessible', async ({ request }) => {
+  test("API endpoints are accessible", async ({ request }) => {
     const endpoints = [
-      '/api/chat',
-      '/api/github/stars',
-      '/api/spotify/now-playing',
-      '/api/strava/activities',
-      '/api/now'
+      "/api/chat",
+      "/api/github/stars",
+      "/api/spotify/now-playing",
+      "/api/strava/activities",
+      "/api/now",
     ];
 
     for (const endpoint of endpoints) {
@@ -416,17 +424,19 @@ test.describe('Site Navigation', () => {
     }
   });
 
-  test('mobile navigation is responsive', async ({ page }) => {
+  test("mobile navigation is responsive", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    
-    const nav = page.locator('nav');
+
+    const nav = page.locator("nav");
     await expect(nav).toBeVisible();
-    
+
     // Test mobile-specific navigation if present
     const mobileMenu = page.locator('[data-testid="mobile-menu"]');
     if (await mobileMenu.isVisible()) {
       await mobileMenu.click();
-      await expect(page.locator('[data-testid="mobile-menu-items"]')).toBeVisible();
+      await expect(
+        page.locator('[data-testid="mobile-menu-items"]')
+      ).toBeVisible();
     }
   });
 });
@@ -438,29 +448,29 @@ test.describe('Site Navigation', () => {
 
 ```typescript
 // tests/utils/setup.ts
-import { vi } from 'vitest';
-import '@testing-library/jest-dom';
+import { vi } from "vitest";
+import "@testing-library/jest-dom";
 
 // Global test setup
 beforeAll(() => {
   // Mock IntersectionObserver
-  Object.defineProperty(window, 'IntersectionObserver', {
+  Object.defineProperty(window, "IntersectionObserver", {
     writable: true,
     value: vi.fn().mockImplementation(() => ({
       observe: vi.fn(),
       unobserve: vi.fn(),
-      disconnect: vi.fn()
-    }))
+      disconnect: vi.fn(),
+    })),
   });
 
   // Mock ResizeObserver
-  Object.defineProperty(window, 'ResizeObserver', {
+  Object.defineProperty(window, "ResizeObserver", {
     writable: true,
     value: vi.fn().mockImplementation(() => ({
       observe: vi.fn(),
       unobserve: vi.fn(),
-      disconnect: vi.fn()
-    }))
+      disconnect: vi.fn(),
+    })),
   });
 
   // Mock fetch for API tests
@@ -525,7 +535,7 @@ export const createMockMusicData = (overrides = {}) => ({
   ...overrides
 });
 
-export const waitForApi = (ms = 1000) => 
+export const waitForApi = (ms = 1000) =>
   new Promise(resolve => setTimeout(resolve, ms));
 ```
 
@@ -533,21 +543,26 @@ export const waitForApi = (ms = 1000) =>
 
 ```typescript
 // tests/utils/mocks.ts
-import { vi } from 'vitest';
+import { vi } from "vitest";
 
 // Mock API responses
 export const mockSpotifyResponse = {
   item: {
-    name: 'Test Song',
-    artists: [{ name: 'Test Artist' }],
-    album: { name: 'Test Album', images: [{ url: 'test.jpg' }] },
+    name: "Test Song",
+    artists: [{ name: "Test Artist" }],
+    album: { name: "Test Album", images: [{ url: "test.jpg" }] },
   },
   is_playing: true,
 };
 
 export const mockStravaResponse = {
   recent: [
-    { name: 'Morning Run', distance: 5000, type: 'Run', start_date: '2024-01-01T08:00:00Z' }
+    {
+      name: "Morning Run",
+      distance: 5000,
+      type: "Run",
+      start_date: "2024-01-01T08:00:00Z",
+    },
   ],
   stats: {
     all_ride_totals: { distance: 10000, count: 5 },
@@ -557,8 +572,8 @@ export const mockStravaResponse = {
 
 export const mockGitHubResponse = {
   stargazers_count: 42,
-  name: 'test-repo',
-  full_name: 'user/test-repo',
+  name: "test-repo",
+  full_name: "user/test-repo",
 };
 
 // Mock service functions
@@ -582,55 +597,51 @@ export const mockGitHubService = {
 ### Vitest Coverage Setup
 
 ```typescript
+import path from "path";
+
+import react from "@vitejs/plugin-react";
 // vitest.config.ts
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./tests/setup.ts'],
+    environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
     environmentOptions: {
       jsdom: {
-        resources: 'usable',
+        resources: "usable",
       },
     },
     // Ensure React 19 compatibility
     testTimeout: 10_000,
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'tests/',
-        '**/*.d.ts',
-        '**/*.config.*'
-      ],
+      provider: "v8",
+      reporter: ["text", "json", "html"],
+      exclude: ["node_modules/", "tests/", "**/*.d.ts", "**/*.config.*"],
       thresholds: {
         global: {
           branches: 80,
           functions: 80,
           lines: 80,
-          statements: 80
-        }
-      }
-    }
+          statements: 80,
+        },
+      },
+    },
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@gabfon/analytics': path.resolve(
+      "@": path.resolve(__dirname, "./src"),
+      "@gabfon/analytics": path.resolve(
         __dirname,
-        '../../packages/analytics/src'
+        "../../packages/analytics/src"
       ),
-      '@gabfon/design-system': path.resolve(
+      "@gabfon/design-system": path.resolve(
         __dirname,
-        '../../packages/design-system/src'
+        "../../packages/design-system/src"
       ),
-      '@gabfon/testing': path.resolve(__dirname, '../../packages/testing'),
+      "@gabfon/testing": path.resolve(__dirname, "../../packages/testing"),
     },
   },
 });
@@ -654,18 +665,20 @@ bun run test:coverage --reporter=json
 ### Test Organization
 
 1. **Arrange, Act, Assert Pattern**
+
    ```typescript
    // Arrange
    const mockUser = createMockUser();
-   
+
    // Act
    const result = await createUser(mockUser);
-   
+
    // Assert
    expect(result).toBeDefined();
    ```
 
 2. **Descriptive Test Names**
+
    ```typescript
    it('creates user with valid data', () => { ... });
    it('throws error with duplicate email', () => { ... });
@@ -677,7 +690,7 @@ bun run test:coverage --reporter=json
    beforeEach(() => {
      vi.clearAllMocks();
    });
-   
+
    afterEach(() => {
      vi.restoreAllMocks();
    });
@@ -686,37 +699,40 @@ bun run test:coverage --reporter=json
 ### Mocking Strategy
 
 1. **Mock External Dependencies**
+
    ```typescript
-   vi.mock('@gabfon/analytics', () => ({
+   vi.mock("@gabfon/analytics", () => ({
      trackEvent: vi.fn(),
-     trackPageView: vi.fn()
+     trackPageView: vi.fn(),
    }));
    ```
 
 2. **Mock API Responses**
+
    ```typescript
-   vi.mock('@/data-access/queries/query-posts', () => ({
-     queryAllPosts: vi.fn().mockResolvedValue(mockPosts)
+   vi.mock("@/data-access/queries/query-posts", () => ({
+     queryAllPosts: vi.fn().mockResolvedValue(mockPosts),
    }));
    ```
 
 3. **Mock Network Requests**
    ```typescript
-   vi.mock('node-fetch', () => ({
+   vi.mock("node-fetch", () => ({
      default: vi.fn().mockResolvedValue({
        ok: true,
-       json: () => Promise.resolve(mockData)
-     })
+       json: () => Promise.resolve(mockData),
+     }),
    }));
    ```
 
 ### Accessibility Testing
 
 1. **Automated Accessibility Tests**
+
    ```typescript
-   test('navigation is accessible', async ({ page }) => {
-     await page.goto('/');
-     
+   test("navigation is accessible", async ({ page }) => {
+     await page.goto("/");
+
      // Check for accessibility violations
      const accessibilityScan = await page.accessibility.snapshot();
      expect(accessibilityScan).toBeLessThan(10);
@@ -725,15 +741,15 @@ bun run test:coverage --reporter=json
 
 2. **Keyboard Navigation**
    ```typescript
-   test('supports keyboard navigation', async ({ page }) => {
-     await page.goto('/');
-     
+   test("supports keyboard navigation", async ({ page }) => {
+     await page.goto("/");
+
      // Test Tab navigation
-     await page.keyboard.press('Tab');
-     await expect(page.locator(':focus')).toBeVisible();
-     
+     await page.keyboard.press("Tab");
+     await expect(page.locator(":focus")).toBeVisible();
+
      // Test Enter key
-     await page.keyboard.press('Enter');
+     await page.keyboard.press("Enter");
    });
    ```
 
@@ -754,21 +770,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-          
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
-        
+
       - name: Run tests
         run: bun run test:coverage
-        
+
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:

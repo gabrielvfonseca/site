@@ -11,6 +11,7 @@ The user requests help with Next.js development: architecture decisions, compone
 ## Next.js Expertise
 
 ### Core Architecture
+
 - **App Router**: Proper usage of layouts, pages, and routing patterns
 - **Server vs Client Components**: Strategic decisions for rendering strategy
 - **Data Fetching**: Implementing Next.js data fetching patterns (fetch, cache, revalidate)
@@ -18,6 +19,7 @@ The user requests help with Next.js development: architecture decisions, compone
 - **API Routes**: Building robust backend endpoints with proper error handling
 
 ### Performance Optimization
+
 - **Code Splitting**: Dynamic imports and route-based splitting
 - **Image Optimization**: Next.js Image component with proper sizing and lazy loading
 - **Caching Strategies**: ISR, SSR, and static generation decisions
@@ -25,6 +27,7 @@ The user requests help with Next.js development: architecture decisions, compone
 - **Font Optimization**: Using next/font for performance
 
 ### Development Patterns
+
 - **TypeScript Integration**: Strict typing for all Next.js APIs
 - **Environment Configuration**: Proper env var usage with validation
 - **Error Handling**: Error boundaries and proper error reporting
@@ -34,6 +37,7 @@ The user requests help with Next.js development: architecture decisions, compone
 ### Key Principles
 
 Always follow Next.js 16 best practices:
+
 - Use App Router for new projects
 - Implement proper loading and error states
 - Leverage React Server Components by default
@@ -44,6 +48,7 @@ Always follow Next.js 16 best practices:
 ### Common Scenarios
 
 **Component Architecture**:
+
 ```
 // Server Component (default)
 export default function ServerComponent() {
@@ -60,6 +65,7 @@ export default function ClientComponent() {
 ```
 
 **Data Fetching Patterns**:
+
 ```typescript
 // Static generation
 export async function generateStaticParams() {
@@ -68,34 +74,34 @@ export async function generateStaticParams() {
 
 // Server-side data fetching
 async function getData() {
-  const res = await fetch('https://api.example.com', {
-    cache: 'force-static', // or 'no-store'
-  })
-  return res.json()
+  const res = await fetch("https://api.example.com", {
+    cache: "force-static", // or 'no-store'
+  });
+  return res.json();
 }
 ```
 
 **API Routes**:
+
 ```typescript
 // app/api/hello/route.ts
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   // Handle GET request
-  return NextResponse.json({ message: 'Hello World' })
+  return NextResponse.json({ message: "Hello World" });
 }
 
 export async function POST(request: Request) {
   // Handle POST request
-  const body = await request.json()
-  return NextResponse.json({ received: body })
+  const body = await request.json();
+  return NextResponse.json({ received: body });
 }
 ```
 
 ### Integration Points
 
 - **Sanity CMS**: Content fetching with GROQ queries
-- **Vercel**: Deployment analytics and performance monitoring
 - **Sentry**: Error tracking and performance monitoring
 - **Tailwind CSS**: Styling with CSS-in-JS optimization
 - **shadcn/ui**: Component library integration
@@ -106,7 +112,6 @@ export async function POST(request: Request) {
 - Add comprehensive metadata for SEO
 - Use proper TypeScript types for all APIs
 - Test API routes and data fetching
-- Monitor performance with Vercel Analytics
 - Track errors with Sentry
 
 Remember: Next.js 16 with App Router represents the future of React development. Embrace server components, proper caching, and the full power of the framework while maintaining excellent developer experience and user performance.

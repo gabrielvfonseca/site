@@ -19,29 +19,34 @@ LOGTAIL_SOURCE_TOKEN=your_logtail_token
 ## Exports
 
 ### Main Utilities
+
 ```typescript
-export { parseError } from './index';
+export { parseError } from "./index";
 ```
 
 ### Client-Side
+
 ```typescript
-export { initializeSentry } from './client';
+export { initializeSentry } from "./client";
 ```
 
 ### Server-Side
+
 ```typescript
-export { register } from './instrumentation';
-export { log } from './log';
+export { register } from "./instrumentation";
+export { log } from "./log";
 ```
 
 ### Next.js Configuration
+
 ```typescript
-export { config } from './next-config';
+export { config } from "./next-config";
 ```
 
 ### Environment Keys
+
 ```typescript
-export { keys } from './keys';
+export { keys } from "./keys";
 ```
 
 ## Core Functions
@@ -53,7 +58,7 @@ Centralized error parsing function that automatically captures errors in Sentry 
 #### Signature
 
 ```typescript
-function parseError(error: unknown): string
+function parseError(error: unknown): string;
 ```
 
 #### Parameters
@@ -67,7 +72,7 @@ function parseError(error: unknown): string
 #### Usage
 
 ```typescript
-import { parseError } from '@gabfon/observability';
+import { parseError } from "@gabfon/observability";
 
 try {
   // Your code that might throw an error
@@ -83,15 +88,15 @@ try {
 
 ```typescript
 // Standard Error objects
-const error = new Error('Something went wrong');
+const error = new Error("Something went wrong");
 parseError(error); // 'Something went wrong'
 
 // Objects with message property
-const errorObj = { message: 'Custom error message' };
+const errorObj = { message: "Custom error message" };
 parseError(errorObj); // 'Custom error message'
 
 // Primitive values
-parseError('String error'); // 'String error'
+parseError("String error"); // 'String error'
 parseError(404); // '404'
 parseError(true); // 'true'
 
@@ -109,7 +114,7 @@ Initializes Sentry on the client side with session replay and performance monito
 #### Signature
 
 ```typescript
-function initializeSentry(): ReturnType<typeof init>
+function initializeSentry(): ReturnType<typeof init>;
 ```
 
 #### Usage
@@ -168,14 +173,14 @@ Registers server-side instrumentation for Sentry error tracking.
 #### Signature
 
 ```typescript
-function register(): void
+function register(): void;
 ```
 
 #### Usage
 
 ```typescript
 // instrumentation.ts (Next.js 13+)
-import { register } from '@gabfon/observability/instrumentation';
+import { register } from "@gabfon/observability/instrumentation";
 
 export function register() {
   // This function is called by Next.js
@@ -200,12 +205,12 @@ Logtail logging instance for structured server-side logging.
 #### Usage
 
 ```typescript
-import { log } from '@gabfon/observability/log';
+import { log } from "@gabfon/observability/log";
 
 // Log levels
-log.info('User logged in', { userId: '123' });
-log.warn('Deprecated API used', { endpoint: '/old-api' });
-log.error('Database connection failed', { error: 'connection_timeout' });
+log.info("User logged in", { userId: "123" });
+log.warn("Deprecated API used", { endpoint: "/old-api" });
+log.error("Database connection failed", { error: "connection_timeout" });
 ```
 
 #### Log Methods
@@ -227,7 +232,7 @@ Next.js configuration object with observability integrations.
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/observability/next-config';
+import { config } from "@gabfon/observability/next-config";
 
 export default config;
 ```
@@ -244,7 +249,7 @@ export default config;
 ### Required Variables
 
 | Variable | Description | Type | Environment | Required |
-|----------|-------------|------|-------------|----------|
+| --- | --- | --- | --- | --- |
 | `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN for client-side error tracking | string | Client | Yes |
 | `SENTRY_DSN` | Sentry DSN for server-side error tracking | string | Server | Yes |
 | `LOGTAIL_SOURCE_TOKEN` | Logtail source token for structured logging | string | Server | Yes |
@@ -252,7 +257,7 @@ export default config;
 ### Environment Validation
 
 ```typescript
-import { keys } from '@gabfon/observability';
+import { keys } from "@gabfon/observability";
 
 // Validates environment variables and returns typed object
 const env = keys();
@@ -293,13 +298,13 @@ function ExampleComponent() {
 
 ```typescript
 // app/api/users/route.ts
-import { parseError } from '@gabfon/observability';
-import { log } from '@gabfon/observability/log';
+import { parseError } from "@gabfon/observability";
+import { log } from "@gabfon/observability/log";
 
 export async function GET() {
   try {
     const users = await getUsers();
-    log.info('Users fetched successfully', { count: users.length });
+    log.info("Users fetched successfully", { count: users.length });
     return Response.json(users);
   } catch (error) {
     const message = parseError(error);
@@ -357,19 +362,19 @@ export class ErrorBoundary extends React.Component<
 
 ```typescript
 // actions/userActions.ts
-'use server';
+"use server";
 
-import { parseError } from '@gabfon/observability';
-import { log } from '@gabfon/observability/log';
+import { parseError } from "@gabfon/observability";
+import { log } from "@gabfon/observability/log";
 
 export async function createUser(userData: UserData) {
   try {
     const user = await db.user.create({ data: userData });
-    log.info('User created successfully', { userId: user.id });
+    log.info("User created successfully", { userId: user.id });
     return { success: true, user };
   } catch (error) {
     const message = parseError(error);
-    log.error('User creation failed', { error: message });
+    log.error("User creation failed", { error: message });
     return { success: false, error: message };
   }
 }
@@ -415,7 +420,7 @@ function ComponentWithErrorHandling() {
 
 ```typescript
 // utils/performance.ts
-import * as Sentry from '@sentry/nextjs';
+import * as Sentry from "@sentry/nextjs";
 
 export function withPerformanceTracking<T extends (...args: any[]) => any>(
   fn: T,
@@ -425,7 +430,7 @@ export function withPerformanceTracking<T extends (...args: any[]) => any>(
     return Sentry.startSpan(
       {
         name,
-        op: 'function',
+        op: "function",
       },
       () => fn(...args)
     );
@@ -433,19 +438,16 @@ export function withPerformanceTracking<T extends (...args: any[]) => any>(
 }
 
 // Usage
-const trackedFunction = withPerformanceTracking(
-  async (data: any) => {
-    // Your function logic
-  },
-  'data-processing'
-);
+const trackedFunction = withPerformanceTracking(async (data: any) => {
+  // Your function logic
+}, "data-processing");
 ```
 
 ### Structured Logging
 
 ```typescript
 // utils/logger.ts
-import { log } from '@gabfon/observability/log';
+import { log } from "@gabfon/observability/log";
 
 export const logger = {
   userAction: (action: string, userId: string, metadata?: object) => {
@@ -475,15 +477,15 @@ export const logger = {
 ### Custom Sentry Configuration
 
 ```typescript
+import { keys } from "@gabfon/observability";
 // custom-sentry.ts
-import { init } from '@sentry/nextjs';
-import { keys } from '@gabfon/observability';
+import { init } from "@sentry/nextjs";
 
 export function initializeCustomSentry() {
   return init({
     dsn: keys().NEXT_PUBLIC_SENTRY_DSN,
     tracesSampleRate: 0.5, // Custom sample rate
-    debug: process.env.NODE_ENV === 'development',
+    debug: process.env.NODE_ENV === "development",
     replaysOnErrorSampleRate: 0.5,
     replaysSessionSampleRate: 0.05,
     integrations: [
@@ -501,21 +503,21 @@ export function initializeCustomSentry() {
 
 ```typescript
 // utils/errorParser.ts
-import { parseError } from '@gabfon/observability';
+import { parseError } from "@gabfon/observability";
 
 export function parseCustomError(error: unknown, context?: object): string {
   const message = parseError(error);
-  
+
   // Add custom context to error
   if (context) {
-    console.error('Error context:', context);
+    console.error("Error context:", context);
   }
-  
+
   // Custom error handling logic
-  if (message.includes('network')) {
-    return 'Network connection failed. Please check your internet connection.';
+  if (message.includes("network")) {
+    return "Network connection failed. Please check your internet connection.";
   }
-  
+
   return message;
 }
 ```
@@ -545,14 +547,14 @@ try {
 
 ```typescript
 // Good: Include context in logs
-log.error('Database operation failed', {
-  operation: 'user_update',
-  userId: '123',
+log.error("Database operation failed", {
+  operation: "user_update",
+  userId: "123",
   duration: 1500,
 });
 
 // Bad: Generic error message
-log.error('Something went wrong');
+log.error("Something went wrong");
 ```
 
 ### 3. Error Boundaries
@@ -572,15 +574,15 @@ log.error('Something went wrong');
 ### With Analytics Package
 
 ```typescript
-import { parseError } from '@gabfon/observability';
-import { analytics } from '@gabfon/analytics/lib/server';
+import { analytics } from "@gabfon/analytics/lib/server";
+import { parseError } from "@gabfon/observability";
 
 export async function trackWithErrorHandling(event: string, data: object) {
   try {
     analytics.capture(event, data);
   } catch (error) {
     const message = parseError(error);
-    log.error('Analytics tracking failed', { event, error: message });
+    log.error("Analytics tracking failed", { event, error: message });
   }
 }
 ```
@@ -588,8 +590,8 @@ export async function trackWithErrorHandling(event: string, data: object) {
 ### With Security Package
 
 ```typescript
-import { parseError } from '@gabfon/observability';
-import { securityMiddleware } from '@gabfon/security';
+import { parseError } from "@gabfon/observability";
+import { securityMiddleware } from "@gabfon/security";
 
 export function secureApiHandler(handler: Function) {
   return async (request: Request) => {
@@ -608,19 +610,19 @@ export function secureApiHandler(handler: Function) {
 ### With Rate Limiting
 
 ```typescript
-import { parseError } from '@gabfon/observability';
-import { rateLimit } from '@gabfon/rate-limit';
+import { parseError } from "@gabfon/observability";
+import { rateLimit } from "@gabfon/rate-limit";
 
 export async function rateLimitedApiCall(key: string, limit: number) {
   try {
     const { success } = await rateLimit.limit({ key, requests: limit });
     if (!success) {
-      throw new Error('Rate limit exceeded');
+      throw new Error("Rate limit exceeded");
     }
     // Proceed with API call
   } catch (error) {
     const message = parseError(error);
-    log.warn('Rate limit exceeded', { key, limit });
+    log.warn("Rate limit exceeded", { key, limit });
     throw new Error(message);
   }
 }
@@ -632,27 +634,27 @@ export async function rateLimitedApiCall(key: string, limit: number) {
 
 ```typescript
 // __tests__/parseError.test.ts
-import { parseError } from '@gabfon/observability';
+import { parseError } from "@gabfon/observability";
 
-describe('parseError', () => {
-  test('handles Error objects', () => {
-    const error = new Error('Test error');
-    expect(parseError(error)).toBe('Test error');
+describe("parseError", () => {
+  test("handles Error objects", () => {
+    const error = new Error("Test error");
+    expect(parseError(error)).toBe("Test error");
   });
 
-  test('handles objects with message', () => {
-    const error = { message: 'Custom error' };
-    expect(parseError(error)).toBe('Custom error');
+  test("handles objects with message", () => {
+    const error = { message: "Custom error" };
+    expect(parseError(error)).toBe("Custom error");
   });
 
-  test('handles primitive values', () => {
-    expect(parseError('String error')).toBe('String error');
-    expect(parseError(404)).toBe('404');
+  test("handles primitive values", () => {
+    expect(parseError("String error")).toBe("String error");
+    expect(parseError(404)).toBe("404");
   });
 
-  test('handles unknown types', () => {
-    expect(parseError(undefined)).toBe('An error occurred');
-    expect(parseError(null)).toBe('An error occurred');
+  test("handles unknown types", () => {
+    expect(parseError(undefined)).toBe("An error occurred");
+    expect(parseError(null)).toBe("An error occurred");
   });
 });
 ```
@@ -661,20 +663,22 @@ describe('parseError', () => {
 
 ```typescript
 // __tests__/logging.test.ts
-import { log } from '@gabfon/observability/log';
+import { log } from "@gabfon/observability/log";
 
 // Mock Logtail
-jest.mock('@logtail/next');
+jest.mock("@logtail/next");
 
-describe('logging', () => {
-  test('logs info messages', () => {
-    log.info('Test message', { key: 'value' });
-    expect(log.info).toHaveBeenCalledWith('Test message', { key: 'value' });
+describe("logging", () => {
+  test("logs info messages", () => {
+    log.info("Test message", { key: "value" });
+    expect(log.info).toHaveBeenCalledWith("Test message", { key: "value" });
   });
 
-  test('logs error messages', () => {
-    log.error('Error message', { error: 'details' });
-    expect(log.error).toHaveBeenCalledWith('Error message', { error: 'details' });
+  test("logs error messages", () => {
+    log.error("Error message", { error: "details" });
+    expect(log.error).toHaveBeenCalledWith("Error message", {
+      error: "details",
+    });
   });
 });
 ```

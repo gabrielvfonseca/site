@@ -18,23 +18,27 @@ NEXT_PUBLIC_GITHUB_TOKEN=ghp_your_public_github_token
 ## Exports
 
 ### Main Client
+
 ```typescript
-export { GitHubClient, githubClient } from './index';
+export { GitHubClient, githubClient } from "./index";
 ```
 
 ### Types
+
 ```typescript
-export * from './types';
+export * from "./types";
 ```
 
 ### Hooks
+
 ```typescript
-export * from './hooks';
+export * from "./hooks";
 ```
 
 ### Environment Keys
+
 ```typescript
-export { keys } from './keys';
+export { keys } from "./keys";
 ```
 
 ## Client
@@ -47,7 +51,7 @@ Main GitHub API client class for interacting with GitHub's REST API.
 
 ```typescript
 class GitHubClient {
-  constructor(options?: GitHubClientOptions)
+  constructor(options?: GitHubClientOptions);
 }
 
 interface GitHubClientOptions {
@@ -60,21 +64,21 @@ interface GitHubClientOptions {
 #### Usage
 
 ```typescript
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 const client = new GitHubClient({
   token: process.env.GITHUB_TOKEN,
-  userAgent: 'MyApp/1.0',
+  userAgent: "MyApp/1.0",
 });
 ```
 
 #### Default Client
 
 ```typescript
-import { githubClient } from '@gabfon/github';
+import { githubClient } from "@gabfon/github";
 
 // Pre-configured client with environment token
-const user = await githubClient.getUser('gabfon');
+const user = await githubClient.getUser("gabfon");
 ```
 
 ### Methods
@@ -90,14 +94,17 @@ async getUser(username: string): Promise<GitHubUser>
 ```
 
 **Parameters**
+
 - `username: string` - GitHub username
 
 **Returns**
+
 - `Promise<GitHubUser>` - User profile information
 
 **Example**
+
 ```typescript
-const user = await client.getUser('gabfon');
+const user = await client.getUser("gabfon");
 console.log(user.name); // 'Gabriel Fonseca'
 console.log(user.public_repos); // Number of public repositories
 ```
@@ -111,15 +118,18 @@ async getUserRepos(username: string): Promise<GitHubRepo[]>
 ```
 
 **Parameters**
+
 - `username: string` - GitHub username
 
 **Returns**
+
 - `Promise<GitHubRepo[]>` - Array of repositories
 
 **Example**
+
 ```typescript
-const repos = await client.getUserRepos('gabfon');
-repos.forEach(repo => {
+const repos = await client.getUserRepos("gabfon");
+repos.forEach((repo) => {
   console.log(repo.name, repo.stargazers_count);
 });
 ```
@@ -135,15 +145,18 @@ async getRepo(owner: string, repo: string): Promise<GitHubRepo>
 ```
 
 **Parameters**
+
 - `owner: string` - Repository owner username
 - `repo: string` - Repository name
 
 **Returns**
+
 - `Promise<GitHubRepo>` - Repository information
 
 **Example**
+
 ```typescript
-const repo = await client.getRepo('gabfon', 'site-main');
+const repo = await client.getRepo("gabfon", "site-main");
 console.log(repo.description);
 console.log(repo.language);
 ```
@@ -157,16 +170,19 @@ async getRepoEvents(owner: string, repo: string): Promise<GitHubEvent[]>
 ```
 
 **Parameters**
+
 - `owner: string` - Repository owner username
 - `repo: string` - Repository name
 
 **Returns**
+
 - `Promise<GitHubEvent[]>` - Array of repository events
 
 **Example**
+
 ```typescript
-const events = await client.getRepoEvents('gabfon', 'site-main');
-events.forEach(event => {
+const events = await client.getRepoEvents("gabfon", "site-main");
+events.forEach((event) => {
   console.log(event.type, event.created_at);
 });
 ```
@@ -182,15 +198,18 @@ async getUserEvents(username: string): Promise<GitHubEvent[]>
 ```
 
 **Parameters**
+
 - `username: string` - GitHub username
 
 **Returns**
+
 - `Promise<GitHubEvent[]>` - Array of user events
 
 **Example**
+
 ```typescript
-const events = await client.getUserEvents('gabfon');
-events.forEach(event => {
+const events = await client.getUserEvents("gabfon");
+events.forEach((event) => {
   console.log(`${event.type}: ${event.repo.name}`);
 });
 ```
@@ -206,15 +225,18 @@ async getUserContributions(username: string): Promise<GitHubContribution[]>
 ```
 
 **Parameters**
+
 - `username: string` - GitHub username
 
 **Returns**
+
 - `Promise<GitHubContribution[]>` - Array of contributions
 
 **Example**
+
 ```typescript
-const contributions = await client.getUserContributions('gabfon');
-contributions.forEach(contribution => {
+const contributions = await client.getUserContributions("gabfon");
+contributions.forEach((contribution) => {
   console.log(contribution.date, contribution.count);
 });
 ```
@@ -310,7 +332,7 @@ function useGitHubUser(username: string): {
   data: GitHubUser | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -346,7 +368,7 @@ function useGitHubRepos(username: string): {
   data: GitHubRepo[] | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -383,11 +405,14 @@ React hook for fetching repository information.
 #### Signature
 
 ```typescript
-function useGitHubRepo(owner: string, repo: string): {
+function useGitHubRepo(
+  owner: string,
+  repo: string
+): {
   data: GitHubRepo | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -417,14 +442,14 @@ function RepoInfo({ owner, repo }: { owner: string; repo: string }) {
 ### Required Variables
 
 | Variable | Description | Type | Environment | Required |
-|----------|-------------|------|-------------|----------|
+| --- | --- | --- | --- | --- |
 | `GITHUB_TOKEN` | GitHub Personal Access Token | string | Server | Optional |
 | `NEXT_PUBLIC_GITHUB_TOKEN` | Public GitHub token | string | Client | Optional |
 
 ### Environment Validation
 
 ```typescript
-import { keys } from '@gabfon/github';
+import { keys } from "@gabfon/github";
 
 // Validates environment variables and returns typed object
 const env = keys();
@@ -446,7 +471,7 @@ Recommended token scopes for different use cases:
 ### Basic Client Usage
 
 ```typescript
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 const client = new GitHubClient({
   token: process.env.GITHUB_TOKEN,
@@ -456,14 +481,14 @@ async function getUserInfo(username: string) {
   try {
     const user = await client.getUser(username);
     const repos = await client.getUserRepos(username);
-    
+
     return {
       user,
       repositories: repos,
       totalStars: repos.reduce((sum, repo) => sum + repo.stargazers_count, 0),
     };
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error("Error fetching user data:", error);
     throw error;
   }
 }
@@ -473,7 +498,7 @@ async function getUserInfo(username: string) {
 
 ```typescript
 // app/api/github/[username]/route.ts
-import { githubClient } from '@gabfon/github';
+import { githubClient } from "@gabfon/github";
 
 export async function GET(
   request: Request,
@@ -483,17 +508,11 @@ export async function GET(
     const user = await githubClient.getUser(params.username);
     return Response.json(user);
   } catch (error) {
-    if (error.message === 'Resource not found') {
-      return Response.json(
-        { error: 'User not found' },
-        { status: 404 }
-      );
+    if (error.message === "Resource not found") {
+      return Response.json({ error: "User not found" }, { status: 404 });
     }
-    
-    return Response.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 ```
@@ -528,7 +547,7 @@ export function GitHubProfile({ username }: GitHubProfileProps) {
           <span>Repos: {user.public_repos}</span>
         </div>
       </div>
-      
+
       <div className="repositories">
         <h2>Repositories</h2>
         <div className="repo-grid">
@@ -554,7 +573,7 @@ export function GitHubProfile({ username }: GitHubProfileProps) {
 ### Error Handling
 
 ```typescript
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 const client = new GitHubClient();
 
@@ -563,19 +582,19 @@ async function safeGetUser(username: string) {
     const user = await client.getUser(username);
     return { success: true, data: user };
   } catch (error) {
-    if (error.message === 'Resource not found') {
-      return { success: false, error: 'User not found' };
+    if (error.message === "Resource not found") {
+      return { success: false, error: "User not found" };
     }
-    
-    if (error.message === 'Access forbidden - check token permissions') {
-      return { success: false, error: 'Access denied - check token' };
+
+    if (error.message === "Access forbidden - check token permissions") {
+      return { success: false, error: "Access denied - check token" };
     }
-    
-    if (error.message === 'Rate limit exceeded') {
-      return { success: false, error: 'Rate limit exceeded' };
+
+    if (error.message === "Rate limit exceeded") {
+      return { success: false, error: "Rate limit exceeded" };
     }
-    
-    return { success: false, error: 'Unknown error occurred' };
+
+    return { success: false, error: "Unknown error occurred" };
   }
 }
 ```
@@ -583,7 +602,7 @@ async function safeGetUser(username: string) {
 ### Pagination Support
 
 ```typescript
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 const client = new GitHubClient();
 
@@ -595,7 +614,7 @@ async function getAllUserRepos(username: string) {
   while (hasMore) {
     try {
       const repos = await client.getUserRepos(username);
-      
+
       if (repos.length === 0) {
         hasMore = false;
       } else {
@@ -615,12 +634,12 @@ async function getAllUserRepos(username: string) {
 ### Custom Client Configuration
 
 ```typescript
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 const customClient = new GitHubClient({
   token: process.env.GITHUB_TOKEN,
-  baseUrl: 'https://api.github.com',
-  userAgent: 'MyApp/1.0 (https://myapp.com)',
+  baseUrl: "https://api.github.com",
+  userAgent: "MyApp/1.0 (https://myapp.com)",
 });
 
 // Add custom headers
@@ -635,13 +654,13 @@ class CustomGitHubClient extends GitHubClient {
     const response = await fetch(url, {
       ...options,
       headers: {
-        'Authorization': `Bearer ${this.token}`,
-        'User-Agent': this.userAgent,
-        'Accept': 'application/vnd.github.v3+json',
+        Authorization: `Bearer ${this.token}`,
+        "User-Agent": this.userAgent,
+        Accept: "application/vnd.github.v3+json",
         ...options?.headers,
       },
     });
-    
+
     return this.handleResponse(response);
   }
 }
@@ -653,7 +672,7 @@ class CustomGitHubClient extends GitHubClient {
 
 ```typescript
 // utils/githubCache.ts
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 class CachedGitHubClient extends GitHubClient {
   private cache = new Map<string, { data: any; timestamp: number }>();
@@ -662,14 +681,14 @@ class CachedGitHubClient extends GitHubClient {
   async getUser(username: string): Promise<GitHubUser> {
     const cacheKey = `user:${username}`;
     const cached = this.cache.get(cacheKey);
-    
+
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
       return cached.data;
     }
 
     const user = await super.getUser(username);
     this.cache.set(cacheKey, { data: user, timestamp: Date.now() });
-    
+
     return user;
   }
 }
@@ -679,7 +698,7 @@ class CachedGitHubClient extends GitHubClient {
 
 ```typescript
 // utils/rateLimitedClient.ts
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 class RateLimitedGitHubClient extends GitHubClient {
   private lastRequest = 0;
@@ -688,13 +707,13 @@ class RateLimitedGitHubClient extends GitHubClient {
   private async waitForRateLimit() {
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequest;
-    
+
     if (timeSinceLastRequest < this.minInterval) {
-      await new Promise(resolve => 
+      await new Promise((resolve) =>
         setTimeout(resolve, this.minInterval - timeSinceLastRequest)
       );
     }
-    
+
     this.lastRequest = Date.now();
   }
 
@@ -709,7 +728,7 @@ class RateLimitedGitHubClient extends GitHubClient {
 
 ```typescript
 // utils/retryClient.ts
-import { GitHubClient } from '@gabfon/github';
+import { GitHubClient } from "@gabfon/github";
 
 class RetryGitHubClient extends GitHubClient {
   async getUser(username: string, retries = 3): Promise<GitHubUser> {
@@ -725,12 +744,14 @@ class RetryGitHubClient extends GitHubClient {
   }
 
   private shouldRetry(error: Error): boolean {
-    return error.message.includes('Rate limit exceeded') ||
-           error.message.includes('Network error');
+    return (
+      error.message.includes("Rate limit exceeded") ||
+      error.message.includes("Network error")
+    );
   }
 
   private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
 ```
@@ -748,21 +769,21 @@ class GitHubApiError extends Error {
     public response?: any
   ) {
     super(message);
-    this.name = 'GitHubApiError';
+    this.name = "GitHubApiError";
   }
 }
 
 class GitHubRateLimitError extends GitHubApiError {
   constructor(public resetTime?: number) {
-    super('Rate limit exceeded');
-    this.name = 'GitHubRateLimitError';
+    super("Rate limit exceeded");
+    this.name = "GitHubRateLimitError";
   }
 }
 
 class GitHubNotFoundError extends GitHubApiError {
   constructor(resource: string) {
     super(`${resource} not found`);
-    this.name = 'GitHubNotFoundError';
+    this.name = "GitHubNotFoundError";
     this.status = 404;
   }
 }
@@ -779,13 +800,13 @@ async function handleGitHubRequest<T>(
     return { data };
   } catch (error) {
     if (error instanceof GitHubRateLimitError) {
-      console.log('Rate limited, retry after:', error.resetTime);
+      console.log("Rate limited, retry after:", error.resetTime);
     } else if (error instanceof GitHubNotFoundError) {
-      console.log('Resource not found');
+      console.log("Resource not found");
     } else {
-      console.error('GitHub API error:', error);
+      console.error("GitHub API error:", error);
     }
-    
+
     return { error: error as Error };
   }
 }
@@ -803,7 +824,7 @@ const client = new GitHubClient({
 
 // Bad: Hardcode tokens
 const client = new GitHubClient({
-  token: 'ghp_hardcoded_token',
+  token: "ghp_hardcoded_token",
 });
 ```
 
@@ -815,9 +836,9 @@ try {
   const user = await client.getUser(username);
   // Process user data
 } catch (error) {
-  if (error.message === 'Resource not found') {
+  if (error.message === "Resource not found") {
     // Handle not found
-  } else if (error.message === 'Rate limit exceeded') {
+  } else if (error.message === "Rate limit exceeded") {
     // Handle rate limit
   } else {
     // Handle other errors
@@ -856,26 +877,26 @@ const user: any = await client.getUser(username);
 ### With Analytics Package
 
 ```typescript
-import { githubClient } from '@gabfon/github';
-import { analytics } from '@gabfon/analytics/lib/server';
+import { analytics } from "@gabfon/analytics/lib/server";
+import { githubClient } from "@gabfon/github";
 
 async function getUserWithTracking(username: string) {
   try {
     const user = await githubClient.getUser(username);
-    
-    analytics.capture('github_user_fetched', {
+
+    analytics.capture("github_user_fetched", {
       username,
       followers: user.followers,
       repos: user.public_repos,
     });
-    
+
     return user;
   } catch (error) {
-    analytics.capture('github_api_error', {
+    analytics.capture("github_api_error", {
       username,
       error: error.message,
     });
-    
+
     throw error;
   }
 }
@@ -915,25 +936,25 @@ function GitHubProfileCard({ username }: { username: string }) {
 ### With Security Package
 
 ```typescript
-import { githubClient } from '@gabfon/github';
-import { secure } from '@gabfon/security';
+import { githubClient } from "@gabfon/github";
+import { secure } from "@gabfon/security";
 
 export async function GET(request: Request) {
   // Protect against bots
-  await secure(['CATEGORY:SEARCH_ENGINE'], request);
-  
+  await secure(["CATEGORY:SEARCH_ENGINE"], request);
+
   const { searchParams } = new URL(request.url);
-  const username = searchParams.get('username');
-  
+  const username = searchParams.get("username");
+
   if (!username) {
-    return Response.json({ error: 'Username required' }, { status: 400 });
+    return Response.json({ error: "Username required" }, { status: 400 });
   }
-  
+
   try {
     const user = await githubClient.getUser(username);
     return Response.json(user);
   } catch (error) {
-    return Response.json({ error: 'User not found' }, { status: 404 });
+    return Response.json({ error: "User not found" }, { status: 404 });
   }
 }
 ```

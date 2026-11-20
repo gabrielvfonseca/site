@@ -1,5 +1,6 @@
 import { ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
+
 import { cn } from "@/lib/utils";
 
 /** Matches absolute http(s) URLs (treated as external links). */
@@ -9,16 +10,16 @@ const EXTERNAL_URL = /^https?:\/\//;
  * Props for {@link LinkCard}.
  */
 interface LinkCardProps {
-	/** Destination URL. */
-	readonly href: string;
-	/** Card title. */
-	readonly title: string;
-	/** Supporting description. */
-	readonly description?: string;
-	/** Optional eyebrow/source label, e.g. a domain. */
-	readonly eyebrow?: string;
-	/** Optional extra class names. */
-	readonly className?: string;
+  /** Destination URL. */
+  readonly href: string;
+  /** Card title. */
+  readonly title: string;
+  /** Supporting description. */
+  readonly description?: string;
+  /** Optional eyebrow/source label, e.g. a domain. */
+  readonly eyebrow?: string;
+  /** Optional extra class names. */
+  readonly className?: string;
 }
 
 /**
@@ -29,40 +30,40 @@ interface LinkCardProps {
  * @returns The LinkCard element.
  */
 export function LinkCard({
-	href,
-	title,
-	description,
-	eyebrow,
-	className,
+  href,
+  title,
+  description,
+  eyebrow,
+  className,
 }: LinkCardProps) {
-	const external = EXTERNAL_URL.test(href);
+  const external = EXTERNAL_URL.test(href);
 
-	return (
-		<Link
-			className={cn(
-				"not-prose group flex items-center justify-between gap-4 rounded-lg border border-border bg-muted/50 px-5 py-4 no-underline transition-colors duration-200 hover:border-foreground/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none",
-				className,
-			)}
-			href={href}
-			{...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-		>
-			<span className="flex min-w-0 flex-col gap-1">
-				{eyebrow ? (
-					<span className="text-muted-foreground text-xs uppercase tracking-wider">
-						{eyebrow}
-					</span>
-				) : null}
-				<span className="truncate text-foreground text-sm">{title}</span>
-				{description ? (
-					<span className="text-muted-foreground text-sm leading-snug">
-						{description}
-					</span>
-				) : null}
-			</span>
-			<ArrowUpRightIcon
-				aria-hidden="true"
-				className="group-hover:-translate-y-0.5 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-foreground motion-reduce:transition-none"
-			/>
-		</Link>
-	);
+  return (
+    <Link
+      className={cn(
+        "not-prose group border-border bg-muted/50 hover:border-foreground/25 focus-visible:ring-ring flex items-center justify-between gap-4 rounded-lg border px-5 py-4 no-underline transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:transition-none",
+        className
+      )}
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
+      <span className="flex min-w-0 flex-col gap-1">
+        {eyebrow ? (
+          <span className="text-muted-foreground text-xs tracking-wider uppercase">
+            {eyebrow}
+          </span>
+        ) : null}
+        <span className="text-foreground truncate text-sm">{title}</span>
+        {description ? (
+          <span className="text-muted-foreground text-sm leading-snug">
+            {description}
+          </span>
+        ) : null}
+      </span>
+      <ArrowUpRightIcon
+        aria-hidden="true"
+        className="text-muted-foreground group-hover:text-foreground size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+      />
+    </Link>
+  );
 }

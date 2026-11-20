@@ -8,6 +8,7 @@ import { createViewport } from "@gabfon/seo/viewport";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
+
 import { SkipNav } from "@/components/accessibility/skip-nav";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeInitScript } from "@/components/theme-init-script";
@@ -15,21 +16,21 @@ import { meta } from "@/config/metadata";
 import { cn } from "@/lib/utils";
 
 const geist = localFont({
-	src: [{ path: "../../assets/fonts/Geist-400.ttf", weight: "400" }],
-	variable: "--font-sans",
-	display: "swap",
-	preload: true,
+  src: [{ path: "../../assets/fonts/Geist-400.ttf", weight: "400" }],
+  variable: "--font-sans",
+  display: "swap",
+  preload: true,
 });
 
 const geistMedium = localFont({
-	src: [
-		{ path: "../../assets/fonts/Geist-500.ttf", weight: "500" },
-		{ path: "../../assets/fonts/Geist-600.ttf", weight: "600" },
-		{ path: "../../assets/fonts/Geist-700.ttf", weight: "700" },
-	],
-	variable: "--font-sans-medium",
-	display: "swap",
-	preload: false,
+  src: [
+    { path: "../../assets/fonts/Geist-500.ttf", weight: "500" },
+    { path: "../../assets/fonts/Geist-600.ttf", weight: "600" },
+    { path: "../../assets/fonts/Geist-700.ttf", weight: "700" },
+  ],
+  variable: "--font-sans-medium",
+  display: "swap",
+  preload: false,
 });
 
 /**
@@ -48,10 +49,10 @@ export const metadata: Metadata = createMetadata({ ...meta, pathname: "/" });
  * The RootLayoutProps for the site.
  */
 interface RootLayoutProps {
-	/**
-	 * The children for the site.
-	 */
-	readonly children: ReactNode;
+  /**
+   * The children for the site.
+   */
+  readonly children: ReactNode;
 }
 
 /**
@@ -60,29 +61,29 @@ interface RootLayoutProps {
  * @returns The RootLayout for the site.
  */
 export default function Layout({ children }: RootLayoutProps) {
-	return (
-		<html
-			className={cn(
-				geist.variable,
-				geistMedium.variable,
-				geist.className,
-				"font-sans",
-			)}
-			lang="en"
-			suppressHydrationWarning
-		>
-			<body className="min-h-screen bg-background text-foreground">
-				<SkipNav />
-				<ThemeInitScript />
-				<QueryProvider>
-					<ThemeProvider defaultTheme="dark" enableSystem>
-						<AnalyticsProvider>
-							<TooltipProvider>{children}</TooltipProvider>
-							<Toaster />
-						</AnalyticsProvider>
-					</ThemeProvider>
-				</QueryProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html
+      className={cn(
+        geist.variable,
+        geistMedium.variable,
+        geist.className,
+        "font-sans"
+      )}
+      lang="en"
+      suppressHydrationWarning
+    >
+      <body className="bg-background text-foreground min-h-screen">
+        <SkipNav />
+        <ThemeInitScript />
+        <QueryProvider>
+          <ThemeProvider defaultTheme="dark" enableSystem>
+            <AnalyticsProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+              <Toaster />
+            </AnalyticsProvider>
+          </ThemeProvider>
+        </QueryProvider>
+      </body>
+    </html>
+  );
 }

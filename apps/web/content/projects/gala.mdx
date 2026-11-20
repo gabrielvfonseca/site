@@ -11,14 +11,28 @@ The language is written in Rust, with a compiler pipeline spanning 24 crates —
 
 This is not a project with any establishment ambitions. I like quantum mechanics, so I wrote a language about it. The name comes from Gala, a type of apple. Newton had his apple — a falling one that led to the laws of motion. For me, quantum mechanics is that same kind of perfection: a description of reality so elegant that it feels like it had to be true. Gala is my apple. My favorite computer is the Macintosh, another type of apple, so the thread runs deeper than coincidence.
 
-<TechStack items={["Rust", "LLVM", "QIR", "Salsa", "Chumsky", "Logos", "Inkwell", "Roqoqo", "Tower LSP"]} label="Built with" />
+<TechStack
+  items={[
+    "Rust",
+    "LLVM",
+    "QIR",
+    "Salsa",
+    "Chumsky",
+    "Logos",
+    "Inkwell",
+    "Roqoqo",
+    "Tower LSP",
+  ]}
+  label="Built with"
+/>
 
 ## Linear types for no-cloning
 
 The no-cloning theorem — you cannot copy an arbitrary qubit — maps exactly onto linear typing, where a value must be used exactly once. Gala's type system enforces this statically. A qubit cannot be duplicated, implicitly dropped, or aliased. The compiler emits diagnostics that explain the physics behind the error:
 
 <Callout variant="danger" title="Compile-time check">
-A qubit is a linear resource. Using it after measurement or passing it to two gates without explicit threading is a compile error, not a runtime bug.
+  A qubit is a linear resource. Using it after measurement or passing it to two
+  gates without explicit threading is a compile error, not a runtime bug.
 </Callout>
 
 ```gala
@@ -36,7 +50,9 @@ fn bell() -> Qubits<2> quantum {
 Every function carries an effect: `pure` for deterministic classical computation, `quantum` for unitary evolution (reversible, no measurement), or `prob` for functions that perform measurement and carry classical randomness. The effect lattice `pure ⊑ quantum ⊑ prob` governs what can call what, and crossing the measurement boundary is always explicit in the type.
 
 <Callout variant="tip" title="Boundary safety">
-A `quantum` function is guaranteed measurement-free and therefore reversible as a whole. Asking for `adjoint` or `control` of a `prob` function is a type error with an explanatory message.
+  A `quantum` function is guaranteed measurement-free and therefore reversible
+  as a whole. Asking for `adjoint` or `control` of a `prob` function is a type
+  error with an explanatory message.
 </Callout>
 
 ```gala
@@ -55,13 +71,16 @@ The `grad` operator extends this to hybrid quantum-classical machine learning. F
 
 <Steps>
   <Step title="Define a parameterized circuit">
-    Angle-encode classical data into qubit rotations, then apply a layered ansatz with trainable parameters.
+    Angle-encode classical data into qubit rotations, then apply a layered
+    ansatz with trainable parameters.
   </Step>
   <Step title="Measure and classify">
-    Measure one qubit to produce a probabilistic classical result, crossing from quantum to prob effect.
+    Measure one qubit to produce a probabilistic classical result, crossing from
+    quantum to prob effect.
   </Step>
   <Step title="Differentiate with grad">
-    The compiler synthesizes parameter-shift for quantum gates and autodiff for classical computation, composing them transparently.
+    The compiler synthesizes parameter-shift for quantum gates and autodiff for
+    classical computation, composing them transparently.
   </Step>
 </Steps>
 
@@ -81,7 +100,10 @@ Ancilla qubits entangled with your data cannot simply be discarded — doing so 
 Gala classifies values as liftable when they are computed purely by reversible operations from known inputs. When a liftable ancilla goes out of scope or is `drop`ped, the compiler **synthesizes the uncompute sequence** — the adjoint of the computation that produced it — and inserts it automatically, returning the qubit to |0⟩ before release.
 
 <Callout variant="warning" title="Always safe">
-When automatic synthesis is not possible — because the value depends on a measurement or a non-reversible input — the compiler refuses and emits a diagnostic that explains the specific blocking reason. It never silently produces a wrong program.
+  When automatic synthesis is not possible — because the value depends on a
+  measurement or a non-reversible input — the compiler refuses and emits a
+  diagnostic that explains the specific blocking reason. It never silently
+  produces a wrong program.
 </Callout>
 
 ## Architecture
@@ -89,9 +111,21 @@ When automatic synthesis is not possible — because the value depends on a meas
 The compiler pipeline runs source through lexer (Logos), parser (Chumsky), HIR (Salsa query-based, giving fast incremental rebuilds), type and effect checking, linearity analysis, uncomputation synthesis, lowering to GIR — a typed, effect-annotated operation graph — optimization passes, and then parallel backends. The query-based core means batch compilation and the LSP share one engine, the same architecture rust-analyzer uses.
 
 <StatGrid columns={3}>
-  <Stat value="24" label="Compiler crates" hint="Each crate owns one concern with a thin API boundary" />
-  <Stat value="3" label="Backends" hint="QIR (LLVM), state-vector simulator, classical codegen" />
-  <Stat value="0" label="Unsound programs" hint="No-cloning, reversibility, and effects are compiler-enforced" />
+  <Stat
+    value="24"
+    label="Compiler crates"
+    hint="Each crate owns one concern with a thin API boundary"
+  />
+  <Stat
+    value="3"
+    label="Backends"
+    hint="QIR (LLVM), state-vector simulator, classical codegen"
+  />
+  <Stat
+    value="0"
+    label="Unsound programs"
+    hint="No-cloning, reversibility, and effects are compiler-enforced"
+  />
 </StatGrid>
 
 ## Built for AI agents
@@ -102,7 +136,18 @@ Two specialized agent personas — `compiler-engineer` and `code-reviewer` — d
 
 A permission sandbox restricts what agents can do (build, test, lint, format) and what they cannot (publish, install arbitrary packages, shell out to the network). Auto-memory preserves context across sessions. The entire 12-document documentation suite, glossary, architecture diagrams, and crate map are written for machine parsing as much as human reading. Work packages with numbered branches, definition-of-done checklists, and escalation rules keep the workflow tractable for autonomous agents.
 
-<TechStack items={["Claude Code", "OpenCode", "MCP", "Tower LSP", "Salsa", "JSON Schema", "Zod"]} label="Agent tooling" />
+<TechStack
+  items={[
+    "Claude Code",
+    "OpenCode",
+    "MCP",
+    "Tower LSP",
+    "Salsa",
+    "JSON Schema",
+    "Zod",
+  ]}
+  label="Agent tooling"
+/>
 
 ## Cookbook
 
@@ -110,13 +155,17 @@ Beginner, quantum, and hybrid recipes walk through everything from your first Be
 
 <Accordion>
   <AccordionItem title="Beginner — Classical programming fundamentals">
-    Hello world, functions, control flow (if/else, match, for, while as expressions), modules and imports. No quantum knowledge required.
+    Hello world, functions, control flow (if/else, match, for, while as
+    expressions), modules and imports. No quantum knowledge required.
   </AccordionItem>
   <AccordionItem title="Quantum — Qubits, gates, and the effect system">
-    Bell pairs, single and multi-qubit gates, superposition and entanglement, the measurement boundary, and linear type ownership in action.
+    Bell pairs, single and multi-qubit gates, superposition and entanglement,
+    the measurement boundary, and linear type ownership in action.
   </AccordionItem>
   <AccordionItem title="Hybrid — Quantum-classical ML">
-    Parameterized circuits with Params, variational classifiers, gradient computation via grad, and classical pre/post-processing around quantum kernels.
+    Parameterized circuits with Params, variational classifiers, gradient
+    computation via grad, and classical pre/post-processing around quantum
+    kernels.
   </AccordionItem>
 </Accordion>
 

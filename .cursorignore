@@ -13,7 +13,6 @@ out/
 # Cache directories
 .cache/
 .turbo/
-.vercel/
 .nyc_output/
 
 # Environment files
@@ -158,7 +157,6 @@ docker-compose*.yml
 .sentryclirc
 
 # Analytics
-.vercel/analytics/
 
 # Backup files
 *.backup

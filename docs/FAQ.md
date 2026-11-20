@@ -81,13 +81,14 @@ Write your MDX content here.
 
 ## Deployment Questions
 
-### How do I deploy to Vercel?
+### How do I deploy?
 
-1. Connect your repository to Vercel
-2. Configure environment variables in Vercel dashboard
-3. Push to main branch (auto-deploy)
+The **web** app is deployed to Cloudflare Workers via vinext.
 
-See the [Deployment Guide](./deployment.md) for detailed instructions.
+1. Build: `cd apps/web && npx cf build`
+2. Deploy via the Cloudflare Upload Worker API (see `docs/DEPLOYMENT.md`)
+
+See the [Deployment Guide](./DEPLOYMENT.md) for detailed instructions.
 
 ### How do I deploy with Docker?
 
@@ -102,10 +103,12 @@ docker-compose -f infrastructure/docker/docker-compose.yml up -d
 ### What environment variables are needed?
 
 Required:
+
 - `DATABASE_URL` - PostgreSQL connection string
 - `NEXTAUTH_SECRET` - Authentication secret
 
 Optional:
+
 - `SENTRY_DSN` - Error tracking
 - `POSTHOG_KEY` - Analytics
 - `ANALYZE` - Bundle analysis
@@ -117,7 +120,7 @@ Optional:
 **How do I access content?**
 
 ```typescript
-import { docs, blog } from '@gabfon/mdx';
+import { docs, blog } from "@gabfon/mdx";
 
 const allDocs = await docs.getPages();
 const allBlog = await blog.getPages();
@@ -126,7 +129,7 @@ const allBlog = await blog.getPages();
 **How do I add custom MDX components?**
 
 ```typescript
-import { useMDXComponents } from '@gabfon/mdx';
+import { useMDXComponents } from "@gabfon/mdx";
 
 const { components } = useMDXComponents();
 // Use components in your MDX files
@@ -145,6 +148,7 @@ The design system uses Tailwind CSS classes. You can:
 **How do I add new components?**
 
 Follow the established patterns:
+
 1. Create component directory with `Component.tsx`
 2. Add `Component.test.tsx` for tests
 3. Add `Component.stories.tsx` for Storybook
@@ -155,18 +159,18 @@ Follow the established patterns:
 **How do I track custom events?**
 
 ```typescript
-import { trackEvent } from '@gabfon/analytics';
+import { trackEvent } from "@gabfon/analytics";
 
-trackEvent('custom_action', {
-  property: 'value'
+trackEvent("custom_action", {
+  property: "value",
 });
 ```
 
 **How do I disable analytics?**
 
 Remove environment variables:
+
 - `POSTHOG_KEY`
-- `VERCEL_ANALYTICS_ID`
 
 ## Troubleshooting
 
@@ -210,9 +214,10 @@ Remove environment variables:
 ### How do I add images to MDX?
 
 ```mdx
-import Image from './image.jpg';
+import Image from "./image.jpg";
 
 # Use in content
+
 ![Alt text]({src: Image})
 ```
 
@@ -296,6 +301,7 @@ site/
 ### How does Turbo work?
 
 Turbo provides:
+
 - **Task orchestration** - Run tasks across packages
 - **Intelligent caching** - Skip unchanged work
 - **Parallel execution** - Build multiple packages simultaneously
@@ -304,6 +310,7 @@ Turbo provides:
 ### How is TypeScript configured?
 
 Shared configuration in `internals/typescript-config/`:
+
 - Strict mode enabled
 - Path aliases configured
 - Modern compiler options
@@ -320,4 +327,4 @@ If you don't find your question here:
 
 ---
 
-*This FAQ is updated regularly. Last updated: 2025-03-23*
+_This FAQ is updated regularly. Last updated: 2025-03-23_

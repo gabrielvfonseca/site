@@ -33,7 +33,7 @@ STRAVA_REFRESH_TOKEN=your_strava_refresh_token
 ### Basic Usage
 
 ```typescript
-import { stravaClient } from '@gabfon/strava';
+import { stravaClient } from "@gabfon/strava";
 
 // Get current athlete information
 const athlete = await stravaClient.getCurrentAthlete();
@@ -66,7 +66,7 @@ function StravaDashboard() {
   return (
     <div>
       <h1>{athlete?.firstname} {athlete?.lastname}</h1>
-      
+
       {stats && (
         <section>
           <h2>Athlete Statistics</h2>
@@ -98,18 +98,21 @@ function StravaDashboard() {
 ### Client Methods
 
 #### Athlete Data
+
 - `getCurrentAthlete()` - Get current athlete profile
 - `getAthleteStats(athleteId: number)` - Get athlete statistics
 - `getAthleteAchievements()` - Get athlete achievements
 - `updateAthlete(updates: Partial<Athlete>)` - Update athlete profile
 
 #### Activities
+
 - `getAthleteActivities(options?)` - Get athlete's activities
 - `getActivity(activityId: number)` - Get specific activity
 - `createActivity(activity: CreateActivityData)` - Create new activity
 - `updateActivity(activityId: number, updates: Partial<Activity>)` - Update activity
 
 #### Routes and Segments
+
 - `getActivityRoutes(activityId: number)` - Get routes for an activity
 - `getSegment(segmentId: number)` - Get segment information
 
@@ -125,12 +128,12 @@ function StravaDashboard() {
 
 This package uses `@t3-oss/env-nextjs` for environment validation. Required variables:
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `STRAVA_CLIENT_ID` | Strava Client ID | Yes |
-| `STRAVA_CLIENT_SECRET` | Strava Client Secret | Yes |
-| `STRAVA_ACCESS_TOKEN` | Strava Access Token | Yes |
-| `STRAVA_REFRESH_TOKEN` | Strava Refresh Token | Yes |
+| Variable               | Description          | Required |
+| ---------------------- | -------------------- | -------- |
+| `STRAVA_CLIENT_ID`     | Strava Client ID     | Yes      |
+| `STRAVA_CLIENT_SECRET` | Strava Client Secret | Yes      |
+| `STRAVA_ACCESS_TOKEN`  | Strava Access Token  | Yes      |
+| `STRAVA_REFRESH_TOKEN` | Strava Refresh Token | Yes      |
 
 ## Authentication
 

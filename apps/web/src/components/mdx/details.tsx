@@ -1,19 +1,20 @@
 import { ChevronRightIcon } from "lucide-react";
 import type { ReactNode } from "react";
+
 import { cn } from "@/lib/utils";
 
 /**
  * Props for {@link Details}.
  */
 interface DetailsProps {
-	/** The summary label shown in the collapsed state. */
-	readonly summary: string;
-	/** The revealed content. */
-	readonly children: ReactNode;
-	/** When set, renders expanded by default. */
-	readonly open?: boolean;
-	/** Optional extra class names. */
-	readonly className?: string;
+  /** The summary label shown in the collapsed state. */
+  readonly summary: string;
+  /** The revealed content. */
+  readonly children: ReactNode;
+  /** When set, renders expanded by default. */
+  readonly open?: boolean;
+  /** Optional extra class names. */
+  readonly className?: string;
 }
 
 /**
@@ -25,29 +26,29 @@ interface DetailsProps {
  * @returns The Details element.
  */
 export function Details({
-	summary,
-	children,
-	open = false,
-	className,
+  summary,
+  children,
+  open = false,
+  className,
 }: DetailsProps) {
-	return (
-		<details
-			className={cn(
-				"not-prose group my-6 rounded-lg border border-border px-4",
-				className,
-			)}
-			open={open}
-		>
-			<summary className="-mx-4 flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-foreground text-sm marker:content-none">
-				<ChevronRightIcon
-					aria-hidden="true"
-					className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-90"
-				/>
-				{summary}
-			</summary>
-			<div className="prose max-w-none pb-4 text-muted-foreground text-sm">
-				{children}
-			</div>
-		</details>
-	);
+  return (
+    <details
+      className={cn(
+        "not-prose group border-border my-6 rounded-lg border px-4",
+        className
+      )}
+      open={open}
+    >
+      <summary className="text-foreground -mx-4 flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-sm marker:content-none">
+        <ChevronRightIcon
+          aria-hidden="true"
+          className="text-muted-foreground size-4 shrink-0 transition-transform duration-200 group-open:rotate-90"
+        />
+        {summary}
+      </summary>
+      <div className="prose text-muted-foreground max-w-none pb-4 text-sm">
+        {children}
+      </div>
+    </details>
+  );
 }

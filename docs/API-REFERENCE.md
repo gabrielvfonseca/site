@@ -32,8 +32,8 @@ pnpm add @gabfon/mdx
 ### Usage
 
 ```typescript
-import { docs, blog } from '@gabfon/mdx';
-import { useMDXComponents } from '@gabfon/mdx';
+import { docs, blog } from "@gabfon/mdx";
+import { useMDXComponents } from "@gabfon/mdx";
 
 // Access collections
 const allDocs = await docs.getPages();
@@ -113,8 +113,8 @@ export const MyComponent = () => {
 ```typescript
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "danger";
+  size?: "sm" | "md" | "lg";
   disabled?: boolean;
   onClick?: () => void;
 }
@@ -126,7 +126,7 @@ interface ButtonProps {
 interface CardProps {
   children: React.ReactNode;
   className?: string;
-  padding?: 'sm' | 'md' | 'lg';
+  padding?: "sm" | "md" | "lg";
 }
 ```
 
@@ -135,7 +135,7 @@ interface CardProps {
 ```typescript
 interface InputProps {
   placeholder?: string;
-  type?: 'text' | 'email' | 'password';
+  type?: "text" | "email" | "password";
   value?: string;
   onChange?: (value: string) => void;
   error?: string;
@@ -156,7 +156,7 @@ const cn = (...classes: (string | undefined | null | false)[]): string;
 
 ## @gabfon/analytics
 
-Analytics integration for Vercel Analytics and PostHog.
+Analytics integration for PostHog.
 
 ### Installation
 
@@ -167,16 +167,16 @@ pnpm add @gabfon/analytics
 ### Usage
 
 ```typescript
-import { trackEvent, trackPageView } from '@gabfon/analytics';
+import { trackEvent, trackPageView } from "@gabfon/analytics";
 
 // Track events
-trackEvent('button_clicked', { 
-  button_type: 'primary',
-  page: 'homepage' 
+trackEvent("button_clicked", {
+  button_type: "primary",
+  page: "homepage",
 });
 
 // Track page views
-trackPageView('/docs/getting-started');
+trackPageView("/docs/getting-started");
 ```
 
 ### API
@@ -240,7 +240,7 @@ pnpm add @gabfon/next-config
 ### Usage
 
 ```typescript
-import { config as baseConfig, withAnalyzer } from '@gabfon/next-config';
+import { config as baseConfig, withAnalyzer } from "@gabfon/next-config";
 
 // Use base configuration
 const nextConfig = {
@@ -305,18 +305,18 @@ pnpm add @gabfon/ai
 ### Usage
 
 ```typescript
-import { generateText, generateImage } from '@gabfon/ai';
+import { generateText, generateImage } from "@gabfon/ai";
 
 // Text generation
 const response = await generateText({
-  prompt: 'Write a blog post about React',
-  model: 'gpt-4'
+  prompt: "Write a blog post about React",
+  model: "gpt-4",
 });
 
 // Image generation
 const imageUrl = await generateImage({
-  prompt: 'A futuristic city skyline',
-  model: 'dall-e-3'
+  prompt: "A futuristic city skyline",
+  model: "dall-e-3",
 });
 ```
 
@@ -362,11 +362,11 @@ pnpm add @gabfon/database
 ### Usage
 
 ```typescript
-import { db, connect, migrate } from '@gabfon/database';
+import { db, connect, migrate } from "@gabfon/database";
 
 // Database operations
 const users = await db.user.findMany();
-const user = await db.user.findUnique({ where: { id: '123' } });
+const user = await db.user.findUnique({ where: { id: "123" } });
 
 // Connection management
 await connect();
@@ -410,16 +410,16 @@ pnpm add @gabfon/rate-limit
 ### Usage
 
 ```typescript
-import { createRateLimiter } from '@gabfon/rate-limit';
+import { createRateLimiter } from "@gabfon/rate-limit";
 
 // Create rate limiter
 const limiter = createRateLimiter({
   windowMs: 60 * 1000, // 1 minute
-  maxRequests: 100
+  maxRequests: 100,
 });
 
 // Check rate limit
-const result = await limiter.check('user_123');
+const result = await limiter.check("user_123");
 if (result.allowed) {
   // Process request
 } else {
@@ -456,17 +456,17 @@ pnpm add @gabfon/cache
 ### Usage
 
 ```typescript
-import { createCache } from '@gabfon/cache';
+import { createCache } from "@gabfon/cache";
 
 // Create cache instance
 const cache = createCache({
   ttl: 60 * 1000, // 1 minute
-  maxSize: 1000
+  maxSize: 1000,
 });
 
 // Use cache
-await cache.set('key', data);
-const data = await cache.get('key');
+await cache.set("key", data);
+const data = await cache.get("key");
 ```
 
 ### API
@@ -498,11 +498,11 @@ pnpm add @gabfon/security
 ### Usage
 
 ```typescript
-import { hashPassword, verifyPassword, sanitizeInput } from '@gabfon/security';
+import { hashPassword, verifyPassword, sanitizeInput } from "@gabfon/security";
 
 // Password handling
-const hashedPassword = await hashPassword('password123');
-const isValid = await verifyPassword('password123', hashedPassword);
+const hashedPassword = await hashPassword("password123");
+const isValid = await verifyPassword("password123", hashedPassword);
 
 // Input sanitization
 const cleanInput = sanitizeInput(userInput);
@@ -549,20 +549,20 @@ pnpm add @gabfon/seo
 ### Usage
 
 ```typescript
-import { generateMetaTags, generateStructuredData } from '@gabfon/seo';
+import { generateMetaTags, generateStructuredData } from "@gabfon/seo";
 
 // Meta tags
 const meta = generateMetaTags({
-  title: 'My Page',
-  description: 'Page description',
-  image: '/og-image.jpg'
+  title: "My Page",
+  description: "Page description",
+  image: "/og-image.jpg",
 });
 
 // Structured data
 const structuredData = generateStructuredData({
-  type: 'Article',
-  title: 'My Article',
-  author: 'John Doe'
+  type: "Article",
+  title: "My Article",
+  author: "John Doe",
 });
 ```
 
@@ -611,18 +611,18 @@ pnpm add @gabfon/email
 ### Usage
 
 ```typescript
-import { sendEmail, renderTemplate } from '@gabfon/email';
+import { sendEmail, renderTemplate } from "@gabfon/email";
 
 // Send email
 await sendEmail({
-  to: 'user@example.com',
-  subject: 'Welcome!',
-  template: 'welcome',
-  data: { name: 'John' }
+  to: "user@example.com",
+  subject: "Welcome!",
+  template: "welcome",
+  data: { name: "John" },
 });
 
 // Render template
-const html = renderTemplate('welcome', { name: 'John' });
+const html = renderTemplate("welcome", { name: "John" });
 ```
 
 ### API
@@ -654,4 +654,4 @@ const renderTemplate = (
 
 ---
 
-*This API reference is automatically generated from package exports. Last updated: 2025-03-23*
+_This API reference is automatically generated from package exports. Last updated: 2025-03-23_

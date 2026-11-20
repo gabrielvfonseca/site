@@ -7,20 +7,20 @@ import { twMerge } from "tailwind-merge";
 export const cn = (...inputs: ClassValue[]): string => twMerge(clsx(inputs));
 
 export const capitalize = (str: string) =>
-	str.charAt(0).toUpperCase() + str.slice(1);
+  str.charAt(0).toUpperCase() + str.slice(1);
 
 export const handleError = (error: unknown): void => {
-	const message = parseError(error);
+  const message = parseError(error);
 
-	toast.error(message);
+  toast.error(message);
 };
 
 export const formatDate = (input: string): string => {
-	const date = new Date(input);
+  const date = new Date(input);
 
-	return date.toLocaleDateString("en-US", {
-		month: "long",
-		day: "numeric",
-		year: "numeric",
-	});
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 };

@@ -6,10 +6,9 @@ import { Input } from "@gabfon/design-system/components/input";
 import { Textarea } from "@gabfon/design-system/components/textarea";
 import { toast } from "@gabfon/design-system/components/toaster";
 import { useActionState, useEffect, useRef } from "react";
-import {
-	type AmaState,
-	askQuestionAction,
-} from "@/actions/ask-question-action";
+
+import { askQuestionAction } from "@/actions/ask-question-action";
+import type { AmaState } from "@/actions/ask-question-action";
 
 const INITIAL_STATE: AmaState = { status: "idle" };
 
@@ -19,88 +18,88 @@ const INITIAL_STATE: AmaState = { status: "idle" };
  * @returns The AmaForm for the site.
  */
 export function AmaForm() {
-	const [state, formAction, isPending] = useActionState(
-		askQuestionAction,
-		INITIAL_STATE,
-	);
-	const formRef = useRef<HTMLFormElement>(null);
+  const [state, formAction, isPending] = useActionState(
+    askQuestionAction,
+    INITIAL_STATE
+  );
+  const formRef = useRef<HTMLFormElement>(null);
 
-	useEffect(() => {
-		if (state.status === "success") {
-			formRef.current?.reset();
-			toast.success(state.message);
-		} else if (state.status === "error" && !state.errors) {
-			toast.error(state.message);
-		}
-	}, [state]);
+  useEffect(() => {
+    if (state.status === "success") {
+      formRef.current?.reset();
+      toast.success(state.message);
+    } else if (state.status === "error" && !state.errors) {
+      toast.error(state.message);
+    }
+  }, [state]);
 
-	const invalid = (field: keyof NonNullable<AmaState["errors"]>) =>
-		Boolean(state.errors?.[field]);
+  const invalid = (field: keyof NonNullable<AmaState["errors"]>) =>
+    Boolean(state.errors?.[field]);
 
-	return (
-		<form action={formAction} className="flex flex-col gap-5" ref={formRef}>
-			<FormField
-				error={state.errors?.question?.[0]}
-				id="question"
-				label="Your question"
-				required
-			>
-				<Textarea
-					aria-invalid={invalid("question")}
-					disabled={isPending}
-					name="question"
-					placeholder="Ask me anything…"
-					required
-					rows={4}
-				/>
-			</FormField>
+  return (
+    <form action={formAction} className="flex flex-col gap-5" ref={formRef}>
+      <FormField
+        error={state.errors?.question?.[0]}
+        id="question"
+        label="Your question"
+        required
+      >
+        <Textarea
+          aria-invalid={invalid("question")}
+          disabled={isPending}
+          name="question"
+          placeholder="Ask me anything…"
+          required
+          rows={4}
+        />
+      </FormField>
 
-			<div className="flex flex-col gap-5">
-				<FormField
-					error={state.errors?.name?.[0]}
-					id="ama-name"
-					label="Name (optional)"
-				>
-					<Input
-						aria-invalid={invalid("name")}
-						autoComplete="name"
-						disabled={isPending}
-						name="name"
-						placeholder="Your name"
-					/>
-				</FormField>
+      <div className="flex flex-col gap-5">
+        <FormField
+          error={state.errors?.name?.[0]}
+          id="ama-name"
+          label="Name (optional)"
+        >
+          <Input
+            aria-invalid={invalid("name")}
+            autoComplete="name"
+            disabled={isPending}
+            name="name"
+            placeholder="Your name"
+          />
+        </FormField>
 
-				<FormField
-					error={state.errors?.email?.[0]}
-					id="ama-email"
-					label="Email (optional)"
-				>
-					<Input
-						aria-invalid={invalid("email")}
-						autoComplete="email"
-						disabled={isPending}
-						name="email"
-						placeholder="you@example.com"
-						type="email"
-					/>
-				</FormField>
-			</div>
+        <FormField
+          error={state.errors?.email?.[0]}
+          id="ama-email"
+          label="Email (optional)"
+        >
+          <Input
+            aria-invalid={invalid("email")}
+            autoComplete="email"
+            disabled={isPending}
+            name="email"
+            placeholder="you@example.com"
+            type="email"
+          />
+        </FormField>
+      </div>
 
-			<div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-				<Button className="w-full sm:w-auto" disabled={isPending} type="submit">
-					{isPending ? "Sending…" : "Ask question"}
-				</Button>
-				{state.status === "success" && (
-					<output className="text-muted-foreground text-sm">
-						{state.message}
-					</output>
-				)}
-				{state.status === "error" && !state.errors && (
-					<p className="text-destructive text-sm" role="alert">
-						{state.message}
-					</p>
-				)}
-			</div>
-		</form>
-	);
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <Button className="w-full sm:w-auto" disabled={isPending} type="submit">
+          {isPending ? "Sending…" : "Ask question"}
+        </Button>
+        {state.status === "success" && (
+          <output className="text-muted-foreground text-sm">
+            {state.message}
+          </output>
+        )}
+        {state.status === "error" && !state.errors && (
+          <p className="text-destructive text-sm" role="alert">
+            {state.message}
+          </p>
+        )}
+      </div>
+    </form>
+  );
 }

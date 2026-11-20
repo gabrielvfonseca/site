@@ -28,6 +28,7 @@ pnpm dev
 ## Project Structure
 
 This is a monorepo project using:
+
 - **Turbo** for monorepo management
 - **Next.js 15** for the web application
 - **Tailwind CSS 4** for styling
@@ -42,35 +43,42 @@ This is a monorepo project using:
 - TypeScript for type safety
 - Monorepo architecture with Turbo
 - Docker support
-- Vercel deployment ready
+- Cloudflare Workers deployment (vinext)
 
 ## Documentation Sections
 
 ### [Getting Started](./docs/getting-started.md)
+
 Learn how to set up the project locally and understand the basic requirements.
 
 ### [Architecture](./docs/architecture.md)
+
 Understand the project structure, monorepo setup, and key architectural decisions.
 
 ### [Development Guide](./docs/development.md)
+
 Detailed guide for development workflows, coding standards, and best practices.
 
 ### [Deployment](./docs/deployment.md)
+
 Instructions for deploying the application to various platforms.
 
 ### [API Reference](./docs/api.md)
+
 Complete API documentation for all packages and services.
 
 ### [Contributing](./docs/contributing.md)
+
 Guidelines for contributing to the project, including code standards and pull request process.
 
 ## Support
 
 For questions or support:
+
 - Check the [FAQ](./docs/faq.md)
 - Open an [issue](https://github.com/your-repo/issues)
 - Join our [Discord community](https://discord.gg/your-server)
 
 ---
 
-*This documentation is continuously updated. Last updated: 2025-03-23*
+_This documentation is continuously updated. Last updated: 2025-03-23_

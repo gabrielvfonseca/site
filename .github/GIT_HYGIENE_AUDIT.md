@@ -1,7 +1,8 @@
 # Git Hygiene Audit Report
+
 **Repository**: site-main  
 **Audit Date**: 2026-05-23  
-**Status**: PARTIAL COMPLIANCE - 72% Complete  
+**Status**: PARTIAL COMPLIANCE - 72% Complete
 
 ---
 
@@ -15,18 +16,21 @@ This repository has a **solid foundation** with Husky hooks, commitlint, and CI/
 
 ## 1. GIT CONFIGURATION & STANDARDS
 
-###  PASSING
+### PASSING
+
 - **Husky Integration**: Properly configured at `.husky/_`
 - **Hook Path**: `core.hooksPath` correctly set to `.husky/_`
 - **Package Manager**: Single package manager enforced (pnpm@9.12.3)
 - **Conventional Commits**: commitlint enforcing strict format
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 #### 1.1 Missing `.gitattributes`
+
 **Gap**: No normalization rules for line endings and file handling.
 
-**Risk**: 
+**Risk**:
+
 - Cross-platform inconsistency (CRLF on Windows, LF on Unix)
 - Diffs polluted with whitespace changes
 - Binary file conflicts
@@ -34,6 +38,7 @@ This repository has a **solid foundation** with Husky hooks, commitlint, and CI/
 **Impact**: High - Affects all contributors
 
 **Fix Required**:
+
 ```bash
 # Create .gitattributes with LF normalization
 cat > .gitattributes << 'EOF'
@@ -79,14 +84,17 @@ EOF
 ```
 
 #### 1.2 Missing `.editorconfig`
+
 **Gap**: No editor configuration for consistent formatting across IDEs.
 
 **Risk**:
+
 - Inconsistent indentation (spaces vs tabs)
 - Different line ending preferences per editor
 - IDE-specific formatting quirks
 
 **Fix Required**:
+
 ```bash
 cat > .editorconfig << 'EOF'
 root = true
@@ -114,14 +122,17 @@ EOF
 ```
 
 #### 1.3 Missing Global Git Configuration
+
 **Gap**: No global Git configuration enforced for signed commits and rebase workflow.
 
 **Risk**:
+
 - Inconsistent commit signing across team
 - Merge commits polluting history instead of rebases
 - No author verification
 
 **Fix Required**:
+
 ```bash
 # Global configuration (one-time setup per developer)
 git config --global user.name "Developer Name"
@@ -142,30 +153,35 @@ git config commit.gpgsign true  # If enforcing signed commits
 
 ## 2. BRANCHING MODEL & STRATEGY
 
-###  PASSING
+### PASSING
+
 - **Main branch exists**: Primary production branch
 - **Branch protection rules**: Can be configured at GitHub level
 - **CI triggers on main/develop**: Workflows trigger correctly
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 #### 2.1 No Formal Branching Policy
+
 **Gap**: Branching model not documented, no enforce pattern for feature/fix/hotfix branches.
 
 **Risk**:
+
 - Developers create arbitrary branches
 - Inconsistent naming conventions
 - Unclear branch purpose/status
 
 **Fix Required**: Create `.github/BRANCH_POLICY.md`:
+
 ```markdown
 # Branching Model
 
 ## Branch Types
 
 ### main
+
 - **Purpose**: Production-ready code, deployable
-- **Protection**: 
+- **Protection**:
   - Require PR reviews (2 approvals)
   - Require status checks pass
   - Require branches up-to-date
@@ -173,6 +189,7 @@ git config commit.gpgsign true  # If enforcing signed commits
   - No force pushes allowed
 
 ### develop
+
 - **Purpose**: Integration branch for features
 - **Protection**:
   - Require 1 PR approval
@@ -180,30 +197,35 @@ git config commit.gpgsign true  # If enforcing signed commits
   - Require up-to-date branches
 
 ### Feature branches
+
 - **Naming**: `feature/TICKET-123-short-description`
 - **Source**: Branch from `develop`
 - **Merge target**: `develop` via PR
 - **Lifetime**: Delete after merge
 
 ### Fix branches
+
 - **Naming**: `fix/TICKET-456-issue-description`
 - **Source**: Branch from `develop`
 - **Merge target**: `develop` via PR
 - **Lifetime**: Delete after merge
 
 ### Hotfix branches
+
 - **Naming**: `hotfix/TICKET-789-urgent-fix`
 - **Source**: Branch from `main`
 - **Merge target**: `main` AND `develop` (via separate PRs)
 - **Lifetime**: Delete after merge
 
 ### Release branches
+
 - **Naming**: `release/v1.2.3`
 - **Source**: Branch from `develop`
 - **Merge target**: `main` via PR
 - **Lifetime**: Keep for patch releases
 
 ## Commit Strategy
+
 - Use Conventional Commits format
 - Rebase before merge to maintain linear history
 - Squash fixup commits
@@ -214,17 +236,20 @@ git config commit.gpgsign true  # If enforcing signed commits
 
 ## 3. CONVENTIONAL COMMITS ENFORCEMENT
 
-###  PASSING
+### PASSING
+
 - **commitlint configured**: `.commitlint.config.js` in place
 - **Commit types defined**: feat, fix, docs, chore, refactor, test, style, revert, ci, perf, build
 - **Pre-commit hook enforces**: `commit-msg` hook validates format
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 #### 3.1 Duplicate commit types in config
+
 **Gap**: `chore`, `refactor`, `test`, `style`, `revert`, `ci`, `perf`, `build` appear twice in type-enum
 
 **Fix Required**:
+
 ```bash
 cat > commitlint.config.js << 'EOF'
 export default {
@@ -247,6 +272,7 @@ EOF
 ```
 
 #### 3.2 Scope not enforced
+
 **Gap**: Commit scopes are optional with no pattern validation.
 
 **Fix Required**: Add scope validation to commitlint config above.
@@ -255,15 +281,17 @@ EOF
 
 ## 4. LOCAL AUTOMATION (HUSKY + LINT-STAGED)
 
-###  PASSING
+### PASSING
+
 - **Husky installed**: v9.1.7
 - **lint-staged installed**: v16.1.6
 - **Pre-commit hook**: Runs `pnpm lint-staged`
 - **Commit-msg hook**: Validates with commitlint
 
-###  CRITICAL GAP: Empty Pre-push Hook
+### CRITICAL GAP: Empty Pre-push Hook
 
 **Gap**: `.husky/pre-push` exists but is empty (only shebang):
+
 ```bash
 #!/usr/bin/env sh
 # (empty)
@@ -272,6 +300,7 @@ EOF
 **Risk**: No validation before push - can push failing tests, uncommitted types, security issues
 
 **Fix Required**:
+
 ```bash
 cat > .husky/pre-push << 'EOF'
 #!/usr/bin/env sh
@@ -315,11 +344,12 @@ EOF
 chmod +x .husky/pre-push
 ```
 
-###  Lint-staged configuration incomplete
+### Lint-staged configuration incomplete
 
 **Gap**: Only TypeScript/JavaScript files covered. Missing other file types.
 
 **Current** (in package.json):
+
 ```json
 "lint-staged": {
   "*.{js,jsx,ts,tsx}": ["ultracite lint", "ultracite format"]
@@ -327,6 +357,7 @@ chmod +x .husky/pre-push
 ```
 
 **Fix Required**:
+
 ```json
 "lint-staged": {
   "*.{js,jsx,ts,tsx}": ["ultracite lint", "ultracite format"],
@@ -341,23 +372,26 @@ chmod +x .husky/pre-push
 
 ## 5. REPOSITORY STRUCTURE & DOCUMENTATION
 
-###  PASSING
+### PASSING
+
 - **README.md**: Present with setup instructions
 - **CONTRIBUTING.md**: Present with developer guidelines
 - **CODEOWNERS**: Configured with default maintainer
 - **.gitignore**: Comprehensive coverage
 - **LICENSE.md**: MIT license in place
 
-###  CRITICAL GAP: Missing SECURITY.md
+### CRITICAL GAP: Missing SECURITY.md
 
 **Gap**: No security policy for reporting vulnerabilities.
 
 **Risk**:
+
 - Security issues reported publicly
 - No vulnerability disclosure process
 - Reputation damage from poor security response
 
 **Fix Required**: Create `SECURITY.md`:
+
 ```markdown
 # Security Policy
 
@@ -366,12 +400,14 @@ chmod +x .husky/pre-push
 If you discover a security vulnerability in this project, **please do not open a public issue**.
 
 Instead, please report it confidentially to **[security-email@example.com](mailto:security-email@example.com)** with:
+
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact
 - Suggested fix (if available)
 
 We will:
+
 1. Acknowledge receipt within 48 hours
 2. Investigate and assess severity
 3. Develop a fix
@@ -379,10 +415,12 @@ We will:
 5. Publish a security advisory
 
 ## Security Contact
+
 - Email: security@example.com
 - GPG Key: [fingerprint] (optional)
 
 ## Vulnerability Disclosure Timeline
+
 - **Day 0**: Report received
 - **Day 2**: Acknowledgment and severity assessment
 - **Day 7**: Initial response with timeline
@@ -390,33 +428,40 @@ We will:
 - **Day 45**: Public disclosure (after patch release)
 
 ## Supported Versions
+
 - **Latest version**: Receives all security patches
 - **Previous major**: Receives critical patches for 12 months
 - **Older versions**: No support
 ```
 
-###  Missing pull request templates
+### Missing pull request templates
 
 **Gap**: No PR template to guide reviewers and authors.
 
 **Fix Required**: Create `.github/pull_request_template.md`:
+
 ```markdown
 ## Description
+
 <!-- Describe your changes -->
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Related Issues
+
 Closes #123
 
 ## Testing
+
 <!-- How was this tested? -->
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Tests added/updated
 - [ ] Documentation updated
@@ -428,19 +473,22 @@ Closes #123
 
 ## 6. CI/CD PIPELINE
 
-###  PASSING
+### PASSING
+
 - **Lint workflow**: `.github/workflows/lint.yml` configured
 - **CI workflow**: `.github/workflows/ci.yml` with lint, test, build
 - **Security scanning**: `.github/workflows/security.yml` with Snyk
 - **Release workflow**: `.github/workflows/release.yml` in place
 - **Changelog generation**: `.github/workflows/changelog.yml`
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 #### 6.1 Missing artifact cleanup
+
 **Gap**: CI uploads build artifacts but doesn't define retention properly.
 
 **Current**:
+
 ```yaml
 retention-days: 7
 ```
@@ -448,11 +496,13 @@ retention-days: 7
 **Should also add**: Cleanup of old artifacts in workflow.
 
 #### 6.2 Missing caching strategy optimization
+
 **Gap**: Cache setup is repetitive across jobs.
 
 **Recommendation**: Use composite action for cache setup.
 
 #### 6.3 Missing SLSA provenance
+
 **Gap**: No build artifact attestation/signing.
 
 **For future**: Add SLSA Provenance workflow after stabilization.
@@ -461,20 +511,23 @@ retention-days: 7
 
 ## 7. SECURITY CONTROLS
 
-###  PASSING
+### PASSING
+
 - **Snyk integration**: Security scanning in CI pipeline
 - **Renovate**: Dependency updates with vulnerability alerts
 - **Dependabot**: GitHub Actions updates
 - **Secret scanning**: `pnpm run security:all` available
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 #### 7.1 Missing Gitleaks integration
+
 **Gap**: No secret scanning for committed secrets.
 
 **Risk**: Exposed credentials, API keys in history
 
 **Fix Required**:
+
 ```bash
 # Install Gitleaks
 curl https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | bash
@@ -484,9 +537,11 @@ npx husky add .husky/pre-commit 'gitleaks protect --verbose --redact --staged'
 ```
 
 #### 7.2 Missing SAST (Static Application Security Testing)
+
 **Gap**: No SAST beyond Biome linting.
 
 **Recommendation**: Add CodeQL or Semgrep:
+
 ```yaml
 # .github/workflows/codeql.yml (GitHub CodeQL)
 name: CodeQL
@@ -502,6 +557,7 @@ jobs:
 ```
 
 #### 7.3 No SCA (Software Composition Analysis) beyond Snyk
+
 **Gap**: No SBOM (Software Bill of Materials) generation.
 
 **For future**: Generate and track dependencies with CycloneDX.
@@ -510,20 +566,21 @@ jobs:
 
 ## 8. BRANCH PROTECTION RULES
 
-###  NOT CONFIGURED IN CODE (GitHub Settings)
+### NOT CONFIGURED IN CODE (GitHub Settings)
 
 **Gaps**: Branch protection rules should be enforced at GitHub level. Current status unknown.
 
 **Required Settings for `main` branch**:
--  Require pull request reviews before merging (≥2 approvals)
--  Require status checks to pass (lint, test, build, security)
--  Require branches to be up to date before merging
--  Require code owners review
--  Dismiss stale PR approvals when new commits pushed
--  Require commit signatures
--  Require conversation resolution (optional but recommended)
--  Allow force pushes: **DISABLED**
--  Allow deletions: **DISABLED**
+
+- Require pull request reviews before merging (≥2 approvals)
+- Require status checks to pass (lint, test, build, security)
+- Require branches to be up to date before merging
+- Require code owners review
+- Dismiss stale PR approvals when new commits pushed
+- Require commit signatures
+- Require conversation resolution (optional but recommended)
+- Allow force pushes: **DISABLED**
+- Allow deletions: **DISABLED**
 
 **Manual Setup Required at**: `Settings → Branches → Branch protection rules → Add rule`
 
@@ -531,19 +588,22 @@ jobs:
 
 ## 9. DEPENDENCY MANAGEMENT
 
-###  PASSING
+### PASSING
+
 - **Single package manager**: pnpm@9.12.3 enforced
 - **Lockfile**: `pnpm-lock.yaml` checked in
 - **Renovate configured**: Smart dependency updates
 - **Workspace structure**: Multi-app/packages monorepo
 - **Security overrides**: Known vulnerability patches applied
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 #### 9.1 No packageManager validation
+
 **Gap**: No pre-install hook to prevent npm/yarn usage.
 
 **Fix Required**: Create `.husky/pre-commit` addition:
+
 ```bash
 # Add to .husky/pre-commit
 if ! npm ls -g pnpm | grep -q $(cat .npmrc | grep 'package-manager' | cut -d'=' -f2); then
@@ -557,18 +617,21 @@ fi
 
 ## 10. RELEASE DISCIPLINE
 
-###  PASSING
+### PASSING
+
 - **Semantic versioning**: Changeset-based releases
 - **Automated changelog**: Changelog.yml workflow
 - **Release notes**: Generated from commits
 - **Git tags**: Automatic tagging on release
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 #### 10.1 No auto-versioning validation
+
 **Gap**: No check that version bump is semantic.
 
 #### 10.2 Missing release checklist
+
 **Gap**: No verification before publish.
 
 **Recommendation**: Add pre-release checks in release workflow.
@@ -577,23 +640,25 @@ fi
 
 ## 11. DOCUMENTATION COMPLETENESS
 
-###  NEEDS ATTENTION
+### NEEDS ATTENTION
 
 Missing comprehensive Git standards documentation.
 
 **Required Documents**:
--  CONTRIBUTING.md - Present but could be enhanced
--  README.md - Present
--  SECURITY.md - **MISSING** (Critical)
--  .github/BRANCH_POLICY.md - **MISSING**
--  .github/DEVELOPMENT.md - **MISSING**
--  .github/RELEASE.md - **MISSING**
+
+- CONTRIBUTING.md - Present but could be enhanced
+- README.md - Present
+- SECURITY.md - **MISSING** (Critical)
+- .github/BRANCH_POLICY.md - **MISSING**
+- .github/DEVELOPMENT.md - **MISSING**
+- .github/RELEASE.md - **MISSING**
 
 ---
 
 ## IMPLEMENTATION PRIORITY
 
 ### CRITICAL (Implement immediately - Days 1-2)
+
 1. **Create .gitattributes** - LF normalization
 2. **Create .editorconfig** - Consistent formatting
 3. **Create SECURITY.md** - Vulnerability disclosure
@@ -601,6 +666,7 @@ Missing comprehensive Git standards documentation.
 5. **Fix commitlint duplicates** - Clean config
 
 ### HIGH (Implement this sprint - Days 3-7)
+
 1. **Create BRANCH_POLICY.md** - Document branching model
 2. **Create PR template** - Standardize reviews
 3. **Add Gitleaks** - Secret scanning
@@ -608,6 +674,7 @@ Missing comprehensive Git standards documentation.
 5. **Configure branch protection** - GitHub settings
 
 ### MEDIUM (Implement next sprint - Week 2)
+
 1. **Add CodeQL** - SAST integration
 2. **Create DEVELOPMENT.md** - Workflow guide
 3. **Create RELEASE.md** - Release procedures
@@ -615,6 +682,7 @@ Missing comprehensive Git standards documentation.
 5. **Optimize CI caching** - Composite actions
 
 ### LOW (Nice-to-have - Future improvements)
+
 1. **SBOM generation** - CycloneDX output
 2. **SLSA provenance** - Build attestation
 3. **Sign commits** - GPG signing enforcement
@@ -625,17 +693,17 @@ Missing comprehensive Git standards documentation.
 
 ## COMPLIANCE SCORECARD
 
-| Category | Status | Score |
-|----------|--------|-------|
-| Git Config |  Partial | 60% |
-| Branching Model |  Excellent | 90% |
-| Conventional Commits |  Excellent | 85% |
-| Husky/Pre-commit |  Partial | 70% |
-| CI/CD Pipeline |  Excellent | 85% |
-| Security Controls |  Partial | 65% |
-| Branch Protection |  Unknown | 50% |
-| Documentation |  Partial | 60% |
-| **OVERALL** | ** Partial** | **72%** |
+| Category             | Status       | Score   |
+| -------------------- | ------------ | ------- |
+| Git Config           | Partial      | 60%     |
+| Branching Model      | Excellent    | 90%     |
+| Conventional Commits | Excellent    | 85%     |
+| Husky/Pre-commit     | Partial      | 70%     |
+| CI/CD Pipeline       | Excellent    | 85%     |
+| Security Controls    | Partial      | 65%     |
+| Branch Protection    | Unknown      | 50%     |
+| Documentation        | Partial      | 60%     |
+| **OVERALL**          | ** Partial** | **72%** |
 
 ---
 

@@ -1,5 +1,6 @@
 import { createMetadata } from "@gabfon/seo/metadata";
 import type { Metadata } from "next";
+
 import { Projects } from "@/components/projects";
 
 /**
@@ -7,10 +8,10 @@ import { Projects } from "@/components/projects";
  * @returns The metadata for the projects index page.
  */
 export const metadata: Metadata = createMetadata({
-	title: "Projects",
-	description:
-		"Selected projects and case studies — the tools, products, and systems I have designed and built.",
-	pathname: "/projects",
+  title: "Projects",
+  description:
+    "Selected projects and case studies — the tools, products, and systems I have designed and built.",
+  pathname: "/projects",
 });
 
 /**
@@ -19,23 +20,23 @@ export const metadata: Metadata = createMetadata({
  * @returns The projects index page for the site.
  */
 export default function Page() {
-	return (
-		<div className="flex flex-col gap-12">
-			<section
-				aria-labelledby="projects-index-heading"
-				className="flex scroll-mt-8 flex-col gap-4"
-			>
-				<div className="flex flex-col gap-1">
-					<h1 className="text-lg" id="projects-index-heading">
-						Projects
-					</h1>
-					<p className="text-muted-foreground">
-						Selected work and case studies — the tools, products, and systems I
-						have designed and built.
-					</p>
-				</div>
-				<Projects showAll />
-			</section>
-		</div>
-	);
+  return (
+    <div className="flex flex-col gap-12">
+      <section
+        aria-labelledby="projects-index-heading"
+        className="flex scroll-mt-8 flex-col gap-4"
+      >
+        <div className="flex flex-col gap-1">
+          <h1 className="text-lg" id="projects-index-heading">
+            Projects
+          </h1>
+          <p className="text-muted-foreground">
+            Selected work and case studies — the tools, products, and systems I
+            have designed and built.
+          </p>
+        </div>
+        <Projects showAll />
+      </section>
+    </div>
+  );
 }

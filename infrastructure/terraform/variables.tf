@@ -1,23 +1,11 @@
-variable "vercel_token" {
-  description = "Vercel API token"
+variable "cloudflare_api_token" {
+  description = "Cloudflare API token (Worker Scripts: Edit, Routes: Edit, D1: Edit)"
   type        = string
   sensitive   = true
 }
 
-variable "database_url" {
-  description = "Database connection URL"
+variable "account_id" {
+  description = "Cloudflare account ID"
   type        = string
   sensitive   = true
-}
-
-variable "project_name" {
-  description = "Name of the Vercel project"
-  type        = string
-  default     = "gabfon-site"
-}
-
-variable "git_repo" {
-  description = "GitHub repository in format 'owner/repo'"
-  type        = string
-  default     = "gabfon/site"
 }

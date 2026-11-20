@@ -7,28 +7,33 @@ The `site` application is a modern, full-stack web application built with Next.j
 ## Technology Stack
 
 ### Core Framework
+
 - **Next.js 16.2.1** - React framework with App Router
 - **React 19.2.1** - UI library with latest features
 - **TypeScript 5.9.2** - Type-safe development
 
 ### Styling & UI
+
 - **Tailwind CSS 4.1.13** - Utility-first CSS framework
 - **@gabfon/design-system** - Design system with components
 - **Lucide React** - Icon library
 - **Motion** - Animation library
 
 ### Content & MDX
+
 - **Fumadocs** - MDX processing and documentation
 - **Contentlayer** - Content management
 - **Remark** - Markdown processing
 - **Shiki** - Syntax highlighting
 
 ### Data & State
+
 - **@tanstack/react-query** - Server state management
 - **Zod 4.1.5** - Schema validation
 - **Nuqs** - URL state management
 
 ### Development & Testing
+
 - **Vitest 3.2.4** - Unit testing framework
 - **Playwright** - E2E testing
 - **@gabfon/testing** - Testing utilities
@@ -105,6 +110,7 @@ src/app/api/
 ### 3. Component Architecture
 
 **Provider Pattern**:
+
 ```typescript
 // src/app/layout.tsx - Root providers
 <QueryProvider>
@@ -118,6 +124,7 @@ src/app/api/
 ```
 
 **Component Organization**:
+
 ```typescript
 // Feature-based organization
 src/components/
@@ -130,6 +137,7 @@ src/components/
 ### 4. State Management Architecture
 
 **React Query Integration**:
+
 ```typescript
 // src/providers/query-provider.tsx
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -153,12 +161,13 @@ export function QueryProvider({ children }: { children: ReactNode }) {
 ```
 
 **URL State Management**:
+
 ```typescript
 // Using Nuqs for URL state
-import { useQueryState } from 'nuqs';
+import { useQueryState } from "nuqs";
 
-const [search, setSearch] = useQueryState('q', {
-  defaultValue: '',
+const [search, setSearch] = useQueryState("q", {
+  defaultValue: "",
   clearOnDefault: true,
 });
 ```
@@ -166,6 +175,7 @@ const [search, setSearch] = useQueryState('q', {
 ### 5. Styling Architecture
 
 **Design System Integration**:
+
 ```typescript
 // Using @gabfon/design-system components
 import { Button, Card, Input } from '@gabfon/design-system/components';
@@ -178,11 +188,13 @@ import { Button, Card, Input } from '@gabfon/design-system/components';
 ```
 
 **Theme System**:
+
 - **CSS Variables** - For dynamic theming
 - **Dark Mode** - System preference detection
 - **Tailwind CSS 4** - Latest utility-first framework
 
 **Font System**:
+
 ```typescript
 // Using design system fonts
 import { fonts } from '@gabfon/design-system/lib/fonts';
@@ -193,6 +205,7 @@ import { fonts } from '@gabfon/design-system/lib/fonts';
 ### 6. Performance Architecture
 
 **Optimization Strategies**:
+
 - **Server Components** - Reduced client-side JavaScript
 - **Image Optimization** - Next.js Image component with AVIF/WebP
 - **Code Splitting** - Automatic route-based splitting
@@ -203,16 +216,17 @@ import { fonts } from '@gabfon/design-system/lib/fonts';
 ## Security Architecture
 
 ### API Security
+
 ```typescript
+import arcjet, { shield } from "@arcjet/next";
 // Using @gabfon/security and @arcjet/next
-import { authenticate, authorize } from '@gabfon/security';
-import arcjet, { shield } from '@arcjet/next';
+import { authenticate, authorize } from "@gabfon/security";
 
 // API route protection
 export async function GET(request: NextRequest) {
   const user = await authenticate(request);
-  if (!authorize(user, 'read')) {
-    return NextResponse.redirect('/login');
+  if (!authorize(user, "read")) {
+    return NextResponse.redirect("/login");
   }
 }
 
@@ -224,12 +238,13 @@ const aj = arcjet({
 ```
 
 ### Data Validation
+
 ```typescript
 // Zod schemas for API routes
 const createPostSchema = z.object({
   title: z.string().min(1).max(200),
   content: z.string().min(10),
-  published: z.boolean().default(false)
+  published: z.boolean().default(false),
 });
 ```
 
@@ -238,6 +253,7 @@ const createPostSchema = z.object({
 ### Package Integration
 
 **@gabfon/analytics**:
+
 ```typescript
 import { AnalyticsProvider } from '@gabfon/analytics';
 
@@ -248,46 +264,53 @@ import { AnalyticsProvider } from '@gabfon/analytics';
 ```
 
 **@gabfon/seo**:
+
 ```typescript
-import { createMetadata, createViewport } from '@gabfon/seo/metadata';
-import { createViewport } from '@gabfon/seo/viewport';
+import { createMetadata, createViewport } from "@gabfon/seo/metadata";
+import { createViewport } from "@gabfon/seo/viewport";
 
 export const metadata: Metadata = createMetadata({ ...meta });
 export const viewport: Viewport = createViewport();
 ```
 
 **@gabfon/ai**:
+
 ```typescript
-import { openai } from '@ai-sdk/openai';
-import { generateText } from 'ai';
+import { openai } from "@ai-sdk/openai";
+import { generateText } from "ai";
 
 // In API routes
 const { text } = await generateText({
-  model: openai('gpt-4-turbo'),
-  prompt: 'Generate a response',
+  model: openai("gpt-4-turbo"),
+  prompt: "Generate a response",
 });
 ```
 
 ### External API Integrations
 
 **GitHub Integration**:
+
 ```typescript
 // src/app/api/github/stars.ts
 export async function GET() {
-  const response = await fetch('https://api.github.com/repos/owner/repo');
+  const response = await fetch("https://api.github.com/repos/owner/repo");
   const data = await response.json();
   return NextResponse.json({ stars: data.stargazers_count });
 }
 ```
 
 **Spotify Integration**:
+
 ```typescript
 // src/app/api/spotify/now-playing.ts
 export async function GET() {
   const token = await getSpotifyToken();
-  const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  const response = await fetch(
+    "https://api.spotify.com/v1/me/player/currently-playing",
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
   return NextResponse.json(await response.json());
 }
 ```
@@ -295,6 +318,7 @@ export async function GET() {
 ## Development Workflow
 
 ### Local Development
+
 ```bash
 # Start development server
 bun run dev
@@ -312,6 +336,7 @@ bun run analyze
 ```
 
 ### Build Process
+
 ```bash
 # Production build
 bun run build
@@ -326,11 +351,13 @@ bun run clean
 ## Performance Considerations
 
 ### Core Web Vitals
+
 - **LCP** - Optimized images (AVIF/WebP) and font loading
 - **FID** - Minimal JavaScript, code splitting
 - **CLS** - Stable layout with proper dimensions
 
 ### Monitoring
+
 ```typescript
 // Performance tracking with @gabfon/analytics
 import { AnalyticsProvider } from '@gabfon/analytics';
@@ -344,12 +371,13 @@ import { AnalyticsProvider } from '@gabfon/analytics';
 ## Deployment Architecture
 
 ### Environment Configuration
+
 ```typescript
 // @t3-oss/env-nextjs for type-safe environment variables
-import { createEnv } from '@t3-oss/env-nextjs';
+import { createEnv } from "@t3-oss/env-nextjs";
 
 export const env = createEnv({
-  clientPrefix: 'NEXT_PUBLIC_',
+  clientPrefix: "NEXT_PUBLIC_",
   client: {
     NEXT_PUBLIC_SITE_URL: z.string().url(),
   },
@@ -366,6 +394,7 @@ export const env = createEnv({
 ```
 
 ### Build Optimization
+
 - **Tree Shaking** - Eliminate unused code
 - **Minification** - JavaScript and CSS compression
 - **Image Optimization** - AVIF/WebP generation
@@ -375,11 +404,13 @@ export const env = createEnv({
 ## Future Architecture Considerations
 
 ### Scalability
+
 - **Edge Functions** - For global performance
 - **Micro-frontends** - For team scaling
 - **CDN Integration** - For asset delivery
 
 ### Advanced Features
+
 - **Real-time Updates** - WebSocket integration
 - **Progressive Web App** - Offline capabilities
 - **AI Integration** - Enhanced @gabfon/ai package features

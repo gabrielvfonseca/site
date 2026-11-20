@@ -1,60 +1,53 @@
 terraform {
   required_version = ">= 1.0.0"
   required_providers {
-    vercel = {
-      source  = "vercel/vercel"
-      version = "~> 1.0"
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.0"
     }
   }
 }
 
-provider "vercel" {
-  # Token can be set via VERCEL_TOKEN environment variable
-  # token = var.vercel_token
+provider "cloudflare" {
+  # Token can be set via CLOUDFLARE_API_TOKEN environment variable
+  # token = var.cloudflare_api_token
 }
 
-# Vercel project configuration
-resource "vercel_project" "site" {
-  name = "gabfon-site"
-  framework = "nextjs"
-  build_command = "bun install && turbo build --filter=site"
-  output_directory = "apps/web/.next"
-  
-  git_repository {
-    repo = "gabfon/site"
-    type = "github"
-  }
-  
-  environment {
-    key = "NODE_ENV"
-    value = "production"
-    target = ["production"]
-  }
+# Cloudflare zone for gabfon.com
+resource "cloudflare_zone" "site" {
+  zone  = "gabfon.com"
+  plan  = "free"
+  paused = false
 }
 
-# Vercel domain
-resource "vercel_domain" "site" {
-  project_id = vercel_project.site.id
-  domain_name = "gabfon.com"
+# Worker route for the site worker on the apex domain
+resource "cloudflare_workers_route" "site" {
+  zone_id   = cloudflare_zone.site.id
+  pattern   = "gabfon.com/*"
+  script_name = "site"
 }
 
-# Vercel environment variables (example)
-resource "vercel_env_var" "database_url" {
-  project_id = vercel_project.site.id
-  key        = "DATABASE_URL"
-  value      = var.database_url
-  target     = ["production", "preview"]
+# Worker route for the wildcard domain
+resource "cloudflare_workers_route" "wildcard" {
+  zone_id   = cloudflare_zone.site.id
+  pattern   = "*.gabfon.com/*"
+  script_name = "site"
+}
+
+# D1 database for the site
+resource "cloudflare_d1_database" "site_db" {
+  name = "site-db"
 }
 
 # Input variables
-variable "vercel_token" {
-  description = "Vercel API token"
+variable "cloudflare_api_token" {
+  description = "Cloudflare API token (Worker Scripts: Edit, Routes: Edit, D1: Edit)"
   type        = string
   sensitive   = true
 }
 
-variable "database_url" {
-  description = "Database connection URL"
+variable "account_id" {
+  description = "Cloudflare account ID"
   type        = string
   sensitive   = true
 }

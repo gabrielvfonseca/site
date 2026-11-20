@@ -7,14 +7,14 @@ const YOUTUBE_ID = /(?:youtu\.be\/|v=|embed\/)([\w-]{11})/;
  * Props for {@link Video}.
  */
 interface VideoProps {
-	/** A YouTube URL/id, or a direct video file URL (mp4/webm). */
-	readonly src: string;
-	/** Accessible title for the embedded frame. */
-	readonly title?: string;
-	/** Optional caption rendered beneath the player. */
-	readonly caption?: string;
-	/** Optional extra class names. */
-	readonly className?: string;
+  /** A YouTube URL/id, or a direct video file URL (mp4/webm). */
+  readonly src: string;
+  /** Accessible title for the embedded frame. */
+  readonly title?: string;
+  /** Optional caption rendered beneath the player. */
+  readonly caption?: string;
+  /** Optional extra class names. */
+  readonly className?: string;
 }
 
 /**
@@ -25,35 +25,35 @@ interface VideoProps {
  * @returns The Video element.
  */
 export function Video({
-	src,
-	title = "Embedded video",
-	caption,
-	className,
+  src,
+  title = "Embedded video",
+  caption,
+  className,
 }: VideoProps) {
-	const youtube = YOUTUBE_ID.exec(src);
+  const youtube = YOUTUBE_ID.exec(src);
 
-	return (
-		<figure className={cn("not-prose flex flex-col gap-3", className)}>
-			<div className="aspect-video overflow-hidden rounded-lg border border-border bg-muted/50">
-				{youtube ? (
-					<iframe
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowFullScreen
-						className="size-full"
-						src={`https://www.youtube-nocookie.com/embed/${youtube[1]}`}
-						title={title}
-					/>
-				) : (
-					<video className="size-full" controls src={src}>
-						<track kind="captions" />
-					</video>
-				)}
-			</div>
-			{caption ? (
-				<figcaption className="text-center text-[length:var(--font-size-caption)] text-muted-foreground leading-normal">
-					{caption}
-				</figcaption>
-			) : null}
-		</figure>
-	);
+  return (
+    <figure className={cn("not-prose flex flex-col gap-3", className)}>
+      <div className="border-border bg-muted/50 aspect-video overflow-hidden rounded-lg border">
+        {youtube ? (
+          <iframe
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="size-full"
+            src={`https://www.youtube-nocookie.com/embed/${youtube[1]}`}
+            title={title}
+          />
+        ) : (
+          <video className="size-full" controls src={src}>
+            <track kind="captions" />
+          </video>
+        )}
+      </div>
+      {caption ? (
+        <figcaption className="text-muted-foreground text-center text-[length:var(--font-size-caption)] leading-normal">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  );
 }

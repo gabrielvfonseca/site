@@ -7,21 +7,25 @@ The `@gabfon/seo` package provides comprehensive SEO utilities for Next.js appli
 ## Architectural Decisions
 
 ### 1. Component-Based SEO Approach
+
 - **Decision**: Create reusable React components for SEO elements
 - **Rationale**: Leverages React's component model for consistent SEO implementation
 - **Implementation**: JSON-LD component with schema-dts integration
 
 ### 2. Metadata Factory Pattern
+
 - **Decision**: Use factory function for metadata generation
 - **Rationale**: Ensures consistent SEO metadata across all pages
 - **Implementation**: `createMetadata` function with sensible defaults
 
 ### 3. Schema.org Integration
+
 - **Decision**: Use schema-dts for type-safe structured data
 - **Rationale**: Provides TypeScript support for Schema.org vocabularies
 - **Implementation**: Complete re-export of schema-dts types
 
 ### 4. Utility-First Design
+
 - **Decision**: Focus on utility functions rather than complex abstractions
 - **Rationale**: Provides maximum flexibility for different SEO needs
 - **Implementation**: Simple, composable functions and components
@@ -42,11 +46,11 @@ graph TD
     A[Page Component] --> B[createMetadata Function]
     B --> C[Next.js Metadata Object]
     C --> D[HTML Head Tags]
-    
+
     E[Page Component] --> F[JsonLd Component]
     F --> G[Schema.org Structured Data]
     G --> H[Search Engine Understanding]
-    
+
     I[Page Component] --> J[Viewport Component]
     J --> K[Mobile Optimization]
     K --> L[Better Mobile Experience]
@@ -55,11 +59,13 @@ graph TD
 ## Key Dependencies
 
 ### Core Dependencies
+
 - **`react`**: React component support
 - **`schema-dts`**: TypeScript definitions for Schema.org
 - **`lodash.merge`**: Object merging utilities
 
 ### Next.js Integration
+
 - **`next`**: Next.js metadata types and utilities
 
 ## SEO Architecture
@@ -83,26 +89,26 @@ export const createMetadata = ({
 const defaultMetadata: Metadata = {
   title,
   description,
-  applicationName: 'Gabriel Fonseca',
-  authors: [{ name: 'Gabriel Fonseca', url: 'https://gabfon.com/' }],
-  creator: 'Gabriel Fonseca',
+  applicationName: "Gabriel Fonseca",
+  authors: [{ name: "Gabriel Fonseca", url: "https://gabfon.com/" }],
+  creator: "Gabriel Fonseca",
   formatDetection: { telephone: false },
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: "default",
     title,
   },
   openGraph: {
     title,
     description,
-    type: 'website',
-    siteName: 'Gabriel Fonseca',
-    locale: 'en_US',
+    type: "website",
+    siteName: "Gabriel Fonseca",
+    locale: "en_US",
   },
-  publisher: 'Gabriel Fonseca',
+  publisher: "Gabriel Fonseca",
   twitter: {
-    card: 'summary_large_image',
-    creator: '@gabfon_',
+    card: "summary_large_image",
+    creator: "@gabfon_",
   },
 };
 ```
@@ -112,7 +118,7 @@ const defaultMetadata: Metadata = {
 JSON-LD component for Schema.org structured data:
 
 ```typescript
-export function JsonLd({ code }: JsonLdProps): JSX.Element
+export function JsonLd({ code }: JsonLdProps): JSX.Element;
 ```
 
 #### Features
@@ -127,7 +133,7 @@ export function JsonLd({ code }: JsonLdProps): JSX.Element
 Viewport meta tag component for mobile optimization:
 
 ```typescript
-export function Viewport({ children }: ViewportProps): JSX.Element
+export function Viewport({ children }: ViewportProps): JSX.Element;
 ```
 
 #### Features
@@ -232,16 +238,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ## Performance Considerations
 
 ### 1. Bundle Size
+
 - **Minimal Dependencies**: Only essential SEO libraries
 - **Tree Shaking**: Unused code elimination
 - **Component-Based**: Selective imports
 
 ### 2. Runtime Performance
+
 - **Static Generation**: Pre-rendered SEO elements
 - **Client-Side**: Minimal JavaScript overhead
 - **Server-Side**: Optimized metadata generation
 
 ### 3. SEO Performance
+
 - **Fast Loading**: Optimized meta tag rendering
 - **Caching**: Browser caching support
 - **CDN**: Content delivery optimization
@@ -259,16 +268,19 @@ The SEO package is designed to work without environment variables:
 ## Testing Strategy
 
 ### 1. Metadata Testing
+
 - Test metadata generation accuracy
 - Verify Open Graph tags
 - Test X Card rendering
 
 ### 2. Structured Data Testing
+
 - Validate JSON-LD syntax
 - Test Schema.org compliance
 - Verify structured data rendering
 
 ### 3. Integration Testing
+
 - Test Next.js metadata integration
 - Verify component rendering
 - Test SEO tag generation
@@ -276,6 +288,7 @@ The SEO package is designed to work without environment variables:
 ## Future Extensibility
 
 The architecture supports:
+
 - Additional metadata generators
 - Custom schema types
 - Advanced SEO utilities
@@ -286,6 +299,7 @@ The architecture supports:
 ## Migration Path
 
 The package is designed to support:
+
 - Easy adoption in existing projects
 - Gradual feature implementation
 - Backward compatibility maintenance
@@ -295,24 +309,28 @@ The package is designed to support:
 ## Best Practices
 
 ### 1. SEO Implementation
+
 - Use consistent metadata across pages
 - Implement comprehensive structured data
 - Optimize for mobile first
 - Monitor SEO performance
 
 ### 2. Content Strategy
+
 - Use descriptive titles and descriptions
 - Implement relevant structured data
 - Optimize images for SEO
 - Create SEO-friendly URLs
 
 ### 3. Technical SEO
+
 - Ensure proper meta tag hierarchy
 - Validate structured data regularly
 - Monitor page load speed
 - Test on various devices
 
 ### 4. Analytics Integration
+
 - Track SEO performance metrics
 - Monitor search engine rankings
 - Analyze user behavior

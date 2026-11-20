@@ -25,9 +25,9 @@ pnpm add -D @gabfon/testing
 ### Basic Test Setup
 
 ```typescript
+import { testingConfig } from "@gabfon/testing";
 // vitest.config.ts
-import { defineConfig } from 'vitest/config';
-import { testingConfig } from '@gabfon/testing';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig(testingConfig);
 ```
@@ -47,21 +47,21 @@ test('renders button with text', () => {
 ### API Testing
 
 ```typescript
-import { createTestClient } from '@gabfon/testing';
+import { createTestClient } from "@gabfon/testing";
 
-test('API endpoint returns data', async () => {
+test("API endpoint returns data", async () => {
   const client = createTestClient();
-  const response = await client.get('/api/users');
-  
+  const response = await client.get("/api/users");
+
   expect(response.status).toBe(200);
-  expect(response.data).toHaveProperty('users');
+  expect(response.data).toHaveProperty("users");
 });
 ```
 
 ### Database Testing
 
 ```typescript
-import { setupTestDatabase, cleanupTestDatabase } from '@gabfon/testing';
+import { setupTestDatabase, cleanupTestDatabase } from "@gabfon/testing";
 
 beforeEach(async () => {
   await setupTestDatabase();
@@ -71,10 +71,10 @@ afterEach(async () => {
   await cleanupTestDatabase();
 });
 
-test('creates user in database', async () => {
-  const user = await createUser({ name: 'John Doe' });
+test("creates user in database", async () => {
+  const user = await createUser({ name: "John Doe" });
   expect(user.id).toBeDefined();
-  expect(user.name).toBe('John Doe');
+  expect(user.name).toBe("John Doe");
 });
 ```
 
@@ -85,21 +85,25 @@ test('creates user in database', async () => {
 ## Testing Utilities
 
 ### Component Testing
+
 - **Render Helpers**: Pre-configured render functions with providers
 - **Custom Matchers**: Extended Jest/Vitest matchers
 - **Mock Components**: Pre-built mock components for testing
 
 ### API Testing
+
 - **Test Client**: HTTP client for API testing
 - **Mock Handlers**: MSW handlers for API mocking
 - **Response Helpers**: Utilities for testing API responses
 
 ### Database Testing
+
 - **Test Database**: Isolated test database setup
 - **Seed Data**: Test data seeding utilities
 - **Cleanup Helpers**: Database cleanup utilities
 
 ### Performance Testing
+
 - **Benchmark Utilities**: Performance benchmarking tools
 - **Memory Testing**: Memory leak detection
 - **Load Testing**: Basic load testing utilities
@@ -109,9 +113,9 @@ test('creates user in database', async () => {
 ### Vitest Configuration
 
 ```typescript
+import { testingConfig } from "@gabfon/testing";
 // vitest.config.ts
-import { defineConfig } from 'vitest/config';
-import { testingConfig } from '@gabfon/testing';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   ...testingConfig,
@@ -126,7 +130,7 @@ export default defineConfig({
 
 ```typescript
 // setupTests.ts
-import '@gabfon/testing/setup';
+import "@gabfon/testing/setup";
 
 // Global test setup
 beforeAll(() => {
@@ -167,13 +171,14 @@ pnpm clean
 ### Unit Tests
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { formatDate } from '../utils/date';
+import { describe, it, expect } from "vitest";
 
-describe('formatDate', () => {
-  it('formats date correctly', () => {
-    const date = new Date('2023-01-01');
-    expect(formatDate(date)).toBe('January 1, 2023');
+import { formatDate } from "../utils/date";
+
+describe("formatDate", () => {
+  it("formats date correctly", () => {
+    const date = new Date("2023-01-01");
+    expect(formatDate(date)).toBe("January 1, 2023");
   });
 });
 ```
@@ -181,24 +186,24 @@ describe('formatDate', () => {
 ### Integration Tests
 
 ```typescript
-import { describe, it, expect, beforeEach } from 'vitest';
-import { setupTestDatabase } from '@gabfon/testing';
+import { setupTestDatabase } from "@gabfon/testing";
+import { describe, it, expect, beforeEach } from "vitest";
 
-describe('User API', () => {
+describe("User API", () => {
   beforeEach(async () => {
     await setupTestDatabase();
   });
 
-  it('creates and retrieves user', async () => {
-    const userData = { name: 'John Doe', email: 'john@example.com' };
-    
-    const createResponse = await fetch('/api/users', {
-      method: 'POST',
+  it("creates and retrieves user", async () => {
+    const userData = { name: "John Doe", email: "john@example.com" };
+
+    const createResponse = await fetch("/api/users", {
+      method: "POST",
       body: JSON.stringify(userData),
     });
-    
+
     expect(createResponse.status).toBe(201);
-    
+
     const user = await createResponse.json();
     expect(user.name).toBe(userData.name);
   });
@@ -216,7 +221,7 @@ describe('Button', () => {
   it('calls onClick when clicked', () => {
     const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     fireEvent.click(screen.getByText('Click me'));
     expect(handleClick).toHaveBeenCalledOnce();
   });

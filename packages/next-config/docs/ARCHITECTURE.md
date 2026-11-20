@@ -7,21 +7,25 @@ The `@gabfon/next-config` package provides a centralized Next.js configuration w
 ## Architectural Decisions
 
 ### 1. Security-First Configuration
+
 - **Decision**: Implement comprehensive security headers by default
 - **Rationale**: Ensures applications are secure by default without manual configuration
 - **Implementation**: Content Security Policy, HSTS, X-Frame-Options, etc.
 
 ### 2. Analytics Integration
+
 - **Decision**: Include PostHog analytics rewrites in base configuration
 - **Rationale**: Provides seamless analytics integration across all applications
 - **Implementation**: URL rewrites for PostHog API endpoints
 
 ### 3. Environment Validation
+
 - **Decision**: Use `@t3-oss/env-nextjs` for type-safe environment variables
 - **Rationale**: Ensures environment variables are validated and typed
-- **Implementation**: Extends Vercel preset with custom variables
+- **Implementation**: Plain `@t3-oss/env-nextjs` with custom variables
 
 ### 4. Bundle Analysis Support
+
 - **Decision**: Include bundle analyzer as optional wrapper
 - **Rationale**: Enables performance analysis when needed
 - **Implementation**: Higher-order function for conditional bundle analysis
@@ -43,19 +47,23 @@ The configuration implements industry-standard security headers:
 ```typescript
 headers: [
   {
-    source: '/(.*)',
+    source: "/(.*)",
     headers: [
       {
-        key: 'Content-Security-Policy',
-        value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self';"
+        key: "Content-Security-Policy",
+        value:
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self';",
       },
-      { key: 'X-Content-Type-Options', value: 'nosniff' },
-      { key: 'X-Frame-Options', value: 'DENY' },
-      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-      { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' }
-    ]
-  }
-]
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      {
+        key: "Strict-Transport-Security",
+        value: "max-age=63072000; includeSubDomains; preload",
+      },
+    ],
+  },
+];
 ```
 
 ### Analytics Integration
@@ -65,18 +73,18 @@ PostHog analytics rewrites for seamless integration:
 ```typescript
 rewrites: [
   {
-    source: '/ingest/static/:path*',
-    destination: 'https://us-assets.i.posthog.com/static/:path*'
+    source: "/ingest/static/:path*",
+    destination: "https://us-assets.i.posthog.com/static/:path*",
   },
   {
-    source: '/ingest/:path*',
-    destination: 'https://us.i.posthog.com/:path*'
+    source: "/ingest/:path*",
+    destination: "https://us.i.posthog.com/:path*",
   },
   {
-    source: '/ingest/decide',
-    destination: 'https://us.i.posthog.com/decide'
-  }
-]
+    source: "/ingest/decide",
+    destination: "https://us.i.posthog.com/decide",
+  },
+];
 ```
 
 ## Data Flow
@@ -87,7 +95,7 @@ graph TD
     B --> C[Security Headers]
     B --> D[Analytics Rewrites]
     B --> E[Environment Validation]
-    
+
     F[Environment Variables] --> E
     G[PostHog Analytics] --> D
     H[Bundle Analyzer] --> I[withAnalyzer Wrapper]
@@ -97,11 +105,13 @@ graph TD
 ## Key Dependencies
 
 ### Core Dependencies
+
 - **`next`**: Next.js framework (peer dependency)
 - **`@next/bundle-analyzer`**: Bundle analysis tool
 - **`@prisma/nextjs-monorepo-workaround-plugin`**: Monorepo compatibility
 
 ### Configuration Dependencies
+
 - **`@t3-oss/env-nextjs`**: Environment variable validation
 - **`@t3-oss/env-core`**: Core environment utilities
 - **`zod`**: Runtime type validation
@@ -132,22 +142,19 @@ The CSP is configured with a restrictive policy:
 
 ### Environment Variables
 
-The configuration extends the Vercel preset with custom variables:
+The configuration uses `@t3-oss/env-nextjs` with custom variables:
 
 ```typescript
 export const keys = () =>
   createEnv({
-    extends: [vercel()],
     server: {
       ANALYZE: z.string().optional(),
-      NEXT_RUNTIME: z.enum(['nodejs', 'edge']).optional(),
     },
     client: {
       NEXT_PUBLIC_WEB_URL: z.url().min(1),
     },
     runtimeEnv: {
       ANALYZE: process.env.ANALYZE,
-      NEXT_RUNTIME: process.env.NEXT_RUNTIME,
       NEXT_PUBLIC_WEB_URL: process.env.NEXT_PUBLIC_WEB_URL,
     },
     emptyStringAsUndefined: true,
@@ -158,14 +165,12 @@ export const keys = () =>
 ### Variable Categories
 
 #### Server-Side Variables
+
 - **`ANALYZE`**: Optional flag for bundle analysis
-- **`NEXT_RUNTIME`**: Runtime environment (nodejs/edge)
 
 #### Client-Side Variables
-- **`NEXT_PUBLIC_WEB_URL`**: Public web URL for the application
 
-#### Vercel Preset Variables
-- All standard Vercel environment variables are included
+- **`NEXT_PUBLIC_WEB_URL`**: Public web URL for the application
 
 ## Bundle Analysis
 
@@ -182,11 +187,9 @@ export const withAnalyzer = (sourceConfig: NextConfig): NextConfig =>
 
 ```typescript
 // next.config.js
-import { config, withAnalyzer } from '@gabfon/next-config';
+import { config, withAnalyzer } from "@gabfon/next-config";
 
-const finalConfig = process.env.ANALYZE 
-  ? withAnalyzer(config)
-  : config;
+const finalConfig = process.env.ANALYZE ? withAnalyzer(config) : config;
 
 export default finalConfig;
 ```
@@ -197,7 +200,7 @@ export default finalConfig;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 export default config;
 ```
@@ -206,7 +209,7 @@ export default config;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const customConfig = {
   ...config,
@@ -214,7 +217,7 @@ const customConfig = {
     appDir: true,
   },
   images: {
-    domains: ['example.com'],
+    domains: ["example.com"],
   },
 };
 
@@ -225,7 +228,7 @@ export default customConfig;
 
 ```typescript
 // next.config.js
-import { config, withAnalyzer } from '@gabfon/next-config';
+import { config, withAnalyzer } from "@gabfon/next-config";
 
 export default withAnalyzer(config);
 ```
@@ -234,9 +237,9 @@ export default withAnalyzer(config);
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV === "development";
 
 const finalConfig = {
   ...config,
@@ -255,16 +258,19 @@ export default finalConfig;
 ## Performance Optimizations
 
 ### 1. Security Header Optimization
+
 - Headers are applied globally to all routes
 - Minimal overhead on request processing
 - No additional runtime dependencies
 
 ### 2. Analytics Rewrite Optimization
+
 - Rewrites are processed at the edge
 - No additional client-side overhead
 - Seamless integration with PostHog
 
 ### 3. Bundle Analysis Optimization
+
 - Conditional analysis only when needed
 - No impact on production builds
 - Detailed bundle insights when enabled
@@ -272,16 +278,19 @@ export default finalConfig;
 ## Testing Strategy
 
 ### 1. Configuration Validation
+
 - Test security headers are properly applied
 - Verify analytics rewrites work correctly
 - Validate environment variable schema
 
 ### 2. Integration Testing
+
 - Test configuration with Next.js applications
 - Verify bundle analysis functionality
 - Test environment-specific behavior
 
 ### 3. Security Testing
+
 - Verify CSP headers prevent XSS
 - Test HSTS implementation
 - Validate other security headers
@@ -289,6 +298,7 @@ export default finalConfig;
 ## Future Extensibility
 
 The architecture supports:
+
 - Additional security headers
 - Custom rewrite rules
 - Environment-specific configurations
@@ -299,6 +309,7 @@ The architecture supports:
 ## Migration Path
 
 The package is designed to support:
+
 - Easy adoption in existing Next.js applications
 - Gradual security header implementation
 - Backward compatibility maintenance
@@ -308,24 +319,28 @@ The package is designed to support:
 ## Best Practices
 
 ### 1. Security
+
 - Regularly review and update CSP policies
 - Monitor security header effectiveness
 - Keep dependencies updated
 - Test security configurations
 
 ### 2. Performance
+
 - Use bundle analysis for optimization
 - Monitor rewrite performance
 - Test configuration impact
 - Optimize for production
 
 ### 3. Environment Management
+
 - Use environment-specific configurations
 - Validate environment variables
 - Secure sensitive configuration
 - Document environment requirements
 
 ### 4. Maintenance
+
 - Keep Next.js version updated
 - Review security headers regularly
 - Test configuration changes

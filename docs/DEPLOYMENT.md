@@ -1,484 +1,126 @@
-# deployment guide
+# Deployment Guide
 
-This guide covers deploying the application to various platforms and environments.
+This guide covers deploying the `web` application to Cloudflare Workers via vinext.
 
 ## Overview
 
-The application is designed for modern deployment platforms with support for:
-- **Vercel** (recommended) - Zero-config deployment
-- **Docker** - Container-based deployment
-- **Static Hosting** - Static export capability
-- **Traditional Hosting** - Custom server deployment
+The **web** app (`gabfon.com`) is a Next.js 16 (App Router) application deployed to Cloudflare Workers using [vinext](https://vinext.dev) — Next.js on the Workers runtime with R2/Assets support.
 
-## Dependency Management with Renovate
+## Prerequisites
 
-This project uses **Renovate** for automated dependency management. Renovate automatically creates pull requests to keep dependencies up to date.
+- [Bun](https://bun.sh) (package manager)
+- [Node.js ≥ 22.18](https://nodejs.org) (config loading, build)
+- A Cloudflare account with API token (Worker Scripts: Edit, Routes: Edit, R2: Read/Write)
 
-### Renovate Configuration
+## Cloudflare Workers Deployment (vinext)
 
-The project includes a comprehensive `renovate.json` configuration that:
-
-- **Monitors all packages** in the monorepo structure
-- **Groups related dependencies** (React, TypeScript, testing, etc.)
-- **Automates minor/patch updates** for development dependencies
-- **Requires approval** for major version updates
-- **Handles workspace dependencies** properly
-- **Runs security updates** immediately
-
-### Setup Requirements
-
-1. **GitHub Token**: Create a personal access token with `repo` and `workflow` permissions
-2. **Repository Secret**: Add `RENOVATE_TOKEN` to your repository secrets
-3. **Enable Workflow**: The GitHub Actions workflow runs hourly
-
-### Renovate Features
-
-```json
-{
-  "schedule": ["before 6am on monday"],
-  "prConcurrentLimit": 3,
-  "automerge": true, // for minor/patch dev deps
-  "groups": [
-    "workspace dependencies",
-    "internal packages", 
-    "TypeScript ecosystem",
-    "Next.js ecosystem",
-    "Testing packages"
-  ]
-}
-```
-
-### Monitoring Updates
-
-- **Dependency Dashboard**: Auto-generated issue tracking all updates
-- **Pull Requests**: Grouped by dependency type
-- **Security Alerts**: Immediate updates for vulnerabilities
-- **Release Stability**: Configurable waiting periods
-
-## Vercel Deployment (Recommended)
-
-### Automatic Deployment
-
-The project is pre-configured for Vercel deployment:
-
-1. **Connect Repository**
+### Build
 
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Login to Vercel
-vercel login
-
-# Deploy from project root
-vercel --prod
+# From the web app directory
+cd apps/web
+npx cf build
 ```
 
-2. **Environment Variables**
+This produces the worker bundle and assets under `.cloudflare/output/v1/workers/default/`.
 
-Configure in Vercel dashboard:
+### Deploy
 
-```bash
-# Required environment variables
-DATABASE_URL=postgresql://...
-NEXTAUTH_URL=https://your-app.vercel.app
-NEXTAUTH_SECRET=your-secret-key
+The site is deployed to Cloudflare via the Cloudflare Upload Worker API (asset session + JWT-authorized bucket uploads + multipart worker upload + zone-scoped routes).
 
-# Optional
-ANALYZE=true              # Enable bundle analysis
-SENTRY_DSN=your-sentry-dsn
-POSTHOG_KEY=your-posthog-key
-```
+The worker is configured in `cloudflare.config.ts` at the repository root:
 
-3. **Domain Configuration**
-
-- Custom domains can be added in Vercel dashboard
-- SSL certificates are automatically managed
-- CDN is globally distributed
-
-### Vercel Configuration
-
-The `vercel.json` file handles deployment settings:
-
-```json
-{
-  "buildCommand": "pnpm build",
-  "outputDirectory": ".next",
-  "installCommand": "pnpm install",
-  "framework": "nextjs",
-  "functions": {
-    "apps/www/src/app/api/**/*.ts": {
-      "maxDuration": 30
-    }
-  }
-}
-```
-
-## Docker Deployment
-
-### Building the Image
-
-```bash
-# Build Docker image
-docker build -t your-app-name .
-
-# Tag for registry
-docker tag your-app-name your-registry/your-app-name:latest
-```
-
-### Running with Docker Compose
-
-```bash
-# Start all services
-docker-compose -f infrastructure/docker/docker-compose.yml up -d
-
-# View logs
-docker-compose -f infrastructure/docker/docker-compose.yml logs -f
-
-# Stop services
-docker-compose -f infrastructure/docker/docker-compose.yml down
-```
-
-### Production Docker Compose
-
-```yaml
-version: '3.8'
-
-services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://postgres:password@db:5432/myapp
-    depends_on:
-      - db
-      - redis
-
-  db:
-    image: postgres:15
-    environment:
-      - POSTGRES_DB=myapp
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-
-volumes:
-  postgres_data:
-```
-
-## Static Export
-
-### Generating Static Files
-
-```bash
-# Export static site
-pnpm build
-pnpm export
-
-# Files are in out/ directory
-```
-
-### Static Hosting Configuration
-
-```json
-// next.config.ts
-{
-  output: 'export',
-  images: {
-    unoptimized: true
-  },
-  trailingSlash: true,
-  distDir: 'out'
-}
-```
-
-### Deploying to Static Hosting
-
-```bash
-# Deploy to Netlify
-npm i -g netlify-cli
-netlify deploy --prod --dir=out
-
-# Deploy to GitHub Pages
-gh-pages --dist out --branch gh-pages
-```
-
-## Environment Configuration
-
-### Development
-
-```bash
-# .env.local
-NODE_ENV=development
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-DATABASE_URL=postgresql://localhost:5432/devdb
-```
-
-### Staging
-
-```bash
-# .env.staging
-NODE_ENV=production
-NEXT_PUBLIC_APP_URL=https://staging.your-app.com
-DATABASE_URL=postgresql://staging-db:5432/stagingdb
-```
-
-### Production
-
-```bash
-# .env.production
-NODE_ENV=production
-NEXT_PUBLIC_APP_URL=https://your-app.com
-DATABASE_URL=postgresql://prod-db:5432/proddb
-```
-
-## Database Deployment
-
-### PostgreSQL Setup
-
-```sql
--- Create database
-CREATE DATABASE myapp;
-
--- Create user
-CREATE USER myapp_user WITH PASSWORD 'secure_password';
-
--- Grant permissions
-GRANT ALL PRIVILEGES ON DATABASE myapp TO myapp_user;
-```
-
-### Migration Management
-
-```bash
-# Run migrations
-pnpm db:migrate
-
-# Create new migration
-pnpm db:migration:add create_user_table
-
-# Reset database
-pnpm db:reset
-```
-
-## Performance Optimization
-
-### Build Optimization
-
-```json
-// next.config.ts
-{
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production'
-  },
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ['@gabfon/ui']
-  }
-}
-```
-
-### CDN Configuration
-
-```javascript
-// vercel.json
-{
-  "headers": [
-    {
-      "source": "/_next/static/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ]
-}
-```
-
-## Monitoring and Logging
-
-### Sentry Integration
-
-```typescript
-// apps/www/src/lib/monitoring.ts
-import * as Sentry from '@sentry/nextjs';
-
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  environment: process.env.NODE_ENV,
-  tracesSampleRate: 1.0,
-});
-```
-
-### Analytics Setup
-
-```typescript
-// apps/www/src/lib/analytics.ts
-import { Analytics } from '@vercel/analytics/react';
-
-export const AnalyticsProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <>
-      {children}
-      <Analytics />
-    </>
-  );
-};
-```
-
-## Security Considerations
+- Worker name: `site`
+- Compatibility date: `2026-11-18`
+- Routes: `gabfon.com/*` and `*.gabfon.com/*`
 
 ### Environment Variables
 
+Configure via the Cloudflare dashboard or `wrangler secret put`:
+
 ```bash
-# Use secure random values
-NEXTAUTH_SECRET=$(openssl rand -base64 32)
+# Required (production)
+DB (D1 binding)       # site-db D1 database (declared in cloudflare.config.ts)
+EMAIL_ACCOUNT_ID      # Cloudflare account ID (Email Sending API)
+EMAIL_API_TOKEN       # Cloudflare API token with "Email Sending – Send"
+EMAIL_FROM            # Verified sender address
+ARCJET_KEY            # Arcjet security
 
-# Database connection with SSL
-DATABASE_URL=postgresql://user:pass@host:5432/db?sslmode=require
+# Optional
+SENTRY_DSN            # Error tracking
+POSTHOG_KEY           # Analytics
+LOGTAIL_TOKEN         # Log forwarding
 ```
 
-### Headers and Security
+`NEXT_PUBLIC_*` variables are inlined at build time and must be present in the environment at build time.
 
-```json
-// next.config.ts
-{
-  headers: [
-    {
-      key: 'X-Frame-Options',
-      value: 'DENY'
-    },
-    {
-      key: 'X-Content-Type-Options',
-      value: 'nosniff'
-    },
-    {
-      key: 'Referrer-Policy',
-      value: 'strict-origin-when-cross-origin'
-    }
-  ]
-}
+### Domain Configuration
+
+The `gabfon.com` zone is configured in Cloudflare. DNS is served via Cloudflare nameservers (`etta.ns.cloudflare.com` / `troy.ns.cloudflare.com`).
+
+## Auxiliary Worker: Response Store
+
+Opt-in via `RESPONSE_STORE=1` at build time. When enabled, an auxiliary worker (`site-response-store`) with R2 storage caches HTTP response bodies.
+
+### R2 Setup
+
+1. Enable R2 in the Cloudflare dashboard
+2. Create bucket `site-response-store-cache-bodies`
+3. Rebuild with `RESPONSE_STORE=1` and redeploy
+
+## D1 Database
+
+The application uses Cloudflare D1 for the AMA (Ask Me Anything) feature:
+
+```bash
+# Create the database
+bun x wrangler@4.163.0 d1 create site-db
+
+# Apply migrations
+bun x wrangler@4.163.0 d1 migrate site-db
 ```
 
-## CI/CD Pipeline
+Migrations live in `packages/database/drizzle/` and are generated with drizzle-kit.
 
-### GitHub Actions
+## Docker Deployment (alternative)
 
-```yaml
-# .github/workflows/deploy.yml
-name: Deploy
+```bash
+# Build Docker image
+docker build -t gabfon-web .
 
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-          
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        
-      - name: Run tests
-        run: pnpm test
-        
-      - name: Build application
-        run: pnpm build
-        
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID }}
-          vercel-project-id: ${{ secrets.PROJECT_ID }}
+# Tag for registry
+docker tag gabfon-web your-registry/gabfon-web:latest
 ```
 
 ## Troubleshooting
 
-### Common Deployment Issues
-
-**Build Failures**
+### Build Failures
 
 ```bash
 # Clear cache and rebuild
-rm -rf .next node_modules
-pnpm install
-pnpm build
+rm -rf .cloudflare dist
+bun install
+npx cf build
 ```
 
-**Environment Variables**
+### Worker Not Found
+
+Verify the worker is deployed:
 
 ```bash
-# Verify environment setup
-pnpm build:env
+curl https://gabfon.com
 ```
 
-**Database Connection**
+If the zone is in `pending` status, DNS is not yet served. Switch the domain's nameservers to Cloudflare's nameservers.
 
-```bash
-# Test database connection
-pnpm db:migrate
+### D1 Connection Issues
+
+Ensure the D1 binding is declared in `cloudflare.config.ts`:
+
+```typescript
+env: {
+  DB: { type: "d1", name: "site-db" },
+}
 ```
 
-**Performance Issues**
-
-```bash
-# Analyze bundle size
-ANALYZE=true pnpm build
-```
-
-### Rollback Procedures
-
-```bash
-# Vercel rollback
-vercel rollback
-
-# Docker rollback
-docker-compose -f infrastructure/docker/docker-compose.yml down
-docker-compose -f infrastructure/docker/docker-compose.yml up -d --force-recreate
-```
-
-## Scaling Considerations
-
-### Horizontal Scaling
-
-```yaml
-# docker-compose.prod.yml
-version: '3.8'
-
-services:
-  app:
-    build: .
-    deploy:
-      replicas: 3
-    environment:
-      - DATABASE_URL=postgresql://load-balancer:5432/myapp
-```
-
-### Database Scaling
-
-```sql
--- Read replicas for read-heavy workloads
-CREATE DATABASE myapp_replica;
-```
-
----
-
-*This deployment guide evolves with the project. Last updated: 2025-03-23*
+And that the database exists and migrations have been applied.

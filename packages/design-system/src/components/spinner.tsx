@@ -1,36 +1,38 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority";
 import type { HTMLAttributes } from "react";
+
 import { cn } from "../lib/utils";
 
 const spinnerVariants = cva("spinner-blade", {
-	variants: {
-		variant: {
-			default: "bg-accent-1",
-			secondary: "bg-accent-8",
-		},
-	},
-	defaultVariants: {
-		variant: "default",
-	},
+  variants: {
+    variant: {
+      default: "bg-accent-1",
+      secondary: "bg-accent-8",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
 });
 
 type SpinnerProps = HTMLAttributes<HTMLDivElement> &
-	VariantProps<typeof spinnerVariants> & {
-		length?: number;
-	};
+  VariantProps<typeof spinnerVariants> & {
+    length?: number;
+  };
 
 function Spinner({ variant, className, length = 9, ...props }: SpinnerProps) {
-	return (
-		<div className="spinner">
-			{Array.from({ length }, (_, index: number) => (
-				<span
-					className={cn(spinnerVariants({ variant, className }))}
-					key={index}
-					{...props}
-				/>
-			))}
-		</div>
-	);
+  return (
+    <div className="spinner">
+      {Array.from({ length }, (_, index: number) => (
+        <span
+          className={cn(spinnerVariants({ variant, className }))}
+          key={index}
+          {...props}
+        />
+      ))}
+    </div>
+  );
 }
 
 export { Spinner, type SpinnerProps };

@@ -1,5 +1,4 @@
 import { initializeSentry } from "@gabfon/observability/client";
-import { captureRouterTransitionStart } from "@sentry/nextjs";
 
 /*
  * Next.js runs this file in the browser before the app becomes interactive, so
@@ -14,4 +13,4 @@ initializeSentry();
  * Next.js calls this on every router transition; Sentry requires the export to
  * be named `onRouterTransitionStart`.
  */
-export const onRouterTransitionStart = captureRouterTransitionStart;
+export { captureRouterTransitionStart as onRouterTransitionStart } from "@sentry/nextjs";

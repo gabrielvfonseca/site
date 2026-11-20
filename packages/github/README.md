@@ -29,19 +29,19 @@ GITHUB_TOKEN=your_github_personal_access_token
 ### Basic Usage
 
 ```typescript
-import { githubClient } from '@gabfon/github';
+import { githubClient } from "@gabfon/github";
 
 // Get user information
-const user = await githubClient.getUser('username');
+const user = await githubClient.getUser("username");
 
 // Get user repositories
-const repos = await githubClient.getUserRepos('username');
+const repos = await githubClient.getUserRepos("username");
 
 // Get user events
-const events = await githubClient.getUserEvents('username');
+const events = await githubClient.getUserEvents("username");
 
 // Get contribution calendar
-const contributions = await githubClient.getContributions('username');
+const contributions = await githubClient.getContributions("username");
 ```
 
 ### React Integration
@@ -92,9 +92,9 @@ function UserProfile({ username }: { username: string }) {
 
 This package uses `@t3-oss/env-nextjs` for environment validation. Required variables:
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `GITHUB_TOKEN` | GitHub Personal Access Token | Yes |
+| Variable       | Description                  | Required |
+| -------------- | ---------------------------- | -------- |
+| `GITHUB_TOKEN` | GitHub Personal Access Token | Yes      |
 
 ## Development
 

@@ -21,17 +21,17 @@ X_USERNAME=gabfon_
 
 ```typescript
 // Client
-export { XClient, xClient } from './client';
+export { XClient, xClient } from "./client";
 
 // Environment
-export { keys } from './keys';
+export { keys } from "./keys";
 
 // Types
-export type { XApiTweet, XPost, XPublicMetrics } from './types';
+export type { XApiTweet, XPost, XPublicMetrics } from "./types";
 ```
 
 | Export | Kind | Description |
-|--------|------|-------------|
+| --- | --- | --- |
 | `XClient` | class | The client class |
 | `xClient` | instance | Shared singleton client |
 | `keys` | function | `@t3-oss/env-nextjs` factory for this package's env |
@@ -46,7 +46,7 @@ export type { XApiTweet, XPost, XPublicMetrics } from './types';
 A ready-to-use singleton. Construct your own `XClient` only if you need isolated state.
 
 ```typescript
-import { xClient, XClient } from '@gabfon/x';
+import { xClient, XClient } from "@gabfon/x";
 
 const client = xClient; // shared singleton
 const own = new XClient(); // independent instance
@@ -102,15 +102,15 @@ interface XApiTweet {
 
 ## Environment Variables
 
-| Variable | Type | Default | Required |
-|----------|------|---------|----------|
-| `X_API_BEARER_TOKEN` | `string` | — | No |
-| `X_USERNAME` | `string` | `gabfon_` | No |
+| Variable             | Type     | Default   | Required |
+| -------------------- | -------- | --------- | -------- |
+| `X_API_BEARER_TOKEN` | `string` | —         | No       |
+| `X_USERNAME`         | `string` | `gabfon_` | No       |
 
 Access the validated values via `keys()`:
 
 ```typescript
-import { keys } from '@gabfon/x/keys';
+import { keys } from "@gabfon/x/keys";
 
 const env = keys();
 env.X_USERNAME; // "gabfon_"
@@ -121,7 +121,7 @@ env.X_USERNAME; // "gabfon_"
 ### Rendering the latest post
 
 ```typescript
-import { xClient } from '@gabfon/x';
+import { xClient } from "@gabfon/x";
 
 const post = await xClient.getLatestPost();
 if (post) {
@@ -134,7 +134,7 @@ if (post) {
 ```typescript
 async function loadX() {
   try {
-    const { xClient } = await import('@gabfon/x');
+    const { xClient } = await import("@gabfon/x");
     return await xClient.getLatestPost();
   } catch {
     return null; // missing token or API error → omit the widget

@@ -31,7 +31,7 @@ jobs:
       - name: Setup Node.js
         uses: "actions/setup-node@v4"
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Setup Bun
         uses: "oven-sh/setup-bun@v1"
@@ -61,8 +61,8 @@ jobs:
         uses: "changesets/action@v1"
         with:
           publish: bun release
-          commit: 'chore: release packages'
-          title: 'chore: release packages'
+          commit: "chore: release packages"
+          title: "chore: release packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -82,9 +82,9 @@ jobs:
           release_name: Release v${{ needs.version.outputs.publishedPackages[0].version }}
           body: |
             ## Changes in this release
-            
+
             ${{ needs.version.outputs.publishedPackages[0].name }}@${{ needs.version.outputs.publishedPackages[0].version }}
-            
+
             ### Published Packages
             ${{ join(format('{0}@{1}', needs.version.outputs.publishedPackages.*.name, needs.version.outputs.publishedPackages.*.version), '\n') }}
           draft: false

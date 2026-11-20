@@ -4,68 +4,47 @@ import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 const originalEnv = process.env;
 
 describe("email keys", () => {
-	beforeEach(() => {
-		vi.resetModules();
-		process.env = { ...originalEnv };
-	});
+  beforeEach(() => {
+    vi.resetModules();
+    process.env = { ...originalEnv };
+  });
 
-	afterAll(() => {
-		process.env = originalEnv;
-	});
+  afterAll(() => {
+    process.env = originalEnv;
+  });
 
-	it("returns the validated Resend configuration", async () => {
-		process.env.RESEND_FROM = "contact@gabfon.com";
-		process.env.RESEND_TOKEN = "re_test123";
-		process.env.SKIP_ENV_VALIDATION = "false";
+  it("returns the validated Cloudflare Email Sending configuration", async () => {
+    process.env.EMAIL_ACCOUNT_ID = "test-account-id";
+    process.env.EMAIL_API_TOKEN = "test-api-token";
+    process.env.EMAIL_FROM = "contact@gabfon.com";
+    process.env.SKIP_ENV_VALIDATION = "false";
 
-		const { keys } = await import("../../src/keys");
-		const config = keys();
+    const { keys } = await import("../../src/keys");
+    const config = keys();
 
-		expect(config.RESEND_FROM).toBe("contact@gabfon.com");
-		expect(config.RESEND_TOKEN).toBe("re_test123");
-	});
+    expect(config.EMAIL_ACCOUNT_ID).toBe("test-account-id");
+    expect(config.EMAIL_API_TOKEN).toBe("test-api-token");
+    expect(config.EMAIL_FROM).toBe("contact@gabfon.com");
+  });
 
-	it("handles invalid token format as-is (client not validated)", async () => {
-		process.env.RESEND_FROM = "contact@gabfon.com";
-		process.env.RESEND_TOKEN = "invalid_token";
-		process.env.SKIP_ENV_VALIDATION = "false";
+  it("rejects an invalid From address", async () => {
+    process.env.EMAIL_ACCOUNT_ID = "test-account-id";
+    process.env.EMAIL_API_TOKEN = "test-api-token";
+    process.env.EMAIL_FROM = "not-an-email";
+    process.env.SKIP_ENV_VALIDATION = "false";
 
-		const { keys } = await import("../../src/keys");
-		const config = keys();
+    const { keys } = await import("../../src/keys");
 
-		expect(config.RESEND_TOKEN).toBe("invalid_token");
-	});
+    expect(() => keys()).toThrow();
+  });
 
-	it("handles invalid email format as-is (server not validated)", async () => {
-		process.env.RESEND_FROM = "not-an-email";
-		process.env.RESEND_TOKEN = "re_test123";
-		process.env.SKIP_ENV_VALIDATION = "false";
+  it("skips validation when SKIP_ENV_VALIDATION is set", async () => {
+    process.env.EMAIL_FROM = "not-an-email";
+    process.env.SKIP_ENV_VALIDATION = "true";
 
-		const { keys } = await import("../../src/keys");
-		const config = keys();
+    const { keys } = await import("../../src/keys");
+    const config = keys();
 
-		expect(config.RESEND_FROM).toBe("not-an-email");
-	});
-
-	it("handles missing env vars as undefined when validation skipped", async () => {
-		process.env.SKIP_ENV_VALIDATION = "true";
-		delete process.env.RESEND_TOKEN;
-		delete process.env.RESEND_FROM;
-
-		const { keys } = await import("../../src/keys");
-
-		expect(() => keys()).not.toThrow();
-	});
-
-	it("handles empty string as undefined", async () => {
-		process.env.RESEND_FROM = "";
-		process.env.RESEND_TOKEN = "";
-		process.env.SKIP_ENV_VALIDATION = "false";
-
-		const { keys } = await import("../../src/keys");
-		const config = keys();
-
-		expect(config.RESEND_FROM).toBeUndefined();
-		expect(config.RESEND_TOKEN).toBeUndefined();
-	});
+    expect(config.EMAIL_FROM).toBe("not-an-email");
+  });
 });

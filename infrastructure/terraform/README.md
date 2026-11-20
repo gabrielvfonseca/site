@@ -1,21 +1,24 @@
 # Terraform Configuration
 
-This directory contains Terraform configurations for deploying the application to Vercel.
+This directory contains Terraform configurations for deploying the application to Cloudflare Workers (vinext).
 
 ## Usage
 
 1. Initialize Terraform:
+
    ```bash
    terraform init
    ```
 
 2. Create a terraform.tfvars file with your variables:
+
    ```hcl
-   vercel_token = "your-vercel-token"
-   database_url = "your-database-url"
+   cloudflare_api_token = "your-cloudflare-token"
+   account_id = "your-cloudflare-account-id"
    ```
 
 3. Review the planned changes:
+
    ```bash
    terraform plan
    ```
@@ -27,13 +30,11 @@ This directory contains Terraform configurations for deploying the application t
 
 ## Resources
 
-- Vercel Project: Configured for Next.js with TurboRepo
-- Custom Domain: gabfon.com
-- Environment Variables: Database URL and other secrets
+- Cloudflare Zone: gabfon.com
+- Worker Routes: gabfon.com/* and _.gabfon.com/_
+- D1 Database: site-db
 
 ## Variables
 
-- `vercel_token`: Vercel API token (sensitive)
-- `database_url`: Database connection string (sensitive)
-- `project_name`: Name of the Vercel project (default: "gabfon-site")
-- `git_repo`: GitHub repository in format "owner/repo" (default: "gabfon/site")
+- `cloudflare_api_token`: Cloudflare API token (sensitive)
+- `account_id`: Cloudflare account ID (sensitive)

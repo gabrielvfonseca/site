@@ -44,16 +44,16 @@ interface User {
 }
 
 const user: User = {
-  id: '123',
-  name: 'John',
-  email: 'john@example.com'
+  id: "123",
+  name: "John",
+  email: "john@example.com",
 };
 
 // Bad - Implicit any
 const user = {
-  id: '123',
-  name: 'John',
-  email: 'john@example.com'
+  id: "123",
+  name: "John",
+  email: "john@example.com",
 };
 ```
 
@@ -101,7 +101,7 @@ Use functional components with hooks:
 // Good - Functional component with hooks
 export const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
   const [user, setUser] = useState<User | null>(null);
-  
+
   useEffect(() => {
     fetchUser(userId).then(setUser);
   }, [userId]);
@@ -318,7 +318,7 @@ describe('Button', () => {
   it('calls onClick when clicked', () => {
     const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     screen.getByRole('button', { name: 'Click me' }).click();
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -326,7 +326,7 @@ describe('Button', () => {
   it('applies correct variant classes', () => {
     render(<Button variant="primary">Primary</Button>);
     const button = screen.getByRole('button');
-    
+
     expect(button).toHaveClass('bg-blue-500', 'text-white');
   });
 });
@@ -345,11 +345,11 @@ import { LoginForm } from './LoginForm';
 describe('LoginForm Integration', () => {
   it('submits form with valid data', async () => {
     render(<LoginForm />);
-    
+
     await userEvent.type(screen.getByLabelText(/email/i), 'test@example.com');
     await userEvent.type(screen.getByLabelText(/password/i), 'password123');
     await userEvent.click(screen.getByRole('button', { name: /login/i }));
-    
+
     await waitFor(() => {
       expect(screen.getByText(/welcome/i)).toBeInTheDocument();
     });
@@ -424,10 +424,10 @@ export const UserList = ({ users }) => {
 
 ```typescript
 // Good - Dynamic imports
-const AdminPanel = lazy(() => import('./AdminPanel'));
+const AdminPanel = lazy(() => import("./AdminPanel"));
 
 // Bad - Static imports
-import AdminPanel from './AdminPanel';
+import AdminPanel from "./AdminPanel";
 ```
 
 ## Security Guidelines
@@ -436,7 +436,7 @@ import AdminPanel from './AdminPanel';
 
 ```typescript
 // Good - Proper validation
-import { z } from 'zod';
+import { z } from "zod";
 
 const UserSchema = z.object({
   email: z.string().email(),
@@ -453,7 +453,7 @@ export const createUser = async (data: unknown) => {
 
 ```typescript
 // Good - Environment validation
-import { z } from 'zod';
+import { z } from "zod";
 
 const envSchema = z.object({
   DATABASE_URL: z.string().url(),
@@ -497,7 +497,7 @@ Use React DevTools and Redux DevTools for debugging component state and props.
 
 ### Code Comments
 
-```typescript
+````typescript
 /**
  * Calculates the total price including tax
  * @param price - Base price before tax
@@ -511,7 +511,7 @@ Use React DevTools and Redux DevTools for debugging component state and props.
 export const calculateTotal = (price: number, taxRate: number): number => {
   return price * (1 + taxRate);
 };
-```
+````
 
 ### README Files
 
@@ -525,4 +525,4 @@ Each package should have a README.md with:
 
 ---
 
-*This development guide evolves with the project. Last updated: 2025-03-23*
+_This development guide evolves with the project. Last updated: 2025-03-23_

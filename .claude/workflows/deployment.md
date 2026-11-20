@@ -1,17 +1,19 @@
 ---
-description: "Deployment workflow for Vercel with Sentry integration and monitoring"
+description: "Deployment workflow for Cloudflare Workers (vinext) with Sentry integration and monitoring"
 ---
 
 # Deployment Workflow
 
 ## 1. Pre-Deployment Checks
+
 - Ensure all tests pass in CI/CD pipeline
 - Verify build process completes successfully
 - Validate environment configuration
 - Review Sentry error tracking setup
-- Check Vercel deployment configuration
+- Check Cloudflare Worker deployment configuration
 
 ## 2. Staging Deployment
+
 - Deploy to staging environment first
 - Run comprehensive smoke tests
 - Verify all user workflows work correctly
@@ -19,6 +21,7 @@ description: "Deployment workflow for Vercel with Sentry integration and monitor
 - Validate SEO and accessibility
 
 ## 3. Production Deployment
+
 - Schedule deployment during low-traffic hours
 - Monitor deployment process in real-time
 - Verify health checks pass
@@ -26,6 +29,7 @@ description: "Deployment workflow for Vercel with Sentry integration and monitor
 - Validate core functionality
 
 ## 4. Post-Deployment Monitoring
+
 - Monitor error rates and performance
 - Check user feedback and support tickets
 - Verify analytics tracking works
@@ -33,6 +37,7 @@ description: "Deployment workflow for Vercel with Sentry integration and monitor
 - Review database performance if applicable
 
 ## 5. Rollback Procedures
+
 - Prepare rollback plan before deployment
 - Monitor for critical errors
 - Have hotfix process ready
@@ -40,6 +45,7 @@ description: "Deployment workflow for Vercel with Sentry integration and monitor
 - Update deployment checklist
 
 ## Deployment Commands
+
 ```bash
 bun run build            # Production build
 bun run test            # Run tests
@@ -50,20 +56,23 @@ bun run start           # Production preview
 ```
 
 ## Environment Variables
+
 - Verify all required env vars are set
 - Check Sentry DSN configuration
 - Validate Sanity API credentials
-- Ensure Vercel environment variables are correct
+- Ensure Cloudflare Worker secrets are set (wrangler secret put)
 - Review any third-party API keys
 
-## Vercel Configuration
-- Use `vercel.json` for project settings
-- Configure build commands and output directory
-- Set up environment variables
-- Configure domains and redirects
-- Enable Vercel Analytics
+## Cloudflare Configuration
+
+- Use `cloudflare.config.ts` for worker settings
+- Configure compatibility date and D1 bindings
+- Set secrets via `wrangler secret put`
+- Zone-scoped routes for gabfon.com
+- D1 migrations applied before deploy
 
 ## Sentry Integration
+
 - Configure error tracking
 - Set up performance monitoring
 - Implement release tracking
@@ -71,6 +80,7 @@ bun run start           # Production preview
 - Monitor error budgets
 
 ## Monitoring Checklist
+
 - Error rates within acceptable limits
 - Page load times meet targets
 - User authentication works correctly
@@ -80,6 +90,7 @@ bun run start           # Production preview
 - Accessibility features work correctly
 
 ## Performance Optimization
+
 - Optimize images and assets
 - Implement proper caching
 - Use CDN for static assets
@@ -87,6 +98,7 @@ bun run start           # Production preview
 - Optimize bundle size
 
 ## Security Checks
+
 - Validate environment variables
 - Check for exposed secrets
 - Verify HTTPS configuration
@@ -94,6 +106,7 @@ bun run start           # Production preview
 - Review API security
 
 ## Documentation Updates
+
 - Update changelog with new features
 - Document any breaking changes
 - Update deployment procedures

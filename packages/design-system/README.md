@@ -58,15 +58,16 @@ function MyComponent() {
 ### Using Utilities
 
 ```typescript
-import { cn } from '@gabfon/design-system/lib/utils';
+import { cn } from "@gabfon/design-system/lib/utils";
 
 // Merge Tailwind classes
-const className = cn('base-class', condition && 'conditional-class');
+const className = cn("base-class", condition && "conditional-class");
 ```
 
 ## Available Components
 
 ### Form Components
+
 - `Button` - Various button styles and sizes
 - `Input` - Text input with validation states
 - `Textarea` - Multi-line text input
@@ -78,6 +79,7 @@ const className = cn('base-class', condition && 'conditional-class');
 - `InputOTP` - One-time password input
 
 ### Layout Components
+
 - `Card` - Content containers
 - `Separator` - Visual dividers
 - `Sheet` - Side panels and drawers
@@ -87,6 +89,7 @@ const className = cn('base-class', condition && 'conditional-class');
 - `HoverCard` - Hover-triggered content
 
 ### Navigation Components
+
 - `NavigationMenu` - Main navigation
 - `Menubar` - Application menu bar
 - `DropdownMenu` - Context menus
@@ -94,6 +97,7 @@ const className = cn('base-class', condition && 'conditional-class');
 - `Breadcrumb` - Navigation breadcrumbs
 
 ### Data Display
+
 - `Table` - Data tables
 - `Badge` - Status indicators
 - `Avatar` - User avatars
@@ -102,6 +106,7 @@ const className = cn('base-class', condition && 'conditional-class');
 - `Progress` - Progress bars
 
 ### Feedback
+
 - `Alert` - Alert messages
 - `Toast` - Notification toasts
 - `Carousel` - Image/content carousels
@@ -109,6 +114,7 @@ const className = cn('base-class', condition && 'conditional-class');
 ## Exports
 
 ### Main Exports
+
 - `./src/index.tsx` - Main provider and exports
 - `./src/styles/globals.css` - Global styles
 - `./src/providers/theme.tsx` - Theme provider
@@ -116,12 +122,15 @@ const className = cn('base-class', condition && 'conditional-class');
 - `./src/lib/utils.ts` - Utility functions
 
 ### Component Exports
+
 All components are available as individual exports:
+
 - `./src/components/button.tsx`
 - `./src/components/input.tsx`
 - And 30+ more components...
 
 ### Hook Exports
+
 - `./src/hooks/use-debounce.tsx` - Debounce hook
 - `./src/hooks/use-mobile.tsx` - Mobile detection hook
 
@@ -132,21 +141,20 @@ The design system uses Tailwind CSS with custom configuration:
 ```typescript
 // tailwind.config.js
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       // Custom theme extensions
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require("@tailwindcss/typography")],
 };
 ```
 
 ## Dependencies
 
 ### Core Dependencies
+
 - `@radix-ui/*` - UI primitives (30+ packages)
 - `react` - React framework
 - `tailwindcss` - Utility-first CSS
@@ -155,6 +163,7 @@ module.exports = {
 - `tailwind-merge` - Tailwind class merging
 
 ### Additional Dependencies
+
 - `lucide-react` - Icon library
 - `next-themes` - Theme switching
 - `date-fns` - Date utilities

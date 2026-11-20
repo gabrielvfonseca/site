@@ -7,21 +7,25 @@ The `@gabfon/typescript-config` package provides shared TypeScript configuration
 ## Architectural Decisions
 
 ### 1. Configuration Inheritance Pattern
+
 - **Decision**: Use TypeScript configuration inheritance for shared settings
 - **Rationale**: Reduces duplication while maintaining flexibility
 - **Implementation**: Base configuration with specialized extensions
 
 ### 2. Project-Specific Configurations
+
 - **Decision**: Create tailored configurations for different project types
 - **Rationale**: Different projects have different TypeScript requirements
 - **Implementation**: Separate configs for Next.js, React libraries, and Turbo
 
 ### 3. Modern TypeScript Standards
+
 - **Decision**: Use latest TypeScript features and best practices
 - **Rationale**: Ensures type safety and modern JavaScript support
 - **Implementation**: ES2022 target with strict mode enabled
 
 ### 4. Monorepo Path Mapping
+
 - **Decision**: Configure path aliases for monorepo package imports
 - **Rationale**: Simplifies cross-package imports and development
 - **Implementation**: Configured path mappings in Next.js config
@@ -159,11 +163,11 @@ graph TD
     A[base.json] --> B[nextjs.json]
     A --> C[react-library.json]
     A --> D[turbo.json]
-    
+
     E[Next.js Apps] --> B
     F[React Libraries] --> C
     G[Turbo Builds] --> D
-    
+
     H[All Projects] --> A
 ```
 
@@ -213,16 +217,19 @@ graph TD
 ### Compiler Options
 
 #### Strict Mode
+
 - **Purpose**: Maximum type safety
 - **Benefits**: Catches errors at compile time
 - **Trade-offs**: Requires explicit type annotations
 
 #### Module Resolution
+
 - **NodeNext**: Modern Node.js module resolution
 - **Bundler**: Optimized for bundlers like Vite/Webpack
 - **Force**: Explicit module detection
 
 #### Target and Lib
+
 - **ES2022**: Latest JavaScript features
 - **DOM**: Browser environment support
 - **DOM.Iterable**: Iterable DOM APIs
@@ -230,11 +237,13 @@ graph TD
 ### Project-Specific Settings
 
 #### Next.js
+
 - **No Emit**: Next.js handles compilation
 - **JSX Preserve**: Maintain JSX for processing
 - **Path Aliases**: Monorepo imports
 
 #### React Libraries
+
 - **React JSX**: Modern JSX transform
 - **Declaration**: Generate type definitions
 - **Module**: ESNext for modern bundlers
@@ -352,6 +361,7 @@ graph TD
 ### Version Updates
 
 The package supports:
+
 - **Semantic Versioning**: Breaking changes in major versions
 - **Backward Compatibility**: Minor and patch updates
 - **Migration Guides**: Documentation for breaking changes
@@ -372,12 +382,7 @@ The package supports:
       "@/lib/*": ["./lib/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
 ```
@@ -421,6 +426,7 @@ The package supports:
 ## Future Extensibility
 
 The architecture supports:
+
 - Additional configuration files
 - Custom compiler options
 - Environment-specific settings
@@ -440,7 +446,7 @@ The architecture supports:
   "extends": "@gabfon/typescript-config/nextjs.json",
   "compilerOptions": {
     "paths": {
-      "@/*": ["./*"]  // Ensure correct path
+      "@/*": ["./*"] // Ensure correct path
     }
   }
 }
@@ -453,7 +459,7 @@ The architecture supports:
 {
   "extends": "@gabfon/typescript-config/base.json",
   "compilerOptions": {
-    "moduleResolution": "NodeNext",  // Use NodeNext for modern projects
+    "moduleResolution": "NodeNext", // Use NodeNext for modern projects
     "module": "NodeNext"
   }
 }
@@ -466,9 +472,9 @@ The architecture supports:
 {
   "extends": "@gabfon/typescript-config/react-library.json",
   "compilerOptions": {
-    "declaration": true,           // Enable declaration generation
-    "declarationMap": true,        // Enable declaration maps
-    "outDir": "./dist"              // Specify output directory
+    "declaration": true, // Enable declaration generation
+    "declarationMap": true, // Enable declaration maps
+    "outDir": "./dist" // Specify output directory
   }
 }
 ```

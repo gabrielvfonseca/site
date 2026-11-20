@@ -25,34 +25,39 @@ pnpm add @gabfon/observability
 ### Basic Setup
 
 ```typescript
-import { withLogging, withSentry } from '@gabfon/observability/next-config';
+import { withLogging, withSentry } from "@gabfon/observability/next-config";
 
 // Next.js configuration
-const nextConfig = withLogging(withSentry({
-  // your Next.js config
-}));
+const nextConfig = withLogging(
+  withSentry({
+    // your Next.js config
+  })
+);
 ```
 
 ### Logging
 
 ```typescript
-import { log } from '@gabfon/observability/log';
+import { log } from "@gabfon/observability/log";
 
 // Structured logging
-log.info('User action', { userId: '123', action: 'login' });
-log.error('Database error', { error: error.message, query: 'SELECT * FROM users' });
+log.info("User action", { userId: "123", action: "login" });
+log.error("Database error", {
+  error: error.message,
+  query: "SELECT * FROM users",
+});
 ```
 
 ### Error Tracking
 
 ```typescript
-import { captureException } from '@gabfon/observability/client';
+import { captureException } from "@gabfon/observability/client";
 
 // Capture exceptions
 try {
   // risky operation
 } catch (error) {
-  captureException(error, { context: 'user-action' });
+  captureException(error, { context: "user-action" });
 }
 ```
 
@@ -60,7 +65,7 @@ try {
 
 ```typescript
 // instrumentation.ts
-import { instrumentation } from '@gabfon/observability/instrumentation';
+import { instrumentation } from "@gabfon/observability/instrumentation";
 
 export default instrumentation;
 ```
@@ -88,7 +93,6 @@ SENTRY_AUTH_TOKEN=your_sentry_auth_token
 
 # Environment
 NODE_ENV=production
-VERCEL_ENV=production
 ```
 
 ## Logging Levels
@@ -134,7 +138,7 @@ pnpm clean
 
 ```typescript
 // sentry.client.config.ts
-import * as Sentry from '@sentry/nextjs';
+import * as Sentry from "@sentry/nextjs";
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
@@ -147,7 +151,7 @@ Sentry.init({
 
 ```typescript
 // logtail.config.ts
-import { Logtail } from '@logtail/next';
+import { Logtail } from "@logtail/next";
 
 const logtail = new Logtail(process.env.LOGTAIL_SOURCE_TOKEN);
 ```

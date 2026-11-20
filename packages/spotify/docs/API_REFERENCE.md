@@ -20,23 +20,27 @@ NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_spotify_client_id
 ## Exports
 
 ### Main Client
+
 ```typescript
-export { SpotifyClient, spotifyClient } from './index';
+export { SpotifyClient, spotifyClient } from "./index";
 ```
 
 ### Types
+
 ```typescript
-export * from './types';
+export * from "./types";
 ```
 
 ### Hooks
+
 ```typescript
-export * from './hooks';
+export * from "./hooks";
 ```
 
 ### Environment Keys
+
 ```typescript
-export { keys } from './keys';
+export { keys } from "./keys";
 ```
 
 ## Client
@@ -49,7 +53,7 @@ Main Spotify Web API client class for interacting with Spotify's API.
 
 ```typescript
 class SpotifyClient {
-  constructor(tokens: SpotifyTokens)
+  constructor(tokens: SpotifyTokens);
 }
 
 interface SpotifyTokens {
@@ -64,24 +68,24 @@ interface SpotifyTokens {
 #### Usage
 
 ```typescript
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
 const client = new SpotifyClient({
-  access_token: 'your_access_token',
-  token_type: 'Bearer',
-  scope: 'user-read-private user-read-email',
+  access_token: "your_access_token",
+  token_type: "Bearer",
+  scope: "user-read-private user-read-email",
   expires_in: 3600,
-  refresh_token: 'your_refresh_token',
+  refresh_token: "your_refresh_token",
 });
 ```
 
 #### Default Client
 
 ```typescript
-import { spotifyClient } from '@gabfon/spotify';
+import { spotifyClient } from "@gabfon/spotify";
 
 // Pre-configured client with environment tokens
-const track = await spotifyClient.getTrack('track-id');
+const track = await spotifyClient.getTrack("track-id");
 ```
 
 ### Methods
@@ -97,14 +101,17 @@ async getArtist(artistId: string): Promise<SpotifyArtist>
 ```
 
 **Parameters**
+
 - `artistId: string` - Spotify artist ID
 
 **Returns**
+
 - `Promise<SpotifyArtist>` - Artist information
 
 **Example**
+
 ```typescript
-const artist = await client.getArtist('4Z8W4fKeBZGyExZvQ4CAnf');
+const artist = await client.getArtist("4Z8W4fKeBZGyExZvQ4CAnf");
 console.log(artist.name); // 'Daft Punk'
 console.log(artist.genres); // Array of genres
 ```
@@ -118,16 +125,19 @@ async getArtistAlbums(artistId: string, options?: ArtistAlbumsOptions): Promise<
 ```
 
 **Parameters**
+
 - `artistId: string` - Spotify artist ID
 - `options?: ArtistAlbumsOptions` - Query options
 
 **Returns**
+
 - `Promise<SpotifyAlbum[]>` - Array of albums
 
 **Example**
+
 ```typescript
-const albums = await client.getArtistAlbums('4Z8W4fKeBZGyExZvQ4CAnf', {
-  include_groups: ['album', 'single'],
+const albums = await client.getArtistAlbums("4Z8W4fKeBZGyExZvQ4CAnf", {
+  include_groups: ["album", "single"],
   limit: 20,
   offset: 0,
 });
@@ -142,16 +152,22 @@ async getArtistTopTracks(artistId: string, country?: string): Promise<SpotifyTra
 ```
 
 **Parameters**
+
 - `artistId: string` - Spotify artist ID
 - `country?: string` - Country code (default: 'US')
 
 **Returns**
+
 - `Promise<SpotifyTrack[]>` - Array of top tracks
 
 **Example**
+
 ```typescript
-const topTracks = await client.getArtistTopTracks('4Z8W4fKeBZGyExZvQ4CAnf', 'US');
-topTracks.forEach(track => {
+const topTracks = await client.getArtistTopTracks(
+  "4Z8W4fKeBZGyExZvQ4CAnf",
+  "US"
+);
+topTracks.forEach((track) => {
   console.log(track.name, track.popularity);
 });
 ```
@@ -167,14 +183,17 @@ async getTrack(trackId: string): Promise<SpotifyTrack>
 ```
 
 **Parameters**
+
 - `trackId: string` - Spotify track ID
 
 **Returns**
+
 - `Promise<SpotifyTrack>` - Track information
 
 **Example**
+
 ```typescript
-const track = await client.getTrack('11dFghVXANMlK9aSXrLFsH');
+const track = await client.getTrack("11dFghVXANMlK9aSXrLFsH");
 console.log(track.name); // 'Shape of You'
 console.log(track.duration_ms); // Duration in milliseconds
 ```
@@ -188,14 +207,17 @@ async getAudioFeatures(trackId: string): Promise<AudioFeatures>
 ```
 
 **Parameters**
+
 - `trackId: string` - Spotify track ID
 
 **Returns**
+
 - `Promise<AudioFeatures>` - Audio features
 
 **Example**
+
 ```typescript
-const features = await client.getAudioFeatures('11dFghVXANMlK9aSXrLFsH');
+const features = await client.getAudioFeatures("11dFghVXANMlK9aSXrLFsH");
 console.log(features.danceability); // 0.825
 console.log(features.energy); // 0.652
 console.log(features.valence); // 0.576
@@ -210,14 +232,17 @@ async getAudioAnalysis(trackId: string): Promise<AudioAnalysis>
 ```
 
 **Parameters**
+
 - `trackId: string` - Spotify track ID
 
 **Returns**
+
 - `Promise<AudioAnalysis>` - Detailed audio analysis
 
 **Example**
+
 ```typescript
-const analysis = await client.getAudioAnalysis('11dFghVXANMlK9aSXrLFsH');
+const analysis = await client.getAudioAnalysis("11dFghVXANMlK9aSXrLFsH");
 console.log(analysis.tempo); // BPM
 console.log(analysis.key); // Musical key
 ```
@@ -233,9 +258,11 @@ async getCurrentUser(): Promise<SpotifyUser>
 ```
 
 **Returns**
+
 - `Promise<SpotifyUser>` - User profile information
 
 **Example**
+
 ```typescript
 const user = await client.getCurrentUser();
 console.log(user.display_name);
@@ -252,16 +279,19 @@ async getUserTopTracks(timeRange?: TimeRange, limit?: number): Promise<SpotifyTr
 ```
 
 **Parameters**
+
 - `timeRange?: TimeRange` - Time range ('short_term', 'medium_term', 'long_term')
 - `limit?: number` - Number of tracks to return
 
 **Returns**
+
 - `Promise<SpotifyTrack[]>` - Array of top tracks
 
 **Example**
+
 ```typescript
-const topTracks = await client.getUserTopTracks('short_term', 10);
-topTracks.forEach(track => {
+const topTracks = await client.getUserTopTracks("short_term", 10);
+topTracks.forEach((track) => {
   console.log(`${track.name} - ${track.artists[0].name}`);
 });
 ```
@@ -275,16 +305,19 @@ async getUserTopArtists(timeRange?: TimeRange, limit?: number): Promise<SpotifyA
 ```
 
 **Parameters**
+
 - `timeRange?: TimeRange` - Time range ('short_term', 'medium_term', 'long_term')
 - `limit?: number` - Number of artists to return
 
 **Returns**
+
 - `Promise<SpotifyArtist[]>` - Array of top artists
 
 **Example**
+
 ```typescript
-const topArtists = await client.getUserTopArtists('medium_term', 20);
-topArtists.forEach(artist => {
+const topArtists = await client.getUserTopArtists("medium_term", 20);
+topArtists.forEach((artist) => {
   console.log(artist.name, artist.popularity);
 });
 ```
@@ -300,9 +333,11 @@ async getCurrentlyPlaying(): Promise<CurrentlyPlaying>
 ```
 
 **Returns**
+
 - `Promise<CurrentlyPlaying>` - Currently playing information
 
 **Example**
+
 ```typescript
 const currentlyPlaying = await client.getCurrentPlaying();
 if (currentlyPlaying.item) {
@@ -320,15 +355,18 @@ async getRecentlyPlayed(limit?: number): Promise<PlayHistory[]>
 ```
 
 **Parameters**
+
 - `limit?: number` - Number of tracks to return
 
 **Returns**
+
 - `Promise<PlayHistory[]>` - Array of recently played tracks
 
 **Example**
+
 ```typescript
 const recent = await client.getRecentlyPlayed(50);
-recent.forEach(item => {
+recent.forEach((item) => {
   console.log(`${item.track.name} - ${item.played_at}`);
 });
 ```
@@ -342,9 +380,11 @@ async getPlaybackState(): Promise<PlaybackState>
 ```
 
 **Returns**
+
 - `Promise<PlaybackState>` - Playback state information
 
 **Example**
+
 ```typescript
 const playbackState = await client.getPlaybackState();
 if (playbackState.device) {
@@ -361,7 +401,7 @@ if (playbackState.device) {
 interface SpotifyArtist {
   id: string;
   name: string;
-  type: 'artist';
+  type: "artist";
   uri: string;
   href: string;
   external_urls: ExternalUrls;
@@ -378,7 +418,7 @@ interface SpotifyArtist {
 interface SpotifyTrack {
   id: string;
   name: string;
-  type: 'track';
+  type: "track";
   uri: string;
   href: string;
   external_urls: ExternalUrls;
@@ -398,22 +438,22 @@ interface SpotifyTrack {
 
 ```typescript
 interface AudioFeatures {
-  acousticness: number;        // 0.0 to 1.0
-  danceability: number;       // 0.0 to 1.0
-  energy: number;            // 0.0 to 1.0
-  instrumentalness: number;   // 0.0 to 1.0
-  key: number;               // 0 to 11 (C to B)
-  liveness: number;          // 0.0 to 1.0
-  loudness: number;          // -60 to 0 dB
-  mode: number;              // 0 (minor) or 1 (major)
-  speechiness: number;       // 0.0 to 1.0
-  tempo: number;             // BPM
-  time_signature: number;    // Beats per bar
-  valence: number;          // 0.0 to 1.0 (negative to positive)
+  acousticness: number; // 0.0 to 1.0
+  danceability: number; // 0.0 to 1.0
+  energy: number; // 0.0 to 1.0
+  instrumentalness: number; // 0.0 to 1.0
+  key: number; // 0 to 11 (C to B)
+  liveness: number; // 0.0 to 1.0
+  loudness: number; // -60 to 0 dB
+  mode: number; // 0 (minor) or 1 (major)
+  speechiness: number; // 0.0 to 1.0
+  tempo: number; // BPM
+  time_signature: number; // Beats per bar
+  valence: number; // 0.0 to 1.0 (negative to positive)
   id: string;
   uri: string;
   href: string;
-  type: 'audio_features';
+  type: "audio_features";
 }
 ```
 
@@ -431,7 +471,7 @@ interface SpotifyUser {
   country: string;
   product: string;
   images: Image[];
-  type: 'user';
+  type: "user";
 }
 ```
 
@@ -445,7 +485,7 @@ interface CurrentlyPlaying {
   timestamp: number;
   device: Device | null;
   shuffle_state: boolean;
-  repeat_state: 'off' | 'track' | 'context';
+  repeat_state: "off" | "track" | "context";
 }
 ```
 
@@ -462,7 +502,7 @@ function useSpotifyArtist(artistId: string): {
   data: SpotifyArtist | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -503,7 +543,7 @@ function useSpotifyTrack(trackId: string): {
   data: SpotifyTrack | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -541,7 +581,7 @@ function useSpotifyAudioFeatures(trackId: string): {
   data: AudioFeatures | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -581,7 +621,7 @@ function useCurrentlyPlaying(): {
   data: CurrentlyPlaying | null;
   loading: boolean;
   error: Error | null;
-}
+};
 ```
 
 #### Usage
@@ -610,7 +650,7 @@ function NowPlaying() {
         <div style={{ width: `${progressPercent}%` }} />
       </div>
       <p>
-        {Math.floor(progress / 1000 / 60)}:{String(Math.floor(progress / 1000 % 60)).padStart(2, '0')} / 
+        {Math.floor(progress / 1000 / 60)}:{String(Math.floor(progress / 1000 % 60)).padStart(2, '0')} /
         {Math.floor(duration / 1000 / 60)}:{String(Math.floor(duration / 1000 % 60)).padStart(2, '0')}
       </p>
     </div>
@@ -623,7 +663,7 @@ function NowPlaying() {
 ### Required Variables
 
 | Variable | Description | Type | Environment | Required |
-|----------|-------------|------|-------------|----------|
+| --- | --- | --- | --- | --- |
 | `SPOTIFY_CLIENT_ID` | Spotify Client ID | string | Server | Yes |
 | `SPOTIFY_CLIENT_SECRET` | Spotify Client Secret | string | Server | Yes |
 | `SPOTIFY_REDIRECT_URI` | OAuth redirect URI | string | Server | Yes |
@@ -632,7 +672,7 @@ function NowPlaying() {
 ### Environment Validation
 
 ```typescript
-import { keys } from '@gabfon/spotify';
+import { keys } from "@gabfon/spotify";
 
 // Validates environment variables and returns typed object
 const env = keys();
@@ -644,6 +684,7 @@ console.log(env.SPOTIFY_REDIRECT_URI);
 ### OAuth Scopes
 
 Common Spotify OAuth scopes:
+
 - `user-read-private` - Read user's private information
 - `user-read-email` - Read user's email
 - `user-read-playback-state` - Read user's playback state
@@ -656,12 +697,12 @@ Common Spotify OAuth scopes:
 ### Basic Client Usage
 
 ```typescript
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
 const client = new SpotifyClient({
-  access_token: 'your_access_token',
-  token_type: 'Bearer',
-  scope: 'user-read-private',
+  access_token: "your_access_token",
+  token_type: "Bearer",
+  scope: "user-read-private",
   expires_in: 3600,
 });
 
@@ -670,14 +711,14 @@ async function getArtistInfo(artistId: string) {
     const artist = await client.getArtist(artistId);
     const topTracks = await client.getArtistTopTracks(artistId);
     const albums = await client.getArtistAlbums(artistId);
-    
+
     return {
       artist,
       topTracks,
       albums,
     };
   } catch (error) {
-    console.error('Error fetching artist data:', error);
+    console.error("Error fetching artist data:", error);
     throw error;
   }
 }
@@ -687,7 +728,7 @@ async function getArtistInfo(artistId: string) {
 
 ```typescript
 // app/api/spotify/track/[id]/route.ts
-import { spotifyClient } from '@gabfon/spotify';
+import { spotifyClient } from "@gabfon/spotify";
 
 export async function GET(
   request: Request,
@@ -696,23 +737,17 @@ export async function GET(
   try {
     const track = await spotifyClient.getTrack(params.id);
     const audioFeatures = await spotifyClient.getAudioFeatures(params.id);
-    
+
     return Response.json({
       track,
       audioFeatures,
     });
   } catch (error) {
-    if (error.message === 'Track not found') {
-      return Response.json(
-        { error: 'Track not found' },
-        { status: 404 }
-      );
+    if (error.message === "Track not found") {
+      return Response.json({ error: "Track not found" }, { status: 404 });
     }
-    
-    return Response.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 ```
@@ -744,7 +779,7 @@ export function SpotifyTrackCard({ trackId }: SpotifyTrackCardProps) {
         <p>{track.album.name}</p>
         <p>Duration: {Math.floor(track.duration_ms / 1000 / 60)}:{String(Math.floor(track.duration_ms / 1000 % 60)).padStart(2, '0')}</p>
       </div>
-      
+
       {features && (
         <div className="audio-features">
           <h4>Audio Features</h4>
@@ -780,28 +815,28 @@ export function SpotifyTrackCard({ trackId }: SpotifyTrackCardProps) {
 ### Error Handling
 
 ```typescript
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
-const client = new SpotifyClient({ access_token: 'token' });
+const client = new SpotifyClient({ access_token: "token" });
 
 async function safeGetTrack(trackId: string) {
   try {
     const track = await client.getTrack(trackId);
     return { success: true, data: track };
   } catch (error) {
-    if (error.message === 'Track not found') {
-      return { success: false, error: 'Track not found' };
+    if (error.message === "Track not found") {
+      return { success: false, error: "Track not found" };
     }
-    
-    if (error.message === 'Unauthorized - check access token') {
-      return { success: false, error: 'Access denied - check token' };
+
+    if (error.message === "Unauthorized - check access token") {
+      return { success: false, error: "Access denied - check token" };
     }
-    
-    if (error.message.includes('Rate limit exceeded')) {
-      return { success: false, error: 'Rate limit exceeded' };
+
+    if (error.message.includes("Rate limit exceeded")) {
+      return { success: false, error: "Rate limit exceeded" };
     }
-    
-    return { success: false, error: 'Unknown error occurred' };
+
+    return { success: false, error: "Unknown error occurred" };
   }
 }
 ```
@@ -809,7 +844,7 @@ async function safeGetTrack(trackId: string) {
 ### Token Refresh
 
 ```typescript
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
 class AutoRefreshSpotifyClient extends SpotifyClient {
   constructor(tokens: SpotifyTokens) {
@@ -820,13 +855,13 @@ class AutoRefreshSpotifyClient extends SpotifyClient {
   private setupTokenRefresh() {
     // Refresh token 5 minutes before expiry
     const refreshTime = (this.expires_in - 300) * 1000;
-    
+
     setTimeout(async () => {
       try {
         await this.refreshToken();
         this.setupTokenRefresh(); // Schedule next refresh
       } catch (error) {
-        console.error('Token refresh failed:', error);
+        console.error("Token refresh failed:", error);
       }
     }, refreshTime);
   }
@@ -838,14 +873,14 @@ class AutoRefreshSpotifyClient extends SpotifyClient {
 ### Custom Client Configuration
 
 ```typescript
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
 const customClient = new SpotifyClient({
-  access_token: 'your_access_token',
-  token_type: 'Bearer',
-  scope: 'user-read-private user-read-email',
+  access_token: "your_access_token",
+  token_type: "Bearer",
+  scope: "user-read-private user-read-email",
   expires_in: 3600,
-  refresh_token: 'your_refresh_token',
+  refresh_token: "your_refresh_token",
 });
 
 // Add custom methods
@@ -853,13 +888,13 @@ class ExtendedSpotifyClient extends SpotifyClient {
   async getRecommendations(seedTracks: string[]): Promise<SpotifyTrack[]> {
     const url = `${this.baseUrl}/v1/recommendations`;
     const params = new URLSearchParams({
-      seed_tracks: seedTracks.join(','),
-      limit: '20',
+      seed_tracks: seedTracks.join(","),
+      limit: "20",
     });
 
     const response = await fetch(`${url}?${params}`, {
       headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${this.accessToken}`,
       },
     });
 
@@ -872,18 +907,18 @@ class ExtendedSpotifyClient extends SpotifyClient {
 ### Batch Operations
 
 ```typescript
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
 class BatchSpotifyClient extends SpotifyClient {
   async getMultipleTracks(trackIds: string[]): Promise<SpotifyTrack[]> {
     const url = `${this.baseUrl}/v1/tracks`;
     const params = new URLSearchParams({
-      ids: trackIds.join(','),
+      ids: trackIds.join(","),
     });
 
     const response = await fetch(`${url}?${params}`, {
       headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${this.accessToken}`,
       },
     });
 
@@ -894,12 +929,12 @@ class BatchSpotifyClient extends SpotifyClient {
   async getMultipleAudioFeatures(trackIds: string[]): Promise<AudioFeatures[]> {
     const url = `${this.baseUrl}/v1/audio-features`;
     const params = new URLSearchParams({
-      ids: trackIds.join(','),
+      ids: trackIds.join(","),
     });
 
     const response = await fetch(`${url}?${params}`, {
       headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
+        Authorization: `Bearer ${this.accessToken}`,
       },
     });
 
@@ -913,7 +948,7 @@ class BatchSpotifyClient extends SpotifyClient {
 
 ```typescript
 // utils/spotifyCache.ts
-import { SpotifyClient } from '@gabfon/spotify';
+import { SpotifyClient } from "@gabfon/spotify";
 
 class CachedSpotifyClient extends SpotifyClient {
   private cache = new Map<string, { data: any; timestamp: number }>();
@@ -922,28 +957,28 @@ class CachedSpotifyClient extends SpotifyClient {
   async getTrack(trackId: string): Promise<SpotifyTrack> {
     const cacheKey = `track:${trackId}`;
     const cached = this.cache.get(cacheKey);
-    
+
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
       return cached.data;
     }
 
     const track = await super.getTrack(trackId);
     this.cache.set(cacheKey, { data: track, timestamp: Date.now() });
-    
+
     return track;
   }
 
   async getAudioFeatures(trackId: string): Promise<AudioFeatures> {
     const cacheKey = `features:${trackId}`;
     const cached = this.cache.get(cacheKey);
-    
+
     if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
       return cached.data;
     }
 
     const features = await super.getAudioFeatures(trackId);
     this.cache.set(cacheKey, { data: features, timestamp: Date.now() });
-    
+
     return features;
   }
 }
@@ -962,21 +997,21 @@ class SpotifyApiError extends Error {
     public response?: any
   ) {
     super(message);
-    this.name = 'SpotifyApiError';
+    this.name = "SpotifyApiError";
   }
 }
 
 class SpotifyRateLimitError extends SpotifyApiError {
   constructor(public retryAfter?: number) {
-    super('Rate limit exceeded');
-    this.name = 'SpotifyRateLimitError';
+    super("Rate limit exceeded");
+    this.name = "SpotifyRateLimitError";
   }
 }
 
 class SpotifyAuthenticationError extends SpotifyApiError {
   constructor() {
-    super('Authentication failed - check access token');
-    this.name = 'SpotifyAuthenticationError';
+    super("Authentication failed - check access token");
+    this.name = "SpotifyAuthenticationError";
   }
 }
 ```
@@ -992,13 +1027,13 @@ async function handleSpotifyRequest<T>(
     return { data };
   } catch (error) {
     if (error instanceof SpotifyRateLimitError) {
-      console.log('Rate limited, retry after:', error.retryAfter);
+      console.log("Rate limited, retry after:", error.retryAfter);
     } else if (error instanceof SpotifyAuthenticationError) {
-      console.log('Authentication failed, refresh token');
+      console.log("Authentication failed, refresh token");
     } else {
-      console.error('Spotify API error:', error);
+      console.error("Spotify API error:", error);
     }
-    
+
     return { error: error as Error };
   }
 }
@@ -1016,7 +1051,7 @@ const client = new SpotifyClient({
 
 // Bad: Hardcode tokens
 const client = new SpotifyClient({
-  access_token: 'hardcoded_token',
+  access_token: "hardcoded_token",
 });
 ```
 
@@ -1028,9 +1063,9 @@ try {
   const track = await client.getTrack(trackId);
   // Process track data
 } catch (error) {
-  if (error.message === 'Track not found') {
+  if (error.message === "Track not found") {
     // Handle not found
-  } else if (error.message === 'Unauthorized') {
+  } else if (error.message === "Unauthorized") {
     // Handle authentication
   } else {
     // Handle other errors
@@ -1069,27 +1104,27 @@ const track: any = await client.getTrack(trackId);
 ### With Analytics Package
 
 ```typescript
-import { spotifyClient } from '@gabfon/spotify';
-import { analytics } from '@gabfon/analytics/lib/server';
+import { analytics } from "@gabfon/analytics/lib/server";
+import { spotifyClient } from "@gabfon/spotify";
 
 async function getTrackWithTracking(trackId: string) {
   try {
     const track = await spotifyClient.getTrack(trackId);
-    
-    analytics.capture('spotify_track_fetched', {
+
+    analytics.capture("spotify_track_fetched", {
       trackId,
       trackName: track.name,
       artistName: track.artists[0].name,
       popularity: track.popularity,
     });
-    
+
     return track;
   } catch (error) {
-    analytics.capture('spotify_api_error', {
+    analytics.capture("spotify_api_error", {
       trackId,
       error: error.message,
     });
-    
+
     throw error;
   }
 }
@@ -1121,9 +1156,9 @@ function NowPlayingCard() {
           <Text variant="h3">{track.name}</Text>
           <Text variant="muted">{track.artists[0].name}</Text>
           <Text variant="small">{track.album.name}</Text>
-          
+
           <Progress value={progressPercent} className="mt-2" />
-          
+
           <div className="flex space-x-2 mt-2">
             <Badge>{track.explicit ? 'Explicit' : 'Clean'}</Badge>
             <Badge>{Math.floor(track.duration_ms / 1000 / 60)}:{String(Math.floor(track.duration_ms / 1000 % 60)).padStart(2, '0')}</Badge>
@@ -1138,25 +1173,25 @@ function NowPlayingCard() {
 ### With Security Package
 
 ```typescript
-import { spotifyClient } from '@gabfon/spotify';
-import { secure } from '@gabfon/security';
+import { secure } from "@gabfon/security";
+import { spotifyClient } from "@gabfon/spotify";
 
 export async function GET(request: Request) {
   // Protect against bots
-  await secure(['CATEGORY:SEARCH_ENGINE'], request);
-  
+  await secure(["CATEGORY:SEARCH_ENGINE"], request);
+
   const { searchParams } = new URL(request.url);
-  const trackId = searchParams.get('trackId');
-  
+  const trackId = searchParams.get("trackId");
+
   if (!trackId) {
-    return Response.json({ error: 'Track ID required' }, { status: 400 });
+    return Response.json({ error: "Track ID required" }, { status: 400 });
   }
-  
+
   try {
     const track = await spotifyClient.getTrack(trackId);
     return Response.json(track);
   } catch (error) {
-    return Response.json({ error: 'Track not found' }, { status: 404 });
+    return Response.json({ error: "Track not found" }, { status: 404 });
   }
 }
 ```

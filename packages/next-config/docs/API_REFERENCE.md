@@ -19,18 +19,21 @@ NEXT_RUNTIME=nodejs
 ## Exports
 
 ### Main Configuration
+
 ```typescript
-export { config } from './index';
+export { config } from "./index";
 ```
 
 ### Bundle Analyzer Wrapper
+
 ```typescript
-export { withAnalyzer } from './index';
+export { withAnalyzer } from "./index";
 ```
 
 ### Environment Keys
+
 ```typescript
-export { keys } from './keys';
+export { keys } from "./keys";
 ```
 
 ## Configuration
@@ -43,7 +46,7 @@ The main Next.js configuration object with security headers and analytics integr
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 export default config;
 ```
@@ -60,19 +63,23 @@ export default config;
 ```typescript
 headers: [
   {
-    source: '/(.*)',
+    source: "/(.*)",
     headers: [
       {
-        key: 'Content-Security-Policy',
-        value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self';"
+        key: "Content-Security-Policy",
+        value:
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self';",
       },
-      { key: 'X-Content-Type-Options', value: 'nosniff' },
-      { key: 'X-Frame-Options', value: 'DENY' },
-      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-      { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' }
-    ]
-  }
-]
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      {
+        key: "Strict-Transport-Security",
+        value: "max-age=63072000; includeSubDomains; preload",
+      },
+    ],
+  },
+];
 ```
 
 #### Analytics Rewrites
@@ -80,18 +87,18 @@ headers: [
 ```typescript
 rewrites: [
   {
-    source: '/ingest/static/:path*',
-    destination: 'https://us-assets.i.posthog.com/static/:path*'
+    source: "/ingest/static/:path*",
+    destination: "https://us-assets.i.posthog.com/static/:path*",
   },
   {
-    source: '/ingest/:path*',
-    destination: 'https://us.i.posthog.com/:path*'
+    source: "/ingest/:path*",
+    destination: "https://us.i.posthog.com/:path*",
   },
   {
-    source: '/ingest/decide',
-    destination: 'https://us.i.posthog.com/decide'
-  }
-]
+    source: "/ingest/decide",
+    destination: "https://us.i.posthog.com/decide",
+  },
+];
 ```
 
 ### withAnalyzer
@@ -101,14 +108,14 @@ Higher-order function that wraps the configuration with bundle analysis.
 #### Signature
 
 ```typescript
-function withAnalyzer(sourceConfig: NextConfig): NextConfig
+function withAnalyzer(sourceConfig: NextConfig): NextConfig;
 ```
 
 #### Usage
 
 ```typescript
 // next.config.js
-import { config, withAnalyzer } from '@gabfon/next-config';
+import { config, withAnalyzer } from "@gabfon/next-config";
 
 export default withAnalyzer(config);
 ```
@@ -117,11 +124,9 @@ export default withAnalyzer(config);
 
 ```typescript
 // next.config.js
-import { config, withAnalyzer } from '@gabfon/next-config';
+import { config, withAnalyzer } from "@gabfon/next-config";
 
-const finalConfig = process.env.ANALYZE 
-  ? withAnalyzer(config)
-  : config;
+const finalConfig = process.env.ANALYZE ? withAnalyzer(config) : config;
 
 export default finalConfig;
 ```
@@ -131,20 +136,20 @@ export default finalConfig;
 ### Required Variables
 
 | Variable | Description | Type | Environment | Required |
-|----------|-------------|------|-------------|----------|
+| --- | --- | --- | --- | --- |
 | `NEXT_PUBLIC_WEB_URL` | Public web URL for the application | URL | Client | Yes |
 
 ### Optional Variables
 
 | Variable | Description | Type | Environment | Default |
-|----------|-------------|------|-------------|---------|
+| --- | --- | --- | --- | --- |
 | `ANALYZE` | Enable bundle analysis | string | Server | undefined |
 | `NEXT_RUNTIME` | Runtime environment | 'nodejs' \| 'edge' | Server | undefined |
 
 ### Environment Validation
 
 ```typescript
-import { keys } from '@gabfon/next-config';
+import { keys } from "@gabfon/next-config";
 
 // Validates environment variables and returns typed object
 const env = keys();
@@ -155,8 +160,6 @@ console.log(env.NEXT_PUBLIC_WEB_URL);
 
 - `NEXT_PUBLIC_WEB_URL`: Must be a valid URL with minimum length
 - `ANALYZE`: Optional string value
-- `NEXT_RUNTIME`: Must be 'nodejs' or 'edge'
-- Extends Vercel preset for additional Vercel-specific variables
 
 ## Usage Examples
 
@@ -164,7 +167,7 @@ console.log(env.NEXT_PUBLIC_WEB_URL);
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 export default config;
 ```
@@ -173,23 +176,23 @@ export default config;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const customConfig = {
   ...config,
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['@prisma/client'],
+    serverComponentsExternalPackages: ["@prisma/client"],
   },
   images: {
-    domains: ['example.com', 'cdn.example.com'],
-    formats: ['image/webp', 'image/avif'],
+    domains: ["example.com", "cdn.example.com"],
+    formats: ["image/webp", "image/avif"],
   },
   async redirects() {
     return [
       {
-        source: '/old-path',
-        destination: '/new-path',
+        source: "/old-path",
+        destination: "/new-path",
         permanent: true,
       },
     ];
@@ -203,10 +206,10 @@ export default customConfig;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
-const isDevelopment = process.env.NODE_ENV === 'development';
-const isProduction = process.env.NODE_ENV === 'production';
+const isDevelopment = process.env.NODE_ENV === "development";
+const isProduction = process.env.NODE_ENV === "production";
 
 const finalConfig = {
   ...config,
@@ -233,12 +236,11 @@ export default finalConfig;
 
 ```typescript
 // next.config.js
-import { config, withAnalyzer } from '@gabfon/next-config';
+import { config, withAnalyzer } from "@gabfon/next-config";
 
 // Enable bundle analysis when ANALYZE=true
-const finalConfig = process.env.ANALYZE === 'true' 
-  ? withAnalyzer(config)
-  : config;
+const finalConfig =
+  process.env.ANALYZE === "true" ? withAnalyzer(config) : config;
 
 export default finalConfig;
 ```
@@ -247,16 +249,18 @@ export default finalConfig;
 
 ```typescript
 // next.config.js
-import { config, withAnalyzer } from '@gabfon/next-config';
+import { config, withAnalyzer } from "@gabfon/next-config";
 
-const { keys } = require('@gabfon/next-config');
+const { keys } = require("@gabfon/next-config");
 
 const env = keys();
 
 const baseConfig = {
   ...config,
   images: {
-    domains: env.NEXT_PUBLIC_WEB_URL ? [new URL(env.NEXT_PUBLIC_WEB_URL).hostname] : [],
+    domains: env.NEXT_PUBLIC_WEB_URL
+      ? [new URL(env.NEXT_PUBLIC_WEB_URL).hostname]
+      : [],
   },
 };
 
@@ -269,25 +273,25 @@ export default finalConfig;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const secureConfig = {
   ...config,
   async headers() {
     const baseHeaders = await config.headers();
-    
+
     return [
       ...baseHeaders,
       {
-        source: '/api/:path*',
+        source: "/api/:path*",
         headers: [
           {
-            key: 'X-RateLimit-Limit',
-            value: '100',
+            key: "X-RateLimit-Limit",
+            value: "100",
           },
           {
-            key: 'X-RateLimit-Remaining',
-            value: '99',
+            key: "X-RateLimit-Remaining",
+            value: "99",
           },
         ],
       },
@@ -304,25 +308,25 @@ export default secureConfig;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const customSecurityConfig = {
   ...config,
   async headers() {
     const baseHeaders = await config.headers();
-    
+
     return [
       ...baseHeaders,
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
           },
           {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
           },
         ],
       },
@@ -337,22 +341,22 @@ export default customSecurityConfig;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const customRewritesConfig = {
   ...config,
   async rewrites() {
     const baseRewrites = await config.rewrites();
-    
+
     return [
       ...baseRewrites,
       {
-        source: '/api/external/:path*',
-        destination: 'https://external-api.com/:path*',
+        source: "/api/external/:path*",
+        destination: "https://external-api.com/:path*",
       },
       {
-        source: '/blog/:slug',
-        destination: '/api/blog?slug=:slug',
+        source: "/blog/:slug",
+        destination: "/api/blog?slug=:slug",
       },
     ];
   },
@@ -365,21 +369,21 @@ export default customRewritesConfig;
 
 ```typescript
 // middleware.ts
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   // Custom middleware logic
   const response = NextResponse.next();
-  
+
   // Add custom headers
-  response.headers.set('X-Custom-Header', 'value');
-  
+  response.headers.set("X-Custom-Header", "value");
+
   return response;
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
 ```
 
@@ -389,13 +393,13 @@ export const config = {
 
 ```typescript
 // next.config.js
-import { config, keys } from '@gabfon/next-config';
+import { config, keys } from "@gabfon/next-config";
 
 try {
   const env = keys();
-  console.log('Environment validated successfully');
+  console.log("Environment validated successfully");
 } catch (error) {
-  console.error('Environment validation failed:', error);
+  console.error("Environment validation failed:", error);
   // Handle missing or invalid environment variables
   process.exit(1);
 }
@@ -407,14 +411,14 @@ export default config;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 function validateConfig(config) {
   // Custom validation logic
   if (!config.images) {
-    console.warn('No image configuration found');
+    console.warn("No image configuration found");
   }
-  
+
   return config;
 }
 
@@ -424,24 +428,28 @@ export default validateConfig(config);
 ## Best Practices
 
 ### 1. Security
+
 - Review and update CSP policies regularly
 - Test security headers in different environments
 - Monitor security header effectiveness
 - Keep security configurations up to date
 
 ### 2. Performance
+
 - Use bundle analysis for optimization
 - Monitor rewrite performance
 - Test configuration impact on build time
 - Optimize for production builds
 
 ### 3. Environment Management
+
 - Use environment-specific configurations
 - Validate environment variables at startup
 - Secure sensitive configuration
 - Document environment requirements
 
 ### 4. Development
+
 - Use consistent configuration across environments
 - Test configuration changes thoroughly
 - Document custom configuration
@@ -453,7 +461,7 @@ export default validateConfig(config);
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const analyticsConfig = {
   ...config,
@@ -468,13 +476,13 @@ export default analyticsConfig;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const designSystemConfig = {
   ...config,
-  transpilePackages: ['@gabfon/design-system'],
+  transpilePackages: ["@gabfon/design-system"],
   experimental: {
-    optimizePackageImports: ['@gabfon/design-system'],
+    optimizePackageImports: ["@gabfon/design-system"],
   },
 };
 
@@ -485,7 +493,7 @@ export default designSystemConfig;
 
 ```typescript
 // next.config.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
 const securityConfig = {
   ...config,
@@ -502,32 +510,32 @@ export default securityConfig;
 
 ```typescript
 // __tests__/next.config.test.js
-import { config } from '@gabfon/next-config';
+import { config } from "@gabfon/next-config";
 
-describe('Next.js Configuration', () => {
-  test('includes security headers', async () => {
+describe("Next.js Configuration", () => {
+  test("includes security headers", async () => {
     const headers = await config.headers();
     const securityHeaders = headers[0].headers;
-    
+
     expect(securityHeaders).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ key: 'Content-Security-Policy' }),
-        expect.objectContaining({ key: 'X-Content-Type-Options' }),
-        expect.objectContaining({ key: 'X-Frame-Options' }),
-        expect.objectContaining({ key: 'Referrer-Policy' }),
-        expect.objectContaining({ key: 'Strict-Transport-Security' }),
+        expect.objectContaining({ key: "Content-Security-Policy" }),
+        expect.objectContaining({ key: "X-Content-Type-Options" }),
+        expect.objectContaining({ key: "X-Frame-Options" }),
+        expect.objectContaining({ key: "Referrer-Policy" }),
+        expect.objectContaining({ key: "Strict-Transport-Security" }),
       ])
     );
   });
 
-  test('includes analytics rewrites', async () => {
+  test("includes analytics rewrites", async () => {
     const rewrites = await config.rewrites();
-    
+
     expect(rewrites).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ source: '/ingest/static/:path*' }),
-        expect.objectContaining({ source: '/ingest/:path*' }),
-        expect.objectContaining({ source: '/ingest/decide' }),
+        expect.objectContaining({ source: "/ingest/static/:path*" }),
+        expect.objectContaining({ source: "/ingest/:path*" }),
+        expect.objectContaining({ source: "/ingest/decide" }),
       ])
     );
   });
@@ -538,19 +546,19 @@ describe('Next.js Configuration', () => {
 
 ```typescript
 // __tests__/keys.test.js
-import { keys } from '@gabfon/next-config';
+import { keys } from "@gabfon/next-config";
 
-describe('Environment Keys', () => {
-  test('validates required variables', () => {
-    process.env.NEXT_PUBLIC_WEB_URL = 'https://example.com';
-    
+describe("Environment Keys", () => {
+  test("validates required variables", () => {
+    process.env.NEXT_PUBLIC_WEB_URL = "https://example.com";
+
     const env = keys();
-    expect(env.NEXT_PUBLIC_WEB_URL).toBe('https://example.com');
+    expect(env.NEXT_PUBLIC_WEB_URL).toBe("https://example.com");
   });
 
-  test('throws error for invalid URL', () => {
-    process.env.NEXT_PUBLIC_WEB_URL = 'invalid-url';
-    
+  test("throws error for invalid URL", () => {
+    process.env.NEXT_PUBLIC_WEB_URL = "invalid-url";
+
     expect(() => keys()).toThrow();
   });
 });

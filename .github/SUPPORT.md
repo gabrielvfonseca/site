@@ -7,6 +7,7 @@ We're here to help! Here are the best ways to get support for gabfon.com.
 ## Emergency Issues
 
 For critical production issues or security vulnerabilities:
+
 - **Security Issues**: [hey@gabfon.com](mailto:hey@gabfon.com)
 - **Production Issues**: [hey@gabfon.com](mailto:hey@gabfon.com)
 - **Emergency Contact**: [hey@gabfon.com](mailto:hey@gabfon.com)
@@ -38,30 +39,27 @@ For critical production issues or security vulnerabilities:
 ### Bug Report Template
 
 ```markdown
-**Describe the bug**
-A clear description of what the bug is.
+**Describe the bug** A clear description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior:
+**To Reproduce** Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear description of what you expected to happen.
+**Expected behavior** A clear description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Screenshots** If applicable, add screenshots to help explain your problem.
 
 **Environment:**
- - OS: [e.g. macOS, Windows, Linux]
- - Node.js Version: [e.g. 18.17.0]
- - pnpm Version: [e.g. 8.6.0]
- - Browser: [e.g. Chrome, Safari, Firefox]
 
-**Additional context**
-Add any other context about the problem here.
+- OS: [e.g. macOS, Windows, Linux]
+- Node.js Version: [e.g. 18.17.0]
+- pnpm Version: [e.g. 8.6.0]
+- Browser: [e.g. Chrome, Safari, Firefox]
+
+**Additional context** Add any other context about the problem here.
 ```
 
 ## Feature Requests
@@ -76,17 +74,13 @@ Add any other context about the problem here.
 ### Feature Request Template
 
 ```markdown
-**Is your feature request related to a problem?**
-A clear description of what the problem is.
+**Is your feature request related to a problem?** A clear description of what the problem is.
 
-**Describe the solution you'd like**
-A clear description of what you want to happen.
+**Describe the solution you'd like** A clear description of what you want to happen.
 
-**Describe alternatives you've considered**
-A clear description of any alternative solutions or features you've considered.
+**Describe alternatives you've considered** A clear description of any alternative solutions or features you've considered.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Additional context** Add any other context or screenshots about the feature request here.
 ```
 
 ## Getting Started
@@ -258,5 +252,4 @@ pnpm audit --fix
 
 **Need immediate help?** Open a [GitHub Issue](https://github.com/gabrielvfonseca/site/issues) or contact [hey@gabfon.com](mailto:hey@gabfon.com)!
 
-**Last Updated**: August 2025
-**Support Hours**: 24/7 for critical issues, 9 AM - 6 PM UTC for general support
+**Last Updated**: August 2025 **Support Hours**: 24/7 for critical issues, 9 AM - 6 PM UTC for general support
