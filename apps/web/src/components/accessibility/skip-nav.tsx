@@ -7,7 +7,7 @@ function handleSkip(event: React.MouseEvent<HTMLButtonElement>) {
   event.preventDefault();
 
   // Find the main content element when skip is triggered
-  const mainElement = document.querySelector("#main-content");
+  const mainElement = document.querySelector<HTMLElement>("#main-content");
   if (mainElement) {
     mainElement.focus();
     mainElement.scrollIntoView({ behavior: "smooth" });

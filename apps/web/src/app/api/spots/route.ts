@@ -78,10 +78,12 @@ async function resolvePlace(
       location?: { latitude?: number; longitude?: number };
       types?: string[];
     };
+    const latitude = data.location?.latitude;
+    const longitude = data.location?.longitude;
     if (
       !data.displayName?.text ||
-      data.location?.latitude === null ||
-      data.location?.longitude === null
+      typeof latitude !== "number" ||
+      typeof longitude !== "number"
     ) {
       return null;
     }
@@ -89,8 +91,8 @@ async function resolvePlace(
       name: data.displayName.text,
       note: data.formattedAddress ?? "A spot worth a visit.",
       category: classify(data.types),
-      lat: data.location.latitude,
-      lng: data.location.longitude,
+      lat: latitude,
+      lng: longitude,
     };
   } catch {
     return null;

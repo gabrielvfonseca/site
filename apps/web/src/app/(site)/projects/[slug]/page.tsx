@@ -79,7 +79,7 @@ function ProjectPageBody({
   project,
   entry,
 }: {
-  readonly project: (typeof getProjects)[number];
+  readonly project: ReturnType<typeof getProjects>[number];
   readonly entry: NonNullable<ReturnType<typeof getProjectEntry>>;
 }) {
   const MdxContent = entry.body;

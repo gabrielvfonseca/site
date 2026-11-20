@@ -78,7 +78,7 @@ function PostPageBody({
   post,
   entry,
 }: {
-  readonly post: (typeof getPosts)[number];
+  readonly post: ReturnType<typeof getPosts>[number];
   readonly entry: NonNullable<ReturnType<typeof getPostEntry>>;
 }) {
   const MdxContent = entry.body;
